@@ -8,7 +8,7 @@ class Database{
     private $password = "adolfo2403"; */
     private $host = "localhost";
     //private $db_name = "nubefa";
-    private $username = "root";
+    private $username = "nubefaco_superuser";
     private $password = "adolfo2403";
     public $conn;
  

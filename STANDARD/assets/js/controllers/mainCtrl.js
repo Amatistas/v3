@@ -26,7 +26,7 @@ app.controller('AppCtrl', [
 		$transitions
 	) {
 		$rootScope.d = sessionStorage;
-		$rootScope.miURL = 'http://localhost';
+		$rootScope.miURL = '';
 		// Loading bar transition
 		// -----------------------------------
 		var $win = $($window);

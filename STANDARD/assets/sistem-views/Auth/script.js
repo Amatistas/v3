@@ -66,7 +66,7 @@ app.controller('WizardController', [
 				password: vm.user.clave
 			};
 
-			$http.post(`localhost/api/Auth/Auth2.php`, vm.usr).then(function(response) {
+			$http.post(`api/Auth/Auth2.php`, vm.usr).then(function(response) {
 			
 				var dataUsuario = response.data;
 				console.log(dataUsuario);
