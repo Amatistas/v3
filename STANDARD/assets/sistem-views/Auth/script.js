@@ -66,7 +66,7 @@ app.controller('WizardController', [
 				password: vm.user.clave
 			};
 
-			$http.post(`http://192.168.0.3:8080/api/Auth/Auth2.php`, vm.usr).then(function(response) {
+			$http.post(`https://www.app.nubefa.com/api/Auth/Auth2.php`, vm.usr).then(function(response) {
 				var dataUsuario = response.data;
 				console.log(dataUsuario);
 				sessionStorage.setItem('datos', JSON.stringify(response.data));
