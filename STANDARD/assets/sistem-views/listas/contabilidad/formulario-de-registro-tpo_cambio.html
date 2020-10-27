@@ -1,0 +1,36 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Tipo de Cambio</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+            <div class="row">
+
+                <div class="row" style="padding: 10px;">
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.tipcam_fec.$invalid == true}">Fecha</label>
+                        <input required type="date" class="form-control" id="tipcam_fec" name="tipcam_fec" ng-model="infoInputs['tipcam_fec']">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.tipcam_imp.$error.required == true}">Importe</label>
+                        <input required type="text" class="form-control" id="tipcam_imp" name="tipcam_imp" ng-model="infoInputs['tipcam_imp']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarTpoCam($event)">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

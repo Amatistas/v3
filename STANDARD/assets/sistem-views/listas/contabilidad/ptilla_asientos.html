@@ -1,0 +1,339 @@
+<div class="container" ng-controller="AsideModalTransaccionCtrl">
+    <!-- start: PAGE TITLE -->
+    <div class="ui secondary menu">
+        <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.contabilidad.asiento)}" ui-sref="app.contabilidad.asiento">
+            <span class="title">Plantilla de Asientos</span>
+        </a>
+        <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.contabilidad.centrocosto')}" ui-sref="app.contabilidad.centrocosto">
+            <span class="title">Centro de Costo</span>
+        </a>
+        <div class="right menu">
+            <div ncy-breadcrumb></div>
+        </div>
+    </div>
+    <!-- start: PAGE TITLE -->
+    <div class="row ">
+        <div class="col-xs-12 col-md-6 col-sm-12">
+            <h1 class="ui header">
+                Plantilla de Asientos
+            </h1>
+            
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-sm-12">
+            <div class="btn-group dropdown pull-right" uib-dropdown="">
+                <button type="button" ng-click="nuevoAsiento()" class="btn btn-lg text-white btn btn-wide" style="background-color:#002350; border-radius: 50px 50px 50px 50px;">
+                    Agregar Nuevo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div ng-app="main" ng-controller="ptillaAsientosCtrl">
+
+        <div class="container-fluid container-fullw bg-white ng-scope">
+            <div class="row">
+                <div class="col-md-12">
+                    <table ng-table="tableproveedores" show-filter="false" class="table table-hover" id="sample-table-1">
+                        <thead>
+                            <tr>
+
+                                <th>Cuenta</th>
+                                <th class="hidden-xs">Descripción</th>
+                                <th>Debe(D)/Haber(H)</th>
+                                <th class="hidden-xs">Variable</th>
+                                <th class="hidden-xs">Moneda</th>
+                                <th class="hidden-xs">Orden</th>
+                                <th class="hidden-xs">F.O.B</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                                <td class="hidden-xs">411105</td>
+                                <td>IGV por pagar</td>
+                                <td>
+                                    <a href="#" rel="nofollow" target="_blank">
+      							D
+      						</a></td>
+                                <td class="hidden-xs">IGV</td>
+                                <td class="hidden-xs"></td>
+                                <td class="hidden-xs">2</td>
+                                <td class="hidden-xs">0</td>
+                                <td class="center">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Share"><i class="fa fa-share"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                    </div>
+                                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                        <div class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
+                                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+      									<i class="fa fa-cog"></i>&nbsp; <i class="fa fa-angle-up"></i>
+      								</button>
+                                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                <li>
+                                                    <a href="#">
+      											Edit
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Share
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Remove
+      										</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td class="hidden-xs">421105</td>
+                                <td>ISV por pagar</td>
+                                <td>
+                                    <a href="#" rel="nofollow" target="_blank">
+      							D
+      						</a></td>
+                                <td class="hidden-xs">ISV</td>
+                                <td class="hidden-xs"></td>
+                                <td class="hidden-xs">3</td>
+                                <td class="hidden-xs">0</td>
+                                <td class="center">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Share"><i class="fa fa-share"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                    </div>
+                                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                        <div class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
+                                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+      									<i class="fa fa-cog"></i>&nbsp; <i class="fa fa-angle-up"></i>
+      								</button>
+                                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                <li>
+                                                    <a href="#">
+      											Edit
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Share
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Remove
+      										</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td class="hidden-xs">431115</td>
+                                <td>Percepciones por pagar</td>
+                                <td>
+                                    <a href="#" rel="nofollow" target="_blank">
+      							D
+      						</a></td>
+                                <td class="hidden-xs">Percepción</td>
+                                <td class="hidden-xs"></td>
+                                <td class="hidden-xs">4</td>
+                                <td class="hidden-xs">0</td>
+                                <td class="center">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Share"><i class="fa fa-share"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                    </div>
+                                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                        <div class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
+                                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+      									<i class="fa fa-cog"></i>&nbsp; <i class="fa fa-angle-up"></i>
+      								</button>
+                                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                <li>
+                                                    <a href="#">
+      											Edit
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Share
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Remove
+      										</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td class="hidden-xs">402115</td>
+                                <td>M.N. Comprobantes por pagar</td>
+                                <td>
+                                    <a href="#" rel="nofollow" target="_blank">
+      							H
+      						</a></td>
+                                <td class="hidden-xs">Total a pagar</td>
+                                <td class="hidden-xs">Soles</td>
+                                <td class="hidden-xs">5</td>
+                                <td class="hidden-xs">0</td>
+                                <td class="center">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Share"><i class="fa fa-share"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                    </div>
+                                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                        <div class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
+                                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+      									<i class="fa fa-cog"></i>&nbsp; <i class="fa fa-angle-up"></i>
+      								</button>
+                                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                <li>
+                                                    <a href="#">
+      											Edit
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Share
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Remove
+      										</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td class="hidden-xs">452115</td>
+                                <td>M.E. Comprobantes por pagar</td>
+                                <td>
+                                    <a href="#" rel="nofollow" target="_blank">
+      							H
+      						</a></td>
+                                <td class="hidden-xs">Total a pagar</td>
+                                <td class="hidden-xs">Dolares</td>
+                                <td class="hidden-xs">6</td>
+                                <td class="hidden-xs">0</td>
+                                <td class="center">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Share"><i class="fa fa-share"></i></a>
+                                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                    </div>
+                                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                        <div class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
+                                            <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+      									<i class="fa fa-cog"></i>&nbsp; <i class="fa fa-angle-up"></i>
+      								</button>
+                                            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                <li>
+                                                    <a href="#">
+      											Edit
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Share
+      										</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+      											Remove
+      										</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <!-- <table ng-table="tableproveedores" show-filter="false" class="table table-responive">
+            <tr ng-repeat="ptillaAsientos in $data">
+                <td width="10" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+                    <input type="checkbox" ng-model="checkboxes.items[ptillaAsientos.id]" />
+                </td>
+                <td data-title="'id'" sortable="proveedor">
+                    {{ptillaAsientos.id}}
+                </td>
+                <td data-title="'to_id'" sortable="telefono" ng-if="tamanoPantalla > 780">
+                    {{ptillaAsientos.to_id}}
+                </td>
+                <td class="" ng-if="user.pendiente > 0">
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" class="btn btn-link" ng-click="realizarPagosCl(user.pro_id)">
+                            Realizar Pagos
+                        </button>
+                        <button type="button" class="btn btn-link dropdown-toggle" uib-dropdown-toggle=""
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-angle-up"></i>
+                            <span class="sr-only">Ver / Editar</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">
+                                    Nueva Compra
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td class="" ng-if="user.pendiente == 0">
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" class="btn btn-link">
+                            Ver / Editar
+                        </button>
+                        <button type="button" class="btn btn-link dropdown-toggle" uib-dropdown-toggle=""
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-angle-up"></i>
+                            <span class="sr-only">Ver / Editar</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">
+                                    Nueva Compra
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table> -->
+        <script type="text/ng-template " id="ng-table/headers/checkbox.html ">
+            <input type="checkbox " ng-model="checkboxes.checked " id="select_all " name="filter-checkbox " value=" " />
+        </script>
+    </div>
+</div>

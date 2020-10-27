@@ -1,0 +1,386 @@
+<form id="formulario_core" name="form" novalidate>
+    <div ng-controller="SelectCtrl">
+        <div class="modal-header" ng-controller="itemsCtrl">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-click="guardarCotizacion()">Guardar</button>
+                    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancelar($event)"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <h3 class="titulo-modal">Cotización</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="modal-body" ng-controller="DatepickerDemoCtrl">
+                <div ng-controller="itemsCtrl">
+                    <div class="row" style="background-color: #eee;">
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <div class="two fields">
+                                            <div class="field">
+                                                <label for="td_id"
+                                                    ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                                    Documento
+                                                </label>
+                                                <select class="ui fluid dropdown" required
+                                                    ng-model="infoInputs['td_id']" id="td_id" name="td_id"
+                                                    ng-init="buscarOption(rr.td_id)"
+                                                    ng-change="serializador(infoInputs.td_id)">
+                                                    <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">
+                                                        {{opt.label}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="ven_ser">Serie</label>
+                                        <select ng-init="serializador(infoInputs['td_id'])" class="ui fluid dropdown"
+                                            required ng-model="infoInputs.ven_serSel" id="ven_serSel" name="ven_serSel"
+                                            ng-options="item as item.tds_ser for item in serialSelector track by item.tds_ser">
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="hidden">
+                                            {{infoInputs.ven_serieID = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].id }}
+                                            {{infoInputs.ven_ser = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].tds_ser }} {{infoInputs.ven_num = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].tds_cor
+                                            }}
+                                        </div>
+
+                                        <label for="ven_num">Numero</label>
+                                        <input type="text" class="form-control" id="ven_num"
+                                            ng-model="infoInputs.ven_num" readonly>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label ng-class="{'text-danger':form.select_ane_id.$invalid == true}">
+                                                Cliente
+                                            </label>
+                                            <div class="input-group">
+                                                <div class="">
+                                                    <ui-select required name="select_ane_id"
+                                                        style="width: 100%; float: left;"
+                                                        ng-model="infoInputs['select_ane_id']" theme="bootstrap">
+                                                        <ui-select-match
+                                                            placeholder="Escriba 3 letras Para Empezar a Buscar">
+                                                            {{$select.selected.ane_alias}}
+                                                        </ui-select-match>
+                                                        <ui-select-choices class=""
+                                                            repeat="item in proveedoresList[0] track by $index"
+                                                            refresh="clientesGetAsyncronic($select.search)"
+                                                            refresh-delay="0">
+                                                            <div>
+                                                                <span ng-if="item.ane_tipdoc == 11"
+                                                                    class="glyphicon glyphicon-user"></span>
+                                                                <span ng-if="item.ane_tipdoc == 6"
+                                                                    class="glyphicon glyphicon-briefcase"></span>
+                                                                <span
+                                                                    ng-bind-html="item.ane_alias | highlight: $select.search"></span>
+                                                                <br>
+                                                                <small
+                                                                    ng-bind-html="item.ane_numdoc | highlight: $select.search"></small>
+                                                                <br>
+                                                                <small ng-bind-html="item.ane_email"></small>
+                                                            </div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                                <div class="hidden">
+                                                    {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <label for="moneda" ng-class="{'text-danger':form.mnd_id.$invalid == true}">
+                                                Moneda
+                                            </label>
+                                            <select ng-disabled="infoInputs['td_id']=='IV'" class="ui fluid dropdown"
+                                                required ng-model="infoInputs['mnd_id']" id="mnd_id" name="mnd_id"
+                                                ng-init="buscarOption(rr.mnd_id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['mnd_id']">
+                                                    {{opt.label}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="two fields">
+                                            <div class="field">
+                                                <label for="lp_id"
+                                                    ng-class="{'text-danger':form.lp_id.$invalid == true }">
+                                                    Lista de Precio
+                                                </label>
+                                                <select ng-model="infoInputs['lp_id']" class="ui fluid dropdown"
+                                                    id="lp_id" name="lp_id" ng-init="buscarOption(rr.lp_id)" required>
+                                                    <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">
+                                                        {{opt.label}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="ven_fecemi"
+                                                ng-class="{'text-danger':form.ven_fecemi.$invalid == true }">Fecha De
+                                                Emision</label>
+                                            <div class="">
+                                                <input type="date" name="ven_fecemi" id="ven_fecemi"
+                                                    class="form-control" ng-model="infoInputs['ven_fecemi']"
+                                                    ng-required="true" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="ven_fecven"
+                                                ng-class="{'text-danger':form.ven_fecven.$invalid == true }">Fecha De
+                                                Vencimiento</label>
+                                            <div class="">
+                                                <input type="date" name="ven_fecven" id="ven_fecven"
+                                                    class="form-control" ng-model="infoInputs['ven_fecven']"
+                                                    ng-required="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="cd_alm" ng-class="{'text-danger':form.cd_alm.$invalid == true}">
+                                                Almacén
+                                            </label>
+                                            <select class="ui fluid dropdown" required ng-model="infoInputs['cd_alm']"
+                                                id="cd_alm" name="cd_alm" ng-init="buscarOption(rr.cd_alm)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['cd_alm']">
+                                                    {{opt.label}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-2">
+                            <div class="cuadro col-md-6 pull-right ">
+                                <ul class="list-unstyled amounts text-small">
+                                    <li class="text-extra-large text-dark margin-top-15">
+                                        <strong>Total a Pagar:</strong>
+                                        {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4 ">
+                            <label>
+                                Productos y Servicios
+                            </label>
+                            <div class="input-group">
+                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="productos.selected"
+                                    on-select="algo('22')" theme="bootstrap">
+                                    <ui-select-match placeholder="Escriba 3 letras para buscar">
+                                        {{$select.selected.pro_nom}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in productosData track by $index"
+                                        refresh="productosVentaGetAsyncronic($select.search,infoInputs.lp_id,infoInputs.cd_alm)"
+                                        refresh-delay="0" minimum-input-length="3">
+                                        <div class="item">
+                                            <div class="content">
+                                                <div>
+                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                    <!--mercaderia-->
+                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                    <!--materia prima-->
+                                                    <i ng-if="item.pro_tip==3" class="ti-package"></i>
+                                                    <!--Materiales-->
+                                                    <i ng-if="item.pro_tip==4" class="ti-package"></i>
+                                                    <!--embalaje-->
+                                                    <i ng-if="item.pro_tip==5" class="ti-package"></i>
+                                                    <!--Repuesto-->
+                                                    <i ng-if="item.pro_tip==6" class="ti-package"></i>
+                                                    <!--Envases-->
+                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                    <!--suministros-->
+                                                    <b>{{item.pro_nom}}</b>
+                                                </div>
+                                                <div class="description">{{item.pst_nom}} S/
+                                                    {{item.vd_pre | number : 2}}</div>
+                                            </div>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="productos.selected=undefined"
+                                        class="btn btn-primary">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div ng-if="productos.selected">
+                            <div class="col-md-1">
+                                <label for="stock">Stock</label>
+                                <input ng-model="productos.selected.stock" type="text" class="form-control" id="stock"
+                                    readonly> 
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="pst_id">Presentación</label>
+                            <input ng-model="productos.selected.pst_nom" type="text" class="form-control" id="pst_nom"
+                                readonly>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="vd_pre">Precio</label>
+                            <input ng-model="productos.selected.vd_pre" type="text" class="form-control" id="vd_pre"
+                                readonly>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="vd_can">Cantidad</label>
+                            <input ng-model="productos.selected.vd_can" type="text" class="form-control" id="vd_can">
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary" style="margin-top: 21px;"
+                                ng-click="additem(productos.selected)">Insertar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row " style="margin-top: 15px;">
+                    <div class="col-md-10" style="height: 300px; overflow-y: scroll;">
+                        <table class="table table-hover ">
+                            <thead>
+                                <tr>
+                                    <th class="center">NRO</th>
+                                    <th class="center">TIP</th>
+                                    <th>DESCRIPCIÓN</th>
+                                    <th class="col-md-2">CANTIDAD</th>
+                                    <th class="col-md-2">PRECIO</th>
+                                    <th class="col-md-2">TOTAL</th>
+                                    <th class="hidden">TEST</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in itemListVentas" class="">
+                                    <td class="center">{{item.ven_position_obj = ($index + 1)}}</td>
+                                    <td>{{item.pro_tip}}</td>
+                                    <td>{{item.pro_nom}} {{item.pst_nom}}</td>
+                                    <td class="col-md-2">
+                                        <input type="text " class="form-control" ng-model="item.vd_can"
+                                            ng-blind="item.vd_can" id="vd_can ">
+                                    </td>
+                                    <td class="col-md-2">
+                                        <input type="text " class="form-control" ng-model="item.vd_pre"
+                                            ng-blind="item.vd_pre" id="vd_pre" readonly>
+                                    </td>
+                                    <td class="col-md-2">
+                                        {{item.vd_pre * item.vd_can | number:2}}
+                                    </td>
+                                    <td class="hidden">
+                                        <div class="hidden">
+                                            <pre>
+                                            <!--almacen del producto-->
+                                            almacen: {{item.cd_alm = infoInputs.cd_alm}}
+                                            <!--factor del producto-->
+                                            factor :{{item.vd_fac}}
+                                            <!--vd_igv porcentaje de igv del producto-->
+                                            vd_igv:{{item.vd_igv = item.vd_igv}}
+                                            <!--vd_tt_igv igv unico del producto-->
+                                            vd_igv_unico:{{item.vd_igv_unico = item.vd_tt_igv}}
+                                            <!--vd_total_igv igv total del producto-->
+                                            vd_total_igv: {{item.vd_total_igv = item.vd_tt_igv * item.vd_can}}
+                                            <!--vd_affection_igv_type_code tipo de igv del producto-->
+                                            vd_affection_igv_type_code:{{item.vd_affection_igv_type_code}}
+                                            <!--costo del producto-->
+                                            vd_costo_pro: {{item.vd_costo_pro = item.vd_costo_total}}
+                                            <!--costo del producto-->
+                                            vd_costo_tt_pro: {{item.vd_costo_tt_pro = item.vd_costo_total * item.vd_can}}
+                                            <!--precio de venta del producto-->
+                                            vd_pre:{{item.vd_pre}}
+                                            <!--precio de venta total-->
+                                            vd_pre_total:{{ item.vd_pre_total = item.vd_pre * item.vd_can}}
+                                            <!--vd_isc porcentaje de isc -->
+                                            vd_isc:{{item.isc}}
+                                            <!--vd_isc porcentaje de isc -->
+                                            vd_total_isc:{{item.vd_total_isc = item.vd_pre_total * item.isc}}
+                                            <!--vd_ina total inafecto -->
+                                            vd_ina:{{item.vd_ina}}
+                                            lp_id:{{item.lp_id = infoInputs.lp_id}}
+                                            <!--
+                                               ()   vd_fac: val.lpd_fac,// factor del producto
+                                               ()   vd_costo_total:val.falso_monto,//costo del producto
+                                               ()   vd_com: val.lpd_com,//precio de venta
+                                               ()   vd_val: val.lpd_vpre,//precio sin igv (monto bruto)
+                                               ()   vd_igv: val.lpd_porcentaje_igv, //porcentaje de igv 
+                                               ()   vd_tt_igv: val.lpd_valor_igv,// valor del igv
+                                               ()    vd_pre: val.lpd_pre,// precio de venta
+                                                        -->
+                                            </pre>
+                                        </div>
+                                    </td>
+
+                                    <td class="center">
+                                        <a class="btn btn-red" href="# " ng-click="eliminarItem($index)">
+                                            <i class="glyphicon glyphicon-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-2">
+                        <ul class="list-group list-group-flush ">
+                            <li class="list-group-item ">
+                                <span class="text-light ">Afecto</span><span
+                                    class="pull-right">{{infoInputs.ven_afe = ((getMontoTotalAfecto() / valorIgvConvertido)).toFixed(2)}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">Inafecto</span><span
+                                    class="pull-right">{{ infoInputs.ven_ina = getMontoTotalInafecto().toFixed(2)}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="collapse-title text-warning">Descuento</span>
+                                <span
+                                    class="pull-right">{{((getMontoDescuento * 100) /(getMontoTotalInafecto() + getMontoTotalAfecto())).toFixed(2)}}
+                                    %</span>
+                                <span>
+                                    <div class="hidden">
+                                        {{infoInputs.ven_totdscto = getMontoDescuento}}
+                                    </div>
+                                    <input type="number" name="getMontoDescuento" id="getMontoDescuento"
+                                        class="form-control" ng-model="getMontoDescuento" min="0"
+                                        max="{{((getMontoTotalInafecto() + getMontoTotalAfecto()).toFixed(2))}}">
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="text-light">ISC</span><span class="pull-right">0</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">IGV/IVA</span><span
+                                    class="pull-right ng-binding ">{{infoInputs.ven_igv = (getMontoIgv(getMontoTotalAfecto())).toFixed(2)}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">Documento</span><span class="pull-right ng-binding ">0</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">Percepción</span><span class="pull-right ">0</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-dark ">Total Documento</span><span
+                                    class="pull-right text-primary">{{infoInputs.ven_totdoc = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

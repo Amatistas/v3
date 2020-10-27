@@ -1,0 +1,16 @@
+SELECT 
+lista_precio_det.lp_id as 'lp_id', 
+lista_precio_det.lpd_fac as 'lpd_fac',
+lista_precio_det.lpd_com as 'lpd_com', 
+lista_precio_det.falso_monto as 'falso_monto',
+lista_precio_det.lpd_uti as 'lpd_uti',
+lista_precio_det.lpd_vpre as 'lpd_vpre',
+lista_precio_det.lpd_porcentaje_igv as 'lpd_porcentaje_igv',
+lista_precio_det.lpd_valor_igv as 'lpd_valor_igv',
+lista_precio_det.lpd_pre as 'lpd_pre',
+producto_pro.pro_nom AS 'pro_nom',
+producto_pro.pro_tip AS 'pro_tip',
+presentacion.pst_nom AS 'pst_nom'
+from lista_precio_det
+join producto_pro on lista_precio_det.pro_id = producto_pro.pro_id
+JOIN presentacion ON lista_precio_det.pst_id = presentacion.id

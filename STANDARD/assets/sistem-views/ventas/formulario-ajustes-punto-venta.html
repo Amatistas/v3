@@ -1,0 +1,98 @@
+<div ng-controller="puntoVentaCtrl">
+    <form id="formulario_core" name="form" novalidate>
+        <div ng-controller="SelectCtrl">
+            <div class="margin-top-30" ng-controller="AsideModalTransaccionCtrl">
+                <div class="pull-right">
+                    <div role="group" aria-label="tools">
+                    </div>
+                    <h3 class="titulo-modal">Ajustes</h3>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="moneda"> Lista de Precio </label>
+                                <select ng-model="configInputs['lp_id']" class="ui fluid dropdown" id="lp_id" name="lp_id"
+                                    ng-init="buscarOption(rr.lp_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">{{opt.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="alm_id">Almacen</label>
+                                <select ng-model="configInputs['cd_alm']" class="ui fluid dropdown" id="alm_id"
+                                    name="alm_id" ng-init="buscarOption(rr.alm_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['alm_id']">{{opt.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                    Documento
+                                </label>
+                                <select class="ui fluid dropdown" required
+                                    ng-change="changeCurrenty(configInputs['td_id'])" ng-model="configInputs['td_id']"
+                                    id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">
+                                        {{opt.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="moneda">
+                                    Método de Pago
+                                </label>
+                                <select ng-model="configInputs['fp_id']" class="ui fluid dropdown" id="fp_id" name="fp_id"
+                                    ng-init="buscarOption(rr.fp_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['fp_id']">{{opt.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="moneda" ng-class="{'text-danger':form.mnd_id.$invalid == true}">
+                                Moneda
+                            </label>
+                            <select ng-disabled="configInputs['td_id']=='IV'" class="ui fluid dropdown" required
+                                ng-model="configInputs['mnd_id']" id="mnd_id" name="mnd_id"
+                                ng-init="buscarOption(rr.mnd_id)">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['mnd_id']">
+                                    {{opt.label}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="moneda" ng-class="{'text-danger':form.formato_impresion.$invalid == true}">
+                               Formato de Impresion
+                            </label>
+                            <select class="ui fluid dropdown" required ng-model="configInputs['formato_impresion']" id="formato_impresion" name="formato_impresion">
+                                <option value="A4">
+                                    A4
+                                </option>
+                                <option value="TICKET">
+                                    TICKET
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <a class="btn btn-primary" ng-click="guardarAjustesPredeterminados($event,configInputs)">Guardar</a>
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>

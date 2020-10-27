@@ -1,0 +1,15 @@
+<div class="renderize200 scrollabled">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="lista in selectLocal[0]">
+            {{lista.loc_nom}}
+            <div class="badge badge-primary badge-pill">
+                <a ng-click="vm.elijeLocal(lista.loc_id)">
+                    <i class="feather icon-chevron-right"></i>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="form-actions">
+    <button ng-disabled="vm.currentStep <= 1" class="btn btn-primary waves-effect waves-light" name="previous" type="button" ng-click="vm.gotoStep(vm.currentStep - 1)"><i class="fa fa-arrow-left"></i> Regresar</button>
+</div>

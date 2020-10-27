@@ -1,0 +1,241 @@
+<form id="formulario_core" name="form" novalidate>
+    <div ng-controller="SelectCtrl">
+        <div class="modal-header">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-click="ok($event)">Imprimir</button>
+                    <button class="btn btn-primary" ng-click="guardarFormularioRequerimiento()">Guardar</button>
+                    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <h3 class="titulo-modal">Requerimiento</h3>
+        </div>
+        <div class="container-fluid">
+
+            <div class="modal-body">
+                <div ng-controller="itemsCtrl">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                Documento
+                            </label>
+                            <select disabled class="ui fluid dropdown" required ng-model="infoInputs['td_id']"
+                                id="td_id" name="td_id" ng-init="fetch = fetchSerializador(infoInputs.td_id)">
+                                <option value="OC">
+                                    OC</option>>
+                            </select>
+                        </div>
+                        <div class="hidden">
+                            {{infoInputs.com_ser = fetch[0].data[0].tds_ser}}
+                            {{infoInputs.com_num = fetch[0].data[0].tds_cor}}
+                        </div>
+                        <div class="col-md-2">
+                            <label for="com_ser">Serie</label>
+                            <input type="text" class="form-control" id="com_ser"
+                                ng-model="infoInputs['com_ser']" readonly>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="com_num">Numero</label>
+                            <input type="text" class="form-control" id="com_num"
+                                ng-model="infoInputs['com_num']" readonly>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label ng-class="{'text-danger':form.select_ane_id.$invalid == true}">
+                                        Proveedor
+                                    </label>
+                                <div class="input-group">
+                                    <div class="">
+                                        <ui-select required name="select_ane_id" style="width: 100%; float: left;" ng-model="infoInputs['select_ane_id']" theme="bootstrap">
+                                            <ui-select-match placeholder="Escriba 3 letras Para Empezar a Buscar">
+                                                {{$select.selected.ane_alias}}
+                                            </ui-select-match>
+                                            <ui-select-choices class="" repeat="item in proveedoresList[0] track by $index" refresh="proveedoresGetAsyncronic($select.search)" refresh-delay="0">
+                                                <div>
+                                                    <span ng-if="item.ane_tipdoc == 11" class="glyphicon glyphicon-user"></span>
+                                                    <span ng-if="item.ane_tipdoc == 6" class="glyphicon glyphicon-briefcase"></span>
+                                                    <span ng-bind-html="item.ane_alias | highlight: $select.search"></span>
+                                                    <br>
+                                                    <small ng-bind-html="item.ane_numdoc | highlight: $select.search"></small>
+                                                    <br>
+                                                    <small ng-bind-html="item.ane_email"></small>
+                                                </div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-link"
+                                                ng-click="nuevoproveedor()"><i class="ti-plus"></i></button>
+                                        </span>
+                                    <div class="hidden">
+                                        {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="are_id" ng-class="{'text-danger':form.are_id.$invalid == true}">
+                                Área
+                            </label>
+                            <select ng-model="infoInputs['are_id']" class="ui fluid dropdown" id="are_id " name="are_id" ng-init="buscarOption(rr.are_id)" required>
+                                <option value="{{opt.id}} " ng-repeat="opt in units['are_id'] ">{{opt.label}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" row ">
+                    <div class="col-md-12">
+                        <div class="col-md-4 ">
+                            <label>
+                                Productos y Servicios
+                            </label>
+                            <div class="input-group" ng-if="docOrigin == false">
+                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="person.selected" theme="bootstrap">
+                                    <ui-select-match placeholder="Escriba 3 letras para buscar">
+                                        {{$select.selected.cd_des}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in productosData track by $index" refresh="productosGetAsyncronic($select.search)" refresh-delay="0">
+                                        <div class="item">
+                                            <div class="content">
+                                                <div>
+                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                    <b>{{item.cd_des}}</b>
+                                                </div>
+                                                <div class="description">{{item.pro_cod}}</div>
+                                            </div>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="person.selected=undefined" class="btn btn-primary">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="input-group" ng-if="docOrigin == true">
+                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="person.selected" theme="bootstrap">
+                                    <ui-select-match placeholder="Escriba 3 letras para buscar">
+                                        {{$select.selected.cd_des}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in productosData track by $index" refresh="productosGetAsyncronic($select.search)" refresh-delay="0">
+                                        <div class="item">
+                                            <div class="content">
+                                                <div>
+                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                    <b>{{item.cd_des}}</b>
+                                                </div>
+                                                <div class="description">{{item.pro_cod}}</div>
+                                            </div>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="person.selected=undefined" class="btn btn-primary">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1 ">
+                            <label for="pst">
+                                Presentación
+                            </label>
+                            <select ng-model="person.selected.pst_id" class="form-control" id="pst_id " name="pst_id" ng-init="buscarOption(rr.pst_id)">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['pst_id']">{{opt.label}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 ">
+                            <label for="cd_fac ">Factor</label>
+                            <input ng-model="person.selected.cd_fac " type="text " class="form-control " id="cd_fac " name="cd_fac ">
+                        </div>
+                        <div class="col-md-1 ">
+                            <label for="cd_can ">Cantidad</label>
+                            <input ng-model="person.selected.cd_can " type="text " class="form-control " id="cd_can " name="cd_can ">
+                        </div>
+                        <div class="col-md-2 ">
+                            <label for="cd_pre ">Precio</label>
+                            <input ng-model="person.selected.cd_pre " type="text " class="form-control " id="cd_pre " name="cd_pre ">
+                        </div>
+                        <div class="col-md-2 " ng-if="person.selected.pro_pad> 1 && infoInputs['td_id'] != 'IV'  && infoInputs['td_id'] != 'DN' && !infoInputs.compraAsociada">
+                            <label for="cc_id">Centro de Costo</label>
+                            <select ng-model="person.selected.cc_id" class="form-control" id="cc_id " name="cc_id" ng-init="buscarOption(rr.cc_id)">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['cc_id']">{{opt.label}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary" style="margin-top: 30px;" ng-click="additem(person.selected)">Insertar</button>
+                        </div>
+                        <div class="col-md-12" style="height: 400px; overflow-y: scroll;">
+                            <table class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th class="center col-md-1">NRO</th>
+                                        <th class="center col-md-1">COD</th>
+                                        <th class="col-md-4">DESCRIPCIÓN</th>
+                                        <th class="col-md-2" ng-if="infoInputs.compraAsociada == false">CC</th>
+                                        <th class="col-md-1" ng-class="{'text-danger':form.cd_can.$invalid == true}">
+                                            CANTIDAD</th>
+                                        <th class="col-md-1" ng-class="{'text-danger':form.cd_pre.$invalid == true}">
+                                            PRECIO
+                                        </th>
+                                        <th class="col-md-2">TOTAL</th>
+                                        <th class="col-md-1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in itemListCompras track by $index" class="">
+                                        <td class="center"> {{$index}} </td>
+                                        <td>{{item.cd_pro_id}} - {{item.cd_ina}} </td>
+                                        <td> {{item.cd_des}} </td>
+                                        <td ng-if="infoInputs.compraAsociada == false">
+                                            <select ng-if="item.cc_id" ng-model="item.cc_id" class="form-control" id="item_cc_id " name="item_cc_id" ng-init="buscarOption(rr.cc_id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['cc_id']">
+                                                    {{opt.label}}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <input required type="text" class="form-control" name="cd_can" ng-model="item.cd_can" ng-blind="item.cd_can">
+                                            <div class="hidden">
+                                                <div ng-if="infoInputs.alm_id && infoInputs.alm_id !=0">
+                                                    {{item.cd_alm = item.cd_can}}
+                                                </div>
+                                                <div ng-if="infoInputs.alm_id == 0">
+                                                    {{item.cd_alm = 0}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <input required type="text" class="form-control" name="cd_pre" ng-model="item.cd_pre" ng-blind="item.cd_pre">
+                                        </td>
+                                        <td class="col-md-2">
+                                            <input type="text" class="form-control" readonly ng-value="item.cd_pre * item.cd_can | number: 2">
+                                            <div class="hidden">
+                                                {{(item.cd_impdes = getPrecioBruto(item)) | number:2}}
+                                            </div>
+                                        </td>
+                                        <td class="center">
+                                            <a class="btn btn-red" ng-click="eliminarItem($index)">
+                                                <i class="glyphicon glyphicon-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>>
+    </div>
+</form>

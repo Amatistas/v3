@@ -1,0 +1,66 @@
+
+<style>
+
+    .btn-report{
+     
+        font-size: 20px;
+        text-align:center;
+        padding: 20px 10px;
+        background: #002350 !important;
+        border-radius:10px;
+        transition: 0.3s;
+    }
+    .btn-report:hover{
+        color:#fff;
+        background: #007AFF !important;
+    }
+    .btn-report a{
+        text-decoration: none;
+        color:#fff;
+    }
+    .btn-report a:hover{
+        text-decoration: none;
+        color:#fff;
+    }
+    
+    .btn-report i{
+        font-size: 30px;
+        transition: 0.3s;
+    }
+    .btn-report i:hover{
+        font-size: 35px;
+    }
+    </style>
+    <div ng-controller="AsideModalTransaccionCtrl">
+    
+        <div class="container d-flex justify-content-between">
+        
+            <div class="row margin-top-20">
+        
+                <div class="col-md-5">
+                        <div class="btn-report">
+                        <a ng-click="reportelibroCompras()">
+                            <i class="fa fa-book"></i>
+                            <p>
+                                Libro Electrónico de Compras 
+                            </p>              
+                        </a>  
+                        </div> 
+                </div>
+                <div class="col-md-5">
+                        <div class="btn-report">
+                        <a ng-click="reporteVentas()">
+                            <i class="fa fa-book"></i>
+                            <p>
+                                Libro Electrónico de Ventas 
+                            </p>              
+                        </a>  
+                        </div> 
+                </div>
+     
+          
+            </div>
+        
+        
+        </div>
+    </div>

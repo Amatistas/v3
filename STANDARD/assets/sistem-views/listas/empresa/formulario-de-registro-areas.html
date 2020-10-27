@@ -1,0 +1,37 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Áreas</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+
+            <div class="row" style="padding: 10px;">
+                <div class="col-md-12">
+                    <label for="tdso_id" ng-class="{'text-danger':form.are_id.$invalid == true}">Código</label>
+                    <input required type="text" class="form-control" id="are_id" name="are_id" ng-model="infoInputs['are_id']">
+                </div>
+                <div class="col-md-12">
+                    <label for="tdso_desc" ng-class="{'text-danger':form.are_des.$error.required == true}">Descripción</label>
+                    <input required type="text" class="form-control" id="are_des" name="are_des" ng-model="infoInputs['are_des']">
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarArea()">Guardar y Cerrar</button>
+        </div>
+    </div>
+</form>         <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarArea()">Guardar y Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

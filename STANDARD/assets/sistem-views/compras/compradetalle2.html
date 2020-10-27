@@ -1,0 +1,302 @@
+<div ng-controller="MyCtrl">
+
+
+    <div class="modal-header hidden-print">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button onclick="javascript:window.print();" class="btn btn-primary">
+                        Print <i class="fa fa-print"></i>
+                    </button>
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarCompra()">Guardar</button>
+                <!-- <button class="btn btn-primary" onclick="exportTableToExcel('tblData')">Excel</button> -->
+                <button class="btn btn-primary" ng-click="exportToExcel('#tableToExport')">
+                        <span class="glyphicon glyphicon-share"></span>  Export to Excel
+                      </button>
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Detalle de Compras</h3>
+    </div>
+
+    <div class="container bg-white" ng-controller="compraDetalleCtrl2">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="invoice">
+                    <div class="row invoice-logo">
+                        <div class="col-sm-6">
+                            <img alt="" src="STANDARD/assets/images/your-logo-here.png">
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="text-dark" style="font-weight: 900;">
+                                {{arry.documento}} <small class="text-light" style="font-size: 17px;"> {{arry.com_fecdoc | date : "dd/MM/yyyy": "GMT-5"}} </small>
+                            </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h4>Proveedor:</h4>
+                            <div class="well">
+                                <address>
+                                        <strong class="text-dark">{{arry.ane_razsoc}}</strong>
+                                        <br>
+                                        {{arry.ane_dir}}
+                                        <br>
+                                        {{arry.departamento}} - {{arry.provincia}} - {{arry.distrito}}
+                                        <br> 
+                                        <abbr title="Phone">Telefono: {{arry.ane_tel}}</abbr>
+                                    </address>
+                                <address>
+                                        <strong class="text-dark">E-mail:</strong>
+                                        <a>
+                                            {{arry.ane_email}}
+                                        </a>
+                                    </address>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 pull-right">
+                            <h4>Detalle de Pago:</h4>
+                            <div style="height: 170px; overflow-y: scroll;">
+                                <!-- <div>
+                                        <p><strong>No tienes pagos registrados</strong></p>
+                                    </div> -->
+                                <table class="table table-hover" id="">
+                                    <thead>
+                                        <tr>
+                                            <th class="center">N° Pago</th>
+                                            <th class="center">Operación</th>
+                                            <th class="center">Fecha de Pago</th>
+                                            <th class="center">Importe</th>
+                                            <th class="center">Banco</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in pagoPago">
+                                            <td class="center">{{item.npago}}</td>
+                                            <td class="center">{{item.operacion}}</td>
+                                            <td class="center">{{item.fechapago | date : "dd/MM/yyyy": "GMT-5"}}</td>
+                                            <td class="center">{{item.pago | number:2}}</td>
+                                            <td class="center">{{item.banco}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div ng-app="main " class="panel panel-white ">
+                            <div class="panel-body ">
+                                <div class="row ">
+                                    <table class="table table-hover " id=" ">
+                                        <thead>
+                                            <tr>
+                                                <th class="center">Código</th>
+                                                <th class="center">Producto</th>
+                                                <th class="center">Cantidad</th>
+                                                <th class="center">Precio Unidad</th>
+                                                <th class="center">Precio Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in arryItem">
+                                                <td class="center">{{item.pro_cod}}</td>
+                                                <td class="center">{{item.cd_des}}</td>
+                                                <td class="center">{{item.cd_can}}</td>
+                                                <td class="center">{{item.cd_pre | number:2}}</td>
+                                                <td class="center">{{item.cd_pre * item.cd_can | number:2}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 invoice-block">
+                            <ul class="list-unstyled amounts text-small">
+                                <li>
+                                    <strong>Sub-Total: </strong> {{arryItemtotal() - (arryItemtotal() * 0.18) | number:2}}
+                                </li>
+                                <li>
+                                    <strong>IGV: </strong> {{arryItemtotal() * 0.18 | number:2}}
+                                </li>
+                                <li class="text-extra-large text-dark margin-top-15">
+                                    <strong>Total:</strong> {{arryItemtotal() | number:2}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="tableToExport" ng-controller="compraDetalleCtrl2" style="display:none;overflow:hidden !important;">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="invoice">
+                    <div class="row invoice-logo">
+                        <table>
+                            <tr>
+                                <th>
+                                    <div class="col-sm-6">
+                                        <img alt="" src="assets/images/your-logo-here.png">
+                                    </div>
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    <div class="col-sm-6">
+                                        <p class="text-dark" style="font-weight: 900;font-size: 20px;">
+                                            {{arry.documento}} <br>
+                                            <small class="text-light" style="font-size: 15px;"> {{arry.com_fecdoc | date : "dd/MM/yyyy": "GMT-5"}} </small>
+                                        </p>
+
+                                    </div>
+                                </th>
+
+                            </tr>
+                        </table>
+
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <table>
+                                <tr>
+                                    <th>
+                                        <h4>Proveedor:</h4>
+                                    </th>
+
+                                </tr>
+                            </table>
+                            <div class="well">
+                                <table>
+                                    <tr>
+                                        <th><strong class="text-dark">{{arry.ane_razsoc}}</strong></th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{arry.ane_dir}}</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td> {{arry.departamento}} - {{arry.provincia}} - {{arry.distrito}}</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td><abbr title="Phone">Telefono: {{arry.ane_tel}}</abbr></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td> <strong class="text-dark">E-mail:</strong>
+                                            <a>
+                                                    {{arry.ane_email}}
+                                                </a></td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 pull-right">
+                            <h4>Detalle de Pago:</h4>
+                            <div style="height: 170px; overflow-y: scroll;">
+                                <!-- <div>
+                                        <p><strong>No tienes pagos registrados</strong></p>
+                                    </div> -->
+                                <table class="table table-hover" id="">
+                                    <thead>
+                                        <tr>
+                                            <th class="center">N° Pago</th>
+                                            <th class="center">Operación</th>
+                                            <th class="center">Fecha de Pago</th>
+                                            <th class="center">Importe</th>
+                                            <th class="center">Banco</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in pagoPago">
+                                            <td class="center">{{item.npago}}</td>
+                                            <td class="center">{{item.operacion}}</td>
+                                            <td class="center">{{item.fechapago | date : "dd/MM/yyyy": "GMT-5"}}</td>
+                                            <td class="center">{{item.pago | number:2}}</td>
+                                            <td class="center">{{item.banco}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div><br><br></div>
+                    <div class="row ">
+                        <div ng-app="main " class="panel panel-white ">
+                            <div class="panel-body ">
+                                <div class="row ">
+                                    <table class="table table-hover " id=" ">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-sm-4">Código</th>
+                                                <th class="center">Producto</th>
+                                                <th class="center">Cantidad</th>
+                                                <th class="center">Precio Unidad</th>
+                                                <th class="center">Precio Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in arryItem">
+                                                <td class="col-sm-4">{{item.pro_cod}}</td>
+                                                <td class="center">{{item.cd_des}}</td>
+                                                <td class="center">{{item.cd_can}}</td>
+                                                <td class="center">{{item.cd_pre | number:2}}</td>
+                                                <td class="center">{{item.cd_pre * item.cd_can | number:2}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div> <br><br></div>
+                        <div class="col-sm-12 invoice-block">
+                            <table>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td> <strong>Sub-Total: </strong> {{arryItemtotal() - (arryItemtotal() * 0.18) | number:2}}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td> <strong>IGV: </strong> {{arryItemtotal() * 0.18 | number:2}}</td>
+
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td> <strong>Total:</strong> {{arryItemtotal() | number:2}}</td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>

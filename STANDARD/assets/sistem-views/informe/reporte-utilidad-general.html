@@ -1,0 +1,87 @@
+<div ng-controller="MyCtrl">
+    <div ng-controller="SelectCtrl">
+
+        <div class="modal-header hidden-print">
+            <div class="pull-right">
+              <div role="group" aria-label="tools">
+        
+                
+                <label for="fechainicio">Desde</label><input style="margin-left: 10px;margin-right: 10px;" type="date"
+                  name="fechainicio" id="fechainicio" ng-model="infoInputs['fechainicio']">
+        
+                <label for="fechafin">Hasta</label><input style="margin-left: 10px;margin-right: 10px;" type="date"
+                  name="fechafin" id="fechafin" ng-model="infoInputs['fechafin']">
+        
+                <!-- 
+                <button onclick="javascript:window.print();" class="btn btn-primary">
+                    Print <i class="fa fa-print"></i>
+                </button> -->
+                <button class="btn btn-primary" ng-click="buscarReporteUtilidadGeneral(infoInputs.fechainicio,infoInputs.fechafin)">
+                  <span class="fa fa-search"></span>
+                </button>
+                <button class="btn btn-primary" ng-click="exportToExcel('#tableToExport')">
+                  <span class="glyphicon glyphicon-share"></span> Exportar Excel
+                </button>
+        
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <!-- <button type="button" class="btn btn-link"><i class="ti-settings"></i></button> -->
+                <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+              </div>
+            </div>
+            <h3 class="titulo-modal">Reporte General de Utilidad</h3>
+          </div>
+        
+
+
+        <div class="container" style="overflow-y: scroll;font-size: 11px;height: 500px;">
+            <div id="tableToExport">
+
+                <table class="table table-condensed table-bordered" border="1" ng-show="showtable == true">
+                    <thead class="text-center">
+                        <tr>
+                            <th colspan="8">
+                                <div class="col-md-12 text-center margin-top-20">
+                                    <h4>{{person.selected.cd_des}}</h4>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Precio de Venta</th>
+                            <th>Costo de Venta</th>
+                            <th>Costo de Compra</th>
+                            <th>Utilidad</th>
+                            <th>Cantidad</th>
+                            <th>Utilidad Neta</th>
+                            <th>Producto</th>
+                            <th>Código</th>
+                        </tr>
+                    </thead>    
+                    <tbody>
+                        <tr class="text-center" ng-repeat="item in itemsRegistroUtilidad track by $index">
+                            <td>{{item.costo_venta | number: 2}}</td>
+                            <td>{{item.precio | number: 2}}</td>
+                            <td>{{item.costo_compra | number: 2}}</td>
+                            <td>{{item.utilidad | number: 2}}</td>
+                            <td>{{item.cantidad}}</td>
+                            <td>{{item.utilidad_neto | number: 2}}</td>
+                            <td>{{item.pro_nom}}</td>
+                            <td>{{item.pro_cod}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="7">
+                                <div class="text-right"><strong>Total: {{ mostrarResultados() | number: 2}}</strong>
+                                </div>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

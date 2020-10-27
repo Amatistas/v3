@@ -1,0 +1,168 @@
+<div class="modal-header">
+    <div class="pull-right">
+        <div role="group" aria-label="tools">
+            <button class="btn btn-primary" ng-click="ok($event)">Guardar</button>
+            <button class="btn btn-primary" ng-click="cancel($event)">Guardar y Cerra</button>
+            <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+            <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+            <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+        </div>
+    </div>
+    <h3 class="titulo-modal">Cuentas por Cobrar</h3>
+</div>
+<div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <label for="">
+                                Cuenta de Banco
+                            </label>
+                            <select ng-model="infoInputs['cc_id']" class="cs-select cs-skin-slide" id="cc_id" name="" ng-init="">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['']">{{opt.label}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label> Fecha de Regimén</label>
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="infoInputs['']" is-open="opened" datepicker-options="datepickerOptions" ng-required="true" close-text="Close" required="required">
+                                    <div uib-datepicker-popup-wrap="" ng-model="infoInputs['']" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" ng-click="open()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label> Fecha de Emisión</label>
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="infoInputs['']" is-open="opened" datepicker-options="datepickerOptions" ng-required="true" close-text="Close" required="required">
+                                    <div uib-datepicker-popup-wrap="" ng-model="infoInputs['']" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" ng-click="open()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label> Fecha Vencimiento</label>
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="infoInputs['']" is-open="opened" datepicker-options="datepickerOptions" ng-required="true" close-text="Close" required="required">
+                                    <div uib-datepicker-popup-wrap="" ng-model="infoInputs['']" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" ng-click="open()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="costo">
+                                Tipo de Documento
+                            </label>
+                            <select ng-model="infoInputs['']" class="cs-select cs-skin-slide" id="" name="" ng-init="buscarOption()">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['']">{{opt.label}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="ref">Nombre de Razón</label>
+                            <input type="text" class="form-control" id="ref" ng-model="infoInputs['']">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="ref">Serie</label>
+                            <input type="text" class="form-control" id="ref" ng-model="infoInputs['']">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="ref">Número de Cuenta</label>
+                            <input type="text" class="form-control" id="ref" ng-model="infoInputs['']">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="costo">
+                                Moneda
+                            </label>
+                            <select ng-model="infoInputs['']" class="cs-select cs-skin-slide" id="" name="" ng-init="buscarOption()">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['']">{{opt.label}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="ref">Importar</label>
+                            <input type="text" class="form-control" id="ref" ng-model="infoInputs['']">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="costo">
+                                Paramétros
+                            </label>
+                            <select ng-model="infoInputs['']" class="cs-select cs-skin-slide" id="" name="" ng-init="buscarOption()">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['']">{{opt.label}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="costo">
+                                Tipo de Cambio
+                            </label>
+                            <select ng-model="infoInputs['']" class="cs-select cs-skin-slide" id="" name="" ng-init="buscarOption()">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['']">{{opt.label}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 vcenter">
+                    <div class="cuadro col-md-6 pull-right ">
+                        <h4>S/ {{getTotal(checkOptionsSelected)}} </h4>
+                    </div>
+                </div>
+            </div>
+            <div ng-controller="itemPagarCtrl">
+                <div class="row">
+                    <div class="col-md-12" style="height: 320px; overflow-y: scroll; margin-top: 15px;">
+                        <div ng-repeat="doc in checkOptionsSelected" ng-class="{'bg-light-green':doc.switStatus == true ,'panel-light-grey': doc.switStatus == false}">
+                            <div class="panel-body text-dark ">
+                                <div class="col-md-1 ">
+                                    <div class="checkbox">
+                                        <switch ng-model="doc.switStatus" ng-init="doc.switStatus = true" class="green">
+                                        </switch>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <p class=" "><b>Documento : {{doc.Documentos}}</b></p>
+                                    <p>Fecha : {{doc.com_fecdoc}}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p><b>Proveedor : {{doc.proveedor}}</b></p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p>Monto Total : {{doc.TotalCompra}}</p>
+                                    <p>Monto Cancelado : {{doc.TotalPago}}</p>
+                                </div>
+                                <div class="col-md-2" ng-class="{'hidden': doc.switStatus == false}">
+                                    <input type="number" class="form-control" ng-model="doc.montoPagar " ng-value="doc.TotalCompra">
+                                    <small>Monto a Cancelar</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>

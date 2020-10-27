@@ -1,0 +1,64 @@
+<style>
+    .dropbtn {
+        border: none;
+        cursor: pointer;
+    }
+    
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 10px;
+        bottom: 30px;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+    
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+</style>
+
+<div class="container" style="margin-top: 30px;" ng-controller="cajaMovimientoCtrl as showCase">
+    <div ng-controller="AsideModalTransaccionCtrl">
+        <!-- start: PAGE TITLE -->
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <h1>Movimiento de Caja
+                </h1>
+            </div>
+        </div>
+        <!-- end: CELL AND ROW TEMPLATE -->
+        <div class="row">
+            <div ng-app="main" class="panel panel-white">
+                <div class="panel-body">
+                    <a ng-click="showCase.changeData()" class="btn btn-wide btn-primary btn-squared">
+                        change<i class="fa fa-refresh"></i>
+                    </a>
+                    <a ng-click="showCase.reloadData()" class="btn btn-wide btn-primary btn-squared">
+                        Reload <i class="fa fa-refresh"></i>
+                    </a>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="ui table" width="100%" datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

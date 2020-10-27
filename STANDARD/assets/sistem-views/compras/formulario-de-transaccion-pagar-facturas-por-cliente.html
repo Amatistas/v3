@@ -1,0 +1,130 @@
+<div class="modal-header">
+    <div class="pull-right">
+        <div role="group" aria-label="tools">
+            <button class="btn btn-primary" ng-click="ok($event)">Guardar</button>
+            <button class="btn btn-primary" ng-click="cancel($event)">Guardar y Cerra</button>
+            <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+            <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+            <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+        </div>
+    </div>
+    <h3 class="titulo-modal">Pagar Transacciónes Por Cliente</h3>
+</div>
+<div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+    <div class="row" ng-controller="DemoCtrl">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="form-field-select-2">
+                                Proveedor
+                            </label>
+                            <select class="cs-select cs-skin-elastic" ng-model="proveedorId" ng-change="clearItemList()">
+                                <option ng-value="1">Contabilizado</option>
+                                <option ng-value="2">Autocon</option>
+                                <option ng-value="3">Nubefa</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="form-field-select-2">
+                                Método de Pago
+                            </label>
+                            <select class="cs-select cs-skin-elastic">
+                                <option value="FA">Transferencia</option>
+                                <option value="BO">Cheque</option>
+                                <option value="NC">Efectivo</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cuentabanco">
+                                Cuenta de Banco
+                            </label>
+                            <select id="cuentabanco" class="cs-select cs-skin-elastic">
+                                <option value="BCP">BCP 4564564456</option>
+                                <option value="USD">Scotiabank 4564564456</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="ref">Número de Operacion</label>
+                            <input type="text" class="form-control" id="ref">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label> Fecha Doc</label>
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="dt" is-open="opened" datepicker-options="datepickerOptions" ng-required="true" close-text="Close" required="required">
+                                    <div uib-datepicker-popup-wrap="" ng-model="date" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html">
+                                        <div>
+
+                                        </div>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" ng-click="open()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="ref">Comisión Bancaria</label>
+                            <input type="text" class="form-control" id="ref">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="costo">
+                                Centro de Costo
+                            </label>
+                            <select id="costo" class="cs-select cs-skin-elastic">
+                                <option value="PEN">local 1</option>
+                                <option value="USD">local 2</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4 vcenter">
+                    <div class="cuadro col-md-6 pull-right ">
+                        <h4>S/ </h4>
+                    </div>
+                </div>
+            </div>
+            <div ng-controller="itemPagarXclientesCtrl">
+                <div class="row" ng-controller="ToasterDemoCtrl">
+                    <div class="col-md-10" style="height: 300px; overflow-y: scroll; margin-top: 15px;">
+                        <div class="panel bg-light-green" id="panel1" ng-repeat="data in itemsList" ng-class="{'active'}">
+                            <div class="panel-body text-dark">
+                                <div class="col-md-12">
+                                    {{data}}
+                                    <button class="btn btn-primary" ng-click="removeRow($index)"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="ui cards">
+                            <div class="card" ng-repeat="documento in data" ng-if="documento.pro_id == proveedorId && documento.pagoEstatus == 'Por pagar'">
+                                <div class="content">
+                                    <div class="header">
+                                        {{documento.proveedor}}
+                                    </div>
+                                    <div class="description">
+                                        <p>Documento: {{documento.nro}} <br> {{documento.fecha}} <br> <b>S/. {{documento.total}}</b>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    <div class="ui two buttons">
+                                        <button class="ui basic green button" ng-click="addRow(documento)">Añadir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>

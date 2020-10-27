@@ -1,0 +1,36 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Marcas</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+            <div class="row">
+
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-12">
+                        <label for="serie" ng-class="{'text-danger':form.mar_nom.$error.required == true}">Nombre de Marcas</label>
+                        <input required type="text" class="form-control" id="mar_nom" name="mar_nom" ng-model="infoInputs['mar_nom']">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.mar_abr.$error.required == true}">Nombre Abreviado</label>
+                        <input required type="text" class="form-control" id="mar_abr" name="mar_abr" ng-model="infoInputs['mar_abr']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarMarcas()">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

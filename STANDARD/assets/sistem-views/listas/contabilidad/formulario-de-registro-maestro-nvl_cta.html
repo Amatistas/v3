@@ -1,0 +1,34 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+        <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+        <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+        <h3 class="titulo-modal">Nivel de Cuentas</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+            {{infoInputs | json}}
+            <div class="row">
+
+                <div class="row" style="padding: 10px;">
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.nvl_id.$invalid == true}">Dígitos</label>
+                        <input required type="number" class="form-control" id="nvl_id" name="nvl_id" ng-model="infoInputs['nvl_id']">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.nvl_nom.$error.required == true}">Descripción</label>
+                        <input required type="text" class="form-control" id="nvl_nom" name="nvl_nom" ng-model="infoInputs['nvl_nom']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="ok()">Guardar</button>
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="cancel()">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

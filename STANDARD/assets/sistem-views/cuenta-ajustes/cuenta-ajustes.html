@@ -1,0 +1,236 @@
+<form name="form" novalidate>
+    <div class="container" ng-controller="cuentaAjusteCtrl">
+        <div class="ui secondary menu">
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.ajustes.cuenta')}" ui-sref="app.ajustes.cuenta">
+                <span class="title">Compañia</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.ajustes.compraCuenta')}" ui-sref="app.ajustes.compraCuenta">
+                <span class="title">Compras</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.ajustes.ventaCuenta')}" ui-sref="app.ajustes.ventaCuenta">
+                <span class="title">Ventas</span>
+            </a>
+            <div class="right menu">
+                <div ncy-breadcrumb></div>
+            </div>
+        </div>
+        <!-- start: PAGE TITLE -->
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <h1>Cuentas y Ajustes</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div
+                class="tab-content">
+                <!-- end ngRepeat: tab in tabset.tabs -->
+                <div class="tab-pane ng-scope active" ng-class="{active: tabset.active === tab.index}" uib-tab-content-transclude="tab">
+                    <form action="#" role="form" id="form" class="ng-valid ng-scope ng-valid-email ng-dirty ng-valid-parse">
+                        <fieldset>
+                            <legend>
+                                Información de la Cuenta
+                            </legend>
+                            <div class="row">
+                                <div class="col-md-6" style="">
+                                    <div class="form-group">
+                                        <label class="control-label" ng-class="{'text-danger':form.firstname.$error.required == true}">
+                                            Nombre de la Compañia
+                                            <i ng-class="{'ti-bell':form.firstname.$invalid == true}"></i>
+                                        </label>
+                                        <input required type="text" placeholder="Enter your first name" class="form-control" name="firstname" ng-model="infoInputs.emp_nom">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" ng-class="{'text-danger':form.lastname.$error.required == true}">
+                                            Nombre Legal
+                                            <i ng-class="{'ti-bell':form.lastname.$invalid == true}"></i>
+                                        </label>
+                                        <input required type="text" placeholder="Enter your last name" class="form-control" name="lastname" ng-model="infoInputs.emp_nomcom">
+                                    </div>
+
+                                    <div class=" form-group ">
+                                        <label class="control-label" ng-class="{'text-danger':form.email.$error.required == true}">
+                                            Email de la Compañia
+                                            <i ng-class="{'ti-bell':form.email.$invalid == true}"></i>
+                                        </label>
+                                        <input required type="email" class="form-control ng-pristine ng-valid ng-not-empty ng-valid-email ng-touched" name="email" readonly ng-model="infoInputs.emp_ema">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label" ng-class="{'text-danger':form.phone.$invalid == true}">
+                                            Teléfono de la Compañia
+                                            <i ng-class="{'ti-bell':form.phone.$invalid == true}"></i>
+                                        </label>
+                                        <input required type="text " placeholder="Phone number" class="form-control ng-pristine ng-valid ng-not-empty ng-touched" name="phone" ng-model="infoInputs.emp_tel">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" ng-class="{'text-danger':form.movil.$invalid == true}">
+                                            Teléfono Movil
+                                            <i ng-class="{'ti-bell':form.movil.$invalid == true}"></i>
+                                        </label>
+                                        <input required type="text" placeholder="Movil number" name="movil" class="form-control ng-pristine ng-valid ng-not-empty ng-touched" ng-model="infoInputs.emp_cel">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label" ng-class="{'text-danger':form.url.$error.required == true}">
+                                            Sitio Web
+                                            <i ng-class="{'ti-bell':form.url.$invalid == true}"></i>
+                                        </label>
+                                        <input required type="text" placeholder="Enter Url" class="form-control ng-pristine ng-valid ng-not-empty ng-touched" name="url" ng-model="infoInputs.url_web">
+                                    </div>
+                                    <!-- <div class="form-group"> -->
+                                <!-- <label class=""></label> -->
+                                    <!-- </div> -->
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="center ">
+                                        <h4 class="ng-binding ">Logo de la Compañia</h4>
+
+                                        <div class="user-image">
+                                            <div
+                                                class="thumbnail">
+                                                <!-- ngIf: !obj.flow.files.length && !noImage -->
+                                                <img class="ng-scope" src="assets/images/avatar-1-big.jpg">
+                                            <!-- ngIf: !obj.flow.files.length && noImage -->
+                                                <!-- end ngIf: !obj.flow.files.length && !noImage -->
+                                                <!-- ngIf: obj.flow.files.length -->
+                                            </div>
+                                            <!-- ngIf: obj.flow.files.length -->
+                                            <!-- ngIf: !obj.flow.files.length -->
+                                            <div class="user-image-buttons ng-scope">
+                                                <span class="btn btn-primary" flow-btn="">
+                                                    <i class="fa fa-pencil"></i><input type="file" style="visibility: hidden; position: absolute; width: 50px; height: 50px;"></span>
+                                                <!-- ngIf: !noImage -->
+                                                <span class="btn btn-danger ng-scope" ng-if="!noImage" ng-click="removeImage()">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                                <!-- end ngIf: !noImage -->
+                                            </div>
+                                            <!-- end ngIf: !obj.flow.files.length -->
+                                        </div>
+                                        <hr>
+                                        <div class="social-icons block ">
+                                            <ul>
+                                                <li data-placement="top " data-original-title="Twitter " class="social-twitter tooltips ">
+                                                    <a href="# " target="_blank ">
+                                                        Twitter
+                                                    </a>
+                                                </li>
+                                                <li data-placement="top " data-original-title="Facebook " class="social-facebook tooltips ">
+                                                    <a href="#" target="_blank ">
+                                                        Facebook
+                                                    </a>
+                                                </li>
+                                                <li data-placement="top " data-original-title="Google " class="social-google tooltips ">
+                                                    <a href="# " target="_blank ">
+                                                        Google+
+                                                    </a>
+                                                </li>
+                                                <li data-placement="top " data-original-title="LinkedIn " class="social-linkedin tooltips ">
+                                                    <a href="# " target="_blank ">
+                                                        LinkedIn
+                                                    </a>
+                                                </li>
+                                                <li data-placement="top " data-original-title="Github " class="social-github tooltips ">
+                                                    <a href="# " target="_blank ">
+                                                        Github
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label ">
+                                            Id de Negocio N°.
+                                        </label>
+                                        <strong>98758485825</strong>
+                                        <!-- <input type="text " class="form-control ng-pristine " name="idnegocio " readonly value="98758485825 "> -->
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-md-4 ">
+                                            <div class="form-group ">
+                                                <label class="control-label" ng-class="{'text-danger':form.zipcode.$invalid == true}">
+                                                    RUC
+                                                    <i ng-class="{'ti-bell':form.zipcode.$invalid == true}"></i>
+                                                </label>
+                                                <input required class="form-control ng-pristine ng-untouched ng-valid ng-not-empty " placeholder="enter a zip code" type="text" name="zipcode" ng-model="infoInputs.emp_ruc">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 ">
+                                            <div class="form-group ">
+                                                <label class="control-label" ng-class="{'text-danger':form.city.$error.required}">
+                                                    Dirección de la Compañia
+                                                    <i ng-class="{'ti-bell':form.city.$invalid == true}"></i>
+                                                </label>
+                                                <input required class="form-control ng-pristine ng-untouched ng-valid ng-not-empty " placeholder="Ingrese su dirección" type="text " name="city" ng-model="infoInputs.emp_dir ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label" ng-class="{'text-danger':form.ubigeo.$invalid == true}">
+                                                    Ubigeo
+                                                    <i ng-class="{'ti-bell':form.ubigeo.$invalid == true}"></i>
+                                                </label>
+                                                <input required type="text" placeholder=" Ubige" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" name="ubigeo" ng-model="infoInputs.ubi_id">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label" ng-class="{'text-danger':form.retention.$invalid == true}">
+                                                    Retención
+                                                    <i ng-class="{'ti-bell':form.retention.$invalid == true}"></i>
+                                                </label>
+                                                <input required type="text" placeholder=" Retention" name="retention" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="infoInputs.emp_ret">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label" ng-class="{'text-danger':form.detraccion.$invalid == true}">
+                                                    Detracción
+                                                    <i ng-class="{'ti-bell':form.detraccion.$invalid == true}"></i>
+                                                </label>
+                                                <input required type="text" placeholder="Drawn down" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" name="detraccion" ng-model="infoInputs.emp_det">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label" ng-class="{'text-danger':form.perception.$invalid == true}">
+                                                    Percepción
+                                                    <i ng-class="{'ti-bell':form.perception.$invalid == true}"></i>
+                                                </label>
+                                                <input required type="text" placeholder="Perception" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" name="perception" ng-model="infoInputs.emp_per">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label" ng-class="{'text-danger':form.igv.$invalid == true}">
+                                                    IGV / IVA
+                                                    <i ng-class="{'ti-bell':form.igv.$invalid == true}"></i>
+                                                </label>
+                                                <input required type="text" placeholder="IGV / IVA" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" name="igv" ng-model="infoInputs.emp_igv">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label" ng-class="{'text-danger':form.decimal.$invalid == true}">
+                                                    Décimal
+                                                    <i ng-class="{'ti-bell':form.decimal.$invalid == true}"></i>
+                                                </label>
+                                                <input required type="text" placeholder="Decimal" name="decimal" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="InfoInputs.emp_dec">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <button class="btn btn-primary" ng-disabled="form.$error.required" type="submit" ng-click="guardar()">
+                            Guardar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

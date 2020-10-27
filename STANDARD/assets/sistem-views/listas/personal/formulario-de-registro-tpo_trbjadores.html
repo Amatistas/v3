@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <div class="pull-right">
+    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+    <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+</div>
+    <h3 class="titulo-modal">Tipos de Trabajadores</h3>
+</div>
+<div class="container-fluid">
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+        <div class="row">
+            
+            <div class="row" style="padding: 10px;">
+                <div class="col-md-12">
+                    <label for="nro">Código</label>
+                    <input type="text" class="form-control" id="nro">
+                </div>
+
+                <div class="col-md-12">
+                    <label for="nro">Descripción</label>
+                    <input type="text" class="form-control" id="nro">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; align-items: flex-end;">
+        <div role="group" aria-label="tools">
+            <button class="btn btn-primary" ng-click="ok($event)">Guardar y Cerrar</button>
+        </div>
+    </div>
+</div>

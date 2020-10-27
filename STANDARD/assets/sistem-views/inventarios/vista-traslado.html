@@ -1,0 +1,194 @@
+<style>
+    
+    /* .dropbtn {
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 10px;
+        bottom: 30px;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 6px 8px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    } */
+
+
+.contenedor{
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    box-sizing: border-box;
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+    border-radius:4px;
+    box-sizing: border-box;
+    margin: 0px 1px;
+    border: 1px solid rgb(160, 160, 160);
+  background-color: #d4d4d4;
+  /* width: auto; */
+  color: #000;
+  text-decoration: none;
+  padding: 5px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.dropbtn:hover {
+    background-color: white;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  right: 10px;
+        bottom: 27px;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #2eb132;
+  color: white;
+}
+
+
+
+
+
+
+</style>
+
+
+<div ng-controller="buttonsFilterCtrl as vm" ng-init="loadBtnFilters()">
+    <div class="container" ng-controller="trasladoListaCtrl as showCase">
+        <div ng-controller="AsideModalTransaccionCtrl">
+            <div class="ui secondary menu">
+                <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.productoyservicios')}" ui-sref="app.inventario.productoyservicios">
+                    <span class="title" translate="sidebar.nav.inventarios.PRODUCTOSYSERVICIOS">Productos y Servicios</span>
+                </a>
+                <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.listaprecios')}" ui-sref="app.inventario.listaprecios">
+                    <span class="title" translate="sidebar.nav.inventarios.LISTADEPRECIOS">Lista de Precio</span>
+                </a>
+                <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.stock')}" ui-sref="app.inventario.stock">
+                    <span class="title">Stock</span>
+                </a>
+                <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.movimientoAlamcen')}" ui-sref="app.inventario.movimientoAlamcen">
+                    <span class="title">Almacén</span>
+                </a>
+                <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.traslado')}" ui-sref="app.inventario.traslado">
+                    <span class="title">Operaciones de Inventario</span>
+                </a>
+                <div class="right menu">
+                    <div ncy-breadcrumb></div>
+                </div>
+            </div>
+
+            <!-- start: PAGE TITLE -->
+
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-sm-12">
+                    <h1 class="ui header" >Operación de Almacén
+                    </h1>
+               
+                </div>
+                <div class="col-xs-12 col-md-6 col-sm-12">
+                   
+                    <div class="dropdown pull-right" uib-dropdown="">
+                        <div class="btn-group dropdown" uib-dropdown="">                  
+    
+                            <div class="btn-group dropdown" uib-dropdown="">
+                                <button type="button" class="btn btn-lg text-white btn dropdown-toggle"
+                                    uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"
+                                    style="background-color:#002350; border-radius: 50px;">
+                                    Operaciones
+                                    <i class="fa fa-angle-down"></i>
+                                    <span class="sr-only">Nuevo</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a ng-click="cargarAlmacen()">
+                                            Carga
+                                        </a>
+                                        <a ng-click="descargarAlmacen()">
+                                            Descarga
+                                        </a>
+                                        <a ng-click="SalidaInternaAlmacen()">
+                                            Salida Interna
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+    
+    
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        
+            <!-- end: CELL AND ROW TEMPLATE -->
+            <div class="row">
+                <div class="panel panel-white">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="ui table" width="100%" datatable="" dt-options="showCase.dtOptions"
+                                    dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

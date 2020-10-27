@@ -1,0 +1,72 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarLocal()">Guardar y Cerrar</button>
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Local</h3>
+    </div>
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+
+        <div class="row">
+
+            <div class="col-md-12 col-md-12">
+                <div class="titulo-modal-1 col-md-12">
+                    <h3>Datos del Local</h3>
+                </div>
+                <div class="row" style="padding: 10px;">
+                    <div class="col-md-5">
+                        <label for="loc_nom" ng-class="{'text-danger':form.loc_nom.$error.required == true}">Nombre del Local</label>
+                        <input required type="text" class="form-control" id="loc_nom" name="loc_nom" ng-model="infoInputs['loc_nom']">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-md-12">
+
+                <div class="titulo-modal-1 col-md-12">
+                    <h3>Información de Ubicación</h3>
+                </div>
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-4">
+                        <label for="loc_dir" ng-class="{'text-danger':form.loc_dir.$error.required == true}">Dirección</label>
+                        <input  type="text" class="form-control" id="loc_dir" name="loc_dir" ng-model="infoInputs['loc_dir']">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="Nota">Nota</label>
+                        <input type="text" class="form-control" id="Nota" name="Nota" ng-model="infoInputs['Nota']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="titulo-modal-1 col-md-12">
+            <h3>Informacion de Contacto</h3>
+        </div>
+        <div class="row" style="padding: 10px;">
+
+            <div class="col-md-3">
+                <label for="loc_ema" ng-class="{'text-danger':form.loc_ema.$error.required == true}">Email</label>
+                <input required type="email" class="form-control" id="loc_ema" name="loc_ema" ng-model="infoInputs['loc_ema']">
+            </div>
+            <div class="col-md-3">
+                <label for="loc_tel" ng-class="{'text-danger':form.loc_tel.$invalid == true}">Teléfono Principal</label>
+                <input required type="number" class="form-control" id="loc_tel" name="loc_tel" ng-model="infoInputs['loc_tel']">
+            </div>
+            <div class="col-md-3">
+                <label for="loc_cel">Teléfono Segundario</label>
+                <input type="number" class="form-control" id="loc_cel" name="loc_cel" ng-model="infoInputs['loc_cel']">
+            </div>
+        </div>
+
+    </div>
+</form>

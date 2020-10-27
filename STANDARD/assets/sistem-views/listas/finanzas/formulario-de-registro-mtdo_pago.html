@@ -1,0 +1,37 @@
+<form name="form">
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Metodo de Pago</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+ 
+            <div class="row">
+
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.fp_nom.$error.required == true}">Nombre o Descripcion</label>
+                        <input required type="text" class="form-control" id="fp_nom" name="fp_nom" ng-model="infoInputs['fp_nom']">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.fp_diacre.$error.required == true}">Día Credito</label>
+                        <input required type="text" class="form-control" id="fp_diacre" name="fp_diacre" ng-model="infoInputs['fp_diacre']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarMedpago()">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,130 @@
+<form id="formulario_core" name="form" novalidate>
+    <div ng-controller="SelectCtrl">
+        <div class="modal-header" ng-controller="itemsCtrl">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-disabled="form.$error.required"
+                        ng-click="guardarCargaAlmacen()">Guardar</button>
+                    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                            class="ti-close"></i></button>
+                </div>
+            </div>
+            <h3 class="titulo-modal" ng-if="infoInputs.tip_ope == 41">Cargar de Almacén</h3>
+            <h3 class="titulo-modal" ng-if="infoInputs.tip_ope == 42">Descarga de Almacén</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="modal-body" ng-controller="DatepickerDemoCtrl">
+                <div ng-controller="itemsCtrl">
+                    <div class="row" style="background-color: #eee;">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="documento">Documento</label>
+                                    <input type="text" class="form-control" id="documento"
+                                        ng-model="infoInputs['documento']" readonly>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="alm_fecha"
+                                            ng-class="{'text-danger':form.alm_fecha.$invalid == true}">Fecha Documento
+                                        </label>
+                                        <div class="">
+                                            <input type="date" name="alm_fecha" id="alm_fecha" class="form-control"
+                                                ng-model="infoInputs['alm_fecha']" ng-required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="alm_motivo">Motivo de Traslado</label>
+                                    <input type="text" class="form-control" id="alm_motivo"
+                                        ng-model="infoInputs['alm_motivo']" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <pre>
+                    {{itemLisTraslado | json}}
+                </pre>
+                <div class="row " style="margin-top: 15px; ">
+                    <div class="col-md-6" style="height: 400px; overflow-y: scroll;">
+                        <table class="table table-hover ">
+                            <thead>
+                                <tr>
+                                    <th class="center">NRO</th>
+                                    <th>DESCRIPCIÓN</th>
+                                    <th class="col-md-2">CANTIDAD</th>
+                                    <th class="col-md-2">X ALMACENAR</th>
+                                    <th class="col-md-2">CANTIDAD ENT</th>
+                                    <th class="col-md-2"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in itemLisTraslado track by $index">
+                                    <td class="center">{{$index}}</td>
+                                    <td>{{item.pro_nom}}</td>
+                                    <!-- description -->
+                                    <td>{{item.cantidad}}</td>
+                                    <!-- quantity -->
+                                    <td class="col-md-2">
+                                        {{item.restaAlm = restarAlmacen(item.cd_alm,item.cd_can,item.cd_pro_id)}} </td>
+                                    <!-- quantity in-->
+                                    <td class="col-md-2">
+                                        <div ng-show="item.restaAlm != 0">
+                                            <input required type="text" class="form-control" name="cd_cantidadingresar"
+                                                ng-model="item.cd_cantidadingresar" ng-blind="item.cd_cantidadingresar"
+                                                max="item.restaAlm">
+                                    </td>
+
+                                    <td class="center">
+                                        <div ng-show="item.restaAlm != 0">
+                                            <button class="btn btn-blue" ng-click="additem(item)"><i
+                                                    class="ti-arrow-right"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6" style="height: 400px; overflow-y: scroll;">
+                        <table class="table table-hover ">
+                            <thead>
+                                <tr>
+                                    <th class="center">NRO</th>
+                                    <th class="center">ID</th>
+                                    <th>DESCRIPCIÓN</th>
+                                    <th class="col-md-2">CANTIDAD</th>
+                                    <th class="col-md-3">ALMACEN DESTINO
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="itemAlm in itemListAlmacen track by $index" class="">
+                                    <td class="center">{{$index}}</td>
+                                    <td>{{itemAlm.cd_pro_id}}</td>
+                                    <td>{{itemAlm.pro_nom}}</td>
+                                    <td class="col-md-2">{{itemAlm.cd_cantidadingresar}}</td>
+                                    <td class="col-md-2">
+                                        <select class="ui dropdown" required ng-model="itemAlm.alm_id" id="alm_id"
+                                            name="alm_id" ng-init="getBuscarOptionsSelect(rr.alm_id)">
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['alm_id']">{{opt.label}}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="center ">
+                                        <a class="btn btn-red" href="#" ng-click="eliminarItem($index)"><i
+                                                class="ti-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>

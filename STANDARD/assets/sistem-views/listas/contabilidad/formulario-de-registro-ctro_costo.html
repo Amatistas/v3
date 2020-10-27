@@ -1,0 +1,37 @@
+<form name="form">
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Centro de Costo</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+     
+            <div class="row">
+
+                <div class="row" style="padding: 10px;">
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.cc_id.$invalid == true}">Código</label>
+                        <input required type="number" class="form-control" id="cc_id" name="cc_id" ng-model="infoInputs['cc_id']">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.cc_des.$error.required == true}">Descripción</label>
+                        <input required type="text" class="form-control" id="cc_des" name="cc_des" ng-model="infoInputs['cc_des']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarCenCos()">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

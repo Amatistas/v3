@@ -1,0 +1,78 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Cuenta Bancaria</h3>
+    </div>
+    <div class="container-fluid">
+    
+        <div class="modal-body" ng-controller="DatepickerDemoCtrl">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form-field-select-1" ng-class="{'text-danger':form.tipcta_id.$invalid == true}">
+                            Tipo de Cuenta
+                        </label>
+                        <select required class="cs-select cs-skin-slide" id="tipcta_id" name="tipcta_id" ng-model="infoInputs['tipcta_id']">
+                            <option value="">Selec. Tipo de Cuenta</option>
+                            <option value="1">Cuenta Ahorro</option>
+                            <option value="2">Cuenta Corriente</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="serie" ng-class="{'text-danger':form.ctaban_num.$invalid == true}">Número de Cuenta</label>
+                    <input required type="number" class="form-control" id="ctaban_num" name="ctaban_num" ng-model="infoInputs['ctaban_num']">
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form-field-select-1" ng-class="{'text-danger':form.ban_id.$invalid == true}">
+                            Banco
+                        </label>
+                        <select required class="cs-select cs-skin-slide" id="ban_id" name="ban_id" ng-model="infoInputs['ban_id']">
+                            <option value="">Selec. Banco</option>
+                            <option value="1">Banco Central de Reserva del Perú</option>
+                            <option value="2">Banco de Credito de Perú</option>
+                            <option value="3">Banco de la Nación</option>
+                            <option value="4">ScotiaBank</option>
+                            <option value="5">BBVA</option>
+                            <option value="6">Bancolcsmre</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form-field-select-1" ng-class="{'text-danger':form.mnd_id.$invalid == true}">
+                            Moneda
+                        </label>
+                        <select required class="cs-select cs-skin-slide" id="mnd_id" name="mnd_id" ng-model="infoInputs['mnd_id']">
+                            <option value="">Selec. Moneda</option>
+                            <option value="PEN">Sol</option>
+                            <option value="USD">Dolar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="serie" ng-class="{'text-danger':form.cta_id.$invalid == true}">Cuenta Contable</label>
+                    <input required type="number" class="form-control" id="cta_id" name="cta_id" ng-model="infoInputs['cta_id']">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12 modal-body text-center">
+                    <div role="group" aria-label="tools">
+                        <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarCtaBan()">Guardar y Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>

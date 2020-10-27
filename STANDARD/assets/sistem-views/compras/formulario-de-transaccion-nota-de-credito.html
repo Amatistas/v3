@@ -1,0 +1,190 @@
+<form id="formulario_core" name="form" novalidate>
+    <div ng-controller="SelectCtrl">
+        <div class="modal-header" ng-controller="itemsCtrl">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarNotaCredito()">Guardar</button>
+                    <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="ok()">Guardar y
+                        Salir</button>
+                    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                            class="ti-close"></i></button>
+                </div>
+            </div>
+            <h3 class="titulo-modal">NOTA DE CRÉDITO </h3>
+        </div>
+        <div class="container-fluid">
+            <div class="modal-body" ng-controller="DatepickerDemoCtrl">
+                <div ng-controller="itemsCtrl">
+                    <div class="row" style="background-color: #eee;">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="">
+                                    <div class="col-md-2">
+                                        <div class="two fields">
+                                            <div class="field">
+                                                <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                                    Documento
+                                                </label>
+                                                <select required class="ui fluid dropdown" disabled ng-model="infoInputs['td_id']" id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)">
+                                                    <option value="NC">NC</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="serie" ng-class="{'text-danger':form.com_ser.$invalid == true}">Serie</label>
+                                        <input required type="text" class="form-control" id="com_ser" name="com_ser" ng-model="infoInputs['com_ser']">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="nro" ng-class="{'text-danger':form.com_num.$invalid == true}">Número</label>
+                                        <input required type="text" class="form-control" id="com_num" name="com_num" ng-model="infoInputs['com_num']">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
+                                                Proveedor
+                                            </label>
+                                            <div class="input-group">
+                                                <div class="">
+                                                    <input required type="text" class="form-control" id="ane_alias" name="ane_alias" ng-model="infoInputs['ane_alias']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="true">
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <label for="moneda" ng-class="{'text-danger':form.mnd_id.$invalid == true}">
+                                            Moneda
+                                        </label>
+                                        <select required class="ui fluid dropdown" disabled ng-model="infoInputs['mnd_id']" id="mnd_id" name="mnd_id" ng-init="buscarOption(rr.mnd_id)">
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['mnd_id']">
+                                                {{opt.label}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="fecha1" ng-class="{'text-danger':form.dt.$invalid == true}">Fecha Doc</label>
+                                        <div class="">
+                                            <input type="date" name="dt" id="fecha1" class="form-control" ng-model="infoInputs['com_fecdoc']" ng-required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="are_id" ng-class="{'text-danger':form.are_id.$invalid == true}">
+                                        Área
+                                    </label>
+                                    <select disabled ng-model="infoInputs['are_id']" class="ui fluid dropdown" id="are_id" name="are_id" ng-init="buscarOption(rr.are_id)" required>
+                                        <option value="{{opt.id}}" ng-repeat="opt in units['are_id']">{{opt.label}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="serie" ng-class="{'text-danger':form.aeiou.$invalid == true}">AEIOU</label>
+                                    <input required type="text" class="form-control" id="aeiou" name="aeiou" ng-model="infoInputs['aeiou']">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="nro" ng-class="{'text-danger':form.abcde.$invalid == true}">ABCDE</label>
+                                    <input required type="text" class="form-control" id="abcde" name="abcde" ng-model="infoInputs['abcde']">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="cuadro col-md-12 pull-right" style="margin-top: 30px">
+                                <ul class="list-unstyled amounts text-small">
+                                    <li class="text-extra-large text-dark margin-top-15" style="font-size: 35px;">
+                                        <strong>Total:</strong> {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number : 2}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row ">
+                    <div class="col-md-10 ">
+                        <div class="col-md-12" style="height:500px; overflow-y: scroll;padding-top: 15px;">
+                            <button class="btn btn-primary">Seleccionar Todos</button>
+                            <table class="ui celled striped table" ng-repeat="item in arry track by $index" style="border: 1.5px solid rgb(180, 180, 180) !important;">
+                                <thead>
+                                    <tr>
+
+                                        <th colspan="3" style="text-transform: uppercase; font-size: 16px;">
+                                            {{item[0].head[0].cd_des}}
+                                        </th>
+                                        <th></th>
+                                        <th> <strong>Cantidad facturada:  </strong> {{item[0].head[0].cd_can}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="mov in item[0].movi[0]">
+                                        <td class="collapsing" style="transform: rotate(-180deg);">
+                                            <i style="font-size:17px;color:#3395ff" class="fa fa-mail-reply"></i>
+                                        </td>
+                                        <td style="width: 550px !important;">{{mov.alm_nom}}</td>
+                                        <td style="width: 350px !important;"><strong>Stock actual: </strong>{{mov.stock}}</td>
+                                        <td style="width: 350px !important;"><strong>Cantidad registrada: </strong>{{mov.cantidad}}</td>
+                                        <td style="width: 250px !important;">
+                                            <input style="text-align: center;" type="number" ng-model='mov.valor_nota_credito' class="form-control" placeholder="Cantidad por Nota de Crédito">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- <pre>
+                                {{infoInputs | json}}
+                            </pre>
+                        <pre>
+                                {{arry | json}}
+                            </pre> -->
+
+                    </div>
+                    <div class="col-md-2">
+                        <br><br>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <span class="text-light">Gravado</span><span class="pull-right">{{infoInputs.com_afe = ((getMontoTotalAfecto() / valorIgvConvertido)) | number:2}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="text-light">No Gravado</span><span class="pull-right">{{ infoInputs.com_ina = getMontoTotalInafecto() | number:2}}</span>
+                            </li>
+
+                            <li class="list-group-item">
+                                <span class="text-light">ISC</span><span class="pull-right">
+                                    {{infoInputs.com_isc = getMontoISC()}}
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="text-light">IGV/IVA</span><span class="pull-right">{{infoInputs.com_igv = (getMontoIgv(getMontoTotalAfecto())) | number:2}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="text-light">Total Dcto</span>
+                                <span class="pull-right">
+                                    {{infoInputs.com_totfin = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number : 2}}
+                                </span>
+                            </li>
+
+                            <li class="list-group-item">
+                                <span>Total a Pagar</span><span class="pull-right text-primary">
+                                    {{infoInputs.com_totdoc = ( infoInputs.com_isc + getPercepcion + ((getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento)) | number:2}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hidden" ng-if="docOrigin == true">
+                    {{infoInputs.com_dom_pro = reconocerTipoCompra()}} {{infoInputs.com_clas_bien = defineTipoBien(infoInputs.com_dom_pro)}}
+                </div>
+                <div class="hidden" ng-if="docOrigin == false">
+                    {{infoInputs.com_dom_pro = infoInputs.com_dom_pro }} {{infoInputs.com_clas_bien = infoInputs.com_clas_bien }}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

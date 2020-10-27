@@ -1,0 +1,150 @@
+<div class="main-login">
+    <div class="box-register">
+        <form class="form-register ng-pristine ng-valid">
+            <fieldset>
+                <div class="row">
+                    <legend>
+                        Registrar Usuario
+                    </legend>
+                    <p>
+                        Ingrese los datos del Usuario
+                    </p>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="serie" ng-class="{'text-danger':form.com_ser.$error.required == true}">Nombre Completo</label>
+                            <input type="text" class="form-control" name="full_name" placeholder="Nombre Completo">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="serie" ng-class="{'text-danger':form.com_ser.$error.required == true}">Primer Apellido</label>
+                            <input type="text" class="form-control" name="apellido1" placeholder="Primer Apellido">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="serie" ng-class="{'text-danger':form.com_ser.$error.required == true}">Segundo Apellido</label>
+                            <input type="text" class="form-control" name="apellido2" placeholder="Segundo Apellido">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="serie" ng-class="{'text-danger':form.com_ser.$error.required == true}">N° Documento</label>
+                            <input type="text" class="form-control" name="documento" placeholder="N° Documento">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                    Tipo de Asiento
+                                </label>
+                                <select class="ui fluid dropdown" required ng-model="infoInputs['td_id']" id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">
+                                        {{opt.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                    Cargo
+                                </label>
+                                <select class="ui fluid dropdown" required ng-model="infoInputs['td_id']" id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">
+                                        {{opt.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="serie" ng-class="{'text-danger':form.com_ser.$error.required == true}">Dirección</label>
+                            <input type="text" class="form-control" name="direccion" placeholder="Dirección">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="serie" ng-class="{'text-danger':form.com_ser.$error.required == true}">Ciudad</label>
+                            <input type="text" class="form-control" name="ciudad" placeholder="Ciudad">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="block">
+                                Genero
+                            </label>
+                            <div class="clip-radio radio-primary">
+                                <input type="radio" id="rg-female" name="gender" value="Mujer">
+                                <label for="rg-female">
+                                    Mujer
+                                </label>
+                                <input type="radio" id="rg-male" name="gender" value="Hombre">
+                                <label for="rg-male">
+                                    Hombre
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p>
+                        Registro los datos de la Cuenta:
+                    </p>
+                    <div class="col-sm-6">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                    Roles
+        
+                                </label>
+                                <select class="ui fluid dropdown" required ng-model="infoInputs['td_id']" id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">
+                                        {{opt.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                Correo
+                            </label>
+                            <span class="input-icon">
+                                <input type="email" class="form-control" name="email" placeholder="Correo">
+                                <i class="fa fa-envelope"></i> </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                Contraseña
+                            </label>
+                            <span class="input-icon">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                                <i class="fa fa-lock"></i> </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                Repetir Contraseña
+                            </label>
+                            <span class="input-icon">
+                                <input type="password" class="form-control" name="password_again" placeholder="Repetir Contraseña">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary pull-right">
+                                Registrar <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

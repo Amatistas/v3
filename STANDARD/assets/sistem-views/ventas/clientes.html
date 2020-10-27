@@ -1,0 +1,131 @@
+<style>
+ 
+.contenedor{
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    box-sizing: border-box;
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+    border-radius:4px;
+    box-sizing: border-box;
+    margin: 0px 1px;
+    border: 1px solid rgb(160, 160, 160);
+  background-color: #d4d4d4;
+  /* width: auto; */
+  color: #000;
+  text-decoration: none;
+  padding: 5px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.dropbtn:hover {
+    background-color: white;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  right: 10px;
+        bottom: 27px;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #2eb132;
+  color: white;
+}
+</style>
+<div  ng-controller="clienteListaCtrl as showCase">
+    <div class="container" ng-controller="AsideModalTransaccionCtrl">
+        <!-- start: PAGE TITLE -->
+        <div class="ui secondary menu">
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.ventas.todaslasventas')}" ui-sref="app.ventas.todaslasventas">
+                <span class="title" translate="sidebar.nav.ventas.TODASLASVENTAS">Todas las Compras</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.ventas.clientes')}" ui-sref="app.ventas.clientes">
+                <span class="title" translate="sidebar.nav.ventas.CLIENTES">Clientes</span>
+            </a>
+            <div class="right menu">
+                <div ncy-breadcrumb></div>
+            </div>
+        </div>
+        <!-- start: PAGE TITLE -->
+        <div class="row ">
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <h1 class="ui header" translate="sidebar.nav.clientes.CLIENTES">
+                    Clientes
+                </h1>
+            </div>
+
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="btn-group dropdown pull-right" uib-dropdown="">
+                    <button type="button" ng-click="cliente()" class="btn btn-lg text-white btn btn-wide" style="background-color:#002350; border-radius: 50px 0px 0px 50px;">
+                    Cliente
+                </button>
+                    <button type="button" class="btn btn-lg text-white btn dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false" style="background-color:#002350; border-radius: 0px 50px 50px 0px;">
+                     <i class="fa fa-angle-up"></i>
+                    <span class="sr-only">Nuevo Cliente</span>
+                </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">
+                            Importar Cliente
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ng-app="main" ng-controller="DemoCtrl2">
+            <div class="row">
+                <div ng-app="main" class="panel panel-white">
+                    <div class="panel-body">
+                  <!--       <a ng-click="showCase.changeData()" class="btn btn-wide btn-primary btn-squared">
+                        change<i class="fa fa-refresh"></i>
+                    </a>
+                        <a ng-click="showCase.reloadData()" class="btn btn-wide btn-primary btn-squared">
+                        Reload <i class="fa fa-refresh"></i>
+                    </a> -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="ui table" width="100%" datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

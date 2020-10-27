@@ -1,0 +1,167 @@
+<style>
+ 
+.contenedor{
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    box-sizing: border-box;
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+    border-radius:4px;
+    box-sizing: border-box;
+    margin: 0px 1px;
+    border: 1px solid rgb(160, 160, 160);
+  background-color: #d4d4d4;
+  /* width: auto; */
+  color: #000;
+  text-decoration: none;
+  padding: 5px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.dropbtn:hover {
+    background-color: white;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  right: 10px;
+        bottom: 27px;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #2eb132;
+  color: white;
+}
+
+
+</style>
+
+
+<div class="container" ng-controller="proveedoresListaCtrl as showCase">
+    <div ng-controller="AsideModalTransaccionCtrl">
+        <div class="ui secondary menu">
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.compras.listaCompra')}" ui-sref="app.compras.listaCompras">
+                <span class="title" translate="sidebar.nav.compras.COMPRASLISTA">Compras Lista</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.compras.proveedores')}" ui-sref="app.compras.proveedores">
+                <span class="title" translate="sidebar.nav.compras.PROVEEDORES">Providers</span>
+            </a>
+            <div class="right menu">
+                <div ncy-breadcrumb></div>
+            </div>
+        </div>
+        <!-- start: PAGE TITLE -->
+        <div class="row ">
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <h1 class="ui header" translate="sidebar.nav.proveedores.PROVEEDOR">
+                    Proveedores
+                </h1>
+            </div>
+
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="btn-group dropdown pull-right" uib-dropdown="">
+                    <button type="button" ng-click="proveedor()" class="btn btn-lg text-white btn btn-wide" style="background-color:#002350; border-radius: 50px 0px 0px 50px;">
+                        Nuevo Proveedor
+                    </button>
+                    <button type="button" class="btn btn-lg text-white btn dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false" style="background-color:#002350; border-radius: 0px 50px 50px 0px;">
+                        <i class="fa fa-angle-down"></i>
+                        <span class="sr-only">Nuevo Proveedor</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">
+                                Importar Proveedores
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+  <!--       <div ng-app="main" ng-controller="buttonsFilterProveedoresCtrl as vm">
+            <div class="row" style="margin-bottom: 15px;" ng-if="false">
+                <div class="col-md-4" style="margin-top: 5px;">
+                    <button class="btn boton3 btn-block">
+                            <h2 class="text-white"> S/ {{vm.btn1[0].monto}}</h2>
+                            <p>{{vm.btn1[0].num}} Proveedores atrasados en mas de 90 dias</p>
+                    </button>
+                </div>
+                <div class="col-md-4" style="margin-top: 5px;">
+                    <button class="btn boton btn-block" ng-click="filtroPendientesPorPagar()" ng-class="{ 'activo': statusfiltroPendientesPorPagar == true}">
+                        <h2 class="text-white"> S/ {{vm.btn2[0].monto}}</h2>
+                        <p>{{vm.btn2[0].num}} Proveedores Pendientes</p>
+                    </button>
+                </div>
+                <div class="col-md-4" style="margin-top: 5px;">
+                    <button class="btn boton2 btn-block">
+                        <h2 class="text-white"> S/ {{vm.btn3[0].monto}}</h2>
+                        <p>{{vm.btn3[0].num}} Proveedor Pagada los Ultimos 30 Dias</p>
+                    </button>
+                </div>
+            </div>
+        </div> -->
+        <!-- end: CELL AND ROW TEMPLATE -->
+        <div class="row">
+            <div ng-app="main" class="panel panel-white">
+                <div class="panel-body">
+                 <!--    <a popover-placement="right" uib-popover-template="'assets/sistem-views/compras/filtro-de-tabla-compras.html'" popover-trigger="mouseenter" class="btn btn-wide btn-primary btn-squared">
+                        Filtros <i class="fa fa-angle-right"></i>
+                    </a>
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" class="btn btn-primary btn-squared dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                            Acciones Por Selección <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a ng-click="realizarPagos(checkboxes.items)">
+                                    Pagar Transacciónes
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a ng-click="showCase.reloadData()" class="btn btn-wide btn-primary btn-squared">
+                        Reload <i class="fa fa-refresh"></i>
+                    </a> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="ui table" width="100%" datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

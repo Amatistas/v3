@@ -1,0 +1,51 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">SubCategorías</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+        
+            <div class="row">
+
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="form-field-select-1" ng-class="{'text-danger':form.cat_id.$invalid == true}">
+                            Categoría
+                        </label>
+                            <select required class="cs-select cs-skin-slide" id="cat_id" name="cat_id" ng-model="infoInputs['cat_id']">
+                            <option value="">Selec. Categoría</option>
+                            <option value="3">Todo</option>
+                            <option value="4">AAAA</option>
+                            <option value="5">BBBB</option>
+                        </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="scat_nom" ng-class="{'text-danger':form.scat_nom.$error.required == true}">Nombre de SubCategoría</label>
+                        <input required type="text" class="form-control" id="scat_nom" name="scat_nom" ng-model="infoInputs['scat_nom']">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="" ng-class="{'text-danger':form..$error.required == true}">Nombre Abreviado de SubCategoría</label>
+                        <input type="text" class="form-control" id="" name="" ng-model="infoInputs['']">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarSubcat()">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

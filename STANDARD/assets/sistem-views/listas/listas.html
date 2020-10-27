@@ -1,0 +1,233 @@
+<div class="container" ng-controller="AsideModalTransaccionCtrl">
+    <div class="row" style="margin:20px;">
+        <div class="col-sm-6 col-sm-12">
+            <h3>Empresa</h3>
+            <ul class="lista-ordenada">
+                <a ui-sref="app.local">
+                    <li><strong>Local</strong></li>
+                </a>
+                <p>Muestra los diferentes locales o sucursales que la empresa tiene. Desde aquí puedes crear o editar un local.</p>
+                <a ui-sref="app.tpo_doc" class="ng-binding">
+                    <li><strong>Tipo de Documento</strong></li>
+                </a>
+                <p>Desde aquí puedes crear cualquier comprobante de pago o documento interno que use la empresa, en sus diferentes operaciones.</p>
+                <a ui-sref="app.tpo_suj">
+                    <li><strong>Tipo de Sujeto</strong></li>
+                </a>
+                <p>Muestra a los diferentes tipos de sujetos como: clientes, proveedores, trabajadores, socios, choferes, etc. Desde aquí puedes crear un nuevo tipo de sujeto.</p>
+                <a ui-sref="app.tpo_soc">
+                    <li><strong>Tipo de Socio</strong></li>
+                </a>
+                <p>Crea los diferentes tipos de socios, esta lista es más usada en empresas sin fines de lucro como Asociaciones.</p>
+                <a ui-sref="app.areas">
+                    <li><strong>Áreas</strong></li>
+                </a>
+                <p>Muestra las diferentes áreas que tiene la empresa como: Administración, Ventas, Finanzas, Logística, Recursos Humanos, etc.</p>
+            </ul>  
+            <h3>Inventario</h3>
+            <ul class="lista-ordenada">
+                <a ui-sref="app.almacen">
+                    <li><strong>Almacén</strong></li>
+                </a>
+                <p>Crea y modifica los diferentes almacenes que cuenta la empresa. Puede darse el caso que en un local haya más de un almacén.</p>
+                <a ui-sref="app.linea" class="ng-binding">
+                    <li><strong>Línea</strong></li>
+                </a>
+                <p>Crea y modifica las diferentes líneas de productos, ejemplo: Abarrotes, ferretería, medicamentos, tocador, etc. </p>
+                <a ui-sref="app.categoria">
+                    <li><strong>Categoría</strong></li>
+                </a>
+                <p>Crea y modifica las diferentes categorías de los productos, ejemplo: Lácteos, gasfitería, genéricos, baño, etc.</p>
+                <a ui-sref="app.sub_categoria">
+                    <li><strong>Subcategoría</strong></li>
+                </a>
+                <p>Crea y modifica las diferentes subcategorías de los productos, ejemplo: Leche, queso, yogurt, etc. </p>
+                <a ui-sref="app.marcas">
+                    <li><strong>Marcas</strong></li>
+                </a>
+                <p>Crea y modifica las marcas de los productos, ejemplo: NIKE, Adidas, Reebok, Puma, etc.</p>
+                <a ui-sref="app.aplicaciones">
+                    <li><strong>Aplicaciones</strong></li>
+                </a>
+                <p>Crea las diferentes aplicaciones de los medicamentos como: Inyectable, vía oral, vía tópica, etc. Esta lista es más usada en empresas Farmacéuticas y Boticas.</p>
+                <a ui-sref="app.presentacion">
+                    <li><strong>Presentación</strong></li>
+                </a>
+                <p>Crea las presentaciones también llamadas “unidades de medida”, tales como: unidad, docena, cajas, botellas, etc. Todo producto creado tendrá la presentación UNIDAD, al crear los precios del producto se diferenciaran por sus presentaciones (un producto puede tener varios precios).</p>
+                <a ui-sref="app.choferes">
+                    <li><strong>Choferes</strong></li>
+                </a>
+                <p>Crea y modifica los sujetos choferes, puede ser este un sujeto trabajador de la empresa o un sujeto proveedor (de honorario).</p>
+                <a ui-sref="app.vehiculos">
+                    <li><strong>Vehículos</strong></li>
+                </a>
+                <p>Muestra y crea los vehículos que cuenta la empresa, así como su placa, marca y modelo.</p>
+                <a ui-sref="app.saldo-inicial">
+                    <li><strong>Saldos Iniciales</strong></li>
+                </a>
+                <p>Muestra y crea los vehículos que cuenta la empresa, así como su placa, marca y modelo.</p>
+            </ul>
+            <h3>Finanzas</h3>
+            <ul class="lista-ordenada">
+                <a ui-sref="app.bancos">
+                    <li><strong>Bancos</strong></li>
+                </a>
+                <p>Muestra si el personal es: Trabajador, pensionista o personal en formación.</p>
+                <a ui-sref="app.cta_bancos" class="ng-binding">
+                    <li><strong>Cuentas de Bancos</strong></li>
+                </a>
+                <p>Crea y modifica los tipos de horario, para que se asignen a los personales en sus contratos.</p>
+                <a ui-sref="app.tpo_cta_bancaria">
+                    <li><strong>Tipos de Cuenta Bancaria</strong></li>
+                </a>
+                <p>Muestra los decretos y leyes laborales las mismas que regulan modalidades de contratos.</p>
+                <a ui-sref="app.mtdo_pago">
+                    <li><strong>Método de Pago</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere culpa adipisci eius ratione ex omnis fugiat repellendus eligendi velit dolor aut aspernatur assumenda saepe eveniet consectetur animi, enim distinctio in.</p>
+                <a ui-sref="app.saldo_ini_fina">
+                    <li><strong>Saldos Iniciales Finanzas</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere culpa adipisci eius ratione ex omnis fugiat repellendus eligendi velit dolor aut aspernatur assumenda saepe eveniet consectetur animi, enim distinctio in.</p>
+                   
+            </ul> 
+            <h3>Contabilidad</h3>
+            <ul class="lista-ordenada">
+                <a ui-sref="app.ptilla_asientos">
+                    <li><strong>Plantilla de Asientos</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores fugit ratione laborum vel consectetur tempore ipsa reiciendis at expedita fugiat?</p>
+                <a ui-sref="app.prmtrs_detraccion" class="ng-binding">
+                    <li><strong>Parámetros de Detracción</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor dolore ipsa aliquid esse itaque? Ducimus, recusandae! Illo tenetur alias error corrupti esse quia commodi? Autem nihil repudiandae mollitia. Sequi optio natus tempora officia
+                    modi accusantium fugiat ut amet dolores facilis ducimus ratione, totam voluptatem ipsa laborum mollitia laudantium. Molestiae, similique.</p>
+                <a ui-sref="app.tpo_cambio">
+                    <li><strong>Tipos de Cambio</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere culpa adipisci eius ratione ex omnis fugiat repellendus eligendi velit dolor aut aspernatur assumenda saepe eveniet consectetur animi, enim distinctio in.</p>
+                <a ui-sref="app.ctro_costo">
+                    <li><strong>Centro de Costos</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere culpa adipisci eius ratione ex omnis fugiat repellendus eligendi velit dolor aut aspernatur assumenda saepe eveniet consectetur animi, enim distinctio in.</p>
+                <a ng-click="parametro()">
+                    <li><strong>Parámetros</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere culpa adipisci eius ratione ex omnis fugiat repellendus eligendi velit dolor aut aspernatur assumenda saepe eveniet consectetur animi, enim distinctio in.</p>
+                <a ui-sref="app.parametros">
+                    <li><strong>Parámetros Contables</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere culpa adipisci eius ratione ex omnis fugiat repellendus eligendi velit dolor aut aspernatur assumenda saepe eveniet consectetur animi, enim distinctio in.</p>
+                <a>
+                    <li><strong>Maestros Contables</strong>
+                    </li>
+                </a>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere culpa adipisci eius ratione ex omnis fugiat repellendus eligendi velit dolor aut aspernatur assumenda saepe eveniet consectetur animi, enim distinctio in.</p>
+                <ul>
+                    <a ui-sref="app.maestro-cse_cta">
+                        <li><strong>Clases de Cuentas</strong></li>
+                    </a>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse eveniet nostrum sit asperiores quos! Perferendis?</p>
+                    <a ui-sref="app.maestro-nvl_cta">
+                        <li><strong>Nivel de Cuentas</strong></li>
+                    </a>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse eveniet nostrum sit asperiores quos! Perferendis?</p>
+                    <a ui-sref="app.maestro-pln_cta">
+                        <li><strong>Plan de Cuentas</strong></li>
+                    </a>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                    <a ui-sref="app.maestro-tpo_asiento">
+                        <li><strong>Tipos de Asiento</strong></li>
+                    </a>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                </ul>
+            </ul>
+            <h3>Producción</h3>
+            <ul class="lista-ordenada">
+                <a ui-sref="app.lna_produccion">
+                    <li><strong>Línea de Producción</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores fugit ratione laborum vel consectetur tempore ipsa reiciendis at expedita fugiat?</p>
+                <a ui-sref="app.lte_produccion" class="ng-binding">
+                    <li><strong>Lote de Producción</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor dolore ipsa aliquid esse itaque? Ducimus, recusandae! Illo tenetur alias error corrupti esse quia commodi? Autem nihil repudiandae mollitia. Sequi optio natus tempora officia
+                    modi accusantium fugiat ut amet dolores facilis ducimus ratione, totam voluptatem ipsa laborum mollitia laudantium. Molestiae, similique.</p>
+                 
+            </ul>
+        </div>   
+        <div class="col-sm-6 col-sm-12">
+            <h3>Planillas</h3>
+            <ul class="lista-ordenada">
+                <a ui-sref="app.categorias">
+                    <li><strong>Categorías</strong></li>
+                </a>
+                <p>Muestra si el personal es: Trabajador, pensionista o personal en formación.</p>
+                <a ui-sref="app.tpo_hrs" class="ng-binding">
+                    <li><strong>Tipo de Horarios</strong></li>
+                </a>
+                <p>Crea y modifica los tipos de horario, para que se asignen a los personales en sus contratos.</p>
+                <a ui-sref="app.rgmn_laboral" class="ng-binding">
+                    <li><strong>Régimen Laboral</strong></li>
+                </a>
+                <p>Muestra los decretos y leyes laborales las mismas que regulan modalidades de contratos.</p>
+                <a ui-sref="app.conceptos" class="ng-binding">
+                    <li><strong>Conceptos</strong></li>
+                </a>
+                <p>Muestra los conceptos que percibe el personal como: ingresos, descuentos, beneficios, etc. Estos conceptos sirven para la importación al PDT PLAME.</p>
+                <a ui-sref="app.mtvs_baja" class="ng-binding">
+                    <li><strong>Motivos de Baja</strong></li>
+                </a>
+                <p>Muestra los motivos por el cual el personal se desvincula de la empresa.</p>
+                <a ui-sref="app.tpo_trbjadores" class="ng-binding">
+                    <li><strong>Tipos de Trabajadores</strong></li>
+                </a>
+                <p>Muestra los tipos de trabajadores por sector económico: comercial, industrial, minero, etc.</p>
+                <a ui-sref="app.ctg_ocupacional" class="ng-binding">
+                    <li><strong>Categoría Ocupacional</strong></li>
+                </a>
+                <p>Muestra la ocupación del trabajador por sector público o privado.</p>
+                <a ui-sref="app.ocupaciones" class="ng-binding">
+                    <li><strong>Ocupaciones</strong></li>
+                </a>
+                <p>Muestra las profesiones codificadas por SUNAT. Estos sirven para importar el alta del trabajador ante SUNAT.</p>
+                <a ui-sref="app.tpo_pagos" class="ng-binding">
+                    <li><strong>Tipo de Pagos</strong></li>
+                </a>
+                <p>Muestra el método de pago al trabajador, si será en efectivo, depósito en cuenta, etc.</p>
+                <a ui-sref="app.stcion_educ" class="ng-binding">
+                    <li><strong>Situación Educativa</strong></li>
+                </a>
+                <p>Muestra la formación educativa del trabajador: si tiene educación superior o no.</p>
+                <a ui-sref="app.beneficios" class="ng-binding">
+                    <li><strong>Beneficios</strong></li>
+                </a>
+                <p>Muestra todos los ingresos por remuneraciones con los que cuenta el trabajador.</p>
+                <a ui-sref="app.tpo_contratos" class="ng-binding">
+                    <li><strong>Tipo de Contratos</strong></li>
+                </a>
+                <p>Muestra los tipos de contrato según los decretos y leyes laborales.</p>
+                <a ui-sref="app.sist_pensiones">
+                    <li><strong>Sistema de Pensiones</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores fugit ratione laborum vel consectetur tempore ipsa reiciendis at expedita fugiat?</p>
+                <a ui-sref="app.sist_salud">
+                    <li><strong>Sistema de Salud</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad, molestiae.</p>
+                <a ui-sref="app.prcent_aports" class="ng-binding">
+                    <li><strong>Porcentajes de Aportaciones</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor dolore ipsa aliquid esse itaque? Ducimus, recusandae! Illo tenetur alias error corrupti esse quia commodi? Autem nihil repudiandae mollitia. Sequi optio natus tempora officia
+                    modi accusantium fugiat ut amet dolores facilis ducimus ratione, totam voluptatem ipsa laborum mollitia laudantium. Molestiae, similique.</p>
+                 
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores fugit ratione laborum vel consectetur tempore ipsa reiciendis at expedita fugiat?</p>
+                <a ui-sref="app.otras_aportaciones" class="ng-binding">
+                    <li><strong>Otras Aportaciones y Descuentos</strong></li>
+                </a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor dolore ipsa aliquid esse itaque? Ducimus, recusandae! Illo tenetur alias error corrupti esse quia commodi? Autem nihil repudiandae mollitia. Sequi optio natus tempora officia
+                    modi accusantium fugiat ut amet dolores facilis ducimus ratione, totam voluptatem ipsa laborum mollitia laudantium. Molestiae, similique.</p>
+            </ul>
+        </div>   
+    </div>       
+</div>           

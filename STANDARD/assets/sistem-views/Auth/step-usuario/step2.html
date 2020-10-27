@@ -1,0 +1,15 @@
+<div class="renderize200 scrollabled">
+    <ul class="list-group list-group-flush">
+        <li class="" ng-repeat="lista in selectEmpresa[0]">
+            {{lista.emp_nom}}
+            <div class="">
+                <a ng-click="vm.elijeEmpresa(lista.emp_id)">
+                    <i class="feather icon-chevron-right"></i>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="form-actions">
+    <button ng-disabled="vm.currentStep <= 1" class="btn btn-primary waves-effect waves-light" name="previous" type="button" ng-click="vm.gotoStep(vm.currentStep - 1)"><i class="fa fa-arrow-left"></i> Regresar</button>
+</div>

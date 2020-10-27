@@ -1,0 +1,363 @@
+<form id="formulario_core" name="form" novalidate>
+    <div ng-controller="SelectCtrl">
+        <div class="modal-header" ng-controller="itemsCtrl">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-click="guardarVenta()">Guardar</button>
+                    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancelv($event)"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <h3 class="titulo-modal">Punto de Venta</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="modal-body" ng-controller="DatepickerDemoCtrl">
+                <div ng-controller="itemsCtrl">
+                    <div class="row" style="background-color:#eee;">
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <div class="two fields">
+                                            <div class="field">
+                                                <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                                Documento
+                                            </label>
+                                                <select class="ui fluid dropdown" required ng-change="changeCurrenty(infoInputs['td_id'])" ng-model="infoInputs['td_id']" id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">
+                                                    {{opt.label}}</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="ven_ser">Serie</label>
+                                        <input type="text" class="form-control" id="ven_ser" ng-model="infoInputs['ven_ser']">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="ven_num">Numero</label>
+                                        <input type="text" class="form-control" id="ven_num" ng-model="infoInputs['ven_num']">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="ven_num">Cliente</label>
+                                        <input type="text" class="form-control" id="ven_num" ng-model="infoInputs['ven_num']">
+                                    </div>
+                                    <!-- <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label>
+                                            Cliente
+                                        </label>
+                                        <div class="input-group">
+                                            <div class="">
+                                                <ui-select style="width: 100%; float: left;" ng-model="infoInputs['select_ane_id']" theme="bootstrap">
+                                                    <ui-select-match placeholder="Select in the list...">
+                                                        {{$select.selected.ane_alias}}
+                                                    </ui-select-match>
+                                                    <ui-select-choices repeat="item in proveedoresList[0] | filter: $select.search">
+                                                        <span ng-bind-html="item.ane_alias | highlight: $select.search"></span>
+                                                        <small ng-bind-html="item.ane_numdoc | highlight: $select.search"></small>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                            <span class="input-group-btn">
+                                                <a>
+                                                    +
+                                                </a>
+                                                <button popover-placement="bottom"
+                                                    uib-popover-template="'assets/sistem-views/compras/popover-crear-proveedor.html'"
+                                                    popover-trigger="mouseenter" class="btn btn-primary">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </span>
+                                            <div class="hidden">
+                                                {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                    <div class="col-md-2">
+                                        <label for="ven_num">RUC / DNI</label>
+                                        <input type="text" class="form-control" id="ven_num" ng-model="infoInputs['ven_num']">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="ven_num">Nombre</label>
+                                        <input type="text" class="form-control" id="ven_num" ng-model="infoInputs['ven_num']">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <label for="moneda" ng-class="{'text-danger':form.mnd_id.$invalid == true}">
+                                                                    Moneda
+                                                                </label>
+                                            <select ng-disabled="infoInputs['td_id']=='IV'" class="ui fluid dropdown" required ng-model="infoInputs['mnd_id']" id="mnd_id" name="mnd_id" ng-init="buscarOption(rr.mnd_id)">
+                                                                    <option value="{{opt.id}}" ng-repeat="opt in units['mnd_id']">
+                                                                        {{opt.label}}
+                                                                    </option>
+                                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="two fields">
+                                            <div class="field">
+                                                <label for="moneda">
+                                                Método de Pago
+                                            </label>
+                                                <select ng-model="infoInputs['fp_id']" class="ui fluid dropdown" id="fp_id" name="fp_id" ng-init="buscarOption(rr.fp_id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['fp_id']">{{opt.label}}</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--     <div class="col-md-2 data-field-col custom-control custom-checkbox mt-2"
+                                            data-toggle="tooltip">
+                                            <input type="checkbox" class="custom-control-input" name="customCheck" id="moreDetails"
+                                                ng-model="moreDetails" ng-change="moreDetails">
+                                            <label class="custom-control-label" for="moreDetails">More..</label>
+                                        </div> -->
+                                    <div class="col-md-2">
+                                        <label for="are_id" ng-class="{'text-danger':form.are_id.$invalid == true}">
+                                                Local
+                                            </label>
+                                        <select ng-model="infoInputs['are_id']" class="ui fluid dropdown" id="are_id " name="are_id" ng-init="buscarOption(rr.are_id)" required>
+                                                <option value="{{opt.id}} " ng-repeat="opt in units['are_id'] ">{{opt.label}}
+                                                </option>
+                                            </select>
+                                    </div>
+                                    <div class="col-md-2" ng-if="infoInputs['td_id'] != 'IV'">
+                                        <div class="form-group">
+                                            <label for="ofi_id" ng-class="{'text-danger':form.alm_id.$invalid == true}">
+                                                    Almacén
+                                                </label>
+                                            <select class="ui fluid dropdown" required ng-model="infoInputs['alm_id']" id="alm_id" name="alm_id" ng-init="buscarOption(rr.alm_id)">
+                                                    <option value="{{opt.id}}" ng-repeat="opt in units['alm_id']">{{opt.label}}
+                                                    </option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="two fields">
+                                            <div class="field">
+                                                <label for="moneda">
+                                                Lista de Precio
+                                            </label>
+                                                <select ng-model="infoInputs['lp_id']" class="ui fluid dropdown" id="lp_id" name="lp_id" ng-init="buscarOption(rr.lp_id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">{{opt.label}}</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="cuadro col-md-6 pull-right ">
+                                <ul class="list-unstyled amounts text-small">
+                                    <li class="text-extra-large text-dark margin-top-15">
+                                        <strong>Total a Pagar:</strong> {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-4 ">
+                        <label>
+                                Productos y Servicios
+                            </label>
+                        <div class="input-group">
+                            <ui-select name="pys" style="width: 100%; float: left;" ng-model="person.selected" theme="bootstrap">
+                                <ui-select-match placeholder="Escriba 3 letras para buscar">
+                                    {{$select.selected.cd_des}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in productosData track by $index" refresh="productosGetAsyncronic($select.search)" refresh-delay="0">
+                                    <div class="item">
+                                        <div class="content">
+                                            <div>
+                                                <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                <b>{{item.cd_des}}</b>
+                                            </div>
+                                            <div class="description">{{item.pro_cod}}</div>
+                                        </div>
+                                    </div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                    <button type="button" ng-click="person.selected=undefined"
+                                        class="btn btn-primary">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 ">
+                        <label for="pst">
+                                    Código de Barra
+                                </label>
+                        <select ng-model="person.selected.vd_bar" class="form-control" id="vd_bar" name="vd_bar">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['vd_bar']">{{opt.label}}</option>
+                                </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="pst">
+                                    Presentación
+                                </label>
+                        <select ng-model="person.selected.pst_id" class="form-control " id="pst_id" name="pst_id" ng-init="buscarOption(rr.pst_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['pst_id']">{{opt.label}}</option>
+                                </select>
+                    </div>
+                    <div class="col-md-1 ">
+                        <label for="vd_fac">Factor</label>
+                        <input ng-model="person.selected.vd_fac" type="text" class="form-control" id="vd_fac">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="vd_can">Cantidad</label>
+                        <input ng-model="person.selected.vd_can" type="text" class="form-control" id="vd_can">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="vd_pre">Precio</label>
+                        <input ng-model="person.selected.vd_pre" type="text" class="form-control" id="vd_pre">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="vd_pre">Stock</label>
+                        <input ng-model="person.selected.vd_pre" type="text" class="form-control" id="vd_pre">
+                    </div>
+                    <div class="col-md-1 ">
+                        <button class="btn btn-primary" style="margin-top: 21px;" ng-click="additem(person.selected)">Insertar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px;">
+                <div class="col-md-10" style="height: 300px; overflow-y: scroll;">
+                    <table class="table table-hover ">
+                        <thead>
+                            <tr>
+                                <th class="center">NRO</th>
+                                <th class="center">TIP</th>
+                                <th>CÓDIGO</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th class="col-md-2">CANTIDAD</th>
+                                <th class="col-md-2">PRECIO</th>
+                                <th class="col-md-2">TOTAL</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in itemListCompras" class="">
+                                <td class="center">{{$index}}</td>
+                                <td> {{item.pro_tip}}</td>
+                                <td> {{item.pro_cod}}</td>
+                                <td>{{item.vd_des}} {{item.pst_id}}</td>
+                                <td class="col-md-2"><input type="text " class="form-control " ng-model="item.cd_can" ng-blind="item.cd_can" id="ref "></td>
+                                <td class="col-md-2"><input type="text " class="form-control " ng-model="item.cd_pre" ng-blind="item.cd_pre" id="ref "></td>
+                                <td class="col-md-2">
+                                    <p>{{item.vd_pre * item.vd_can}} <i class="fa fa-money text-grey" ng-show="item.igv"></i> </p>
+                                </td>
+                                <td class="center ">
+                                    <a class="btn btn-red" href="# " ng-click="eliminarItem($index) "><i
+                                                        class="glyphicon glyphicon-trash"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--      <div class="header-modal3 " id="panel1 ">
+                                        <div class="panel-body text-dark ">
+                                            <div class="col-md-2 ">
+                                                <p><b>Código :</b></p>
+                                            </div>
+                                            <div class="col-md-3 ">
+                                                <p class=" "><b>Descripción : {{item.pro_nom}} {{item.pst_id}}</b></p>
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <input type="text " class="form-control " ng-model="item.cantidad "
+                                                    ng-blind="item.cantidad " id="ref ">
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <input type="text " class="form-control " ng-model="item.precio " ng-blind="item.precio "
+                                                    id="ref ">
+                                            </div>
+                                            <div class="col-md-2 ">
+                                                <p>Total : {{item.precio * item.cantidad}} </p>
+                                            </div>
+                                            <div class="col-md-1 ">
+                                                <a class="btn btn-red " href="# " ng-click="eliminarItem($index) "><i
+                                                        class="glyphicon glyphicon-trash "></i></a>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                </div>
+                <div class="col-md-2 ">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" name="customCheck" id="agregarIgv" ng-model="agregarimpuesto" ng-change="agregarImpuesto(agregarimpuesto)">
+                        <label> Agregar IGV</label>
+                    </div>
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item ">
+                            <span class="text-light ">Afecto</span><span class="pull-right">{{infoInputs.com_afe = ((getMontoTotalAfecto() / valorIgvConvertido)).toFixed(2)}}</span>
+                        </li>
+                        <li class="list-group-item ">
+                            <span class="text-light ">Inafecto</span><span class="pull-right">{{ infoInputs.com_ina = getMontoTotalInafecto().toFixed(misDecimales)}}</span>
+                        </li>
+                        <li class="list-group-item ">
+                            <span class="collapse-title text-warning">Descuento</span>
+                            <span class="pull-right">{{((getMontoDescuento*100) /(getMontoTotalInafecto() + getMontoTotalAfecto())).toFixed(misDecimales)}}
+                                                    %</span>
+                            <span>
+                                            <div class="hidden">
+                                                {{infoInputs.com_totdscto = getMontoDescuento}}
+                                            </div>
+                                            <input type="number" name="getMontoDescuento" id="getMontoDescuento"
+                                            class="form-control" ng-model="getMontoDescuento" min="0"
+                                            max="{{((getMontoTotalInafecto() + getMontoTotalAfecto()).toFixed())}}">
+                                        </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-light">ISC</span><span class="pull-right">0</span>
+                        </li>
+                        <li class="list-group-item ">
+                            <span class="text-light ">IGV/IVA</span><span class="pull-right ng-binding ">{{infoInputs.com_igv = (getMontoIgv(getMontoTotalAfecto())).toFixed(misDecimales)}}</span>
+                        </li>
+                        <li class="list-group-item ">
+                            <span class="text-light ">Documento</span><span class="pull-right ng-binding ">0</span>
+                        </li>
+                        <li class="list-group-item ">
+                            <span class="text-light ">Percepción</span><span class="pull-right ">0</span>
+                        </li>
+                        <li class="list-group-item ">
+                            <span class="text-dark ">Total a Pagar</span><span class="pull-right text-primary ng-binding ">{{infoInputs.com_totdoc = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+
+            <div class="row ">
+                <!-- <div class="ui toggle checkbox">
+                        <input type="checkbox" name="customCheck" id="agregarIgv" ng-model="agregarimpuesto" ng-change="agregarImpuesto(agregarimpuesto)">
+                        <label> Agregar IGV</label>
+                    </div> -->
+                <!-- <div class="checkbox clip-check check-primary check-lg checkbox-inline ">
+                            <input type="checkbox " id="checkbox18 " id="agregarIgv " ng-model="agregarimpuesto " ng-change="agregarImpuesto(agregarimpuesto) ">
+                            <label for="checkbox18 ">
+                                            Agregar IGV
+                                        </label>
+                
+                        </div> -->
+            </div>
+        </div>
+    </div>
+</form>

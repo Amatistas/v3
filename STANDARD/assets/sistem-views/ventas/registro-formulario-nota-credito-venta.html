@@ -1,0 +1,212 @@
+<form id="formulario_core" name="form" novalidate>
+    <div ng-controller="SelectCtrl">
+        <div class="modal-header" ng-controller="itemsCtrl">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-disabled="form.$error.required"
+                        ng-click="guardarNotaCredito()">Guardar</button>
+                    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                            class="ti-close"></i></button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h3>NOTA DE CRÉDITO</h3>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="modal-body">
+                <div ng-controller="itemsCtrl">
+                    <div class="row" style="background-color: #eee;">
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-1">
+                                        <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                            Documento
+                                        </label>
+                                        <select disabled class="ui fluid dropdown" required
+                                            ng-model="infoInputs['td_id']" id="td_id" name="td_id"
+                                            ng-init="fetch = fetchSerializador('NC')">
+                                            <option value="NC">
+                                                NC</option>
+                                        </select>
+                                    </div>
+                                    <div class="hidden">
+                                        {{infoInputs.ven_ser = fetch[0].data[0].tds_ser}}
+                                        {{infoInputs.ven_num = fetch[0].data[0].tds_cor}}
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label for="ven_ser">Serie</label>
+                                        <input type="text" class="form-control" id="ven_ser"
+                                            ng-model="infoInputs['ven_ser']" readonly>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label for="ven_num">Numero</label>
+                                        <input type="text" class="form-control" id="ven_num"
+                                            ng-model="infoInputs['ven_num']" readonly>
+                                    </div>
+
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <label for="moneda" readonly
+                                                ng-class="{'text-danger':form.mnd_id.$invalid == true}">
+                                                Moneda
+                                            </label>
+                                            <select disabled class="ui fluid dropdown"
+                                                required ng-model="infoInputs['mnd_id']" id="mnd_id" name="mnd_id"
+                                                ng-init="buscarOptionSelect(rr.mnd_id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['mnd_id']">
+                                                    {{opt.label}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <label for="lp_id" ng-class="{'text-danger':form.lp_id.$invalid == true }">
+                                            Lista de Precio
+                                        </label>
+                                        <select disabled ng-model="infoInputs['lp_id']" class="ui fluid dropdown"
+                                            id="lp_id" name="lp_id" ng-init="buscarOptionSelect(rr.lp_id)" required>
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">
+                                                {{opt.label}}</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="lp_id">
+                                            Documento Referencia
+                                        </label>
+                                        <input type="text" readonly class="form-control"
+                                            ng-model="infoInputs.NumDocfectado">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="ven_fecemi"
+                                                ng-class="{'text-danger':form.ven_fecemi.$invalid == true }">Fecha De
+                                                Emision</label>
+                                            <div class="">
+                                                <input type="date" name="ven_fecemi" id="ven_fecemi"
+                                                    class="form-control" ng-model="infoInputs['ven_fecemi']"
+                                                    ng-required="true" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="cd_alm" ng-class="{'text-danger':form.cd_alm.$invalid == true}">
+                                                Almacén
+                                            </label>
+                                            <select disabled class="ui fluid dropdown" required
+                                                ng-model="infoInputs['cd_alm']" id="cd_alm" name="cd_alm"
+                                                ng-init="buscarOptionSelect(rr.cd_alm)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['cd_alm']">
+                                                    {{opt.label}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CodMotivo"
+                                                ng-class="{'text-danger':form.CodMotivo.$invalid == true}">
+                                                Motivo De Nota de Crédito
+                                            </label>
+                                            <select ng-required required class="ui fluid dropdown" 
+                                                ng-model="infoInputs['CodMotivo']" id="CodMotivo" name="CodMotivo"
+                                                ng-init="buscarOptionSelect(rr.CodMotivo)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['CodMotivo']">
+                                                    {{opt.label}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="ane_alias">Cliente</label>
+                                        <input type="text" class="form-control" id="ane_alias"
+                                            ng-model="infoInputs['ane_alias']" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row " style="margin-top: 15px;">
+                    <div class="col-md-10" style="height: 300px; overflow-y: scroll;">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="center">NRO</th>
+                                    <!--   <th class="center">TIP</th> -->
+                                    <th>DESCRIPCIÓN</th>
+                                    <th class="col-md-2">CANTIDAD</th>
+                                    <th class="col-md-2">PRECIO</th>
+                                    <th class="col-md-2">TOTAL</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in itemListVentas" class="">
+                                    <td class="center">{{item.ven_position_obj = ($index + 1)}}</td>
+                                    <!-- <td>{{item.pro_tip}}</td> -->
+                                    <td>{{item.pro_nom}} {{item.pst_nom}}</td>
+                                    <td class="col-md-2">
+                                        <input type="text " class="form-control" ng-model="item.vd_can"
+                                            ng-blind="item.vd_can" id="vd_can" readonly>
+                                    </td>
+                                    <td class="col-md-2">
+                                        <input type="text " class="form-control" ng-model="item.vd_pre"
+                                            ng-blind="item.vd_pre" id="vd_pre" readonly>
+                                    </td>
+                                    <td class="col-md-2">
+                                        {{item.vd_pre * item.vd_can | number:2}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pre>
+                            {{infoInputs | json}}
+                        </pre>
+                    </div>
+                    <div class="col-md-2">
+                        <ul class="list-group list-group-flush ">
+                            <li class="list-group-item ">
+                                <span class="text-light ">Afecto</span><span
+                                    class="pull-right">{{infoInputs.ven_afe | number:2}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">Inafecto</span><span
+                                    class="pull-right">{{infoInputs.ven_ina | number:2}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="text-light">ISC</span><span
+                                    class="pull-right">{{infoInputs.ven_isc | number:2}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">IGV/IVA</span><span
+                                    class="pull-right ng-binding ">{{infoInputs.ven_igv | number:2}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">Documento</span><span
+                                    class="pull-right ng-binding ">{{infoInputs.ven_totdoc | number:2}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">Percepción</span><span
+                                    class="pull-right ">{{infoInputs.ven_per | number:2}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-dark ">Total Documento</span>
+                                <span class="pull-right text-primary">{{infoInputs.ven_totdoc | number:2}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row ">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

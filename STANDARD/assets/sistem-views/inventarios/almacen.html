@@ -1,0 +1,199 @@
+<div class="container" ng-controller="almacenStockCtrl as showCase">
+    <div ng-controller="AsideModalTransaccionCtrl">
+        <div class="ui secondary menu">
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.productoyservicios')}" ui-sref="app.inventario.productoyservicios">
+                <span class="title" translate="sidebar.nav.inventarios.PRODUCTOSYSERVICIOS">Productos y Servicios</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.listaprecios')}" ui-sref="app.inventario.listaprecios">
+                <span class="title" translate="sidebar.nav.inventarios.LISTADEPRECIOS">Lista de Precio</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.stock')}" ui-sref="app.inventario.stock">
+                <span class="title">Stock</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.movimientoAlamcen')}" ui-sref="app.inventario.movimientoAlamcen">
+                <span class="title">Almacén</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.traslado')}" ui-sref="app.inventario.traslado">
+                <span class="title">Operaciones de Inventario</span>
+            </a>
+            <div class="right menu">
+                <div ncy-breadcrumb></div>
+            </div>
+        </div>
+        <!-- start: PAGE TITLE -->
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <h1 class="ui header">Stock
+                </h1>
+                
+            </div>
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="btn-group dropdown pull-right" uib-dropdown="" is-open="status.isopen">
+                    <button type="button" class=" btn btn-lg text-white btn btn-wide"
+                        style="background-color:#002350; border-radius: 50px;" uib-dropdown-toggle=""
+                        ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+                      Reportes <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a ng-click="()">
+                                Kardex
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="()">
+                               Kardex Resumido
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="reporteUtilidad()">
+                               Reporte de Utilidad
+                            </a>
+                        </li>
+              
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-12">
+
+            <div class="row">
+                <div ng-app="main" class="panel panel-white">
+                    <div class="panel-body">
+                        <a ng-click="showCase.changeData()" class="btn btn-wide btn-primary btn-squared">
+                            change<i class="fa fa-refresh"></i>
+                        </a>
+                        <a ng-click="showCase.reloadData()" class="btn btn-wide btn-primary btn-squared">
+                            Reload <i class="fa fa-refresh"></i>
+                        </a>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="ui table" width="100%" datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
+                <i class="fa fa-refresh"></i>&nbsp;recargar
+            </button>
+            <div class="table-responsive">
+                <table class="table dataTable no-footer dt-checkboxes-select" width="100%" datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
+            </div> -->
+        </div>
+        <!-- end: CELL AND ROW TEMPLATE -->
+        <!-- start: INLINE EDIT EXAMPLE -->
+        <!--    <div ng-app="main" ng-controller="DemoCtrl">
+            <a popover-placement="right"
+                uib-popover-template="'assets/sistem-views/compras/filtro-de-tabla-compras.html'"
+                popover-trigger="mouseenter" class="btn btn-wide btn-primary btn-squared">
+                Filtros <i class="fa fa-angle-right"></i>
+            </a>
+            <table ng-table="tableParams" show-filter="false" class="table table-responive">
+                <tr ng-repeat="user in data" ng-class="{ 'active': user.pagoEstatus == 'Por pagar'}">
+                    <td width="10" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+                        <input type="checkbox" ng-model="checkboxes.items[user.id]" />
+                    </td>
+                    <td data-title="'ID'" sortable="id" ng-if="tamanoPantalla > 780">
+                        {{user.id}}
+                    </td>
+                    <td data-title="'Fecha'" sortable="fecha" ng-if="tamanoPantalla > 780">
+                        {{user.fecha}}
+                    </td>
+                    <td data-title="'Documento'" sortable="documento" ng-if="tamanoPantalla > 780">
+                        {{user.documento}}
+                    </td>
+                    <td data-title="'Tipo'" sortable="tipo" ng-if="tamanoPantalla > 780">
+                        {{user.tipo}}
+                    </td>
+                    <td data-title="'Nro. de Documento'" sortable="nro">
+                        {{user.nro}}
+                    </td>
+                    <td data-title="'Proveedores'" sortable="proveedor">
+                        {{user.proveedor}}
+                    </td>
+                    <td data-title="'Cent. de Costo'" sortable="ccost" ng-if="tamanoPantalla > 780">
+                        {{user.centroCosto}}
+                    </td>
+                    <td data-title="'Area'" sortable="area" ng-if="tamanoPantalla > 780">
+                        {{user.area}}
+                    </td>
+                    <td data-title="'Total'" sortable="total">
+                        {{user.total}}
+                    </td>
+                    <td data-title="'Estatus'" sortable="pagoEstatus" ng-if="tamanoPantalla > 780">
+                        {{user.pagoEstatus}}
+                    </td>
+                    <td class="" ng-if="user.pagoEstatus == 'Por pagar'">
+                        <div class="btn-group dropup" uib-dropdown="">
+                            <button type="button" class="btn btn-link" ng-click="realizarPagosIn(user.id)">
+                                Realizar Pago
+                            </button>
+                            <button type="button" class="btn btn-link dropdown-toggle" uib-dropdown-toggle=""
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-angle-up"></i>
+                                <span class="sr-only">Ver / Editar</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#">
+                                        Ver / Editar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Copiar
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        Eliminar
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="" ng-if="user.pagoEstatus == 'Pagado'">
+                        <div class="btn-group dropup" uib-dropdown="">
+                            <button type="button" class="btn btn-link">
+                                Ver / Editar
+                            </button>
+                            <button type="button" class="btn btn-link dropdown-toggle" uib-dropdown-toggle=""
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-angle-up"></i>
+                                <span class="sr-only">Ver / Editar</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#">
+                                        Imprimir
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Copiar
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        Nota de Crédito
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <script type="text/ng-template " id="ng-table/headers/checkbox.html ">
+            <input type="checkbox " ng-model="checkboxes.checked " id="select_all " name="filter-checkbox " value=" " />
+        </script>
+        </div> -->
+    </div>
+</div>

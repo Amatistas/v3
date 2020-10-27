@@ -1,0 +1,170 @@
+
+create view getcompras as
+SELECT * FROM 
+( SELECT det_com_id, sum(cd_pre * (cd_can - nota_cre)) AS TotalCompra FROM compra_det GROUP BY det_com_id)T1 
+left JOIN (SELECT pa_com_id, sum(pag_tot) AS TotalPago FROM pago_pago GROUP BY pa_com_id)T2 ON T1.det_com_id = T2.pa_com_id 
+ JOIN (SELECT CONCAT(td_id," ",com_ser," ",com_num) as Documentos,com_fecdoc,com_id,ane_alias,compra.alm_id,alm_nom,to_nom,com_dt,com_dom_pro,td_id FROM compra  JOIN anexo ON anexo.ane_id=compra.ane_id  left JOIN almacen_info ON almacen_info.alm_id=compra.alm_id JOIN tipo_operacion ON tipo_operacion.to_id=compra.to_id)T3 
+ON T1.det_com_id = T3.com_id left JOIN (SELECT SUM(import_cc) AS import_cc,cen_com_id FROM cuenta_cobrar GROUP BY cen_com_id)T4 ON T4.cen_com_id = T3.com_id 
+  
+
+
+create view vistaalmacen as
+
+select distinct pro_nom,alm_nom,stock,presentacion.pst_id,alm_dir,departamento,provincia,distrito from   almacen join producto_pro on producto_pro.pro_id = almacen.id_pro 
+join almacen_info on almacen_info.alm_id = almacen.id_almac_info 
+join presentacion on presentacion.id = almacen.present 
+left join ubigeo on ubigeo.ubi_id = almacen_info.ubi_id
+  
+
+
+
+
+create movimiento_almacen as
+SELECT id_alm_mov,DATE_FORMAT(fecha_mov, "%d/%m/%Y") as fecha_mov,alm_nom,cantidad,pro_nom,to_nom,tipo_operacion.to_id FROM almacen_movi left JOIN compra_det ON compra_det.com_id = almacen_movi.id_com_det 
+JOIN compra ON compra.com_id=compra_det.det_com_id
+JOIN almacen_info ON almacen_info.alm_id=almacen_movi.id_almacen
+JOIN producto_pro ON producto_pro.pro_id = compra_det.cd_pro_id
+JOIN tipo_operacion ON tipo_operacion.to_id = compra.to_id
+
+UNION ALL 
+
+SELECT id_alm_mov,DATE_FORMAT(fecha_mov, "%d/%m/%Y") as fecha_mov,alm_nom,cantidad,pro_nom,to_nom,tipo_operacion.to_id FROM almacen_movi left JOIN venta_det ON venta_det.ven_id = almacen_movi.id_ven_det
+JOIN venta ON venta.ven_id = venta_det.venta_id
+JOIN almacen_info ON almacen_info.alm_id = almacen_movi.id_almacen
+JOIN producto_pro ON producto_pro.pro_id = venta_det.vt_pro_id
+JOIN tipo_operacion ON tipo_operacion.to_id = venta.to_id
+
+
+
+
+
+
+create view cabeceraasiento as
+SELECT T1.re_com_id,T2.ane_alias,T2.tip_asi,T1.id,T2.to_nom,CONCAT(T2.td_id," - ",T2.com_ser," - ",T2.com_num) AS Documento,CONCAT("00",T1.reg_cod) AS Nroasiento,T1.reg_fec AS Fecha,T1.mnd_id AS Moneda,T2.com_totdoc AS Total,CONCAT(T2.per_nom," ",T2.per_apepat) AS usuario FROM (SELECT * FROM registro)T1 JOIN (SELECT td_id,com_ser,com_num,com_id,com_totdoc,usu_id,compra.emp_id,per_nom,per_apepat,per_apemat,to_nom,ane_alias,tip_asi FROM compra JOIN anexo ON anexo.ane_id=compra.ane_id JOIN personal ON personal.per_id=compra.usu_id JOIN tipo_operacion ON tipo_operacion.to_id=compra.to_id)T2 ON T1.re_com_id = T2.com_id
+
+
+
+create view detalleasiento as
+SELECT rd_num,reg_id AS idcabecera,plan_cuenta.cta_id,cta_nom,rd_imp AS monto,d_h from registro_det JOIN plan_cuenta ON plan_cuenta.id=registro_det.cta_id
+
+
+
+CREATE VIEW getventas as
+
+SELECT * FROM (SELECT anexo.ane_id,ven_id,ane_alias AS cliente,to_nom,CONCAT(td_id," ",ven_ser," ",ven_num) AS documento,ven_fecreg FROM venta JOIN anexo ON anexo.ane_id = venta.ane_id JOIN tipo_operacion ON tipo_operacion.to_id = venta.to_id)T1 
+JOIN (SELECT SUM(vd_pre * vd_can) AS total,venta_id FROM venta_det JOIN venta ON venta.ven_id = venta_det.venta_id JOIN producto_pro ON producto_pro.pro_id = venta_det.vt_pro_id  GROUP BY venta_id)T2 ON T1.ven_id =  T2.venta_id
+
+
+
+CREATE VIEW asientovalor as
+
+select T1.det_com_id AS NroCompra,T2.tip_pro_id AS tip_pro_id,T2.tip_pro_desc AS tip_pro_desc,sum(T1.cd_impdes * T1.cd_can) AS totalcompra,T2.id AS IdPlanCuenta,T2.cta_id AS cta_id,T2.cta_nom AS cta_nom FROM 
+(select compra_det.det_com_id AS det_com_id,compra_det.cd_pro_id AS cd_pro_id,compra_det.cd_impdes AS cd_impdes,compra_det.cd_can AS cd_can from compra_det)T1 JOIN 
+(select producto_pro.pro_id AS pro_id,tipo_producto.tip_pro_desc AS tip_pro_desc,tipo_producto.tip_pro_id AS tip_pro_id,plan_cuenta.cta_id AS cta_id,plan_cuenta.cta_nom AS cta_nom,plan_cuenta.id AS id from producto_pro join tipo_producto ON tipo_producto.tip_pro_id = producto_pro.pro_tip join plan_cuenta on plan_cuenta.id = tipo_producto.cuenta_contable)T2 ON T1.cd_pro_id = T2.pro_id group by T2.tip_pro_id,T1.det_com_id
+
+
+create view clientevista as
+
+select anexo.ane_id AS ane_id,tabla_sunat_contabilidad.tsc_des AS tsc_des,anexo.ane_numdoc AS ane_numdoc,anexo.ane_alias AS ane_alias,anexo.ane_tel AS ane_tel,anexo.ane_email AS ane_email from anexo join tabla_sunat_contabilidad ON tabla_sunat_contabilidad.id = anexo.ane_tipdoc where anexo.ane_tipo_cp = 1
+
+
+
+
+create view getclientes as
+select anexo.ane_id AS ane_id,anexo.ane_tipdoc AS ane_tipdoc,anexo.ane_numdoc AS ane_numdoc,anexo.ane_razsoc AS ane_razsoc,anexo.ane_alias AS ane_alias,anexo.ane_nom AS ane_nom,anexo.ane_apepat AS ane_apepat,anexo.ane_apemat AS ane_apemat,anexo.ane_dir AS ane_dir,anexo.ubi_id AS ubi_id,anexo.ane_not AS ane_not,anexo.ane_tel AS ane_tel,anexo.ane_email AS ane_email,anexo.ane_tel2 AS ane_tel2,anexo.alias AS alias,anexo.ane_banco AS ane_banco,anexo.ane_num_cue AS ane_num_cue,anexo.ane_lim_cred AS ane_lim_cred,anexo.ane_tipo_cp AS ane_tipo_cp from anexo where anexo.ane_tipo_cp = 1
+
+
+
+
+CREATE VIEW getfiltroporpagar as
+
+select T1.det_com_id AS det_com_id,T1.TotalCompra AS TotalCompra,T2.pa_com_id AS pa_com_id,T2.TotalPago AS TotalPago,T3.Documentos AS Documentos,T3.com_fecdoc AS com_fecdoc,T3.com_id AS com_id,T3.ane_alias AS ane_alias,T3.alm_id AS alm_id,T3.alm_nom AS alm_nom,T3.to_nom AS to_nom,T3.com_dt AS com_dt,T3.com_dom_pro AS com_dom_pro,T3.td_id AS td_id,T4.import_cc AS import_cc,T4.cen_com_id AS cen_com_id FROM 
+(select compra_det.det_com_id AS det_com_id,sum(compra_det.cd_pre * (compra_det.cd_can - compra_det.nota_cre)) AS TotalCompra from compra_det group by compra_det.det_com_id)T1 
+left join (select pago_pago.pa_com_id AS pa_com_id,sum(pago_pago.pag_tot) AS TotalPago from pago_pago group by pago_pago.pa_com_id)T2 ON T1.det_com_id = T2.pa_com_id JOIN 
+(select concat(compra.td_id,' ',compra.com_ser,' ',compra.com_num) AS Documentos,compra.com_fecdoc AS com_fecdoc,compra.com_id AS com_id,anexo.ane_alias AS ane_alias,compra.alm_id AS alm_id,almacen_info.alm_nom AS alm_nom,tipo_operacion.to_nom AS to_nom,compra.com_dt AS com_dt,compra.com_dom_pro AS com_dom_pro,compra.td_id AS td_id from compra join anexo ON anexo.ane_id = compra.ane_id left join almacen_info ON almacen_info.alm_id = compra.alm_id join tipo_operacion ON tipo_operacion.to_id = compra.to_id)T3 ON T1.det_com_id = T3.com_id left JOIN 
+(select sum(cuenta_cobrar.import_cc) AS import_cc,cuenta_cobrar.cen_com_id AS cen_com_id from cuenta_cobrar group by cuenta_cobrar.cen_com_id)T4 ON T4.cen_com_id = T3.com_id  where T2.TotalPago IS NULL or T2.TotalPago < T1.TotalCompra
+
+
+CREATE VIEW getpersonal as
+select personal.per_id AS per_id,concat(personal.per_nom,' ',personal.per_apepat,' ',personal.per_apemat) AS personal from personal
+
+
+CREATE VIEW getproveedores as
+select anexo.ane_id AS ane_id,anexo.ane_tipdoc AS ane_tipdoc,anexo.ane_numdoc AS ane_numdoc,anexo.ane_razsoc AS ane_razsoc,anexo.ane_alias AS ane_alias,anexo.ane_nom AS ane_nom,anexo.ane_apepat AS ane_apepat,anexo.ane_apemat AS ane_apemat,anexo.ane_dir AS ane_dir,anexo.ubi_id AS ubi_id,anexo.ane_not AS ane_not,anexo.ane_tel AS ane_tel,anexo.ane_email AS ane_email,anexo.ane_tel2 AS ane_tel2,anexo.alias AS alias,anexo.ane_banco AS ane_banco,anexo.ane_num_cue AS ane_num_cue,anexo.ane_lim_cred AS ane_lim_cred,anexo.ane_tipo_cp AS ane_tipo_cp from anexo where anexo.ane_tipo_cp = 2
+
+CREATE VIEW movimiento_almacen_stock as
+
+select compra_det.com_id AS com_id,compra_det.cd_num AS cd_num,compra_det.pro_cod AS pro_cod,compra_det.cd_can AS cd_can,compra_det.pst_id AS pst_id,compra_det.cd_fac AS cd_fac,compra_det.cd_desT AS cd_desT,compra_det.cd_bar AS cd_bar,compra_det.cd_pre AS cd_pre,compra_det.cd_impdes AS cd_impdes,compra_det.cd_imptot AS cd_imptot,compra_det.cd_igv AS cd_igv,compra_det.cd_gra AS cd_gra,compra_det.lp_id AS lp_id,compra_det.cd_ina AS cd_ina,compra_det.cd_isc AS cd_isc,compra_det.det_com_id AS det_com_id,compra_det.cd_pro_id AS cd_pro_id,compra_det.cc_id AS cc_id,compra_det.nota_cre AS nota_cre,compra_det.cd_alm AS cd_alm,almacen_movi.id_alm_mov AS id_alm_mov,almacen_movi.fecha_mov AS fecha_mov,almacen_movi.id_com_det AS id_com_det,almacen_movi.id_ven_det AS id_ven_det,almacen_movi.cantidad AS cantidad,almacen_movi.id_almacen AS id_almacen,almacen.id AS id,almacen.id_pro AS id_pro,almacen.id_almac_info AS id_almac_info,almacen.stock AS stock,almacen.present AS present,almacen_info.alm_id AS alm_id,almacen_info.alm_nom AS alm_nom,almacen_info.emp_id AS emp_id,almacen_info.loc_id AS loc_id,almacen_info.alm_cod AS alm_cod,almacen_info.per_id AS per_id,almacen_info.alm_dir AS alm_dir,almacen_info.ubi_id AS ubi_id,almacen_info.alm_tel AS alm_tel,almacen_info.alm_lat AS alm_lat,almacen_info.alm_lon AS alm_lon,almacen_info.alm_con AS alm_con,almacen_info.alm_est AS alm_est from almacen_movi left join compra_det on almacen_movi.id_com_det = compra_det.com_id join almacen on almacen.id_pro = compra_det.cd_pro_id join almacen_info on almacen_info.alm_id = almacen.id_almac_info where compra_det.com_id = almacen_movi.id_com_det and almacen_movi.id_almacen = almacen.id_almac_info
+
+
+
+CREATE view puntoventatemporal as
+select T1.ane_id AS ane_id,T1.ven_id AS ven_id,T1.cliente AS cliente,T1.to_nom AS to_nom,T1.documento AS documento,T1.ven_fecreg AS ven_fecreg,T2.total AS total,T2.venta_id AS venta_id FROM 
+(select anexo.ane_id AS ane_id,venta.ven_id AS ven_id,anexo.ane_alias AS cliente,tipo_operacion.to_nom AS to_nom,concat(venta.td_id,' ',venta.ven_ser,' ',venta.ven_num) AS documento,venta.ven_fecreg AS ven_fecreg from venta join anexo ON anexo.ane_id = venta.ane_id join tipo_operacion ON tipo_operacion.to_id = venta.to_id)T1 JOIN 
+(select sum(venta_det.vd_pre * venta_det.vd_can) AS total,venta_det.venta_id AS venta_id FROM venta_det join venta ON venta.ven_id = venta_det.venta_id join producto_pro ON producto_pro.pro_id = venta_det.vt_pro_id group by venta_det.venta_id)T2 ON T1.ven_id = T2.venta_id
+
+
+
+CREATE VIEW vistapagos as
+select pago_pago.pag_numope AS npago,tipo_operacion.to_nom AS operacion,DATE_FORMAT(pag_fecpag, "%d/%m/%Y") as fechapago,pago_pago.pag_tot AS pago,pago_pago.pa_com_id AS id,concat(convert(bancos.ban_des using utf8mb4),' - ',cuenta_banco.ctaban_num) AS banco from pago_pago join compra ON compra.com_id = pago_pago.pa_com_id join cuenta_banco ON cuenta_banco.ctaban_id = pago_pago.ban_id join tipo_operacion ON tipo_operacion.to_id = pago_pago.to_id join bancos ON bancos.ban_id = cuenta_banco.ban_id
+
+CREATE VIEW vista_compra_det as
+select compra.com_id AS com_id,concat(compra.td_id,' ',compra.com_ser,' ',compra.com_num) AS documento,DATE_FORMAT(com_fecdoc, "%d/%m/%Y") AS com_fecdoc,anexo.ane_razsoc AS ane_razsoc,anexo.ane_alias AS ane_alias,anexo.ane_dir AS ane_dir,ubigeo.departamento AS departamento,ubigeo.provincia AS provincia,ubigeo.distrito AS distrito,anexo.ane_tel AS ane_tel,anexo.ane_email AS ane_email from compra join anexo ON anexo.ane_id = compra.ane_id join ubigeo ON ubigeo.ubi_id = anexo.ubi_id
+
+
+
+CREATE VIEW getproductos as
+select producto_pro.pro_id AS pro_id,producto_pro.emp_id AS emp_id,producto_pro.ofi_id AS ofi_id,producto_pro.pro_cod AS pro_cod,producto_pro.pro_codalt AS pro_codalt,producto_pro.pro_nom AS pro_nom,producto_pro.pst_id AS pst_id,producto_pro.pst_aux AS pst_aux,producto_pro.pro_fac AS pro_fac,producto_pro.mar_id AS mar_id,producto_pro.lin_id AS lin_id,producto_pro.cat_id AS cat_id,producto_pro.scat_id AS scat_id,producto_pro.pro_igv AS pro_igv,producto_pro.pro_isc AS pro_isc,producto_pro.pro_est AS pro_est,producto_pro.pro_ina AS pro_ina,producto_pro.pro_sal AS pro_sal,producto_pro.pro_tip AS pro_tip,producto_pro.pro_detraccion AS pro_detraccion,producto_pro.pro_cta AS pro_cta,producto_pro.pro_pre AS pro_pre,producto_pro.pro_bar AS pro_bar,producto_pro.pro_pes AS pro_pes,producto_pro.pro_coddig AS pro_coddig,producto_pro.pro_regsan AS pro_regsan,producto_pro.pro_tir AS pro_tir,producto_pro.pro_stomin AS pro_stomin,producto_pro.pro_stomax AS pro_stomax,producto_pro.pro_ubi AS pro_ubi,producto_pro.pro_fecven AS pro_fecven,producto_pro.pro_recmed AS pro_recmed,producto_pro.apl_id AS apl_id,producto_pro.act_fijo_id AS act_fijo_id,producto_pro.pro_modelo AS pro_modelo,producto_pro.pro_serie AS pro_serie,producto_pro.pro_centro_cos AS pro_centro_cos,producto_pro.pro_area AS pro_area,producto_pro.pro_cost_af AS pro_cost_af,producto_pro.pro_grup_af AS pro_grup_af,producto_pro.pro_vida_util AS pro_vida_util,producto_pro.pro_grup_dep AS pro_grup_dep,producto_pro.pro_porc_dep AS pro_porc_dep,producto_pro.pro_val_res AS pro_val_res,producto_pro.pro_financ AS pro_financ,producto_pro.pro_revalo AS pro_revalo,producto_pro.pro_depre AS pro_depre,producto_pro.pro_amort AS pro_amort,producto_pro.pro_met_dep AS pro_met_dep,producto_pro.pro_met_amor AS pro_met_amor,producto_pro.pro_user AS pro_user,tipo_producto.tip_pro_id AS tip_pro_id,tipo_producto.tip_pro_desc AS tip_pro_desc,tipo_producto.cuenta_contable AS cuenta_contable,tipo_producto.pad AS pad,tipo_producto.d_h AS d_h from producto_pro join tipo_producto ON producto_pro.pro_tip = tipo_producto.tip_pro_id
+
+
+create view getbancoscuenta as
+select bancos.ban_id AS ban_id,CONCAT(ban_des ,' - ',ctaban_num ) AS banco from bancos join cuenta_banco ON cuenta_banco.ban_id = bancos.ban_id
+
+
+
+
+CREATE VIEW asientoalmacen as
+select T1.det_com_id AS NroCompra,T2.tip_pro_id AS tip_pro_id,T2.tip_pro_desc AS tip_pro_desc,sum(T1.cd_impdes * T1.cd_can) AS totalcompra,T2.id AS IdPlanCuenta,T2.cta_id AS cta_id,T2.cta_nom AS cta_nom FROM 
+(select compra_det.det_com_id AS det_com_id,compra_det.cd_pro_id AS cd_pro_id,compra_det.cd_impdes AS cd_impdes,compra_det.cd_can AS cd_can from compra_det)T1 JOIN 
+(select producto_pro.pro_id AS pro_id,tipo_producto.tip_pro_desc AS tip_pro_desc,tipo_producto.tip_pro_id AS tip_pro_id,plan_cuenta.cta_id AS cta_id,plan_cuenta.cta_nom AS cta_nom,plan_cuenta.id AS id from producto_pro join tipo_producto ON tipo_producto.tip_pro_id = producto_pro.pro_tip join plan_cuenta ON plan_cuenta.id = tipo_producto.cuenta_producto)T2 ON T1.cd_pro_id = T2.pro_id group by T2.tip_pro_id,T1.det_com_id
+
+CREATE VIEW asientoalmacen2 as
+select T1.det_com_id AS NroCompra,T2.tip_pro_id AS tip_pro_id,T2.tip_pro_desc AS tip_pro_desc,sum(T1.cd_impdes * T1.cd_can) AS totalcompra,T2.id AS IdPlanCuenta,T2.cta_id AS cta_id,T2.cta_nom AS cta_nom FROM 
+(select compra_det.det_com_id AS det_com_id,compra_det.cd_pro_id AS cd_pro_id,compra_det.cd_impdes AS cd_impdes,compra_det.cd_can AS cd_can from compra_det)T1 JOIN 
+(select producto_pro.pro_id AS pro_id,tipo_producto.tip_pro_desc AS tip_pro_desc,tipo_producto.tip_pro_id AS tip_pro_id,plan_cuenta.cta_id AS cta_id,plan_cuenta.cta_nom AS cta_nom,plan_cuenta.id AS id from producto_pro join tipo_producto ON tipo_producto.tip_pro_id = producto_pro.pro_tip join plan_cuenta ON plan_cuenta.id = tipo_producto.cuenta_almacen)T2 ON T1.cd_pro_id = T2.pro_id group by T2.tip_pro_id,T1.det_com_id
+
+
+
+
+
+CREATE VIEW asientoalmacencompraasociada as
+select T1.det_com_id AS NroCompra,T2.tip_pro_id AS tip_pro_id,T2.tip_pro_desc AS tip_pro_desc,sum(T1.cd_impdes * T1.cd_can) AS totalcompra,T2.id AS IdPlanCuenta,T2.cta_id AS cta_id,T2.cta_nom AS cta_nom FROM 
+(select compra_det.det_com_id AS det_com_id,compra_det.cd_pro_id AS cd_pro_id,compra_det.cd_impdes AS cd_impdes,compra_det.cd_can AS cd_can from compra_det)T1 JOIN 
+(select producto_pro.pro_id AS pro_id,tipo_producto.tip_pro_desc AS tip_pro_desc,tipo_producto.tip_pro_id AS tip_pro_id,plan_cuenta.cta_id AS cta_id,plan_cuenta.cta_nom AS cta_nom,plan_cuenta.id AS id from producto_pro join tipo_producto ON tipo_producto.tip_pro_id = producto_pro.pro_tip join plan_cuenta ON plan_cuenta.id = tipo_producto.cuenta_almacen_imp)T2 ON T1.cd_pro_id = T2.pro_id group by T2.tip_pro_id,T1.det_com_id
+
+
+
+
+
+
+CREATE VIEW asientoalmacencompraasociada2 as
+select T1.det_com_id AS NroCompra,T2.tip_pro_id AS tip_pro_id,T2.tip_pro_desc AS tip_pro_desc,sum(T1.cd_impdes * T1.cd_can) AS totalcompra,T2.id AS IdPlanCuenta,T2.cta_id AS cta_id,T2.cta_nom AS cta_nom from (select compra_det.det_com_id AS det_com_id,compra_det.cd_pro_id AS cd_pro_id,compra_det.cd_impdes AS cd_impdes,compra_det.cd_can AS cd_can from compra_det)T1 join (select producto_pro.pro_id AS pro_id,tipo_producto.tip_pro_desc AS tip_pro_desc,tipo_producto.tip_pro_id AS tip_pro_id,plan_cuenta.cta_id AS cta_id,plan_cuenta.cta_nom AS cta_nom,plan_cuenta.id AS id from producto_pro join tipo_producto ON tipo_producto.tip_pro_id = producto_pro.pro_tip join plan_cuenta ON plan_cuenta.id = tipo_producto.cuenta_producto_imp)T2 ON T1.cd_pro_id = T2.pro_id group by T2.tip_pro_id,T1.det_com_id
+
+
+
+
+CREATE VIEW asientoalmacenimport as
+select T1.det_com_id AS NroCompra,T2.tip_pro_id AS tip_pro_id,T2.tip_pro_desc AS tip_pro_desc,sum(T1.cd_pre * T1.cd_can) AS totalcompra,T2.id AS IdPlanCuenta,T2.cta_id AS cta_id,T2.cta_nom AS cta_nom from (select compra_det.det_com_id AS det_com_id,compra_det.cd_pro_id AS cd_pro_id,compra_det.cd_pre AS cd_pre,compra_det.cd_can AS cd_can from compra_det) T1 join (select producto_pro.pro_id AS pro_id,tipo_producto.tip_pro_desc AS tip_pro_desc,tipo_producto.tip_pro_id AS tip_pro_id,plan_cuenta.cta_id AS cta_id,plan_cuenta.cta_nom AS cta_nom,plan_cuenta.id AS id from producto_pro join tipo_producto ON tipo_producto.tip_pro_id = producto_pro.pro_tip join plan_cuenta ON plan_cuenta.id = tipo_producto.cuenta_almacen_imp)T2 ON T1.cd_pro_id = T2.pro_id group by T2.tip_pro_id,T1.det_com_id
+
+
+CREATE VIEW asientoalmacenimport2 AS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+select T1.det_com_id AS NroCompra,T2.tip_pro_id AS tip_pro_id,T2.tip_pro_desc AS tip_pro_desc,sum(T1.cd_pre * T1.cd_can) AS totalcompra,T2.id AS IdPlanCuenta,T2.cta_id AS cta_id,T2.cta_nom AS cta_nom from (select compra_det.det_com_id AS det_com_id,compra_det.cd_pro_id AS cd_pro_id,compra_det.cd_pre AS cd_pre,compra_det.cd_can AS cd_can from compra_det)T1 join (select producto_pro.pro_id AS pro_id,tipo_producto.tip_pro_desc AS tip_pro_desc,tipo_producto.tip_pro_id AS tip_pro_id,plan_cuenta.cta_id AS cta_id,plan_cuenta.cta_nom AS cta_nom,plan_cuenta.id AS id from producto_pro join tipo_producto ON tipo_producto.tip_pro_id = producto_pro.pro_tip join plan_cuenta ON plan_cuenta.id = tipo_producto.cuenta_producto_imp)T2 ON T1.cd_pro_id = T2.pro_id group by T2.tip_pro_id,T1.det_com_id
+
+
+
+
+CREATE VIEW asientoproductoimport as
+select T1.det_com_id AS NroCompra,T2.tip_pro_id AS tip_pro_id,T2.tip_pro_desc AS tip_pro_desc,sum(T1.cd_pre * T1.cd_can) AS totalcompra,T2.id AS IdPlanCuenta,T2.cta_id AS cta_id,T2.cta_nom AS cta_nom from (select compra_det.det_com_id AS det_com_id,compra_det.cd_pro_id AS cd_pro_id,compra_det.cd_pre AS cd_pre,compra_det.cd_can AS cd_can from compra_det) T1 join (select producto_pro.pro_id AS pro_id,tipo_producto.tip_pro_desc AS tip_pro_desc,tipo_producto.tip_pro_id AS tip_pro_id,plan_cuenta.cta_id AS cta_id,plan_cuenta.cta_nom AS cta_nom,plan_cuenta.id AS id from producto_pro join tipo_producto ON tipo_producto.tip_pro_id = producto_pro.pro_tip join plan_cuenta ON plan_cuenta.id = tipo_producto.cuenta_contable_imp)T2 ON T1.cd_pro_id = T2.pro_id group by T2.tip_pro_id,T1.det_com_id
+
+
+

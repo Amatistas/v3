@@ -1,0 +1,169 @@
+<form name="form" novalidate>
+    <div class="header-modal2">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="ok(infoInputs)">Guardar y Cerrar</button>
+                <button type="button" class="btn btn-link">
+                    <i class="ti-help"></i>
+                </button>
+                <button type="button" class="btn btn-link">
+                    <i class="ti-settings"></i>
+                </button>
+                <button type="button" class="btn btn-link" ng-click="cancel($event)">
+                    <i class="ti-close"></i>
+                </button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Activo Fijo</h3>
+    </div>
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+      
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label for="form-field-select-2" ng-class="{'text-danger':form.act_fijo_id.$invalid == true}">
+                        Tipos de Activo Fijo
+                    </label>
+                    <select required ng-model="infoInputs['act_fijo_id']" class="cs-select cs-skin-slide" id="act_fijo_id" name="act_fijo_id" ng-init="buscarOption(rr.act_fijo_id)">
+                        <option value="{{opt.id}}" ng-repeat="opt in units['act_fijo_id']">{{opt.label}}</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="pro_cod" ng-class="{'text-danger':form.pro_cod.$invalid == true}">Código de AF</label>
+                    <input required ng-model="infoInputs['pro_cod']" type="text" class="form-control" name="pro_cod" id="pro_cod">
+                </div>
+                <div class="col-md-4">
+                    <label for="pro_bar">Código de Barra / SKU</label>
+                    <input ng-model="infoInputs['pro_bar']" type="text" class="form-control" name="pro_bar" id="pro_bar">
+                </div>
+                <div class="col-md-6">
+                    <label for="pro_nom" ng-class="{'text-danger':form.pro_nom.$error.required == true}">Descripción</label>
+                    <input required ng-model="infoInputs['pro_nom']" type="text" class="form-control" name="pro_nom" id="pro_nom">
+                </div>
+                <div class="col-md-3">
+                    <label for="form-field-select-2" ng-class="{'text-danger':form.mar_id.$invalid == true}">
+                        Marca
+                    </label>
+                    <select required ng-model="infoInputs['mar_id']" class="cs-select cs-skin-slide" id="mar_id" name="mar_id" ng-init="buscarOption(rr.mar_id)">
+                        <option value="{{opt.id}}" ng-repeat="opt in units['mar_id']">{{opt.label}}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="pro_modelo" ng-class="{'text-danger':form.pro_modelo.$error.required == true}">Modelo</label>
+                    <input required ng-model="infoInputs['pro_modelo']" type="text" class="form-control" name="pro_modelo" id="pro_modelo">
+                </div>
+                <div class="col-md-3">
+                    <label for="pro_serie" ng-class="{'text-danger':form.pro_serie.$error.required == true}">Serie</label>
+                    <input required ng-model="infoInputs['pro_serie']" type="text" class="form-control" name="pro_serie" id="pro_serie">
+                </div>
+                <div class="col-md-3">
+                    <label for="pro_ubi">Ubicación del AF</label>
+                    <input ng-model="infoInputs['pro_ubi']" type="text" class="form-control" name="pro_ubi" id="pro_ubi">
+                </div>
+                <div class="col-md-6">
+                    <label for="form-field-select-2">
+                        Sujeto Asignado
+                    </label>
+                    <select ng-model="infoInputs['pro_user']" class="cs-select cs-skin-slide" id="pro_user" name="pro_user" ng-init="buscarOption(rr.pro_user)">
+                        <option value="{{opt.id}}" ng-repeat="opt in units['pro_user']">{{opt.label}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="pro_cost_af" ng-class="{'text-danger':form.pro_cost_af.$invalid == true}">Costo del AF</label>
+                    <input required ng-model="infoInputs['pro_cost_af']" type="text" class="form-control" name="pro_cost_af" id="pro_cost_af">
+                </div>
+                <div class="col-md-3">
+                    <label for="pro_vida_util">Vida Útil (años)</label>
+                    <input ng-model="infoInputs['pro_vida_util']" type="text" class="form-control" name="pro_vida_util" id="pro_vida_util">
+                </div>
+                <div class="col-md-3">
+                    <label for="pro_porc_dep" ng-class="{'text-danger':form.pro_porc_dep.$invalid == true}">% de Depreciación</label>
+                    <input required ng-model="infoInputs['pro_porc_dep']" type="text" class="form-control" name="pro_porc_dep" id="pro_porc_dep">
+                </div>
+                <div class="col-md-3">
+                    <label for="pro_val_res">Valor Residual</label>
+                    <input ng-model="infoInputs['pro_val_res']" type="text" class="form-control" name="pro_val_res" id="pro_val_res">
+                </div>
+                <div class="col-md-2">
+                    <label for="form-field-select-2">
+                        Financiado
+                    </label>
+                    <select class="cs-select cs-skin-elastic" ng-model="infoInputs['pro_financ']" id="pro_financ" name="pro_financ">
+                        <option value="No">No</option>
+                        <option value="Si">Si</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="form-field-select-2">
+                        Revalorizable
+                    </label>
+
+                    <select class="cs-select cs-skin-elastic" ng-model="infoInputs['pro_revalo']" id="pro_revalo" name="pro_revalo">
+                        <option value="No">No</option>
+                        <option value="Si">Si</option>
+
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="form-field-select-2" ng-class="{'text-danger':form.pro_grup_af.$error.required == true}">
+                        Grupo de Activo Fijo
+                    </label>
+                    <select required ng-model="infoInputs['pro_grup_af']" class="cs-select cs-skin-slide" id="pro_grup_af" name="pro_grup_af" ng-init="buscarOption(rr.pro_grup_af)">
+                        <option value="{{opt.id}}" ng-repeat="opt in units['pro_grup_af']">{{opt.label}}</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label for="form-field-select-2" ng-class="{'text-danger':form.pro_grup_dep.$invalid == true}">
+                        Grupo de Depreciación
+                    </label>
+                    <select required ng-model="infoInputs['pro_grup_dep']" class="cs-select cs-skin-slide" id="pro_grup_dep" name="pro_grup_dep" ng-init="buscarOption(rr.pro_grup_dep)">
+                        <option value="{{opt.id}}" ng-repeat="opt in units['pro_grup_dep']">{{opt.label}}</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label for="form-field-select-2" ng-class="{'text-danger':form.pro_grup_amor.$invalid == true}">
+                        Grupo de Amortización
+                    </label>
+                    <select required ng-model="infoInputs['pro_grup_amor']" class="cs-select cs-skin-slide" id="pro_grup_amor" name="pro_grup_amor" ng-init="buscarOption(rr.pro_grup_dep)">
+                        <option value="{{opt.id}}" ng-repeat="opt in units['pro_grup_amor']">{{opt.label}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="form-field-select-2" ng-class="{'text-danger':form.pro_depre.$invalid == true}">
+                        Depreciable
+                    </label>
+                    <select required class="cs-select cs-skin-elastic" ng-model="infoInputs['pro_depre']" id="pro_depre" name="pro_depre">
+                        <option value="No">No</option>
+                        <option value="Si">Si</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="form-field-select-2" ng-class="{'text-danger':form.pro_amort.$invalid == true}">
+                        Amortizable
+                    </label>
+                    <select required class="cs-select cs-skin-elastic" ng-model="infoInputs['pro_amort']" id="pro_amort" name="pro_amort">
+                        <option value="No">No</option>
+                        <option value="Si">Si</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="form-field-select-2" ng-class="{'text-danger':form.pro_met_dep.$invalid == true}">
+                        Método de Depreciación
+                    </label>
+                    <select required ng-model="infoInputs['pro_met_dep']" class="cs-select cs-skin-slide" id="pro_met_dep" name="pro_met_dep" ng-init="buscarOption(rr.pro_met_dep)">
+                        <option value="{{opt.id}}" ng-repeat="opt in units['pro_met_dep']">{{opt.label}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="form-field-select-2" ng-class="{'text-danger':form.pro_met_amor.$invalid == true}">
+                        Método de Amortización
+                    </label>
+                    <select required ng-model="infoInputs['pro_met_amor']" class="cs-select cs-skin-slide" id="pro_met_amor" name="pro_met_amor" ng-init="buscarOption(rr.pro_met_amor)">
+                        <option value="{{opt.id}}" ng-repeat="opt in units['pro_met_amor']">{{opt.label}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

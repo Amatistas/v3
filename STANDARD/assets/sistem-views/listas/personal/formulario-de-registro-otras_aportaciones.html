@@ -1,0 +1,39 @@
+<form action="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+        <button type="button" class="btn btn-link">
+            <i class="ti-help"></i>
+        </button>
+        <button type="button" class="btn btn-link">
+            <i class="ti-settings"></i>
+        </button>
+        <button type="button" class="btn btn-link" ng-click="cancel($event)">
+            <i class="ti-close"></i>
+        </button>
+    </div>
+    </div>
+        <h3 class="titulo-modal">Otras Aport.s y Desc.s</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+            <pre>
+                {{infoInputs | json}}
+            </pre>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <label for="nro" ng-class="{'text-danger':form.oApyDes_nom.$error.required == true}">Descripción</label>
+                    <input required type="text" class="form-control" id="oApyDes_nom" name="oApyDes_nom" ng-model="infoInputs['oApyDes_nom']">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; align-items: flex-end;">
+        <div role="group" aria-label="tools">
+            <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardaroApyDes(FALTA TABLA)">Guardar</button>
+            <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardaroApyDesycerrar(FALTA TABLA)">Guardar y Cerra</button>
+        </div>
+    </div>
+</form>

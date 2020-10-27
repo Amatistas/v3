@@ -1,0 +1,71 @@
+
+
+
+<style>
+
+    .btn-report{
+     
+        font-size: 20px;
+        text-align:center;
+        padding: 20px 10px;
+        background: #002350 !important;
+        border-radius:10px;
+        transition: 0.3s;
+    }
+    .btn-report:hover{
+        color:#fff;
+        background: #007AFF !important;
+    }
+    .btn-report a{
+        text-decoration: none;
+        color:#fff;
+    }
+    .btn-report a:hover{
+        text-decoration: none;
+        color:#fff;
+    }
+    
+    
+    </style>
+  
+    <div ng-controller="AsideModalTransaccionCtrl"> 
+    
+        <div class="container d-flex justify-content-around">
+        
+            <div class="ui equal width centered grid margin-top-20">
+        
+                <div class="column">
+                        <div class="btn-report">
+                        <a ui-sref="app.compras.listaVentasscobrar">
+                            <i class="fa fa-abacus"></i>
+                            <p>
+                               Facturas por Cobrar
+                            </p>              
+                        </a>  
+                        </div> 
+                </div>
+                <div class="column">
+                        <div class="btn-report">
+                        <a ng-click="reporteVentas()">
+                            <i class="fa fa-hand-holding-usd"></i>
+                            <p>
+                                Prestamos por Cobrar 
+                            </p>              
+                        </a>  
+                        </div> 
+                </div>
+                <div class="column">
+                        <div class="btn-report">
+                        <a ng-click="reporteCosto()">
+                            <i class="fa fa-credit-card"></i>
+                            <p>
+                                Creditos por Cobrar  
+                            </p>              
+                        </a>  
+                        </div> 
+                </div>
+        
+              
+            </div>
+        </div>
+    </div> 

@@ -1,0 +1,156 @@
+<div class="modal-header">
+    <div class="pull-right">
+        <div role="group" aria-label="tools">
+            <button class="btn btn-primary" ng-click="ok($event)">Guardar</button>
+            <button class="btn btn-primary" ng-click="cancel($event)">Guardar y Cerra</button>
+            <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+            <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+            <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+        </div>
+    </div>
+    <h3 class="titulo-modal">Plantillas de Asientos</h3>
+</div>
+<div class="container-fluid">
+
+    <div ng-controller="SelectCtrl">
+        <div ng-controller="itemsCtrl">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-4">
+
+
+                        <label for="form-field-select-2">
+                                    Tipo de Asiento
+                                </label>
+                        <select ng-model="infoInputs['td_id']" class="cs-select cs-skin-slide" id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">{{opt.label}}</option>
+                                </select>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-4">
+
+                        <label for="form-field-select-2">
+                                    Tipo de Operación
+                                </label>
+                        <select ng-model="infoInputs['td_id']" class="cs-select cs-skin-slide" id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">{{opt.label}}</option>
+                                </select>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    <label for="serie">Cuenta</label>
+                    <input type="text" class="form-control" id="com_ser" ng-model="infoInputs['com_ser']">
+                </div>
+                <div class="col-md-2">
+                    <label for="serie">Descripción de la cuenta</label>
+                    <input type="text" class="form-control" id="com_ser" ng-model="infoInputs['com_ser']">
+                </div>
+                <div class="col-md-1">
+                    <label for="pst ">
+                                D/H
+                            </label>
+                    <select ng-model="person.selected.pst_id " class="form-control " id="pst_id " name="pst_id " ng-init="buscarOption(rr.pst_id) ">
+                                <option value="{{opt.id}} " ng-repeat="opt in units[ 'pst_id'] ">{{opt.label}}</option>
+                        </select>
+                </div>
+                <div class="col-md-2 ">
+                    <label for="pst ">
+                                Variable
+                            </label>
+                    <select ng-model="person.selected.pst_id " class="form-control " id="pst_id " name="pst_id " ng-init="buscarOption(rr.pst_id) ">
+                                <option value="{{opt.id}} " ng-repeat="opt in units[ 'pst_id'] ">{{opt.label}}</option>
+                        </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="pst ">
+                                Moneda
+                            </label>
+                    <select ng-model="person.selected.pst_id " class="form-control " id="pst_id " name="pst_id " ng-init="buscarOption(rr.pst_id) ">
+                                <option value="{{opt.id}} " ng-repeat="opt in units[ 'pst_id'] ">{{opt.label}}</option>
+                        </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="serie">Orden</label>
+                    <input type="text" class="form-control" id="com_ser" ng-model="infoInputs['com_ser']">
+                </div>
+
+                <div class="col-md-2">
+                    <label>
+                         T.O.R
+                        </label>
+                    <div class="input-group">
+
+                        <ui-select style="width: 100%; float: left;" ng-model=" person.selected " theme="bootstrap">
+                            <ui-select-match placeholder="Seleccione un item ">
+                                {{$select.selected.cd_des}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in productosData | filter: $select.search ">
+                                <span ng-bind-html="item.pro_cod | highlight: $select.search "></span>
+                                <small ng-bind-html="item.cd_des| highlight: $select.search "></small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn ">
+                                <button type="button " ng-click="person.selected=u ndefined " class="btn btn-primary ">
+                                                <i class="fa fa-trash-o "></i>
+                            </button>
+                            </span>
+                    </div>
+                </div>
+
+                <div class="col-md-1 ">
+                    <button class="btn btn-primary " style="margin-top: 30px; " ng-click="additem(person.selected) ">Insertar</button>
+                </div>
+            </div>
+
+            <div class="row " style="margin-top: 15px; ">
+                <div class="col-md-12" style="height: 300px; overflow-y: scroll;">
+                    <table class="table table-hover ">
+                        <thead>
+                            <tr>
+                                <th>Cuenta</th>
+                                <th>Descripción de Cuenta</th>
+                                <th>D/H</th>
+                                <th>Variable</th>
+                                <th>Mnd</th>
+                                <th>Orden</th>
+                                <th>T.O.R</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in itemListCompras " class="header-modal3 ">
+                                <td class="center ">{{$index}}</td>
+                                <td> {{item.pro_cod}}</td>
+                                <td>{{item.cd_des}} {{item.pst_id}}</td>
+                                <td><input type="text " class="form-control " ng-model="item.cd_can " ng-blind="item.cd_can " id="ref "></td>
+                                <td><input type="text " class="form-control " ng-model="item.cd_pre " ng-blind="item.cd_pre " id="ref "></td>
+                                <td>
+                                    <p>Total : {{item.cd_pre * item.cd_can}} </p>
+                                </td>
+                                <td class="center ">
+                                    <a class="btn btn-red " href="# " ng-click="eliminarItem($index) "><i
+                                                class="glyphicon glyphicon-trash "></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

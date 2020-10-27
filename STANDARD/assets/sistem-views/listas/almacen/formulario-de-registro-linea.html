@@ -1,0 +1,37 @@
+<form id="formulario_core" name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Línea</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+   
+            <div class="row">
+
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-12">
+                        <label for="lin_cod" ng-class="{'text-danger':form.lin_cod.$error.required == true}">Código de Línea</label>
+                        <input required type="number" class="form-control" id="lin_cod" name="lin_cod" ng-model="infoInputs['lin_cod']">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="lin_nom" ng-class="{'text-danger':form.lin_nom.$error.required == true}">Descripción de Línea</label>
+                        <input required type="text" class="form-control" id="lin_nom" name="lin_nom" ng-model="infoInputs['lin_nom']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarLinea()">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

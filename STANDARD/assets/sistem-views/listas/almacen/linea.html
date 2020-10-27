@@ -1,0 +1,46 @@
+<div class="container" ng-controller="lineaLineaCtrl as showCase">
+    <div ng-controller="AsideModalTransaccionCtrl">
+        <div class="ui secondary menu">
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.productoyservicios')}" ui-sref="app.inventario.productoyservicios">
+                <span class="title">Otros</span>
+            </a>
+            <div class="right menu">
+                <div ncy-breadcrumb></div>
+            </div>
+        </div>
+        <!-- start: PAGE TITLE -->
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <h1 class="ui header">Línea
+                </h1>
+                
+            </div>
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="dropdown pull-right" uib-dropdown="">
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" ng-click="nuevoalinea()" class="btn btn-lg text-white btn btn-wide" style="background-color:#002350; border-radius: 50px 50px 50px 50px;">
+                            Nueva Línea
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-app="main" class="panel panel-white">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button ng-click="showCase.changeData()" type="button" class="btn btn-info">
+                                    <i class="fa fa-refresh"></i>&nbsp;recargar
+                                </button>
+                            <div class="table-responsive">
+                                <table class="table dataTable no-footer dt-checkboxes-select" width="100%" datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

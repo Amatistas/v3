@@ -1,0 +1,200 @@
+<form id="formulario_core" name="form" novalidate>
+    <div ng-controller="SelectCtrl">
+        <div class="modal-header" ng-controller="itemsCtrl">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-disabled="form.$error.required"
+                        ng-click="guardarCargaAlmacen()">Guardar</button>
+                    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                            class="ti-close"></i></button>
+                </div>
+            </div>
+            <h3 class="titulo-modal" ng-if="infoInputs.tip_ope == 41">Ingreso a Almacén</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="modal-body" ng-controller="DatepickerDemoCtrl">
+                <div ng-controller="itemsCtrl">
+                    <div class="row" style="background-color: #eee;">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                        Documento
+                                    </label>
+                                    <select  class="ui fluid dropdown" required ng-model="infoInputs['td_id']"
+                                        id="td_id" name="td_id" ng-init="fetch = fetchSerializador('SE')">
+                                        <option value="SE">
+                                            SE</option>>
+                                    </select>
+                                </div>
+                                <div class="hidden">
+                                    {{infoInputs.serie_tras = fetch[0].data[0].tds_ser}}
+                                    {{infoInputs.nro_doc = fetch[0].data[0].tds_cor}}
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="serie_tras">Serie</label>
+                                    <input type="text" class="form-control" id="serie_tras"
+                                        ng-model="infoInputs['serie_tras']" readonly>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="nro_doc">Numero</label>
+                                    <input type="text" class="form-control" id="nro_doc"
+                                        ng-model="infoInputs['nro_doc']" readonly>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="alm_fecha"
+                                            ng-class="{'text-danger':form.alm_fecha.$invalid == true}">Fecha Documento
+                                        </label>
+                                        <div class="">
+                                            <input type="date" name="alm_fecha" id="alm_fecha" class="form-control"
+                                                ng-model="infoInputs['alm_fecha']" ng-required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="ofi_id" ng-class="{'text-danger':form.id_almacen.$invalid == true}">
+                                            Almacén
+                                        </label>
+                                        <select class="ui fluid dropdown" required ng-model="infoInputs['id_almacen']"
+                                            id="alm_id" name="id_almacen" ng-init="buscarOptionSelect(rr.id_almacen)">
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['id_almacen']">{{opt.label}}
+                                            </option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="alm_motivo"
+                                            ng-class="{'text-danger':form.alm_motivo.$invalid == true}">Motivo de la
+                                            Operacion
+                                        </label>
+                                        <div class="">
+                                            <input type="text" name="alm_motivo" id="alm_motivo" class="form-control"
+                                                ng-model="infoInputs['alm_motivo']" ng-required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-4 ">
+                            <label>
+                                Productos y Servicios
+                            </label>
+                            <div class="input-group" ng-if="docOrigin == false">
+                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="person.selected"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="Escriba 3 letras para buscar">
+                                        {{$select.selected.cd_des}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in productosData track by $index"
+                                        refresh="productosGetAsyncronic($select.search)" refresh-delay="0">
+                                        <div class="item">
+                                            <div class="content">
+                                                <div>
+                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                    <b>{{item.cd_des}}</b>
+                                                </div>
+                                                <div class="description">{{item.pro_cod}}</div>
+                                            </div>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="person.selected=undefined" class="btn btn-primary">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="input-group">
+                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="person.selected"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="Escriba 3 letras para buscar">
+                                        {{$select.selected.cd_des}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in productosData track by $index"
+                                        refresh="productosGetAsyncronicTransladoAlmacen($select.search)"
+                                        refresh-delay="0">
+                                        <div class="item">
+                                            <div class="content">
+                                                <div>
+                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                    <b>{{item.cd_des}}</b>
+                                                </div>
+                                                <div class="description">{{item.pro_cod}}</div>
+                                            </div>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="person.selected=undefined" class="btn btn-primary">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1 ">
+                            <label for="pst">
+                                Presentación
+                            </label>
+                            <select ng-model="person.selected.presentacion" class="form-control" id="presentacion " name="presentacion"
+                                ng-init="buscarOptionSelect(rr.presentacion)">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['presentacion']">{{opt.label}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label for="cd_can ">Cantidad</label>
+                            <input ng-model="person.selected.cantidad" type="text" class="form-control" id="cantidad"
+                                name="cantidad ">
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary" style="margin-top: 30px;"
+                                ng-click="additem(person.selected)">Insertar</button>
+                        </div>
+                        <div class="col-md-12" style="height: 400px; overflow-y: scroll;">
+                            <table class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th class="center col-md-1">NRO</th>
+                                        <th class="col-md-4">DESCRIPCIÓN</th>
+                                        <th class="col-md-2" ng-if="infoInputs.compraAsociada == false">CC</th>
+                                        <th class="col-md-1" ng-class="{'text-danger':form.cantidad.$invalid == true}">
+                                            CANTIDAD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in itemListAlmacen track by $index" class="">
+                                        <td class="center"> {{$index}} </td>
+                                        <td> {{item.pro_nom}} </td>
+                                        <td class="col-md-1">
+                                            <input required type="text" class="form-control" name="cantidad"
+                                                ng-model="item.cantidad" ng-blind="item.cantidad" readonly>
+
+                                        </td>                                      
+                                        <td class="left">
+                                            <button disabled class="btn btn-red" ng-click="eliminarItem($index)">
+                                                <i class="glyphicon glyphicon-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>

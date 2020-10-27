@@ -1,0 +1,63 @@
+<form id="formulario_core" name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Almacén</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+            <div class="row">
+                <div class="cold-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="form-field-select-1" ng-class="{'text-danger':form.loc_id.$invalid == true}">
+                                Local
+                            </label>
+                            <select ng-model="infoInputs['loc_id']" class="ui fluid dropdown"
+                            id="loc_id" name="loc_id" ng-init="buscarOption(rr.loc_id)" required>
+                            <option value="{{opt.id}}" ng-repeat="opt in units['loc_id']">
+                                {{opt.label}}</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="alm_cod" ng-class="{'text-danger':form.alm_cod.$invalid == true}">Codigo de Almacen</label>
+                        <input required type="number" class="form-control" id="alm_cod" name="alm_cod" ng-model="infoInputs['alm_cod']">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="alm_nom" ng-class="{'text-danger':form.alm_nom.$error.required == true}">Nombre de almacen</label>
+                        <input required type="text" class="form-control" id="alm_nom" name="alm_nom" ng-model="infoInputs['alm_nom']">
+                    </div>
+                </div>
+            </div>
+         <!--    <div class="row">
+                <div class="cold-md-12">
+                    <div class="col-md-12">
+                        <label for="alm_dir" ng-class="{'text-danger':form.alm_dir.$error.required == true}">Direccion</label>
+                        <input required type="text" class="form-control" id="alm_dir" name="alm_dir" ng-model="infoInputs['alm_dir']">
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="cold-md-12">
+                    <div class="col-md-12">
+                        <label for="Nota">Nota</label>
+                        <input type="text" class="form-control" id="Nota" name="Nota" ng-model="infoInputs['Nota']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarAlm()">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,104 @@
+
+<div ng-controller="MyCtrl">
+
+
+    <div class="modal-header hidden-print">
+        <div class="pull-right">
+          <div role="group" aria-label="tools">
+  
+         
+              <label for="fecha1">Hasta</label><input style="margin-left: 10px;margin-right: 10px;" type="date" name="fecha1" id="fecha1" 
+              ng-model="infoInputs['com_fecdoc']" ng-required="true">
+         
+    
+  
+          <label for="fecha1">Hasta</label><input style="margin-left: 10px;margin-right: 10px;" type="date" name="fecha1" id="fecha1" 
+                  ng-model="infoInputs['com_fecdoc']" ng-required="true">
+   
+          
+  
+  <!-- 
+          <button onclick="javascript:window.print();" class="btn btn-primary">
+              Print <i class="fa fa-print"></i>
+          </button> -->
+          <button class="btn btn-primary" ng-click="exportToExcel('#tableToExport')">
+              <span class="glyphicon glyphicon-share"></span> Exportar Excel
+          </button>
+          <button type="button" class="btn btn-link" ng-click="pagosDetalleCompraPdf($event)"><i class="ti-close"></i></button>
+  
+          <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+          <!-- <button type="button" class="btn btn-link"><i class="ti-settings"></i></button> -->
+          <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+          </div>
+            </div>
+            <h3 class="titulo-modal">Reporte de Costos y Gastos</h3>
+        </div>
+  
+  
+    
+    <div class="container" style="overflow-y: scroll;font-size: 11px;height: 500px;">
+        <div id="tableToExport">
+
+
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <th class="text-center" colspan="2">
+                                COSTOS POR RUBRO Y CUENTA <br>
+                                * SOLES *
+                            </th>
+                            <th>
+                                29/09/2020
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            
+       
+            <div class="row">
+                <table>
+                    <tr><th colspan="3">
+                        <h4>Gastos Financieros</h4>
+                    </th></tr>
+                </table>
+                <table class="table table-bordered table-condensed" border="1">
+                    <thead>
+                        <tr>
+                            <th>
+                                Código
+                            </th>
+                            <th>
+                               Descripción
+                            </th>
+                            <th>
+                                Importe
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="15%">0001</td>
+                            <td width="70%">Utiles de Ferreteria</td>
+                            <td width="15%">245</td>
+                            
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="text-right" colspan="2">TOTAL RUBRO</th>
+                            <th>245</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            
+            
+      
+            
+
+          
+        </div>
+    
+    </div>
+  
+  </div>

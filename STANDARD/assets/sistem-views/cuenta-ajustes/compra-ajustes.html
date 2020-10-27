@@ -1,0 +1,149 @@
+<form name="form" novalidate>
+    <div class="container" ng-controller="cuentaAjusteCtrl">
+        <div ng-controller="AsideModalTransaccionCtrl">
+            <div class="ui secondary menu">
+                <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.ajustes.cuenta')}"
+                    ui-sref="app.ajustes.cuenta">
+                    <span class="title">Compañia</span>
+                </a>
+                <a class="item" ui-sref-active="active"
+                    ng-class="{'active open':$state.includes('app.ajustes.compraCuenta')}"
+                    ui-sref="app.ajustes.compraCuenta">
+                    <span class="title">Compras</span>
+                </a>
+                <a class="item" ui-sref-active="active"
+                    ng-class="{'active open':$state.includes('app.ajustes.ventaCuenta')}"
+                    ui-sref="app.ajustes.ventaCuenta">
+                    <span class="title">Ventas</span>
+                </a>
+                <div class="right menu">
+                    <div ncy-breadcrumb></div>
+                </div>
+            </div>
+            <!-- start: PAGE TITLE -->
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-sm-12">
+                    <h1>Compras Ajustes</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="container-fluid container-fullw bg-white ng-scope">
+                    <div class="">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label for="td_id" ng-class="{'text-danger':form.to_id.$invalid == true}">
+                                                Tipo de Operación
+                                            </label>
+                                            <select class="ui fluid dropdown" required ng-model="infoInputs['to_id']"
+                                                id="to_id" name="to_id" ng-init="buscarOption(rr.to_id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['to_id']">
+                                                    {{opt.label}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label for="td_id" ng-class="{'text-danger':form.id.$invalid == true}">
+                                                Tipo de Documento
+                                            </label>
+                                            <select class="ui fluid dropdown" required ng-model="infoInputs['id']"
+                                                id="id" name="id" ng-init="buscarOption(rr.id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['id']">
+                                                    {{opt.label}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label for="alm_id" ng-class="{'text-danger':form.alm_id.$invalid == true}">
+                                                Almacén
+                                            </label>
+                                            <select class="ui fluid dropdown" required ng-model="infoInputs['alm_id']"
+                                                id="alm_id" name="alm_id" ng-init="buscarOption(rr.alm_id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['alm_id']">
+                                                    {{opt.label}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label for="alm_id" ng-class="{'text-danger':form.id_moneda.$invalid == true}">
+                                                Moneda
+                                            </label>
+                                            <select class="ui fluid dropdown" required
+                                                ng-model="infoInputs['id_moneda']" id="id_moneda" name="id_moneda"
+                                                ng-init="buscarOption(rr.id_moneda)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['id_moneda']">
+                                                    {{opt.label}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label for="alm_id" ng-class="{'text-danger':form.id_sunat.$invalid == true}">
+                                                Tipo Compra Sunat
+                                            </label>
+                                            <select class="ui fluid dropdown" required ng-model="infoInputs['id_sunat']"
+                                                id="id_sunat" name="id_sunat" ng-init="buscarOption(rr.id_sunat)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['id_sunat']">
+                                                    {{opt.label}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label for="alm_id" ng-class="{'text-danger':form.id_costo.$invalid == true}">
+                                                Centro de Costo
+                                            </label>
+                                            <select class="ui fluid dropdown" required ng-model="infoInputs['id_costo']"
+                                                id="id_costo" name="id_costo" ng-init="buscarOption(rr.id_costo)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['id_costo']">
+                                                    {{opt.label}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label for="alm_id" ng-class="{'text-danger':form.id_area.$invalid == true}">
+                                                Área
+                                            </label>
+                                            <select class="ui fluid dropdown" required ng-model="infoInputs['id_costo']"
+                                                id="id_area" name="id_area" ng-init="buscarOption(rr.id_area)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['id_area']">
+                                                    {{opt.label}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <button class="btn btn-primary" ng-disabled="form.$error.required" type="submit" ng-click="guardar()">
+                                    Guardar </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

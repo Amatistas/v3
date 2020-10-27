@@ -1,0 +1,196 @@
+
+     
+     <div class="container">
+
+        <div class="modal-header" ng-controller="itemsCtrl">
+          <div class="pull-right">
+              <div role="group" aria-label="tools">
+                  <button class="btn btn-primary" ng-disabled="form.$error.required"
+                      ng-click="guardarGuiaRemision()">Exportar PDF</button>
+          
+                  <button type="button" class="btn btn-link" ng-click="cancelv($event)"><i
+                          class="ti-close"></i></button>
+              </div>
+          </div>
+          <h3 class="titulo-modal">Detalle de Factura</h3>
+      </div>
+      </div>
+
+<div class="container-fluid container-fullw bg-white" style="font-size: 12px;" ng-controller="ventaDetalleCtrl">
+  <div class="row" style="padding: 10px;">
+    <div class="invoice">
+          <table  class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th colspan="6">
+                          
+                              <div class="row" >
+
+                                  <div class="col-xs-4">
+                                      <img src="STANDARD/assets/images/your-logo-here.png" alt="" width="150">
+                                  </div>
+                                  <div class="col-xs-4">
+                                      <p>
+                                
+                                          <strong>
+                                              CONTABILIZADO <br>
+                                          </strong>
+                                          Jr. Las Crucinelas 435 Urb. Las Flores  <br>
+                                          LIMA-LIMA-LOS OLIVOS<br>
+                                          Email: contabilizado@gmail.com<br>
+                                          Teléf: 3750106 Cel: 921535282
+                                   
+                                  </p>
+                                  </div>
+                                  <div class="col-xs-4" style="border:1px solid">
+                                      <p align="center">
+                                          RUC 20552745419<br>
+                                          FACTURA ELECTRÓNICA<br>
+                                          F001-00000009 <br>
+                                      </p>
+                                  </div>
+                              </div>
+                              <div class="row" style="border: 1px solid;padding: 10px;margin-bottom: 10px;">
+                                  <div class="col-xs-2">
+                                      Cliente:<br>
+                                      RUC:<br>
+                                      Dirección:<br>
+                                      Ubigeo:<br>
+                                      Obs:<br>
+                                  </div>
+                                    <div class="col-xs-5">
+                                     CODIMAKT PERU S.A.C<br>
+                                     2051824164<br>
+                                     LOS OLIVOS<br>
+                                      LIMA-LIMA-LOS OLIVOS<br>
+                                  </div>
+                                    <div class="col-xs-3">
+                                      Fecha Emisión:<br>
+                                      Condición:<br>
+                                      G.R Remitente:<br>
+                                      G.R Transportista:<br>
+                                  </div>
+                                    <div class="col-xs-2">
+                                      11-09-2020 <br>
+                                      CONTADO <br>
+                                  </div>
+                              </div>
+                              <div class="row" style="border:1px solid">
+                               <div style="border-right:1px solid" class="col-xs-2">Código</div>
+                               <div style="border-right:1px solid" class="col-xs-4">Descripción</div>
+                                                                  <div style="border-right:1px solid" class="col-xs-1">Cant</div>
+                                                                  <div style="border-right:1px solid" class="col-xs-1">Psnt</div>
+                                                                  <div style="border-right:1px solid" class="col-xs-2">Precio</div>
+                                                                  <div class="col-xs-2">Importe</div>
+                                                                 
+                              </div>
+                          </th>
+                      </tr>
+                  </thead>
+             
+                  <tbody>
+                      <tr >
+                          <td colspan="6">
+                                  <div class="row">
+                                      <div class="col-xs-2">sdas</div>
+                                      <div class="col-xs-4">sdas</div>
+                                      <div class="col-xs-1">sdas</div>
+                                      <div class="col-xs-1">sdas</div>
+                                      <div class="col-xs-2">sdas</div>
+                                      <div class="col-xs-2">sdas</div>
+                                    
+                                 
+                                  </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td colspan="6">
+                              <div class="row" style="margin-top:10px;">
+                                  <div class="col-xs-8">
+                                      <p>SON: MIL CON 00/100 Soles</p>
+                                      <img src="STANDARD/assets/images/qr.jpg" alt="" width="100">
+                                      <p>Cta Ahorro: 0011-0566-7602000598-49 Cta Interbancaria: 011-566-000200059849-76</p>
+                                  </div>
+                                  <div class="col-xs-4">
+                                      <table class="col-xs-12" style="border: 1px solid;">
+                                          <tr>
+                                              <td style="border-right: 1px solid;border-bottom: 1px solid;" class="col-xs-6">Afecto:</td>
+                                              <td style="border-bottom: 1px solid;" class="col-xs-6">1264</td>
+                                          </tr>
+                                          <tr>
+                                              <td style="border-right: 1px solid;border-bottom: 1px solid;" class="col-xs-6">Inafecto:</td>
+                                              <td style="border-bottom: 1px solid;" class="col-xs-6">1264</td>
+                                          </tr>
+                                          <tr>
+                                              <td style="border-right: 1px solid;border-bottom: 1px solid;" class="col-xs-6">ISC:</td>
+                                              <td style="border-bottom: 1px solid;" class="col-xs-6">1264</td>
+                                          </tr>
+                                          <tr>
+                                              <td style="border-right: 1px solid;border-bottom: 1px solid;" class="col-xs-6">IGV/IVA:</td>
+                                              <td style="border-bottom: 1px solid;" class="col-xs-6">1264</td>
+                                          </tr>
+                                          <tr>
+                                              <td style="border-right: 1px solid;border-bottom: 1px solid;" class="col-xs-6">Total Dsctos:</td>
+                                              <td style="border-bottom: 1px solid;" class="col-xs-6">1264</td>
+                                          </tr>
+                                          <tr>
+                                              <td style="border-right: 1px solid;border-bottom: 1px solid;" class="col-xs-6">Total Dcmto:</td>
+                                              <td style="border-bottom: 1px solid;" class="col-xs-6">1264</td>
+                                          </tr>
+                                          <tr>
+                                              <td style="border-right: 1px solid;border-bottom: 1px solid;" class="col-xs-6">Percepción:</td>
+                                              <td style="border-bottom: 1px solid;" class="col-xs-6">1264</td>
+                                          </tr>
+                                          <tr>
+                                              <td style="border-right: 1px solid;border-bottom: 1px solid;" class="col-xs-6">Total a Pagar:</td>
+                                              <td style="border-bottom: 1px solid;" class="col-xs-6">1264</td>
+                                          </tr>
+                                  
+          
+     
+                                      </table>
+                                      <!-- <div>
+                                          <div style="border-bottom: 1px solid;" class="col-xs-6">Afecto:</div>
+                                          <div class="col-xs-6">asd</div>
+                                          <div class="col-xs-6">Inafecto:</div>
+                                          <div class="col-xs-6">asd</div>
+                                          <div class="col-xs-6">ISC:</div>
+                                          <div class="col-xs-6">asd</div>
+                                          <div class="col-xs-6">IGV/IVA:</div>
+                                          <div class="col-xs-6">asd</div>
+                                          <div class="col-xs-6">Total Dsctos:</div>
+                                          <div class="col-xs-6">asd</div>
+                                          <div class="col-xs-6">Total Dcmto:</div>
+                                          <div class="col-xs-6">asd</div>
+                                          <div class="col-xs-6">Percepción:</div>
+                                          <div class="col-xs-6">asd</div>
+                                          <div class="col-xs-6">Total a Pagar:</div>
+                                          <div class="col-xs-6">asd</div>
+                                      </div> -->
+                                  </div>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                         <td>
+                           <div class="row">
+                               <div style="font-size: 9px;margin-top:10px;height: 40px; text-align:center;width: 100%;">
+
+                                   <div class="col-xs-12" >
+                                      <p> REPRESENTACIÓN IMPRESA DEL COMPROBANTE DE PAGO ELECTRÓNICO <br>
+                                          ESTE DOCUMENTO PUEDE SER CONSULTADO EN <br>
+                                          www.gruposc.cpe.com.pe</p>
+                                   </div>
+                               </div>
+                           
+                           </div>
+                          </td>
+                      </tr>
+                    </tfoot>
+          </table>
+        </div>
+  </div>
+<footer></footer>
+</div>

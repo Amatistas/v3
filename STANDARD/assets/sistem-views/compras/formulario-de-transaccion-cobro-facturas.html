@@ -1,0 +1,115 @@
+<form id="formulario_core" name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="ok($event)">Guardar</button>
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>  
+                <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Cobrar Transacción</h3>
+    </div>
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="form-field-select-2" ng-class="{'text-danger':form.fp_id.$invalid == true}">
+                                    Método de Pago
+                                </label>
+                                <select required ng-model="infoInputs['fp_id']" class="cs-select cs-skin-slide" id="fp_id" name="fp_id" ng-init="buscarOption(rr.fp_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['fp_id']">{{opt.label}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-9">
+                                <label for="ban_id" ng-class="{'text-danger':form.ban_id.$invalid == true}">
+                                    Cuenta de Banco
+                                </label>
+                                <select required ng-model="infoInputs['ban_id']" class="cs-select cs-skin-slide" id="ban_id" name="ban_id" ng-init="buscarOption(rr.ban_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['ban_id']">{{opt.label}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="serie" ng-class="{'text-danger':form.pag_num.$invalid == true}">Número de Operacion</label>
+                                <input required type="number" class="form-control" id="pag_num" name="pag_num" ng-model="infoInputs['pag_num']">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group" >
+                                    <label ng-class="{'text-danger':form.pag_fecpag.$invalid == true}"> Fecha Doc</label>
+                                    <div class="input-group">
+                                        <input type="text" id="pag_fecpag" name="pag_fecpag" readonly class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="infoInputs['pag_fecpag']" is-open="opened" datepicker-options="datepickerOptions" ng-required="true" close-text="Close" required>
+                                        <div uib-datepicker-popup-wrap="" ng-model="infoInputs['pag_fecpag']" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" ng-click="open()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="ref" ng-class="{'text-danger':form.pag_cuota.$error.required == true}">Comisión Bancaria</label>
+                                <input required type="text" class="form-control" id="pag_cuota" name="pag_cuota" ng-model="infoInputs['pag_cuota']">
+                            </div>
+                            <div class="col-md-3" ng-if="infoInputs.pag_cuota > 0">
+                                <label for="costo" ng-class="{'text-danger':form.cc_id.$invalid == true}">
+                                    Centro de Costo
+                                </label>
+                                <select  required ng-model="infoInputs['cc_id']" class="cs-select cs-skin-slide" id="cc_id" name="cc_id" ng-init="buscarOption(rr.cc_id)">
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['cc_id']">{{opt.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 vcenter">
+                    </div>
+                </div>
+                <div ng-controller="itemCobrarCtrl">
+                    <div class="row">
+                        <div class="col-md-12" style="height: 320px; overflow-y: scroll; margin-top: 15px;">
+                            <table class="table table-hover" id="sample-table-1">
+                                <thead>
+                                    <tr>
+                                        <th>DOCUMENTO</th>
+                                        <th>FECHA</th>
+                                        <th>RAZON SOCIAL</th>
+                                        <th>TOTAL</th>
+                                        <th>ACTA.</th>
+                                        <th>SALDO</th>
+                                        <th>COBRADO</th>
+                                        <th>POR COBRAR</th>
+                                        <th>test(1)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="doc in checkOptionsSelected" class="bg-light-grey">
+                                        <td>{{doc.to_nom}} {{doc.Documentos}}</td>
+                                        <td>{{doc.com_fecdoc}}</td>
+                                        <td>{{doc.ane_razsoc}}</td>
+                                        <td>{{doc.TotalCompra}}</td>
+                                        <td>{{doc.TotalPago}}</td>
+                                        <td>-{{putTotalOperacion(0,doc.TotalCompra,doc.TotalPago)}}</td>
+                                        <td>{{doc.import_cc}}</td>
+                                        <td>total:{{putTotalOperacion(doc.TotalCompra,doc.import_cc,doc.TotalPago)}}</td>
+                                        <td>
+                                            <div class="form-group" ng-class="{'has-error':form['montoCobrar'].$invalid == true}">
+                                                <span class="input-icon input-icon-right">
+                                                    <input type="number" placeholder="Total a Cobrar" class="form-control"  name="montoCobrar" ng-model="doc.montoCobrar" type="number" class="ui input" min="1" max="{{putTotalOperacion(doc.TotalCompra,doc.import_cc,doc.TotalPago)}}">
+                                                    <i ng-class="{'ti-alert':form['montoCobrar'].$invalid == true,'ti-check':form['montoCobrar'].$invalid == false}"></i> </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

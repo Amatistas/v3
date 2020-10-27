@@ -1,0 +1,100 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarChofer()">Guardar y Cerrar</button>
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Choferes</h3>
+    </div>
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="titulo-modal-1 col-md-12">
+                    <h3>Informacion de Chofer</h3>
+                </div>
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-4">
+                        <label for="nro" ng-class="{'text-danger':form.ch_id.$error.required == true}">Personal</label>
+                        <input required type="text" class="form-control" id="ch_id" name="ch_id" ng-model="infoInputs['ch_id']">
+                    </div>
+                    <div class="col-md-4 col-md-12">
+                        <div class="form-group">
+                            <label for="form-field-select-1" ng-class="{'text-danger':form.ts_deid.$invalid == true}">
+                            Sujeto
+                        </label>
+                            <select required class="cs-select cs-skin-slide" id="ts_deid" name="ts_deid" ng-model="infoInputs['ts_deid']">
+                            <option ng-value="">Selec. Tipo de Sujeto</option>
+                            <option ng-value="1">Sujeto1</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-md-12">
+                        <div class="form-group">
+                            <label for="form-field-select-1" ng-class="{'text-danger':form.ch_detipdoc.$invalid == true}">
+                            Tipo de Documento
+                        </label>
+                            <select required class="cs-select cs-skin-slide" id="ch_detipdoc" name="ch_detipdoc" ng-model="infoInputs['ch_detipdoc']">
+                            <option ng-value="">Selec. Tipo de Documento</option>
+                            <option ng-value="1">DNI</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="proveedor" ng-class="{'text-danger':form.ch_numdoc.$invalid == true}">Número de Documento</label>
+                        <input required type="number" class="form-control" id="ch_numdoc" name="ch_numdoc" ng-model="infoInputs['ch_numdoc']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="titulo-modal-1 col-md-12">
+                    <h3>Mas Informacion</h3>
+                </div>
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-4">
+                        <label for="serie" ng-class="{'text-danger':form.ch_nom.$error.required == true}">Nombres</label>
+                        <input required type="text" class="form-control" id="ch_nom" name="ch_nom" ng-model="infoInputs['ch_nom']">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="serie" ng-class="{'text-danger':form.ch_apepat.$error.required == true}">Apellido Paterno</label>
+                        <input required type="text" class="form-control" id="ch_apepat" name="ch_apepat" ng-model="infoInputs['ch_apepat']">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="serie" ng-class="{'text-danger':form.ch_apemat.$error.required == true}">Apellido Materno</label>
+                        <input required type="text" class="form-control" id="ch_apemat" name="ch_apemat" ng-model="infoInputs['ch_apemat']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titulo-modal-1 col-md-12">
+                    <h3>Ultimos Datos</h3>
+                </div>
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-4">
+                        <label for="proveedor" ng-class="{'text-danger':form.ch_bre.$error.required == true}">Brevete</label>
+                        <input required type="text" class="form-control" id="ch_bre" name="ch_bre" ng-model="infoInputs['ch_bre']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>

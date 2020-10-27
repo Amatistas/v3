@@ -1,0 +1,232 @@
+<div class="container-fluid container-fullw bg-white" >
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="over-title"><span class="text-bold">Configuración Sunat</span></h5>
+            <div class="row">
+                <div class="">
+                    <fieldset>
+                        <legend>
+                            Certificado
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div ng-controller="UploadCtrl2" nv-file-drop="" uploader="uploader" options="{Object}"
+                                    filters="queueLimit, customFilter">
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-bottom: 40px">
+                                            <h4>Informacion del Certificado</h4>
+                                            <div class="panel panel-transparent">
+                                                <div class="panel-body">
+
+                                                    <span class="btn btn-primary btn-o btn-file">Seleccione el
+                                                        Certificado
+                                                        <input type="file" name="archivo" nv-file-select=""
+                                                            uploader="uploader" />
+                                                    </span>
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="50%">Nombre</th>
+                                                                    <th ng-show="uploader.isHTML5">Tamaño</th>
+                                                                    <th ng-show="uploader.isHTML5">Progreso</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="item in uploader.queue">
+                                                                    <td><strong>{{ item.file.name }}</strong></td>
+                                                                    <td ng-show="uploader.isHTML5" nowrap>
+                                                                        {{ item.file.size/1024/1024|number:2 }} MB</td>
+                                                                    <td ng-show="uploader.isHTML5">
+                                                                        <div
+                                                                            class="progress progress-xs margin-bottom-0">
+                                                                            <div class="progress-bar" role="progressbar"
+                                                                                ng-style="{ 'width': item.progress + '%' }">
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td nowrap>
+                                                                        <button type="button"
+                                                                            class="btn btn-danger btn-xs"
+                                                                            ng-click="item.remove()">
+                                                                            <span
+                                                                                class="glyphicon glyphicon-trash"></span>
+                                                                            Remove
+                                                                        </button></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div>
+                                                        <div>
+                                                            <p class="hidden">
+                                                                Queue progress:
+                                                            </p>
+                                                            <div
+                                                                class="progress progress-xs margin-top-5 margin-bottom-20">
+                                                                <div class="progress-bar" role="progressbar"
+                                                                    ng-style="{ 'width': uploader.progress + '%' }">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <label for="passwordCertificado">Contraseña del
+                                                            Certificado</label>
+                                                        <input type="password" ng-model="passwordCertificado"
+                                                            name="passwordCertificado" id="passwordCertificado">
+                                                        <button type="button" class="btn btn-primary btn-s"
+                                                            ng-click="cargarArchivo(uploader,passwordCertificado)"
+                                                            ng-disabled="!uploader.getNotUploadedItems().length">
+                                                            <span class="glyphicon glyphicon-upload"></span> Subir
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary btn-o  btn-s"
+                                                            ng-click="uploader.cancelAll()"
+                                                            ng-disabled="!uploader.isUploading">
+                                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                                            Cancelar
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary btn-o btn-s"
+                                                            ng-click="uploader.clearQueue()"
+                                                            ng-disabled="!uploader.queue.length">
+                                                            <span class="glyphicon glyphicon-trash"></span> Remover
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Clave
+                                    </label>
+                                    <input type="password" name="lastName" class="form-control"
+                                        placeholder="Ingrese su clave">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="block">
+                                    Gender
+                                </label>
+                                <div class="clip-radio radio-primary">
+                                    <input type="radio" id="female" name="gender" value="female">
+                                    <label for="female">
+                                        Female
+                                    </label>
+                                    <input type="radio" id="male" name="gender" value="male" checked="checked">
+                                    <label for="male">
+                                        Male
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                </fieldset>
+                <div class="col-md-6">
+                    <fieldset>
+                        <legend>
+                            Sunat
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Tipo
+                                    </label>
+                                    <select name="country" class="form-control">
+                                        <option value="">&nbsp;</option>
+                                        <option value="AL">Alabama</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        RUC
+                                    </label>
+                                    <input type="text" name="firstName" class="form-control"
+                                        placeholder="Ingrese su RUC">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Usuario
+                                    </label>
+                                    <input type="text" name="lastName" class="form-control"
+                                        placeholder="Ingrese su Usuario">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Clave
+                                    </label>
+                                    <input type="password" name="lastName" class="form-control"
+                                        placeholder="Ingresar clave">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </div>
+                <div class="col-md-6">
+                    <fieldset>
+                        <legend>
+                            Portal
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Web
+                                    </label>
+                                    <input type="text" name="firstName" class="form-control"
+                                        placeholder="Enter your First Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Ftp
+                                    </label>
+                                    <input type="text" name="lastName" class="form-control"
+                                        placeholder="Enter your Last Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Usuario
+                                    </label>
+                                    <input type="text" name="lastName" class="form-control"
+                                        placeholder="Ingrese su Usuario">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Clave
+                                    </label>
+                                    <input type="password" name="lastName" class="form-control"
+                                        placeholder="Ingresar clave">
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

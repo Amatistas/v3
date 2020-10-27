@@ -1,0 +1,143 @@
+<form id="formulario_core" name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required"
+                    ng-click="ok($event)">Guardar</button>
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Pagar Transacciónes</h3>
+    </div>
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="fp_id" ng-class="{'text-danger':form.fp_id.$invalid == true}">
+                                    Método de Pago
+                                </label>
+                     
+                                <select required ng-model="infoInputs['fp_id']" class="ui fluid dropdown" id="fp_id"
+                                    name="fp_id" ng-init="buscarOption(rr.fp_id)" required>
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['fp_id']">{{opt.label}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-9">
+                                <label for="ban_id" ng-class="{'text-danger':form.ban_id.$invalid == true}">
+                                    Cuenta de Banco
+                                </label>
+                                <select required ng-model="infoInputs['ban_id']" class="ui fluid dropdown" id="ban_id"
+                                    name="ban_id" ng-init="buscarOption(rr.ban_id)" required>
+                                    <option value="{{opt.id}} " ng-repeat="opt in units['ban_id']">{{opt.label}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="ref" ng-class="{'text-danger':form.pag_num.$invalid == true}">Número de
+                                    Operacion</label>
+                                <input required type="number" class="form-control" id="pag_num" name="pag_num"
+                                    ng-model="infoInputs['pag_num']" required>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="fecha1">Fecha Doc</label>
+                                    <div class="">
+                                        <input type="date" id="pag_fecpag" name="pag_fecpag" class="form-control"
+                                            ng-model="infoInputs['pag_fecpag']" ng-required="true">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="ref"
+                                    ng-class="{'text-danger':form.pag_cuota.$error.required == true}">Comisión
+                                    Bancaria</label>
+                                <input required type="text" class="form-control" id="pag_cuota" name="pag_cuota"
+                                    ng-model="infoInputs['pag_cuota']" required>
+                            </div>
+                            <div class="col-md-3" ng-if="infoInputs.pag_cuota > 0">
+                                <label for="costo" ng-class="{'text-danger':form.cc_id.$invalid == true}">
+                                    Centro de Costo
+                                </label>
+                                <select required ng-model="infoInputs['cc_id']" class="ui fluid dropdown"
+                                    id="cc_id" name="cc_id" ng-init="buscarOption(rr.cc_id)" required>
+                                    <option value="{{opt.id}}" ng-repeat="opt in units['cc_id']">{{opt.label}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 vcenter">
+                        <div class="cuadro col-md-6 pull-right ">
+                            <h4>S/ {{arrayconvertidordemontosparapagar[0].montoPagar | json}} </h4>
+                        </div>
+                    </div>
+                </div>
+                <div ng-controller="itemPagarCtrl">
+                    <div class="row">
+                        <div class="col-md-12" style="height: 320px; overflow-y: scroll; margin-top: 15px;">
+                            <table class="table table-hover" id="sample-table-1">
+                                <thead>
+                                    <tr>
+                                        <th>DOCUMENTO</th>
+                                        <th>FECHA</th>
+                                        <th>PROVEEDOR</th>
+                                        <th>TOTAL</th>
+                                        <th>PAGADO</th>
+                                        <th>SALDO</th>
+                                        <th>PAGAR</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="doc in arrayconvertidordemontosparapagar track by $index"
+                                        class="bg-light-grey">
+
+                                        <td ng-if="doc.to_id == 15">{{doc.to_nom}} {{doc.to_id}} {{doc.Documentos}}</td>
+                                        <td ng-if="doc.to_id == 17">Detracción</td>
+                                        
+                                        <td>{{doc.com_fecdoc}}</td>
+                                        <td>{{doc.ane_alias}}</td>
+
+                                        <td ng-if="doc.to_id == 15">{{doc.totalcompra - doc.com_dt}}</td>
+                                        <td ng-if="doc.to_id == 17">{{doc.com_dt}}</td>
+                                        
+                                        <td ng-if="doc.to_id == 15"><a class="badge">{{doc.pagado = doc.TotalPago - doc.detraccion}}</a></td>
+                                        <td ng-if="doc.to_id == 17"><a class="badge">{{doc.detraccion}}</a></td>
+
+                                        <td ng-if="doc.to_id == 15">{{ montoTotal = doc.totalcompra - doc.com_dt - doc.pagado}}</td>
+                                        <td ng-if="doc.to_id == 17">{{ montoTotal = doc.com_dt - doc.detraccion}}</td>
+                                       
+                                        <td>
+                                            <div class="form-group"
+                                                ng-class="{'has-error':form['montoPagar'].$invalid == true}">
+                                                <span class="input-icon input-icon-right">
+                                                    <input type="number" placeholder="Total a Cobrar"
+                                                        class="form-control" name="montoPagar" required
+                                                        ng-model="doc.montoPagar" type="number" class="ui input" min="1"
+                                                        max="{{montoTotal}}" ng-change="putMontoVisual == doc.montoPagar">
+                                                    <i ng-class="{'ti-alert':form['montoPagar'].$invalid == true,'ti-check':form['montoPagar'].$invalid == false}"></i>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                         <!--    <pre>
+                                {{arrayconvertidordemontosparapagar | json}}
+                            </pre> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,131 @@
+<form novalidate name="myform">
+    <div>
+        <div class="header-modal2">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-disabled="myform.$error.required"
+                        ng-click="GuardarVentaPunto()">Generar Factura</button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                            class="ti-close"></i></button>
+                </div>
+            </div>
+            <h3 class="titulo-modal">PAGO</h3>
+        </div>
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-md-12">
+                    <button style="width: 200px;" type="button" class="btn btn-wide boton5" ng-click="button5 = btnChange(button5)" ng-class="{ 'activo5': button5 == true}">
+                        <h3 class="text-white">EFECTIVO</h3>
+                    </button>
+                    <button style="width: 200px;" type="button" class="btn btn-wide boton" ng-click="button = btnChange(button)" ng-class="{ 'activo': button == true}">
+                        <h3 class="text-white">TARJETA</h3>
+                    </button>
+                    <button style="width: 200px;" type="button" class="btn btn-wide boton2" ng-click="button2 = btnChange(button2)" ng-class="{ 'activo3': button3 == true}">
+                        <h3 class="text-white">TRANSFEREN.</h3>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" ng-if="button5">
+                <div class="hidden">
+                    {{pagos.efectivo.active = true}}
+                </div>
+                    <fieldset>
+                        <legend>
+                            Efectivo
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>
+                                        Importe de Efectivo
+                                    </label>
+                                    <input required type="number" name="get_efectivo" class="form-control" placeholder="" ng-model="pagos.efectivo.get_efectivo"  ng-change="pagos.efectivo = detectarEfectivo()">
+                                    <label>
+                                        Total Documento
+                                    </label>
+                                    <input readonly type="number" name="import_cc" class="form-control" placeholder="" ng-model="pagos.efectivo.import_cc = infoInputs.ven_totdoc">
+                                    <label>
+                                        Cambio
+                                    </label>
+                                    <input readonly type="number" name="get_vuelto" class="form-control" placeholder="" ng-model="pagos.efectivo.get_vuelto = pagos.efectivo.get_efectivo - pagos.efectivo.import_cc">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-6" ng-if="button">
+                    <div class="hidden">
+                        {{pagos.debito.active = true }}
+                    </div>
+                    <fieldset>
+                        <legend>
+                           Tarjeta
+                        </legend>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>
+                                        Monto pago
+                                    </label>
+                                    <input type="number" name="debito_import_cc" class="form-control" ng-model="pagos.debito.import_cc" ng-change="pagos.debito = detectarTarjeta()">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>
+                                        Numero de Comprobante
+                                    </label>
+                                    <input type="text" name="number_cc" class="form-control" ng-model="pagos.debito.number_cc">
+                                </div>
+                            </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-6" ng-if="button2">
+                    <div class="hidden">
+                        {{pagos.transferencia.active = true }}
+                    </div>
+                    <fieldset>
+                        <legend>
+                           Tarjeta
+                        </legend>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>
+                                        Monto pago
+                                    </label>
+                                    <input type="number" name="transferencia_import_cc" class="form-control" ng-model="pagos.transferencia.import_cc" ng-change="pagos.transferencia = detectarTransferencia()">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>
+                                        Numero de Comprobante
+                                    </label>
+                                    <input type="text" name="number_cc" class="form-control" ng-model="pagos.transferencia.number_cc">
+                                </div>
+                            </div>
+                    </fieldset>
+                </div>
+                <!-- false zone -->
+                <div ng-if="button5 == false">
+                    <div class="hidden">
+                        {{pagos.efectivo = {} }}
+                    </div>
+                </div>
+                <div ng-if="button2 == false">
+                    <div class="hidden">
+                        {{pagos.cheque = {} }}
+                    </div>
+                </div>
+                <div ng-if="button == false">
+                    <div class="hidden">
+                        {{pagos.debito = {} }}
+                    </div>
+                </div>
+            </div>
+         <!--    <pre> {{pagos | json}}</pre>
+            <pre> {{infoInputs | json}}</pre>
+            <pre> {{items | json}}</pre> -->
+        </div>
+    </div>
+</form>

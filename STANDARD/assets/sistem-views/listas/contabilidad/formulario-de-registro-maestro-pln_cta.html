@@ -1,0 +1,120 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarPlancta()">Guardar y Cerrar</button>
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Plan de Cuenta Contable</h3>
+    </div>
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titulo-modal-1 col-md-12">
+                    <h3>Información de Cuenta</h3>
+                </div>
+                <div class="row" style="padding: 10px;">
+                    <div class="col-md-2">
+                        <label for="" ng-class="{'text-danger':form.cta_id.$invalid == true}">Número de Cuenta Contable</label>
+                        <input required type="number" class="form-control" id="cta_id" name="cta_id" ng-model="infoInputs['cta_id']">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="" ng-class="{'text-danger':form.cta_nom.$error.required == true}">Nombre de Cuenta Contable</label>
+                        <input required type="text" class="form-control" id="cta_nom" name="cta_nom" ng-model="infoInputs['cta_nom']">
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="form-field-select-1" ng-class="{'text-danger':form.clacta_id.$invalid == true}">
+                            Clase de Cuenta
+                        </label>
+                            <select required class="cs-select cs-skin-slide" id="clacta_id" name="clacta_id" ng-model="infoInputs['clacta_id']">
+                            <option value="">Selec. Clase</option>  
+                            <option value="A">Activo</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="form-field-select-1" ng-class="{'text-danger':form.nivcta_id.$error.required == true}">
+                            Nivel de Cuenta
+                        </label>
+                            <select required class="cs-select cs-skin-slide" id="nivcta_id" name="nivcta_id" ng-model="infoInputs['nivcta_id']">
+                            <option value="">Selec. Nivel de Cuenta</option>
+                            <option value="3">Activo</option>
+                            <option value="4">Pasivo</option>
+                            <option value="5">Gelatina</option>
+                            <option value="6">Mantequilla</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titulo-modal-1 col-md-12">
+                    <h3>Información</h3>
+                </div>
+                <div class="row" style="padding: 10px;">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="form-field-select-1" ng-class="{'text-danger':form.mnd_id.$invalid == true}">
+                            Moneda
+                        </label>
+                            <select required class="cs-select cs-skin-slide" id="mnd_id" name="mnd_id" ng-model="infoInputs['mnd_id']">
+                            <option value="">Selec. Linea</option>
+                            <option value="D">Dolar</option>
+                            <option value="S">Soles</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="form-field-select-1" ng-class="{'text-danger':form.cta_tipaju.$invalid == true}">
+                            Tipos Ajuste
+                        </label>
+                            <select required class="cs-select cs-skin-slide" id="cta_tipaju" name="cta_tipaju" ng-model="infoInputs['cta_tipaju']">
+                            <option value="">Selec. Linea</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="" ng-class="{'text-danger':form.cta_tipcamcie.$error.required == true}">Tipo de Cambio de Cierre</label>
+                        <input required type="number" class="form-control" id="cta_tipcamcie" name="cta_tipcamcie" ng-model="infoInputs['cta_tipcamcie']">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" ng-class="{'text-danger':form..$error.required == true}">Cuenta Contable de Cierre</label>
+                        <input type="number" class="form-control" id="cta_contcie" name="" ng-model="infoInputs['cta_contcie']">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titulo-modal-1 col-md-12">
+                    <h3>Debe | Haber</h3>
+                </div>
+                <div class="row" style="padding: 10px;">
+                    <div class="col-md-4">
+                        <label for="cta_d" ng-class="{'text-danger':form..$error.required == true}">Cuenta Contable destinada al Debe</label>
+                        <input type="number" class="form-control" id="cta_d" name="" ng-model="infoInputs['cta_d']">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="cta_h" ng-class="{'text-danger':form..$error.required == true}">Cuenta Contable destinada al Haber</label>
+                        <input type="number" class="form-control" id="cta_h" name="" ng-model="infoInputs['cta_h']">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>

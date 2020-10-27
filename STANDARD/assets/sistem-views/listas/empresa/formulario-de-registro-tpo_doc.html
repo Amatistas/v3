@@ -1,0 +1,58 @@
+<form name="form">
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Tipos de Documento</h3>
+    </div>
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+        <div class="row">
+
+            <div class="col-md-12 col-md-12">
+
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-12">
+                        <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">Código</label>
+                        <input required type="text" class="form-control" id="td_id" name="td_id" ng-model="infoInputs['td_id']">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="td_nom" ng-class="{'text-danger':form.td_nom.$error.required == true}">Nombre</label>
+                        <input required type="text" class="form-control" id="td_nom" name="td_nom" ng-model="infoInputs['td_nom']">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-md-12">
+
+                <div class="row" style="padding: 10px;">
+
+                    <div class="col-md-12">
+                        <label for="td_fac" ng-class="{'text-danger':form.td_fac.$invalid == true}">Factor</label>
+                        <input required type="number" class="form-control" id="td_fac" name="td_fac" ng-model="infoInputs['td_fac']">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="td_snt" ng-class="{'text-danger':form.td_snt.$invalid == true}">Código Sunat</label>
+                        <input required type="text" class="form-control" id="td_snt" name="td_snt" ng-model="infoInputs['td_snt']">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="td_sntnom" ng-class="{'text-danger':form.td_sntnom.$error.required == true}">Nombre Sunat</label>
+                        <input required type="text" class="form-control" id="td_sntnom" name="td_sntnom" ng-model="infoInputs['td_sntnom']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardartpoDoc()">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

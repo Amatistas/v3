@@ -1,0 +1,157 @@
+<div ng-controller="MyCtrl">
+    <div ng-controller="SelectCtrl">
+
+
+        <div class="modal-header hidden-print">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <h4 class="titulo-modal">Reporte de Utilidad</h4>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="person.selected"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="Buscar Producto....">
+                                        {{$select.selected.cd_des}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in productosData track by $index"
+                                        refresh="productosGetAsyncronic($select.search)" refresh-delay="0">
+                                        <div class="item">
+                                            <div class="content">
+                                                <div>
+                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                    <b>{{item.cd_des}}</b>
+                                                </div>
+                                                <div class="description">{{item.pro_cod}}</div>
+                                            </div>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="person.selected=undefined" class="btn btn-primary">
+                                        <i class="fal fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="input-group" ng-if="docOrigin == true">
+                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="person.selected"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="Escriba 3 letras para buscar">
+                                        {{$select.selected.cd_des}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in productosData track by $index"
+                                        refresh="productosGetAsyncronic($select.search)" refresh-delay="0">
+                                        <div class="item">
+                                            <div class="content">
+                                                <div>
+                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                    <b>{{item.cd_des}}</b>
+                                                </div>
+                                                <div class="description">{{item.pro_cod}}</div>
+                                            </div>
+                                        </div>
+                                    </ui-select-choices>
+
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="person.selected=undefined" class="btn btn-primary">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="desde">Desde</label><input style="margin-left: 10px;margin-right: 10px;"
+                                type="date" name="desde" id="desde" ng-model="infoInputs['desde']" ng-required="true">
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <label for="hasta">Hasta</label><input style="margin-left: 10px;margin-right: 10px;" placeholder="Hasta"
+                                type="date" name="hasta" id="hasta" ng-model="infoInputs['hasta']" ng-required="true">
+                        </div>
+
+
+                        <div class="col-md-2">
+                            <button class="btn btn-primary"
+                            ng-click="buscarReporteUtilidad(person.selected.cd_pro_id,infoInputs.desde,infoInputs.hasta)">
+                            <span class="fa fa-search"></span>
+                        </button>
+                            <button class="btn btn-primary" ng-click="exportToExcel('#tableToExport')">
+                                <span class="glyphicon glyphicon-share"></span> Exportar Excel
+                            </button>
+                        </div>
+                        <div class="col-md-1">
+
+                            <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                                    class="ti-close"></i></button>
+                        </div>
+
+                        <!-- <button type="button" class="btn btn-link"><i class="ti-settings"></i></button> -->
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+
+
+        <div class="container" style="overflow-y: scroll;font-size: 11px;height: 500px;">
+            <div id="tableToExport">
+
+                <table class="table table-condensed table-bordered" border="1" ng-show="showtable == true">
+                    <thead class="text-center">
+                        <tr>
+                            <th colspan="8">
+                                <div class="col-md-12 text-center margin-top-20">
+                                    <h4>{{person.selected.cd_des}}</h4>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Precio de Venta</th>
+                            <th>Costo de Venta</th>
+                            <th>Costo de Compra</th>
+                            <th>Utilidad</th>
+                            <th>Cantidad</th>
+                            <th>Utilidad Neta</th>
+                            <th>Cliente</th>
+                            <th>Documento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" ng-repeat="item in itemsRegistroUtilidad track by $index">
+                            <td>{{item.vd_pre | number: 2}}</td>
+                            <td>{{item.precio | number: 2}}</td>
+                            <td>{{item.vd_costo_pro | number: 2}}</td>
+                            <td>{{item.utilidad | number: 2}}</td>
+                            <td>{{item.vd_can}}</td>
+                            <td>{{item.utilidad_neto | number: 2}}</td>
+                            <td>{{item.ane_razsoc}}</td>
+                            <td>{{item.documento}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="7" >
+                                <div class="text-right"><strong>Total: {{ mostrarResultados() | number: 2}}</strong></div>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,111 @@
+<style>
+    .dropbtn {
+        border: none;
+        cursor: pointer;
+    }
+    
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 10px;
+        bottom: 30px;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+    
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+</style>
+
+
+<div class="container" ng-controller="inventarioListaCtrl as showCase">
+    <div ng-controller="AsideModalTransaccionCtrl">
+        <div class="ui secondary menu">
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.productoyservicios')}" ui-sref="app.inventario.productoyservicios">
+                <span class="title" translate="sidebar.nav.inventarios.PRODUCTOSYSERVICIOS">Productos y Servicios</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.listaprecios')}" ui-sref="app.inventario.listaprecios">
+                <span class="title" translate="sidebar.nav.inventarios.LISTADEPRECIOS">Lista de Precio</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.stock')}" ui-sref="app.inventario.stock">
+                <span class="title">Stock</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.movimientoAlamcen')}" ui-sref="app.inventario.movimientoAlamcen">
+                <span class="title">Almacén</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.traslado')}" ui-sref="app.inventario.traslado">
+                <span class="title">Operaciones de Inventario</span>
+            </a>
+            <div class="right menu">
+                <div ncy-breadcrumb></div>
+            </div>
+        </div>
+        <!-- start: PAGE TITLE -->
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <h1 class="ui header" >Productos y Servicios
+                </h1>
+            </div>
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="dropdown pull-right" uib-dropdown="">
+
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" ng-click="productoyservicio()" class="btn btn-lg text-white btn btn-wide" style="background-color:#002350; border-radius: 50px 0px 0px 50px;">
+                            Nuevo
+                        </button>
+                        <button type="button" class="btn btn-lg text-white btn dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false" style="background-color:#002350; border-radius: 0px 50px 50px 0px;">
+                            <i class="fa fa-angle-down"></i>
+                            <span class="sr-only">Nuevo</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">
+                                    Importar Productos y Servicios
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-app="main" class="panel panel-white">
+                <div class="panel-body">
+                    <div class="row">
+                        <div ng-app="main" class="panel panel-white">
+                            <div class="panel-body">
+                                <a ng-click="showCase.changeData()" class="btn btn-wide btn-primary btn-squared">
+                                    change<i class="fa fa-refresh"></i>
+                                </a>
+                                <a ng-click="showCase.reloadData()" class="btn btn-wide btn-primary btn-squared">
+                                    Reload <i class="fa fa-refresh"></i>
+                                </a>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="ui table" width="100%" datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

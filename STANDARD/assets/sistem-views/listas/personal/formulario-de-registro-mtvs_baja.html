@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+    <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+    <h3 class="titulo-modal">Motivos de Baja</h3>
+</div>
+<div class="container-fluid">
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+        <div class="row">
+            
+            <div class="row" style="padding: 10px;">
+                <div class="col-md-12">
+                    <label for="nro" ng-class="{'text-danger':form.mtv_cod.$error.required == true}">Código</label>
+                    <input required type="text" class="form-control" id="mtv_cod" name="mtv_cod" ng-model="infoInputs['mtv_cod']">
+                </div>
+
+                <div class="col-md-12">
+                    <label for="nro" ng-class="{'text-danger':form.mtv_nom.$error.required == true}">Motivo o Descripción</label>
+                    <input required type="text" class="form-control" id="mtv_nom" name="mtv_nom" ng-model="infoInputs['mtv_nom']">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; align-items: flex-end;">
+        <div role="group" aria-label="tools">
+            <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarMtvB(FALTA LA TABLA ngTableCtrl)">Guardar</button>
+            <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarMtvBycerrar(FALTA LA TABLA ngTableCtrl)">Guardar y Cerra</button>
+        </div>
+    </div>
+</div>

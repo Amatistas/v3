@@ -1,0 +1,59 @@
+<form name="form" novalidate>
+    <div class="header-modal2">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="ok(infoInputs)">Guardar y Cerrar</button>
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Servicios</h3>
+    </div>
+    <div class="modal-body" style="padding: 30px;">
+        <div class="row" ng-controller="SelectCtrl">
+            <div class="col-md-12">
+                <label for="pro_nom" ng-class="{'text-danger':form.pro_nom.$error.required == true}">Nombre del Servicio</label>
+                <input required type="text" class="form-control" id="pro_nom" name="pro_nom" ng-model="infoInputs['pro_nom']">
+            </div>
+            <div class="col-md-4">
+                <label for="form-field-select-2" ng-class="{'text-danger':form.dh.$invalid == true}">
+                    Debe / Haber
+                </label>
+                <select name="dh" ng-model="infoInputs['dh']" id="dh" class="cs-select cs-skin-elastic" required>
+                    <option value="d">Debe</option>
+                    <option value="h">Haber</option>
+                </select>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label ng-class="{'text-danger':form.cc_id.$invalid == true}">
+                        Cuenta Contable
+                    </label>
+                    <div class="input-group">
+                        <ui-select required name="cc_id" ng-model="person.selected" theme="bootstrap">
+                            <ui-select-match placeholder="Select in the list...">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in peopleAsync | filter: $select.search">
+                                <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                <small ng-bind-html="item.email | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                            <button ng-click="person.selected = undefined" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="igv">% IGV</label>
+                <input type="text" class="form-control" id="igv">
+            </div>
+
+        </div>
+    </div>
+</form>

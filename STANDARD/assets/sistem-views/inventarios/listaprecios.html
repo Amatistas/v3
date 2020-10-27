@@ -1,0 +1,207 @@
+<div ng-controller="listaPrecioController">
+
+    <div class="container">
+        <div class="ui secondary menu">
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.productoyservicios')}" ui-sref="app.inventario.productoyservicios">
+                <span class="title" translate="sidebar.nav.inventarios.PRODUCTOSYSERVICIOS">Productos y Servicios</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.listaprecios')}" ui-sref="app.inventario.listaprecios">
+                <span class="title" translate="sidebar.nav.inventarios.LISTADEPRECIOS">Lista de Precio</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.stock')}" ui-sref="app.inventario.stock">
+                <span class="title">Stock</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.movimientoAlamcen')}" ui-sref="app.inventario.movimientoAlamcen">
+                <span class="title">Almacén</span>
+            </a>
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.traslado')}" ui-sref="app.inventario.traslado">
+                <span class="title">Operaciones de Inventario</span>
+            </a>
+            <div class="right menu">
+                <div ncy-breadcrumb></div>
+            </div>
+        </div>
+    </div>
+    <!-- start: PAGE TITLE -->
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-sm-12">
+            <h1 class="ui header">Lista de Precios
+            </h1>
+        </div>
+    </div>
+    <form id="formulario_core" name="form" novalidate>
+        <div ng-controller="SelectCtrl">
+            <div class="container" ng-init="resultados(person.selected)">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>
+                                Productos y Servicios
+                            </label>
+                            <div class="input-group">
+                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="person.selected"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="Escriba 3 letras para buscar">
+                                        {{$select.selected.cd_des}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in productosData track by $index"
+                                        refresh="productosGetAsyncronicListPrecio($select.search)" refresh-delay="0">
+                                        <div class="item">
+                                            <div class="content">
+                                                <div>
+                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                    <b>{{item.cd_des}}</b>
+                                                </div>
+                                                <div class="description">{{item.pro_cod}}</div>
+                                            </div>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="person.selected=undefined" class="btn btn-primary">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label for="lpd_fac">Factor</label>
+                            <input ng-model="person.selected.lpd_fac"
+                                ng-change="person.selected = modffactorCompra(person.selected)" type="text"
+                                class="form-control" id="lpd_fac" name="lpd_fac">
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <label for="pst_id">
+                                Presentación
+                            </label>
+
+                            <select ng-model="person.selected.pst_id" class="form-control" id="pst_id " name="pst_id"
+                                ng-init="buscarOption(rr.pst_id)">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['pst_id']">{{opt.label}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="form-field-select-2">
+                                Lista de Precio
+                            </label>
+                            <select required ng-model="person.selected.lp_id" class="form-control" id="lp_id"
+                                name="lp_id" ng-init="buscarOption(rr.lp_id)" ng-change="resultados(person.selected)">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">{{opt.label}}</option>
+                            </select>
+                        </div>
+<!-- 
+                        <div class="col-md-1">
+                            <button class="btn btn-primary" style="margin-top: 30px;"
+                                ng-click="resultados(person.selected)"><i class="fa fa-search"></i></button>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-md-3">
+                        <ul class="list-group list-group-flush ">
+                            <li class="list-group-item ">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="text-light">Agregar Nuevo</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item ">
+                                <div class="row">
+                                    <!--precio de compra del producto -->
+                                    <div class="col-md-6">Precio de Compra</div>
+                                    <div class="col-md-6"><input type="number" ng-model="person.selected.falso_monto"
+                                            id="falso_monto" name="falso_monto" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item ">
+                                <div class="row">
+                                    <div class="col-md-6">% UTILIDAD</div>
+                                    <div class="col-md-6"><input type="number" ng-model="person.selected.lpd_uti"
+                                            ng-change="person.selected = modfUtilidadCompra(person.selected)"
+                                            id="lpd_uti" name="lpd_uti" ng-value="0" class="form-control  " value="0">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item ">
+                                <div class="row">
+                                    <div class="col-md-6">V. Venta</div>
+                                    <div class="col-md-6"><input type="number" ng-model="person.selected.lpd_vpre"
+                                            ng-change="person.selected = modfValorVentaCompra(person.selected)"
+                                            id="lpd_vpre" name="lpd_vpre" class="form-control  "></div>
+                                </div>
+                            </li>
+                            <li class="list-group-item ">
+                                <div class="row">
+                                    <div class="col-md-6">IGV</div>
+                                    <div class="col-md-6"><input type="number"
+                                            ng-model="person.selected.lpd_porcentaje_igv" id="lpd_porcentaje_igv" name="lpd_porcentaje_igv"
+                                            class="form-control" readonly="">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item ">
+                                <div class="row">
+                                    <div class="col-md-6">VALOR IGV</div>
+                                    <div class="col-md-6"><input type="number"
+                                            ng-model="person.selected.lpd_valor_igv" id="lpd_valor_igv" name="lpd_valor_igv"
+                                            class="form-control" readonly="">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item ">
+                                <div class="row">
+                                    <div class="col-md-6">P. VENTA</div>
+                                    <div class="col-md-6"><input type="number" ng-model="person.selected.lpd_pre"
+                                            ng-change="person.selected = modfPrecioVentaCompra(person.selected)"
+                                            id="lpd_pre" name="lpd_pre" class="form-control  "></div>
+                                </div>
+                            </li>
+                            <div class="list-group-item ">
+                                <a class="card-link btn btn-block btn-primary text-white"
+                                    ng-click="guardarFormularioListaPrecio(person.selected)">Guardar</a>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="col-md-9" style="height: 385px; overflow-y: scroll;">
+                        <div ng-controller="itemsCtrl">
+                            <table class="ui celled table">
+                                <thead>
+                                    <tr>
+                                        <th>FACTOR</th>
+                                        <th>COSTO</th>
+                                        <th>GRAVADO</th>
+                                        <th>IGV</th>
+                                        <th>VALOR IGV</th>
+                                        <th>PRECIO DE VENTA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in itemslista track by $index">
+                                        <td>{{item.lpd_fac }}</td>
+                                        <td>{{item.lpd_com | number : 2}}</td>
+                                        <td>{{item.lpd_vpre | number : 2}}</td>
+                                        <td>{{item.lpd_porcentaje_igv | number : 2}}</td>
+                                        <td>{{item.lpd_valor_igv | number : 2}}</td>
+                                        <td>{{item.lpd_pre | number : 2}}</td>
+                                    </tr>
+                              
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</div>

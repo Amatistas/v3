@@ -1,0 +1,173 @@
+<div class="container" style="margin-top: 15px;" ng-controller="AsideModalTransaccionCtrl">
+    <!-- start: PAGE TITLE -->
+    <!-- <div class="ui secondary menu">
+        <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.compras.listaCompra')}" ui-sref="app.compras.listaCompras">
+            <span class="title" translate="sidebar.nav.compras.COMPRASLISTA">Compras Lista</span>
+        </a>
+        <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.compras.proveedores')}" ui-sref="app.compras.proveedores">
+            <span class="title" translate="sidebar.nav.compras.PROVEEDORES">Providers</span>
+        </a>
+        <div class="right menu">
+            <div ncy-breadcrumb></div>
+        </div>
+    </div> -->
+    <!-- start: PAGE TITLE -->
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-sm-12">
+            <h1 class="ui header">
+                Parémetros Contables
+            </h1>
+            
+        </div>
+
+        <!-- <div class="col-xs-12 col-md-6 col-sm-12">
+            <div class="btn-group dropdown pull-right" uib-dropdown="">
+                <button type="button" ng-click="nuevobancos()" class="btn btn-lg text-white btn btn-wide" style="background-color:#002350; border-radius: 50px 0px 0px 50px;">
+                    Nueva Plantilla
+                </button>
+                <button type="button" class="btn btn-lg text-white btn dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false" style="background-color:#002350; border-radius: 0px 50px 50px 0px;">
+                    <i class="fa fa-angle-up"></i>
+                    <span class="sr-only">Nuevo Proveedor</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="#">
+                            Importar Proveedores
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+    </div>
+
+    <div ng-app="main" ng-controller="parametrosCtrl">
+
+
+
+        <div class="container-fluid container-fullw bg-white ng-scope">
+            <div class="col-sm-offset-0">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="">
+                                Código
+                            </label>
+                            <div class="form-group">
+                                <input type="text" placeholder="Código" id="form-field-13" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <label for="">
+                                Descripción Parámetro
+                            </label>
+                            <div class="form-group">
+                                <input type="text" id="form-field-13" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="text" placeholder="Cuenta" id="form-field-13" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" placeholder="Descripción Cuenta" id="form-field-13" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div tabindex="0">
+                                <select class="cs-select cs-skin-elastic">
+                                <option value="D">Debe</option>
+                                <option value="H">Haber</option>
+                            </select></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div tabindex="0">
+                                <select class="cs-select cs-skin-elastic">
+                                <option value="D">Soles</option>
+                                <option value="H">Dolares</option>
+                            </select></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="text" placeholder="Carecterísticas" id="form-field-13" class="form-control">
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-2">
+
+                            <button class="btn btn-primary" type="submit">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+             
+                </div>
+            </div>
+         
+        </div>
+
+
+
+
+
+        <!-- 
+        <table ng-table="tableproveedores" show-filter="false" class="table table-responive">
+            <tr ng-repeat="parametros in $data">
+                <td width="10" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+                    <input type="checkbox" ng-model="checkboxes.items[parametros.id]" />
+                </td>
+                <td data-title="'id'" sortable="proveedor">
+                    {{parametros.id}}
+                </td>
+                <td data-title="'to_id'" sortable="telefono" ng-if="tamanoPantalla > 780">
+                    {{parametros.parametros}}
+                </td>
+                <td class="" ng-if="user.pendiente > 0">
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" class="btn btn-link" ng-click="realizarPagosCl(user.pro_id)">
+                            Realizar Pagos
+                        </button>
+                        <button type="button" class="btn btn-link dropdown-toggle" uib-dropdown-toggle=""
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-angle-up"></i>
+                            <span class="sr-only">Ver / Editar</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">
+                                    Nueva Compra
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td class="" ng-if="user.pendiente == 0">
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" class="btn btn-link">
+                            Ver / Editar
+                        </button>
+                        <button type="button" class="btn btn-link dropdown-toggle" uib-dropdown-toggle=""
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-angle-up"></i>
+                            <span class="sr-only">Ver / Editar</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">
+                                    Nueva Compra
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table> -->
+
+        <script type="text/ng-template " id="ng-table/headers/checkbox.html ">
+            <input type="checkbox " ng-model="checkboxes.checked " id="select_all " name="filter-checkbox " value=" " />
+        </script>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<form name="form" novalidate>
+<div class="modal-header">
+    <div class="pull-right">
+    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+    <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+</div>
+    <h3 class="titulo-modal">Tipo de Horarios</h3>
+</div>
+<div class="container-fluid">
+    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+        {{infoInputs | json}}
+        <div class="row">
+            
+            <div class="row" style="padding: 10px;">
+
+                <div class="col-md-12">
+                    <label for="nro" ng-class="{'text-danger':form.tiphor_nom.$error.required == true}">Descripción</label>
+                    <input required type="text" class="form-control" id="tiphor_nom" name="tiphor_nom" ng-model="infoInputs['tiphor_nom']">
+                </div>
+                <div class="col-md-12">
+                    <label for="nro" ng-class="{'text-danger':form.tiphor_horini.$invalid == true}">Hora de Inicio</label>
+                    <input required type="time" class="form-control" id="tiphor_horini" name="tiphor_horini" ng-model="infoInputs['tiphor_horini']">
+                </div>
+                <div class="col-md-12">
+                    <label for="nro" ng-class="{'text-danger':form.tiphor_horfin.$invalid == true}">Hora de Fin</label>
+                    <input required type="time" class="form-control" id="tiphor_horfin" name="tiphor_horfin" ng-model="infoInputs['tiphor_horfin']">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; align-items: flex-end;">
+        <div role="group" aria-label="tools">
+            <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarTipoHora()">Guardar y Cerrar</button>
+        </div>
+    </div>
+</div>
+</form>

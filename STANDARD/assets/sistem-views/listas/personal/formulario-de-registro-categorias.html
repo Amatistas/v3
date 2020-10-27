@@ -1,0 +1,111 @@
+<div class="modal-header">
+    <div class="pull-right">
+        <div role="group" aria-label="tools">
+            <button class="btn btn-primary" ng-click="ok($event)">Guardar</button>
+            <button class="btn btn-primary" ng-click="cancel($event)">Guardar y Cerra</button>
+            <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+            <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+            <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+        </div>
+    </div>
+    <h3 class="titulo-modal">Categorías</h3>
+</div>
+<div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+    {{infoInputs | json}}
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="titulo-modal-1 col-md-12">
+                <h3>Informacion de Categoría</h3>
+            </div>
+            <div class="row" style="padding: 10px;">
+
+                <div class="col-md-4 col-md-12">
+                    <div class="form-group">
+                        <label for="form-field-select-1">
+                            Empresa
+                        </label>
+                        <select class="cs-select cs-skin-slide" ng-model="infoInputs['emp_id']">
+                            <option ng-value="">Selec. Empresa</option>
+                            <option ng-value="">Empresa.SAC</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="proveedor">Codigo de Categoría</label>
+                    <input type="text" class="form-control" id="cat_id" ng-model="infoInputs['cat_id']">
+                </div>
+                <div class="col-md-4 col-md-12">
+                    <div class="form-group">
+                        <label for="form-field-select-1">
+                            Categoría
+                        </label>
+                        <select class="cs-select cs-skin-slide" ng-model="infoInputs['ofi_id']">
+                            <option value="">Selec. Categoría</option>
+                            <option value="clientes">Todo</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="titulo-modal-1 col-md-12">
+                <h3>Mas Informacion</h3>
+            </div>
+            <div class="row" style="padding: 10px;">
+
+                <div class="col-md-4">
+                    <label for="serie">Codigo de Sub Categoría</label>
+                    <input type="text" class="form-control" id="scat_id" ng-model="infoInputs['scat_id']">
+                </div>
+                <div class="col-md-4">
+                    <label for="serie">Nombre de Sub Categoría</label>
+                    <input type="text" class="form-control" id="scat_nom" ng-model="infoInputs['scat_nom']">
+                </div>
+                <div class="col-md-4 col-md-12">
+                    <div class="form-group">
+                        <label for="form-field-select-1">
+                            Linea
+                        </label>
+                        <select class="cs-select cs-skin-slide" ng-model="infoInputs['lin_nom']">
+                            <option value="">Selec. Linea</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="titulo-modal-1 col-md-12">
+                <h3>Ultimos Datos</h3>
+            </div>
+            <div class="row" style="padding: 10px;">
+
+                <div class="col-md-4">
+                    <label for="proveedor">Nombre de Categoría</label>
+                    <input type="text" class="form-control" id="cat_nom" ng-model="infoInputs['cat_nom']">
+                </div>
+                <div class="col-md-4">
+                    <label for="serie">Nombre Abreviado</label>
+                    <input type="text" class="form-control" id="a" ng-model="infoInputs['a']">
+                </div>
+                <div class="col-md-4">
+                    <label for="serie">Nombre Abreviado de Sub Categoría</label>
+                    <input type="text" class="form-control" id="b" ng-model="infoInputs['b']">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>

@@ -1,0 +1,128 @@
+<div class="container" ng-controller="AsideModalTransaccionCtrl">
+    <!-- start: PAGE TITLE -->
+    <div class="ui secondary menu">
+        <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.compras.listaCompra')}" ui-sref="app.compras.listaCompras">
+            <span class="title" translate="sidebar.nav.compras.COMPRASLISTA">Compras Lista</span>
+        </a>
+        <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.compras.proveedores')}" ui-sref="app.compras.proveedores">
+            <span class="title" translate="sidebar.nav.compras.PROVEEDORES">Providers</span>
+        </a>
+        <div class="right menu">
+            <div ncy-breadcrumb></div>
+        </div>
+    </div>
+    <!-- start: PAGE TITLE -->
+    <div class="row ">
+        <div class="col-xs-12 col-md-6 col-sm-12">
+            <h1 class="ui header" >
+                Proveedores
+            </h1>
+            
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-sm-12">
+            <div class="btn-group dropdown pull-right" uib-dropdown="">
+                <button type="button" ng-click="nuevoocupaciones()" class="btn btn-lg text-white btn btn-wide" style="background-color:#002350; border-radius: 50px 0px 0px 50px;">
+                    Nuevo local
+                </button>
+                <button type="button" class="btn btn-lg text-white btn dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false" style="background-color:#002350; border-radius: 0px 50px 50px 0px;">
+                     <i class="fa fa-angle-up"></i>
+                    <span class="sr-only">Nuevo Proveedor</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="#">
+                            Importar Proveedores
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div ng-app="main" ng-controller="DemoCtrl2">
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col-md-4" style="margin-top: 5px;">
+                <button class="btn boton3 btn-block">
+                        <h2 class="text-white"> S/ 50</h2>
+                        <p>1 Factura atrasada en mas de 90 dias</p>
+                </button>
+            </div>
+            <div class="col-md-4" style="margin-top: 5px;">
+                <button class="btn boton btn-block" ng-click="filtroPendientesPorPagar()" ng-class="{ 'activo': statusfiltroPendientesPorPagar == true}">
+                    <h2 class="text-white"> S/ 900</h2>
+                    <p>4 Facuras Pendientes</p>
+                </button>
+            </div>
+            <div class="col-md-4" style="margin-top: 5px;">
+                <button class="btn boton2 btn-block">
+                    <h2 class="text-white"> S/ 500</h2>
+                    <p>1 Factura Pagada los Ultimos 30 Dias</p>
+                </button>
+            </div>
+        </div>
+
+        <a popover-placement="right" uib-popover-template="'assets/sistem-views/compras/filtro-de-tabla-proveedor.html'" popover-trigger="mouseenter" class="btn btn-wide btn-primary btn-squared">
+            Filtros <i class="fa fa-angle-right"></i>
+        </a>
+
+        <table ng-table="tableproveedores" show-filter="false" class="table table-responive">
+            <tr ng-repeat="user in $data" ng-class="{ 'active': user.pendiente > 0}">
+                <td width="10" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+                    <input type="checkbox" ng-model="checkboxes.items[user.proveedor]" />
+                </td>
+                <td data-title="'Proveedores'" sortable="proveedor">
+                    {{user.proveedor}}
+                </td>
+                <td data-title="'Telefono'" sortable="telefono" ng-if="tamanoPantalla > 780">
+                    {{user.telefono}}
+                </td>
+                <td data-title="'Pendiente'" sortable="pendiente" ng-if="tamanoPantalla > 780">
+                    {{user.pendiente}}
+                </td>
+                <td data-title="'Email'" sortable="email" ng-if="tamanoPantalla > 780">
+                    {{user.email}}
+                </td>
+                <td class="" ng-if="user.pendiente > 0">
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" class="btn btn-link" ng-click="realizarPagosCl(user.pro_id)">
+                            Realizar Pagos
+                        </button>
+                        <button type="button" class="btn btn-link dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                             <i class="fa fa-angle-up"></i>
+                            <span class="sr-only">Ver / Editar</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">
+                                    Nueva Compra
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td class="" ng-if="user.pendiente == 0">
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" class="btn btn-link">
+                           Ver / Editar
+                        </button>
+                        <button type="button" class="btn btn-link dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                             <i class="fa fa-angle-up"></i>
+                            <span class="sr-only">Ver / Editar</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">
+                                    Nueva Compra
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <script type="text/ng-template " id="ng-table/headers/checkbox.html ">
+            <input type="checkbox " ng-model="checkboxes.checked " id="select_all " name="filter-checkbox " value=" " />
+        </script>
+    </div>
+</div>

@@ -1,0 +1,141 @@
+    <div class="container" ng-controller="configSunatUploadCtrl">
+       <div class="container-fluid container-fullw bg-white ng-scope">
+
+           <div class="col-md-6">
+
+               <form id="formularioCargaCertificado" method="POST" enctype="multipart/form-data">
+             
+   
+                  <div class="row">
+                  <div class="form-group">
+                      <div class="col-md-12">
+                          <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
+                              Upload a File:
+                          </label>
+                          <div class="input-group">
+                              <div class="ui buttons">
+                                  <input class="ui blue basic button" type="file" name="uploadedFile" class="form-control"/>
+                                
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
+                              Ingrese su contraseña
+                          </label>
+                              <div class="input-group">
+                                  <div class="">
+                                      <input type="password" class="form-control" ng-model="datos.djqw231asd">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6 margin-top-30">
+      
+                              <div class="input-group">
+                                  <div class="">
+                                      <button class="btn btn-primary"  name="uploadBtn" ng-click="enviarFormulario($event)">Guardar Certificado</button>
+                                  </div>
+                              </div>
+                          </div>
+                  </div>
+                  <!-- <span>Upload a File:</span> -->
+                  <!-- <input type="file" name="uploadedFile" /> -->
+                  <!-- <input type="password" ng-model="datos.djqw231asd"> -->
+              </div>
+              <div class="row">
+               <div ng-if="certificado_val==true" class="col-md-6 margin-top-30">
+   
+                   <div class="ui success message">
+                      
+                       <div class="header">
+                           Certificado ya registrado
+                       </div>
+                     </div>
+               </div>
+               <div ng-if="certificado_val==false" class="col-md-6 margin-top-30">
+   
+                   <div class="ui negative  message">
+                      
+                       <div class="header">
+                           Certificado no registrado
+                       </div>
+                     </div>
+               </div>
+   
+               <!-- <div ng-if="certificado_val==true"> Certificado ya registrado</div> -->
+           </div>
+             
+               <!-- <button name="uploadBtn" ng-click="enviarFormulario($event)">Guardar Certificado</button> -->
+          
+           </form>
+           </div>
+    
+    
+    <div class="col-md-6">
+
+        <form id="usuario_sunat">
+    
+            <div class="form-group">
+                <div class="col-md-6">
+                    <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
+                        Usuario Sunat
+                    </label>
+                    <div class="input-group">
+                      
+                           
+                            <input type="text" class="form-control" ng-model="datos.usuario_sunat">
+                       
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
+                        Ruc Sunat
+                    </label>
+                    <div class="input-group">
+                     
+                            <input type="number"  class="form-control" ng-model="datos.ruc_sunat">
+                  
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
+                        Clave Segundaria Sunat
+                    </label>
+                    <div class="input-group">
+                     
+                         
+                            <input type="password"  class="form-control" ng-model="datos.password_sunat">
+                    
+                    </div>
+                </div>
+    
+    
+                <div class="col-md-6 margin-top-30">
+        
+                    <div class="input-group">
+                        <div class="">
+                            <button class="btn btn-primary" ng-click="guardarFormularioUsuarioSunat($event)"> Guardar Usuario </button>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    
+            <!-- <label for="">Usuario Sunat</label>
+            <input type="text" ng-model="datos.usuario_sunat"> -->
+    <!--         
+            <label for="">Ruc Sunat</label>
+            <input type="number" ng-model="datos.ruc_sunat">
+         -->
+            <!-- <label for="">Clave Segundaria Sunat</label>
+            <input type="password" ng-model="datos.password_sunat"> -->
+    <!--         
+            <button ng-click="guardarFormularioUsuarioSunat($event)"> Guardar Usuario </button> -->
+        </form>
+    </div>
+        
+       </div>
+</div>
+
+

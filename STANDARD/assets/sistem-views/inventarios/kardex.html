@@ -1,0 +1,133 @@
+<form id="formulario_core" name="form" novalidate>
+    <div ng-controller="SelectCtrl">
+        <div class="modal-header">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                            class="ti-close"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="toas()"><i class="ti-close"></i></button>
+                    <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarCompra()">Guardar</button>
+                    <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="ok()">Guardar y
+                        Salir</button>
+                    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                  class="ti-close"></i></button>
+                </div>
+            </div>
+            <h3 class="titulo-modal">Detalle de Asiento</h3>
+        </div>
+        <div class="container-fluid" ng-controller="asientoTablaDetalleCtrl">
+            <div class="modal-body">
+                <div ng-controller="itemsCtrl">
+                    <div class="row" style="background-color: #eee;">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <label for="nro" ng-class="{'text-danger':form.com_num.$invalid == true}">Tipo
+                                            de Operación</label>
+                                        <input required type="text" class="form-control" id="tdp" name="tdp" ng-value="" ng-model="infoInputs['tdp']" readonly>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="serie" ng-class="{'text-danger':form.com_ser.$error.required == true}">Nro de
+                                            Asiento</label>
+                                        <input required type="text" class="form-control" id="nro_asiento" name="nro_asiento" ng-model="infoInputs['nro_asiento']" readonly>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="serie" ng-class="{'text-danger':form.com_ser.$error.required == true}">Documento</label>
+                                        <input required type="text" class="form-control" id="documents" name="documents" ng-model="infoInputs['documents']" readonly>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label for="nro" ng-class="{'text-danger':form.com_num.$invalid == true}">Moneda</label>
+                                        <input required type="text" class="form-control" id="mnd" name="mnd" ng-model="infoInputs['mnd']" readonly>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="nro" ng-class="{'text-danger':form.com_num.$invalid == true}">Fecha
+                                            de Asiento</label>
+                                        <input required type="text" class="form-control" id="fecha" name="fecha" ng-model="infoInputs['fecha']" readonly>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="nro" ng-class="{'text-danger':form.com_num.$invalid == true}">Razon Social</label>
+                                        <input required type="text" class="form-control" id="usu" name="usu" ng-model="infoInputs['usu']" readonly>
+                                    </div>
+                                    <div>
+                                        <div class="col-md-2 pull-right" style="text-align: center;margin-top: 10px;margin-bottom: 10px;">
+                                            <p><strong>HABER</strong></p>
+                                            <div style="width: 232px; text-align: center;background: #fff;border: 1px solid #cacaca;padding: 7px 4px; color: black; ">
+                                                <p style="font-size: 20px;font-weight: 700; ">{{getTotalHaber() | number : 2}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 pull-right " style="text-align: center;margin-top: 10px;margin-bottom: 10px; ">
+                                            <p><strong>DEBE</strong></p>
+                                            <div style="width: 232px; text-align: center;background: #fff;border: 1px solid #cacaca;padding: 7px 4px;color: black; ">
+                                                <p style="font-size: 20px;font-weight: 700; ">{{getTotalDebe() | number : 2}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="col-md-2 pull-left" style="text-align: center;margin-top: 10px;margin-bottom: 10px;">
+                                            <p><strong>HABER</strong></p>
+                                            <div style="width: 232px; text-align: center;background: #fff;border: 1px solid #cacaca;padding: 7px 4px; color: black; ">
+                                                <p style="font-size: 20px;font-weight: 700; ">$ {{getTotalHaberdolar() | number : 2}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 pull-left" style="text-align: center;margin-top: 10px;margin-bottom: 10px; ">
+                                            <p><strong>DEBE</strong></p>
+                                            <div style="width: 232px; text-align: center;background: #fff;border: 1px solid #cacaca;padding: 7px 4px;color: black; ">
+                                                <p style="font-size: 20px;font-weight: 700; ">$ {{getTotalDebedolar() | number : 2}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div ng-app="main " class="panel panel-white ">
+                        <div class="panel-body ">
+                            <div class="row ">
+                                <table class="table table-hover " id=" ">
+                                    <thead>
+                                        <tr>
+                                            <th class="center ">Nro</th>
+                                            <th class="center ">CUENTA</th>
+                                            <th class=" ">DESCRIPCIÓN</th>
+                                            <th class=" ">DEBE</th>
+                                            <th class=" ">HABER</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in datax ">
+                                            <td class="center ">{{$index}}</td>
+                                            <td class="center ">{{item.cta_id}}</td>
+                                            <td class=" ">{{item.cta_nom}}</td>
+                                            <td class=" ">
+                                                <div ng-if="item.d_h=='D' ">{{item.monto | number :2}}</div>
+                                            </td>
+                                            <td class=" ">
+                                                <div ng-if="item.d_h=='H' ">{{item.monto | number :2}}</div>
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <h5>{{getTotalDebe() | number : 2}}</h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{getTotalHaber() | number : 2}}</h5>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

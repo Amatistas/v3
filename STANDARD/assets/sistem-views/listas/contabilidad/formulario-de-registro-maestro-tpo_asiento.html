@@ -1,0 +1,37 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="pull-right">
+            <div role="group" aria-label="tools">
+                <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
+            </div>
+        </div>
+        <h3 class="titulo-modal">Tipo de Asiento</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+            {{infoInputs | json}}
+            <div class="row">
+
+                <div class="row" style="padding: 10px;">
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.codigo.$invalid == true}">Nro de Asiento</label>
+                        <input required type="text" class="form-control" id="codigo" name="codigo" ng-model="infoInputs['codigo']">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="nro" ng-class="{'text-danger':form.tdasi_nom.$error.required == true}">Nombre de Asiento</label>
+                        <input required type="text" class="form-control" id="tdasi_nom" name="tdasi_nom" ng-model="infoInputs['tdasi_nom']">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div role="group" aria-label="tools">
+                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarTpoAsien()">Guardar y Cerrar</button>
+            </div>
+        </div>
+    </div>
+</form>

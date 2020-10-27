@@ -1,0 +1,197 @@
+<div ng-controller="MyCtrl">
+
+
+    <div class="modal-header hidden-print">
+      <div class="pull-right">
+        <div role="group" aria-label="tools">
+  
+  
+          <label for="fechainicio">Hasta</label><input style="margin-left: 10px;margin-right: 10px;" type="date"
+            name="fechainicio" id="fechainicio" ng-model="infoInputs['fechainicio']">
+  
+  
+  
+          <label for="fechafin">Hasta</label><input style="margin-left: 10px;margin-right: 10px;" type="date"
+            name="fechafin" id="fechafin" ng-model="infoInputs['fechafin']">
+  
+  
+  
+          <!-- 
+          <button onclick="javascript:window.print();" class="btn btn-primary">
+              Print <i class="fa fa-print"></i>
+          </button> -->
+          <button class="btn btn-primary" ng-click="buscarReporteCompra(infoInputs.fechainicio,infoInputs.fechafin)">
+            <span class="fa fa-search"></span>
+          </button>
+          <button class="btn btn-primary" ng-click="exportToExcel('#tableToExport')">
+            <span class="glyphicon glyphicon-share" ></span> Exportar Excel
+          </button>
+          <a class="btn btn-primary" ng-click="generarTxt()" id="save-link">Exportar TXT</a>
+          <!-- <button class="btn btn-primary" id="save-link">
+            <span class="glyphicon glyphicon-share"></span> Exportar TXT
+          </button> -->
+  
+          <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+          <!-- <button type="button" class="btn btn-link"><i class="ti-settings"></i></button> -->
+          <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+        </div>
+      </div>
+      <h3 class="titulo-modal">Reporte de Compras</h3>
+    </div>
+  
+  
+  
+    <div class="container-fluid" style="overflow-y: scroll;font-size: 11px;height: 500px;" id="tableToExport">
+  
+      <table class="table table-condensed table-bordered" border="1">
+        <thead>
+            <tr>
+                <th>PERIODO</th>
+                <th>NUMERO CORRELATIVO Ó CODIGO UNICO DE LA OPERACIÓN</th>
+                <th>MOVIMIENTO</th>
+                <th>FECHA DE EMISION DEL COMPROBANTE DE PAGO O DOCUMENTO</th>
+                <th>FECHA DE VENCIMIENTO O FECHA DE PAGO</th>
+                <th>TIPO COMPROBANTE DE PAGO O DOCUMENTO</th>
+                <th>SERIE DE COMPROBANTE DE PAGO O DOCUMENTO</th>
+                <th>AÑO DUAL O DSI</th>
+                <th>NUMERO DE COMPROBANTE DE PAGO O DOCUMENTO</th>
+                <th>NUMERO FINAL</th>
+                <th>TIPO DOC IDENTIDAD PROVEEDOR</th>
+                <th>NUMERO DOC IDENTIDAD PROVEEDOR</th>
+                <th>APELLIDOS Y NOMBRES DENOMINACION O RAZON SOCIAL PROVEEDOR</th>
+                <th>BASE IMPONIBLE DE LAS ADQUISICIONES GRAVADAS DESTINADAS A OPERACIONES GRAVADAS Y/O DE EXPORTACION</th>
+                <th>IGV IMPONIBLE DE LAS ADQUISICIONES GRAVADAS DESTINADAS A OPERACIONES GRAVADAS Y/O DE EXPORTACION</th>
+                <th>BASE IMPONIBLE DE LAS ADQUISICIONES GRAVADAS DESTINADAS A OPERACIONES GRAVADAS Y/O DE EXPORTACION YA OPERACIONES NO GRAVADAS</th>
+                <th>IGV IMPONIBLE DE LAS ADQUISICIONES GRAVADAS DESTINADAS A OPERACIONES GRAVADAS Y/O DE EXPORTACION YA OPERACIONES NO GRAVADAS</th>
+                <th>BASE IMPONIBLE DE LAS ADQUISICIONES GRAVADAS DESTINADAS A OPERACIONES NO GRAVADAS</th>
+                <th>IGV IMPONIBLE DE LAS ADQUISICIONES GRAVADAS DESTINADAS A OPERACIONES NO GRAVADAS</th>
+                <th>VALOR DE LAS ADQUISICIONES NO GRAVADAS</th>
+                <th>ISC</th>
+                <th>OTROS TRIBUTOS Y CARGOS</th>
+                <th>IMPORTE TOTAL</th>
+                <th>CODIGO DE LA MONEDA</th>
+                <th>TIPO DE CAMBIO</th>
+                <th>FECHA DE REF. DEL COMPROBANTE DE PAGO O DOCUMENTO ORIGINAL QUE SE MODIFICA</th>
+                <th>TIPO DE REF. DEL COMPROBANTE DE PAGO O DOCUMENTO ORIGINAL QUE SE MODIFICA</th>
+                <th>SERIE DE REF. DEL COMPROBANTE DE PAGO O DOCUMENTO ORIGINAL QUE SE MODIFICA</th>
+                <th>CODIGO DEP. ADUANERA DE LA DECLARACION UNICA DE ADUANES (DUA) O DECLARACION SIMPLIFICA DE IMPORTACION (DSI)</th>
+                <th>NUMERO DE REF. DEL COMPROBANTE DE PAGO O DOCUMENTO ORIGINAL QUE SE MODIFICA</th>
+                <th>FECHA DE EMISIÓN DE LA CONSTANCIA DE DEPOSITO DE DETRACCION</th>
+                <th>NUMERO DE EMISIÓN DE LA CONSTANCIA DE DEPOSITO DE DETRACCION</th>
+                <th>MARCA DEL COMPROBANTE DE PAGO SUJETO A RETENCION</th>
+                <th>CLASIFICACION DE LOS BIENES Y SERVICIOS ADQUIRIDOS</th>
+                <th>IDENTIFICACION DEL CONTRATO O DEL PROYECTO QUE NO LLEVEN CONTABILIDAD INDEPENDIENTE</th>
+                <th>INCONSISTENCIAS EN EL TIPO DE CAMBIO</th>
+                <th>INCONSISTENCIAS POR PROVEEDORES NO HABIDOS</th>
+                <th>INCONSISTENCIAS POR PROVEEDORES QUE RENUNCIARON A LA EXONERACION DEL APENDICE I DEL IGV</th>
+                <th>INCONSISTENCIAS POR DNIS QUE FUERON UTILIZADOS EN LAS LIQUIDACIONES DE COMPRA Y QUE YA CUENTAN CON RUC</th>
+                <th>INDICADOR DE COMPROBANTES DE PAGO CANCELADOS CON MEDIOS DE PAGO</th>
+                <th>ESTADO QUE IDENTIFICA LA OPORTUNIDAD DE LA ANOTACION O INDICACION SI ESTA CORRESPONDE A UN AJUSTE</th>
+                <th>CAMPOS DE LIBRE USO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>20181200</td>
+                <td>11-120001</td>
+                <td>M0002</td>
+                <td>17/11/2018</td>
+                <td>17/11/2018</td>
+                <td>01</td>
+                <td>F0001</td>
+                <td>0</td>
+                <td>2851</td>
+                <td></td>
+                <td>6</td>
+                <td>2052516587|</td>
+                <td>KAMAGI CORPORATION DE SERVICIOS GENERALES</td>
+                <td>84.75</td>
+                <td>15.25</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>100</td>
+                <td>PEN</td>
+                <td>3.382</td>
+                <td>01/01/0001</td>
+                <td>00</td>
+                <td>-</td>
+                <td></td>
+                <td>-</td>
+                <td>01/01/0001</td>
+                <td>0</td>
+                <td></td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>/td>
+                <td></td>
+                <td>6</td>
+                <td>6</td>
+            </tr>
+        </tbody>
+      </table>
+      
+      
+      
+    </div>
+    
+        <table id='tabla' style="display: none;">
+          <tbody>
+  
+              <tr>
+                  <td>20181200|</td>
+                  <td>11-120001|</td>
+                  <td>M0002|</td>
+                  <td>17/11/2018|</td>
+                  <td>17/11/2018|</td>
+                  <td>01|</td>
+                  <td>F0001|</td>
+                  <td>0|</td>
+                  <td>2851|</td>
+                  <td>|</td>
+                  <td>6|</td>
+                  <td>20525165877|</td>
+                  <td>KAMAGI CORPORATION DE SERVICIOS GENERALES|</td>
+                  <td>84.75|</td>
+                  <td>15.25|</td>
+                  <td>0|</td>
+                  <td>0|</td>
+                  <td>0|</td>
+                  <td>0|</td>
+                  <td>0|</td>
+                  <td>0|</td>
+                  <td>0|</td>
+                  <td>100|</td>
+                  <td>PEN|</td>
+                  <td>3.382|</td>
+                  <td>01/01/0001|</td>
+                  <td>00|</td>
+                  <td>-|</td>
+                  <td>|</td>
+                  <td>-|</td>
+                  <td>01/01/0001|</td>
+                  <td>0|</td>
+                  <td>|</td>
+                  <td>5|</td>
+                  <td>|</td>
+                  <td>|</td>
+                  <td>|</td>
+                  <td>|</td>
+                  <td>|</td>
+                  <td>|</td>
+                  <td>6|</td>
+                  <td>|</td>
+              </tr>
+             
+       
+          </tbody>
+      </table>
+  
+  </div>
