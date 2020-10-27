@@ -12,7 +12,7 @@ class Auth
     function ValidarOnNubefaPanel($username)
     {
         // select all query
-        $query = "SELECT * FROM `nubefapanel`.`usuario` where usu_usu like '%$username%' and usu_est = 1 ";
+        $query = "SELECT * FROM `nubefaco_nubefapanel`.`usuario` where usu_usu like '%$username%' and usu_est = 1 ";
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -23,10 +23,10 @@ class Auth
     }
     function validarOnBaseDeDatosEmpresa($bd,$username)
     {
-        $query = "SELECT * FROM `$bd`.personal, nubefapanel.categoriaempresa
+        $query = "SELECT * FROM `$bd`.personal, nubefaco_nubefapanel.categoriaempresa
         WHERE `$bd`.personal.per_ema = '$username'
         AND `$bd`.`personal`.per_est = 1
-        AND `$bd`.personal.emp_id = nubefapanel.categoriaempresa.id";
+        AND `$bd`.personal.emp_id = nubefaco_nubefapanel.categoriaempresa.id";
         $stmt = $this->conn->prepare($query);
 
         // execute query
