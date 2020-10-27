@@ -26,7 +26,7 @@ app.controller('AppCtrl', [
 		$transitions
 	) {
 		$rootScope.d = sessionStorage;
-		$rootScope.miURL = '';
+		$rootScope.miURL = 'https://app.nubefa.com';
 		// Loading bar transition
 		// -----------------------------------
 		var $win = $($window);

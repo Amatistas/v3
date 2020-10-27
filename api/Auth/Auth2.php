@@ -9,7 +9,7 @@ include '../Auth/var.php';
 
 $database = new Database();
 
-$getdb = 'nubefapanel';
+$getdb = 'nubefaco_nubefapanel';
 
 $tbnom = 'usuario';
 
