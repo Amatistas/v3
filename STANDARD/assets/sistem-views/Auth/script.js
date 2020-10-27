@@ -67,6 +67,7 @@ app.controller('WizardController', [
 			};
 
 			$http.post(`localhost/api/Auth/Auth2.php`, vm.usr).then(function(response) {
+			
 				var dataUsuario = response.data;
 				console.log(dataUsuario);
 				sessionStorage.setItem('datos', JSON.stringify(response.data));
