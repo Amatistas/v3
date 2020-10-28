@@ -99,12 +99,16 @@
                         <div class="col-md-6">
                             <div class="center">
                                 <h4 class="ng-binding ">Logo de la Compañia</h4>
+                                <div class="user-image">
+                                    <div class="thumbnail">
+                                        <img class="ng-scope" ng-src="api/upload/{{infoInputs[0].fe_log}}">
+                                    </div>
+                                </div>
                                 <form id="formularioCargaLogo" method="POST" enctype="multipart/form-data">
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="input-group" class="col-md-6">
                                                 <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
-                                                    Upload a File:
                                                 </label>
                                                 <input class="form-control" type="file" name="uploadedFile"
                                                     class="form-control" />
@@ -118,14 +122,6 @@
                                         </div>
                                     </div>
                                 </form>
-                                <pre>
-                                    {{infoInputs | json}}
-                                </pre>
-                                <div class="user-image">
-                                    <div class="thumbnail">
-                                        <img class="ng-scope" ng-src="api/upload/">
-                                    </div>
-                                </div>
                             </div>
                             <div class="row ">
                                 <div class="col-md-4 ">

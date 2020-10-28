@@ -7,7 +7,7 @@
 	<a href="#" class="sidebar-toggler pull-right visible-md visible-lg"
 	ng-click="app.layout.isSidebarClosed = !app.layout.isSidebarClosed"> <i class="ti-align-justify"></i> </a>
 	<a class="pull-right menu-toggler visible-xs-block" id="menu-toggler" ng-click="navbarCollapsed = !navbarCollapsed">
-		<span class="sr-only">Toggle navigation</span> <i class="ti-view-grid"></i> </a>
+		<span class="sr-only">Toggle navigation</span><i class="ti-view-grid"></i></a>
 		
 </div>
 <!-- end: NAVBAR HEADER -->
@@ -15,22 +15,18 @@
 <div class="navbar-collapse collapse" uib-collapse="navbarCollapsed" ng-init="navbarCollapsed = true"
 	off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="#menu-toggler">
 	<div class="navbar-text navbar-left" style="margin-top:16px; font-size: 20px;"><span style="font-family: Metropolis-Bold;" class="navbar-link"></span></div>
-	<ul class="nav navbar-left" ct-fullheight="window" data-ct-fullheight-exclusion="header"
-		data-ct-fullheight-if="isSmallDevice">
-	<li><h3 style="margin-top: 20px;"></h3></li>
-	</ul>
+	<ul class="nav navbar-left" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice"></ul>
 		
-	<ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header"
-		data-ct-fullheight-if="isSmallDevice">
+	<ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice">
 		<li>
 			<a href class="dropdown-toggle" ng-click="toggle('off-sidebar')"> <i class="ti-settings"></i> AJUSTES </a>
 		</li>
 		
 		<!-- start: LANGUAGE SWITCHER -->
 		<!-- start: USER OPTIONS DROPDOWN -->
+
 		<li class="dropdown current-user" uib-dropdown on-toggle="toggled(open)">
-			<a href class="dropdown-toggle" uib-dropdown-toggle> <img src="STANDARD/assets/images/media-user.png"
-					alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></i></span>
+			<a href class="dropdown-toggle" uib-dropdown-toggle> <img src="STANDARD/assets/images/media-user.png" alt="{{user.name}}"> <span class="username">{{user.name}}<i class="ti-angle-down"></i></i></span>
 			</a>
 			<ul class="dropdown-menu dropdown-dark">
 				<li>

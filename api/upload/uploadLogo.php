@@ -42,13 +42,12 @@ if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] === UPLOA
         }
 
         $dest_path = $uploadFileDir . $newFileName;
-        $dest_path2 = $uploadFileDir . $fileName;
 
         $db = $database->getConnection($folder);
         $ti = new Thing($db);
 
         if (move_uploaded_file($fileTmpPath, $dest_path)) {
-            if ($ti->updateLogoEmpresa($folder, $dest_path2, $emp_id)) {
+            if ($ti->updateLogoEmpresa($folder, $dest_path, $emp_id)) {
                 echo json_encode(array("status" => "success", "message" => "Se actualizo el logo"));
             } else {
                 echo json_encode(array("status" => "error", "message" => "Fallo la Actualizacion del Logo"));

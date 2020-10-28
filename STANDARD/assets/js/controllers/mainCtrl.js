@@ -342,32 +342,25 @@ app.controller('cuentaAjusteCtrl', [
 	'SweetAlert',
 	'$state',
 	function($scope, $location, $http, $rootScope, getResources, SweetAlert, $state) {
-		
 		$scope.infoInputs = {};
 		$scope.units = {};
 		$scope.rr = [];
 
+
 		$scope.fetchHeader = function(id) {
-			let resp = [];
 			let obj = { db: 'empresa', where: 'emp_id', key: id };
 			getResources.fetchResources(obj).then(
 				function(d) {
-					resp.push(d.data);
+					$scope.infoInputs = d.data;
 				},
 				function(errResponse) {
 					console.error('Error while fetching Currencies');
 				}
 			);
-			return resp;
 		};
-		console.log(JSON.parse($rootScope.d.datos).emp_id);
-		$scope.infoInputsCATH = $scope.fetchHeader(JSON.parse($rootScope.d.datos).emp_id);
-		
-		setTimeout(function() {
-			$scope.infoInputs = $scope.infoInputsCATH[0];
-		
-			console.log($scope.infoInputs);
-		},250);
+
+		$scope.fetchHeader(JSON.parse($rootScope.d.datos).emp_id);
+
 
 		$scope.rr.to_id = {
 			selectId: 'to_id',
