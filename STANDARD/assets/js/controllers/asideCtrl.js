@@ -1300,7 +1300,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						where: 'cod',
 						key: '',
 						mostrar: [ 'cod', 'descripcion' ],
-						panel: 'nubefapanel'
+						panel: 'nubefaco_nubefa'
 					};
 
 					$scope.rr.td_id = {
@@ -1362,7 +1362,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						var arr = obj.selectId;
 
 						if (param.panel) {
-							var bd = 'nubefapanel';
+							var bd = 'nubefaco_nubefa';
 						} else {
 							var bd = JSON.parse($rootScope.d.datos).database;
 						}
@@ -2225,7 +2225,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						where: 'cod',
 						key: '',
 						mostrar: [ 'cod', 'descripcion' ],
-						panel: 'nubefapanel'
+						panel: 'nubefaco_nubefa'
 					};
 					$rootScope.buscarOption = function(param) {
 						switch (typeof param) {
@@ -2242,7 +2242,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						var arr = obj.selectId;
 
 						if (param.panel) {
-							var bd = 'nubefapanel';
+							var bd = 'nubefaco_nubefa';
 						} else {
 							var bd = JSON.parse($rootScope.d.datos).database;
 						}
@@ -3678,7 +3678,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						where: 'cod',
 						key: '',
 						mostrar: [ 'cod', 'descripcion' ],
-						panel: 'nubefapanel'
+						panel: 'nubefaco_nubefa'
 					};
 
 					$scope.guardarNotaCredito = function() {
