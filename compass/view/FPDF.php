@@ -121,16 +121,18 @@ class PDF extends FPDF
         return $var;
       }
  
-        // Logo
-        $this->Image($this->arry3[0]['fe_log'], 10, 8, 33);
-        $this->SetFont('Arial', 'I', 8);
+  
+                   // Logo
+                   $this->Image($this->arry3[0]['fe_log'], 10, 8, 33);
+                   $this->SetFont('Arial', 'I', 8);
+           
+                   $this->SetXY(55, 8);
+                   $this->MultiCell(100, 4, $this->arry3[0]['emp_nom'] . "\n " . substr($this->arry3[0]['emp_dir'], 0, 59) . "\n" . substr($this->arry3[0]['departamento'] . " - " . $this->arry3[0]['provincia'] . " - " . $this->arry3[0]['distrito'], 0, 59) . "\n" . substr("Email: " . $this->arry3[0]['emp_ema'], 0, 59) . "\n" . substr("Teléf: " . $this->arry3[0]['emp_tel'] . " Cel: " . $this->arry3[0]['emp_cel'], 0, 59) . " \n", 0, 'L');
+              
+                   $this->SetFont('Arial', 'B', 9);
+                   $this->SetXY(150, 10);
+  
 
-        $this->SetXY(55, 8);
-        $this->MultiCell(100, 4, substr($this->arry3[0]['emp_nom'], 0, 59) . "\n " . substr($this->arry3[0]['emp_dir'], 0, 59) . "\n" . substr($this->arry3[0]['departamento'] . " - " . $this->arry3[0]['provincia'] . " - " . $this->arry3[0]['distrito'], 0, 59) . "\n" . substr("Email: " . $this->arry3[0]['emp_ema'], 0, 59) . "\n" . substr("Teléf: " . $this->arry3[0]['emp_tel'] . " Cel: " . $this->arry3[0]['emp_cel'], 0, 59) . " \n", 0, 'L');
-        $this->SetFont('Arial', 'B', 9);
-        $this->SetXY(150, 10);
-       
-        
         if($this->arry[0]['to_id'] == 13){
             $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  ."\n". $this->arry[0]['documento'], 1, 'C');
             // Line break
@@ -155,9 +157,8 @@ class PDF extends FPDF
             $this->cell(30, 6, $col[0], 1, '', 'C');
             $this->cell(30, 6, $col[1], 1, '', 'C');
             $this->Ln(8);
-        }
-        else  if($this->arry4!=NULL){       
-            $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . "COMPROBANTE DE EGRESO"  ."\n". $this->arry[0]['documento'], 1, 'C');
+        }else if($this->arry4!=NULL){       
+            $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . "COMPROBANTE DE EGRESO"  ."\n", 1, 'C');
             // Line break
             $this->SetMargins(10, 30, 20, 20);
     
@@ -171,6 +172,7 @@ class PDF extends FPDF
             $this->line(10, 40, 200, 40);
             $this->SetY(45);
         } else{
+
             $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  ."\n". $this->arry[0]['documento'], 1, 'C');
             // Line break
             $this->SetMargins(10, 30, 20, 20);

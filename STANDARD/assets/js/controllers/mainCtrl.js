@@ -26,7 +26,7 @@ app.controller('AppCtrl', [
 		$transitions
 	) {
 		$rootScope.d = sessionStorage;
-		$rootScope.miURL = 'https://app.nubefa.com';
+		$rootScope.miURL = 'http://localhost:8080';
 		// Loading bar transition
 		// -----------------------------------
 		var $win = $($window);
@@ -338,23 +338,37 @@ app.controller('cuentaAjusteCtrl', [
 	'$location',
 	'$http',
 	'$rootScope',
-	function($scope, $location, $http, $rootScope) {
+	'getResources',
+	'SweetAlert',
+	'$state',
+	function($scope, $location, $http, $rootScope, getResources, SweetAlert, $state) {
+		
 		$scope.infoInputs = {};
 		$scope.units = {};
 		$scope.rr = [];
-		$http
-			.get(
-				`../../../../api/mantenimiento/mantenimiento/read.php?getdb=${JSON.parse($rootScope.d.datos)
-					.database}&tbnom=empresa&where=emp_id&igual=${JSON.parse($rootScope.d.datos).emp_id}`
-			)
-			.then(function(response) {
-				var info = response.data.data[0];
-				$.each(info, function(i, v) {
-					$scope.infoInputs[i] = [];
-					$scope.infoInputs[i].push(v);
-				});
-				console.log($scope.infoInputs);
-			});
+
+		$scope.fetchHeader = function(id) {
+			let resp = [];
+			let obj = { db: 'empresa', where: 'emp_id', key: id };
+			getResources.fetchResources(obj).then(
+				function(d) {
+					resp.push(d.data);
+				},
+				function(errResponse) {
+					console.error('Error while fetching Currencies');
+				}
+			);
+			return resp;
+		};
+		console.log(JSON.parse($rootScope.d.datos).emp_id);
+		$scope.infoInputsCATH = $scope.fetchHeader(JSON.parse($rootScope.d.datos).emp_id);
+		
+		setTimeout(function() {
+			$scope.infoInputs = $scope.infoInputsCATH[0];
+		
+			console.log($scope.infoInputs);
+		},250);
+
 		$scope.rr.to_id = {
 			selectId: 'to_id',
 			db: 'tipo_operacion',
@@ -425,6 +439,38 @@ app.controller('cuentaAjusteCtrl', [
 			key: '',
 			mostrar: [ 'fp_id', 'fp_nom' ]
 		};
+		$scope.enviarLogo = function(e) {
+			e.preventDefault();
+
+			let formData = new FormData(document.getElementById('formularioCargaLogo'));
+
+			console.log(formData);
+
+			$.ajax({
+				url: `/api/upload/uploadLogo.php?folder=${JSON.parse($rootScope.d.datos).database}&emp_id=${JSON.parse(
+					$rootScope.d.datos
+				).emp_id}`,
+				type: 'post',
+				dataType: 'html',
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false
+			}).done(function(res) {
+				try {
+					let respuesta = JSON.parse(res);
+					SweetAlert.swal('Logo', respuesta.message, respuesta.status);
+					$state.reload();
+				} catch (e) {
+					if (e instanceof SyntaxError) {
+						SweetAlert.swal('Logo', 'No se pudo Guardar tu logo', 'error');
+					} else {
+						SweetAlert.swal('Logo', 'No se pudo Guardar tu logo', 'error');
+					}
+				}
+			});
+		};
+
 		$rootScope.buscarOption = function(param) {
 			switch (typeof param) {
 				case 'string':

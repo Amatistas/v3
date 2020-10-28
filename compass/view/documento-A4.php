@@ -13,6 +13,7 @@ include __DIR__ . '../../num2letra.php';
 $database = new Database();
 $getdb = $_GET['getdb'];
 $nro = $_GET['nro'];
+$emp_id = $_GET['emp_id'];
 $db = $database->getConnection($getdb);
 $info = new informacion($db);
 $op = new Operaciones();
@@ -22,9 +23,8 @@ $op = new Operaciones();
 $infoVenta = $info->getinformacionVenta($getdb,$nro);
 $infoItem = $info->getinformacionItem($getdb,$nro);
 $infoPago = $info ->getinformacionPago($getdb,$nro);
-$infoEmpresa = $info ->getinformacionEmpresa($getdb,$nro);
-//informacion de empresa
-$infoEmpresa = $info->getinformacionEmpresa($getdb,1);
+$infoEmpresa = $info->getinformacionEmpresa($getdb,$emp_id);
+
 $arry = array();
 //informacion de item
 $arry2 = array();

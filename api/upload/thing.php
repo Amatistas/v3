@@ -45,4 +45,23 @@ class Thing
 
         $stmt->close();
     }
+    function updateLogoEmpresa($getdb, $urlImg, $emp_id)
+    {
+
+        $query = "UPDATE `$getdb`." . " `empresa` " . "
+        SET fe_log = '$urlImg'
+        WHERE emp_id = $emp_id
+        ";
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        // execute query
+        if ($stmt->execute()) {
+            return true;
+        } {
+            return false;
+        }
+
+        $stmt->close();
+    }
 }

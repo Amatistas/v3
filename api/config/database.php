@@ -6,7 +6,7 @@ class Database{
     //private $db_name = "nubefa";
     private $username = "pedro";
     private $password = "adolfo2403"; */
-    private $host = "localhost";
+    private $host = "142.44.214.111";
     //private $db_name = "nubefa";
     private $username = "nubefaco_superuser";
     private $password = "adolfo2403";

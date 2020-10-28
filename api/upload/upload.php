@@ -11,67 +11,6 @@ require '../../compass/vendor/autoload.php';
 include '../config/database.php';
 include '../upload/thing.php';
 
-//// include database and object files
-//
-//$folder = $_GET['client']; 
-//$emp_id = $_GET['emp_id']; 
-//$password = $_GET['password']; 
-//$password = 'Nubefa123456';
-//
-//
-//if (!empty($_FILES)) {
-//
-
-//
-
-//
-//    $tempPath = $_FILES['file']['tmp_name'];
-//    $uploadPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'certificados' . DIRECTORY_SEPARATOR . $folder;
-// */
-///*     if (file_exists($uploadPath)) {
-//        echo "El fichero $uploadPath existe";
-//    } else {
-//        mkdir($uploadPath,0777,TRUE);
-//    }
-//
-//    $uploadFileName =  $_FILES['file']['name'];
-//    $fullPath = $uploadPath . DIRECTORY_SEPARATOR . $uploadFileName;
-//
-//    if(move_uploaded_file($tempPath, $fullPath))
-//    {
-//        //update ruta del certificado 
-//        if($ti->updateUrlCertificado($folder,$uploadFileName,$emp_id)){
-//            echo "se actualizo el url del certificado";
-//        }else{
-//            echo "fallo al actualizar la ruta del archivo";
-//        }
-//    }else{
-//
-//    }
-//
-//     */
-//
-////convertir 
-//
-//$tempPath = $_FILES['file']['tmp_name'];
-//$pfx = file_get_contents($tempPath);
-//
-//$certificate = new X509Certificate($pfx, $password);
-//$pem = $certificate->export(X509ContentType::PEM);
-//    
-//file_put_contents($uploadPath . DIRECTORY_SEPARATOR .'certificate.pem', $pem);
-//
-//    $answer = array('answer' => 'File transfer completed');
-//    $json = json_encode($answer);
-//
-//    echo $json;
-//
-//
-//} else {
-//
-//    echo 'No files';
-//}
-// 
 $folder = $_GET['folder'];
 $emp_id = $_GET['emp_id'];
 $passwordCertificado = $_GET['djqw231asd'];

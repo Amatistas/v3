@@ -15,17 +15,17 @@ include __DIR__ . '../../num2letra.php';
 $database = new Database();
 $getdb = $_GET['getdb'];
 $nro = $_GET['nro'];
+$emp_id = $_GET['emp_id'];
 $db = $database->getConnection($getdb);
 $info = new informacion($db);
 $op = new Operaciones();
 
-
 ///pasar el ID de proveedor para ver sus pagos
 $infoVenta = $info->getinformacionVenta($getdb,$nro);
 $infoItem = $info->getinformacionItem($getdb,$nro);
-$infoPago = $info ->getinformacionPago($getdb,$nro);
 //informacion de empresa
-$infoEmpresa = $info->getinformacionEmpresa($getdb,1);
+$infoEmpresa = $info->getinformacionEmpresa($getdb,$emp_id);
+$infoPago = $info ->getinformacionPago($getdb,$nro);
 $arry = array();
 //informacion de item
 $arry2 = array();
@@ -39,16 +39,12 @@ while ($row = $infoItem->fetch(PDO::FETCH_ASSOC)) {
     array_push($arry2,$row);
 }
 
-
-
-
-
 //informacion de empresa
 $arry3 = array();
 while ($row = $infoEmpresa->fetch(PDO::FETCH_ASSOC)) {
     array_push($arry3,$row);
 }
-
+// var_dump($arry3);
 $arry4 = array();
 while ($row = $infoPago->fetch(PDO::FETCH_ASSOC)) {
     array_push($arry4,$row);
@@ -135,7 +131,7 @@ $fpdf->Ln(10);
 // $fpdf->Ln(10);
 $fpdf->SetFont('Arial','',8); 
 $fpdf->setXY(0,25);
-$fpdf->MultiCell(75,3,"CONTABILIZADO\n "."Jr. Las Crucinelas 435 Urb. Las Flores\n"."LIMA-LIMA-LOS OLIVOS\n"."Email: contabilizado@gmail.com / Teléf: 3750106 Cel: 921535282 \n",0,'C');
+$fpdf->MultiCell(75,3,substr($arry3[0]['emp_nom'], 0, 59)."\n ".substr($arry3[0]['emp_dir'], 0, 40)."\n".substr($arry3[0]['departamento'] . " - " . $arry3[0]['provincia'] . " - " . $arry3[0]['distrito'], 0, 40) . "\n".substr("Email: " . $arry3[0]['emp_ema'], 0, 40) ."\n".substr("Teléf: " . $arry3[0]['emp_tel'] . " Cel: " . $arry3[0]['emp_cel'], 0, 40),0,'C');
 $fpdf->Ln(10);
 $fpdf->SetFont('Arial','B',8); 
 $fpdf->setXY(0,42);
@@ -216,7 +212,7 @@ $fpdf->setX(1);
 $fpdf->Cell(5,3,'Vendedor: '.$fpdf->arry[0]['usuario']);
 $fpdf->Ln(5);
 $fpdf->setX(20);
-$fpdf->Cell(35,$textypos,$fpdf->Image('qr.jpg', $fpdf->GetX(0), $fpdf->GetY(0),35),0);
+$fpdf->Cell(20,$textypos,$fpdf->Image('qr.jpg', $fpdf->GetX(0), $fpdf->GetY(0),20),0);
 $fpdf->Ln(40);
 $fpdf->Cell(60,3,"REPRESENTACIÓN IMPRESA DEL",0,'','C');
 $fpdf->Ln();
