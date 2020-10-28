@@ -3923,7 +3923,7 @@ app.controller('AsideModalTransaccionCtrl', [
 
 					$scope.getDocumento = function(typeDocument, nro) {
 						var dt = [];
-						var DOMINIO = 'http://192.168.0.3:8080/compass/peru-consult-api/public/';
+						var DOMINIO = 'compass/peru-consult-api/public/';
 
 						var API = '';
 						if (typeDocument == '11') {
