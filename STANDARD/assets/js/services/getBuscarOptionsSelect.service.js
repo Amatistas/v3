@@ -16,7 +16,7 @@ function getBuscarOptionsSelect($http, $q, $rootScope) {
 			}
 			
 			if (obj.panel) {
-				obj.bd = 'nubefapanel';
+				obj.bd = 'nubefaco_nubefa';
 			} else {
 				obj.bd = JSON.parse($rootScope.d.datos).database;
 			}
