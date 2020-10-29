@@ -121,4 +121,5 @@ $fpdf->cell(130,6,'Vendedor: '.$fpdf->arry[0]['usuario'],0,'','L');
 
 $fpdf->AliasNbPages();
 $fpdf->Output('I','nombre.pdf','UTF-8');
+?>
 

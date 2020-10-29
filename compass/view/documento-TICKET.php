@@ -1,4 +1,3 @@
-
 <?php
 require('fpdf/fpdf.php');
 // require('invoice/invoice.php');
@@ -23,7 +22,6 @@ $op = new Operaciones();
 ///pasar el ID de proveedor para ver sus pagos
 $infoVenta = $info->getinformacionVenta($getdb,$nro);
 $infoItem = $info->getinformacionItem($getdb,$nro);
-//informacion de empresa
 $infoEmpresa = $info->getinformacionEmpresa($getdb,$emp_id);
 $infoPago = $info ->getinformacionPago($getdb,$nro);
 $arry = array();
@@ -117,7 +115,7 @@ function formatoMoneda($type){
 
 
 
-$fpdf = new FPDF($orientation='P',$unit='mm', array(80,350),true,$arry,$arry2,$arry3,$arry4);
+$fpdf = new FPDF($orientation='P',$unit='mm',array(80,350),true,$arry,$arry2,$arry3,$arry4);
 $fpdf->AddPage();
 $fpdf->SetFont('Arial','B',8);    //Letra Arial, negrita (Bold), tam. 20
 $textypos = 20;
@@ -223,6 +221,8 @@ $fpdf->Ln();
 $fpdf->Cell(60,3,"CONSULTADO EN",0,'','C');
 $fpdf->Ln();
 $fpdf->Cell(60,3,"http://www.contabilizado.com",0,'','C');
-$fpdf->output('I','nombre.fpdf','UTF-8');
-
+$fpdf->AliasNbPages();
+$fpdf->Output('I','nombre.pdf','UTF-8');
 ?>
+
+
