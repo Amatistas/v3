@@ -211,7 +211,7 @@ $fpdf->Cell(5,3,'Vendedor: '.$fpdf->arry[0]['usuario']);
 $fpdf->Ln(5);
 $fpdf->setX(30);
 $fpdf->Cell(20,$textypos,$fpdf->Image('qr.jpg', $fpdf->GetX(0), $fpdf->GetY(0),20),0);
-$fpdf->Ln(40);
+$fpdf->Ln(23);
 $fpdf->Cell(60,3,"REPRESENTACIÓN IMPRESA DEL",0,'','C');
 $fpdf->Ln();
 $fpdf->Cell(60,3,"COMPROBANTE DE PAGO ELECTRÓNICO",0,'','C');
