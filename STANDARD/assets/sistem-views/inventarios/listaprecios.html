@@ -181,6 +181,7 @@
                                         <th>IGV</th>
                                         <th>VALOR IGV</th>
                                         <th>PRECIO DE VENTA</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -191,6 +192,10 @@
                                         <td>{{item.lpd_porcentaje_igv | number : 2}}</td>
                                         <td>{{item.lpd_valor_igv | number : 2}}</td>
                                         <td>{{item.lpd_pre | number : 2}}</td>
+                                        <td class="left">
+                                            <button  class="btn btn-red" ng-click="remove(item.id,person.selected,$index)">
+                                                <i class="glyphicon glyphicon-trash"></i></button>
+                                        </td>
                                     </tr>
                               
                                 </tbody>

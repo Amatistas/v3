@@ -120,10 +120,11 @@ class PDF extends FPDF
         }
         return $var;
       }
- 
+     
   
                    // Logo
-                   $this->Image($this->arry3[0]['fe_log'], 10, 8, 33);
+                   $this->Image("../../api/upload/".substr($this->arry3[0]['fe_log'],2), 10, 8, 33);
+                //    var_dump("../../api/upload/".substr($this->arry3[0]['fe_log'],1));
                    $this->SetFont('Arial', 'I', 8);
            
                    $this->SetXY(55, 8);
@@ -219,7 +220,7 @@ class PDF extends FPDF
         $this->SetY(-10);
         $this->Cell(0, 5, 'Página ' . $this->PageNo() . '/{nb}', 0, 0, 'R');
         // opacidad
-        $this->SetAlpha(0.1);
-        $this->Image($this->arry3[0]['fe_log'], 46, 130, 120);
+        $this->SetAlpha(0.1);  
+        $this->Image("../../api/upload/".substr($this->arry3[0]['fe_log'],2), 46, 130, 120);
     }
 }

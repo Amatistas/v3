@@ -526,7 +526,8 @@ app.controller('listaPrecioController', [
 	'$rootScope',
 	'$scope',
 	'$http',
-	function($rootScope, $scope, $http) {
+	'toaster',
+	function($rootScope, $scope, $http,toaster) {
 		$rootScope.infoInputs = {};
 
 		//datos de los select normales selectTo
@@ -789,8 +790,29 @@ app.controller('listaPrecioController', [
 			return d;
 		};
 
-		$scope.remove = function(index) {
-			$scope.items.splice(index, 1);
+		$scope.remove = function(id,pro,index) {
+			let obj = {
+				tb:'lista_precio_det',
+				col:'id',
+				ident:id
+			};
+			$scope.itemslista.splice(index, 1);
+			let sendObj = JSON.stringify(obj);
+			var xmlhttp = new XMLHttpRequest();
+			var theUrl = `../../../../api/mantenimiento/mantenimiento/delete.php?getdb=${JSON.parse($rootScope.d.datos)
+				.database}&tbnom=lista_precio_det`;
+			xmlhttp.open('post', theUrl);
+			xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+			xmlhttp.withCredentials = true;
+			xmlhttp.send(sendObj);
+			xmlhttp.onload = (response) => {
+				if (xmlhttp.status == 200) {
+					toaster.pop('success', 'Precio', 'Guardado');
+					
+				}else{
+					toaster.pop('error', 'Precio', 'No se Pudo eliminar');
+				}
+			};
 		};
 
 		//guardar datos de las compras
@@ -804,8 +826,13 @@ app.controller('listaPrecioController', [
 			xmlhttp.withCredentials = true;
 			xmlhttp.send(sendObj);
 			xmlhttp.onload = (response) => {
-				if (xmlhttp.status == 201) {
-					$scope.resultados($scope.person.selected);
+				if (xmlhttp.status == 200) {
+					toaster.pop('success', 'Precio', 'Guardado');
+					$scope.resultados(pro);
+				}else{
+					toaster.pop('error', 'Precio', 'No se Pudo guardar verifique los Campos');
+					$scope.resultados(pro);
+
 				}
 			};
 		};

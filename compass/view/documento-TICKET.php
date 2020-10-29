@@ -123,7 +123,7 @@ $fpdf->SetFont('Arial','B',8);    //Letra Arial, negrita (Bold), tam. 20
 $textypos = 20;
 $fpdf->setY(2);
 $fpdf->setX(20);
-$fpdf->Cell(37,$textypos,$fpdf->Image($arry3[0]['fe_log'], $fpdf->GetX(0), $fpdf->GetY(0),35),0);
+$fpdf->Cell(37,$textypos,$fpdf->Image("../../api/upload/".substr($arry3[0]['fe_log'],2), $fpdf->GetX(0), $fpdf->GetY(0),35),0);
 $fpdf->Ln(10);
 // $fpdf->SetFont('Arial','',8); 
 // $fpdf->setXY(0,25);
@@ -211,7 +211,7 @@ $fpdf->Ln(5);
 $fpdf->setX(1);
 $fpdf->Cell(5,3,'Vendedor: '.$fpdf->arry[0]['usuario']);
 $fpdf->Ln(5);
-$fpdf->setX(20);
+$fpdf->setX(30);
 $fpdf->Cell(20,$textypos,$fpdf->Image('qr.jpg', $fpdf->GetX(0), $fpdf->GetY(0),20),0);
 $fpdf->Ln(40);
 $fpdf->Cell(60,3,"REPRESENTACIÓN IMPRESA DEL",0,'','C');
