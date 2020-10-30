@@ -223,6 +223,3 @@ $fpdf->Ln();
 $fpdf->Cell(60,3,"http://www.contabilizado.com",0,'','C');
 $fpdf->AliasNbPages();
 $fpdf->Output('I','nombre.pdf','UTF-8');
-?>
-
-

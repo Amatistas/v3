@@ -173,7 +173,17 @@ function inventarioListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http
 
 app.controller('comprasListaCtrl', comprasListaCtrl);
 
-function comprasListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $q, $scope, $rootScope, $filter,$window) {
+function comprasListaCtrl(
+	DTOptionsBuilder,
+	DTColumnBuilder,
+	$resource,
+	$http,
+	$q,
+	$scope,
+	$rootScope,
+	$filter,
+	$window
+) {
 	var vm = this;
 
 	vm.statusfiltroPendientesPorPagar = false;
@@ -946,6 +956,7 @@ function ventasListaCtrl(
 				sNext: 'Siguiente',
 				sPrevious: 'Anterior'
 			},
+			
 			oAria: {
 				sSortAscending: ': activate to sort column ascending',
 				sSortDescending: ': activate to sort column descending'
@@ -1037,7 +1048,7 @@ function ventasListaCtrl(
 				} else {
 					var facturar = '';
 				}
-				options +=`
+				options += `
 				<div class="contenedor">
 				<div class="dropdown">
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
@@ -1069,7 +1080,7 @@ function ventasListaCtrl(
 				</div>
 				</div>		
 					`;
-			}else if (data.td_id == 'BO') {
+			} else if (data.td_id == 'BO') {
 				options += `
 				<div class="contenedor">
 				<div class="dropdown">
@@ -1083,7 +1094,7 @@ function ventasListaCtrl(
 				</div>
 				</div>		
 					`;
-			}else if (data.td_id == 'NC') {
+			} else if (data.td_id == 'NC') {
 				options += `
 				<div class="contenedor">
 				<div class="dropdown">
@@ -1101,7 +1112,7 @@ function ventasListaCtrl(
 		}),
 		DTColumnBuilder.newColumn(null).withTitle('').renderWith(function(data, type, full) {
 			options = '';
-			if (data.td_id == 'FA' || data.td_id == 'BO' || data.td_id == 'NC' ) {
+			if (data.td_id == 'FA' || data.td_id == 'BO' || data.td_id == 'NC') {
 				if (data.notas_sunat == '0') {
 					options += `				
 				<button type="button" class="btn btn-warning btn-xs action-enviar-sunat ld-ext-right">
@@ -1132,12 +1143,17 @@ function ventasListaCtrl(
 	vm.someClickHandlerGenerateBill = someClickHandlerGenerateBill;
 	vm.someClickHandlerCreditNote = someClickHandlerCreditNote;
 	vm.someClickHandlerCompras = someClickHandlerCompras;
+	vm.someClickHandlerEnviarBoletasVarias = someClickHandlerEnviarBoletasVarias;
 	vm.reloadData = reloadData;
 	vm.changeDataFilter1 = changeDataFilter1;
 	vm.changeData = changeData;
 	vm.dtInstance = {};
 	console.log(vm.dtInstance);
 
+	vm.enviarBoletasVarias = someClickHandlerEnviarBoletasVarias;
+	function someClickHandlerEnviarBoletasVarias(info) {
+		alert('Este elemento no se puede eliminar');
+	}
 	function someClickHandlerDelete(info) {
 		alert('Este elemento no se puede eliminar');
 	}
@@ -1219,17 +1235,19 @@ function ventasListaCtrl(
 		$('td .action-ver-detalles', nRow).unbind('click');
 		$('td .action-ver-detalles', nRow).bind('click', function() {
 			$scope.$apply(function() {
-				$window.open(`${$rootScope.miURL}/compass/view/documento-A4.php?emp_id=${JSON.parse($rootScope.d.datos)
-					.emp_id}&getdb=${JSON.parse($rootScope.d.datos)
-					.database}&nro=${aData.ven_id}`)
+				$window.open(
+					`${$rootScope.miURL}/compass/view/documento-A4.php?emp_id=${JSON.parse($rootScope.d.datos)
+						.emp_id}&getdb=${JSON.parse($rootScope.d.datos).database}&nro=${aData.ven_id}`
+				);
 			});
 		});
 		$('td .action-ver-detalles-ticket', nRow).unbind('click');
 		$('td .action-ver-detalles-ticket', nRow).bind('click', function() {
 			$scope.$apply(function() {
-				$window.open(`${$rootScope.miURL}/compass/view/documento-TICKET.php?emp_id=${JSON.parse($rootScope.d.datos)
-					.emp_id}&getdb=${JSON.parse($rootScope.d.datos)
-					.database}&nro=${aData.ven_id}`)
+				$window.open(
+					`${$rootScope.miURL}/compass/view/documento-TICKET.php?emp_id=${JSON.parse($rootScope.d.datos)
+						.emp_id}&getdb=${JSON.parse($rootScope.d.datos).database}&nro=${aData.ven_id}`
+				);
 			});
 		});
 		$('td .action-nota-credito', nRow).unbind('click');
@@ -1263,7 +1281,6 @@ function ventasListaCtrl(
 	}
 }
 
-
 app.controller('trasladoListaCtrl', trasladoListaCtrl);
 
 function trasladoListaCtrl(
@@ -1294,8 +1311,8 @@ function trasladoListaCtrl(
 		return defer.promise;
 	}
 
- 			const idLocal = JSON.parse($rootScope.d.datos).ofi_id
-	
+	const idLocal = JSON.parse($rootScope.d.datos).ofi_id;
+
 	vm.dtOptions = DTOptionsBuilder.fromFnPromise(loadaaData())
 		.withPaginationType('full_numbers')
 		.withOption('bInfo', false)
@@ -1355,36 +1372,34 @@ function trasladoListaCtrl(
 		DTColumnBuilder.newColumn('alm_motivo').withTitle('MOTIVO').withOption('width', '300px'),
 		DTColumnBuilder.newColumn('alm_nom').withTitle('ALMACEN'),
 		DTColumnBuilder.newColumn('td_nom').withTitle('OPERACIÓN'),
-	
 
 		/*   DTColumnBuilder.newColumn('alm_nom').withTitle('ALMACEN'),*/
 		DTColumnBuilder.newColumn(null).withTitle('').renderWith(function(data, type, full) {
-			var options ='';
-			
-			if(data.td_nom === 'Carga Almacen'){
-				options +=	`
+			var options = '';
+
+			if (data.td_nom === 'Carga Almacen') {
+				options += `
 			<div class="contenedor">
 			
 			<a class="dropbtn action-pago">Ver Detalle</a>
 		
 			</div>		
-				`
-			} else if(data.td_nom === 'Salida Interna'){
-				if(data.status_tras === '1'){
-					if(idLocal === data.local_destino){
-					options +=	`
+				`;
+			} else if (data.td_nom === 'Salida Interna') {
+				if (data.status_tras === '1') {
+					if (idLocal === data.local_destino) {
+						options += `
 					<div class="contenedor">
 					<a class="dropbtn action-registro-almacen">Ingresar</a>
 					<a class="dropbtn action-pago">Ver Detalle</a>
 					</div>		
-						`
+						`;
+					}
 				}
-				}
-			 }
-			
+			}
+
 			return options;
-		}),
-		
+		})
 	];
 
 	vm.someClickHandlerDetails = someClickHandlerDetails;
@@ -1392,7 +1407,7 @@ function trasladoListaCtrl(
 	vm.someClickHandlerCompras = someClickHandlerCompras;
 
 	vm.someClickHandlerStorage = someClickHandlerStorage;
-	
+
 	vm.reloadData = reloadData;
 	vm.changeDataFilter1 = changeDataFilter1;
 	vm.changeData = changeData;
@@ -1416,7 +1431,6 @@ function trasladoListaCtrl(
 	}
 
 	function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-
 		$('td .action-registro-almacen', nRow).unbind('click');
 		$('td .action-registro-almacen', nRow).bind('click', function() {
 			$scope.$apply(function() {
@@ -1458,25 +1472,6 @@ function trasladoListaCtrl(
 		console.log(json);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.controller('clienteListaCtrl', clienteListaCtrl);
 
@@ -1880,8 +1875,8 @@ function almacenMovimientoCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $ht
 				// <div class="contenedor">
 				// <button class="dropbtn">Ver Detalle</button>
 				// <i style="padding:3px 10px;font-size:19px;color:#FF0000;" class="fa fa-long-arrow-up" aria-hidden="true"></i>
-	   			// </div>
-                //     `;
+				// </div>
+				//     `;
 				// 	break;
 
 				default:
@@ -2184,28 +2179,19 @@ function almacenInfoCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $q
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.controller('comprasporpagarListaCtrl', comprasporpagarListaCtrl);
 
-function comprasporpagarListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $q, $scope, $rootScope, $filter,$window) {
+function comprasporpagarListaCtrl(
+	DTOptionsBuilder,
+	DTColumnBuilder,
+	$resource,
+	$http,
+	$q,
+	$scope,
+	$rootScope,
+	$filter,
+	$window
+) {
 	var vm = this;
 
 	vm.statusfiltroPendientesPorPagar = false;
@@ -2216,8 +2202,6 @@ function comprasporpagarListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, 
 			.post(
 				`../../../../api/mantenimiento/mantenimiento/read.php?getdb=${JSON.parse($rootScope.d.datos)
 					.database}&tbnom=getfiltroporpagar&where=com_id&igual=`
-
-			
 			)
 			.then(function(result) {
 				var data = result.data.data;
@@ -2226,8 +2210,6 @@ function comprasporpagarListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, 
 
 		return defer.promise;
 	}
-
-
 
 	vm.dtOptions = DTOptionsBuilder.fromFnPromise(loadaaDataCompra())
 		.withPaginationType('full_numbers')
@@ -2380,7 +2362,7 @@ function comprasporpagarListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, 
 					</div>
 					</div>
               `;
-				}  else if (data.to_nom == 'Compras') {
+				} else if (data.to_nom == 'Compras') {
 					options += `
 					<div class="contenedor">
 					<a class="dropbtn action-pago">Pagar</a>
@@ -2399,13 +2381,9 @@ function comprasporpagarListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, 
 					options += '<div class="contenedor"><a class="dropbtn action-cobrar">Ver</a></div>';
 				}
 			}
-		
-
-		
 
 			return options;
-		}),
-		
+		})
 	];
 
 	vm.someClickHandlerDelete = someClickHandlerDelete;
@@ -2556,28 +2534,6 @@ function comprasporpagarListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, 
 		console.log(json);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.controller('ventasporcobrarListaCtrl', ventasporcobrarListaCtrl);
 
@@ -2733,7 +2689,7 @@ function ventasporcobrarListaCtrl(
 				</div>
 				</div>		
 					`;
-			}else if (data.td_id == 'BO') {
+			} else if (data.td_id == 'BO') {
 				options += `
 				<div class="contenedor">
 				<a class="dropbtn">Cobrar Venta</a>
@@ -2841,8 +2797,10 @@ function ventasporcobrarListaCtrl(
 		$('td .action-ver-detalles', nRow).unbind('click');
 		$('td .action-ver-detalles', nRow).bind('click', function() {
 			$scope.$apply(function() {
-				$window.open(`${$rootScope.miURL}/compass/view/documento.php?getdb=${JSON.parse($rootScope.d.datos)
-					.database}&nro=${aData.ven_id}`)
+				$window.open(
+					`${$rootScope.miURL}/compass/view/documento.php?getdb=${JSON.parse($rootScope.d.datos)
+						.database}&nro=${aData.ven_id}`
+				);
 			});
 		});
 		return nRow;
