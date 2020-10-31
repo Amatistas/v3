@@ -2,8 +2,8 @@
     <div class="modal-header">
         <div class="pull-right">
             <div role="group" aria-label="tools">
-                <button class="btn btn-primary" ng-disabled="myform.$error.required"
-                    ng-click="guardarCliente($event)">Guardar</button>
+                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate==true" ng-disabled="myform.$error.required" ng-click="guardarCliente($event)">Guardar</button>
+                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate==false" ng-disabled="myform.$error.required" ng-click="actualizarCliente($event)">Actualizar</button>
                 <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
                 <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
                 <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
@@ -31,7 +31,7 @@
             <div class="col-md-2">
                 <label for="" ng-class="{'text-danger':myform.ane_numdoc.$invalid == true}">Numero de Documento</label>
                 <div class="input-group">
-                    <input type="number" class="form-control" name="ane_numdoc" ng-model="infoInputs['ane_numdoc']"
+                    <input type="text" class="form-control" name="ane_numdoc" ng-model="infoInputs['ane_numdoc']"
                         required>
                     <span class="input-group-btn"
                         ng-if="infoInputs['ane_tipdoc'] == 11 || infoInputs['ane_tipdoc'] == 23">
@@ -103,11 +103,11 @@
             </div>
             <div class="col-md-3">
                 <label for="serie" ng-class="{'text-danger':myform.ane_tel.$invalid == true}">Teléfono Principal</label>
-                <input type="number" class="form-control" name="ane_tel" id="ane_tel" ng-model="infoInputs.ane_tel">
+                <input type="text" class="form-control" name="ane_tel" id="ane_tel" ng-model="infoInputs.ane_tel">
             </div>
             <div class=" col-md-3 ">
                 <label for="serie">Teléfono Segundario</label>
-                <input type="number" class="form-control" id="ane_tel2" ng-model="infoInputs.ane_tel2">
+                <input type="text" class="form-control" id="ane_tel2" ng-model="infoInputs.ane_tel2">
             </div>
         </div>
         <div class=" titulo-modal-1 col-md-12 ">
@@ -116,12 +116,12 @@
         <div class="row" style=" padding: 10px; ">
             <div class=" col-md-3 ">
                 <label for="">Numero de Cuenta</label>
-                <input type="number" class="form-control" name="ane_num_cue" id="ane_num_cue"
+                <input type="text" class="form-control" name="ane_num_cue" id="ane_num_cue"
                     ng-model="infoInputs.ane_num_cue">
             </div>
             <div class=" col-md-2 ">
                 <label for="">Limite de Credito</label>
-                <input type="number" class="form-control" name="ane_lim_cred" id="ane_lim_cred"
+                <input type="text" class="form-control" name="ane_lim_cred" id="ane_lim_cred"
                     ng-model="infoInputs.ane_lim_cred">
             </div>
             <div class=" col-md-4 ">
@@ -136,6 +136,10 @@
                 </div>
             </div>
         </div>
+         <pre>
+            {{infoInputs | json}}
+        </pre>
     </div>
+ 
 
 </form>

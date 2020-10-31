@@ -283,6 +283,7 @@ app.config([
                     "ngTableCtrl",
                     "dynamicTableCtrl",
                     "asideCtrl",
+                    "sweetAlertCtrl",
                     sessionVerificacion
                 ),
             })
@@ -496,16 +497,17 @@ app.config([
                 templateUrl: "STANDARD/assets/sistem-views/inventarios/inventario.html",
                 title: "Productos y Servicios",
                 icon: "ti-layout-media-left-alt",
+                controller:"ModalDemoCtrl",
                 ncyBreadcrumb: {
                     label: "Productos y Servicios",
                 },
                 resolve: loadSequence(
+                    "asideCtrl",
                     "ui.select",
                     "selectCtrl",
                     "ngTable",
                     "ngTableCtrl",
                     "dynamicTableCtrl",
-                    "asideCtrl",
                     "sweetAlertCtrl",
                     sessionVerificacion
                 ),

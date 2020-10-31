@@ -31,6 +31,7 @@ if (!empty($data['username']) || !empty($data['password'])) {
         if ($row2 = $fethVal2->fetch(PDO::FETCH_ASSOC)) {
             if ($password == $row2['usu_cla'] ) {
                 $_SESSION['emp_id'] = $row2['emp_id'];
+                $_SESSION['emp_nom'] = $row2['emp_nom'];
                 $_SESSION['ofi_id'] = $row2['ofi_id'];
                 $_SESSION['usu_id'] = $row2['per_id'];
                 $_SESSION['database'] = $row1['usu_bd'];
@@ -42,7 +43,9 @@ if (!empty($data['username']) || !empty($data['password'])) {
                 $_SESSION['usu_jer'] = $row2['usu_jer'];
                 $_SESSION['usu_almperm'] = $row2['usu_almper'];
                 $_SESSION['usu_notperm'] = $row2['usu_notperm'];
+                
             /*     $_SESSION['tde_sho'] = $row2['tde_sho']; */
+
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $username;
                 $_SESSION['start'] = time();

@@ -3909,7 +3909,7 @@ app.controller('AsideModalTransaccionCtrl', [
 				placement: 'top',
 				size: 'sm',
 				backdrop: true,
-				controller: function($scope, $uibModalInstance, $http, $location, toaster, $rootScope) {
+				controller: function($scope, $uibModalInstance, $http, $location, toaster, $rootScope,getResources) {
 					var dir = $location.$$url;
 
 					$scope.cacheStorage = localStorage.getItem('cache');
@@ -3970,11 +3970,29 @@ app.controller('AsideModalTransaccionCtrl', [
 							console.log(dt);
 						}
 					};
-
-					$scope.infoInputs = {};
+					//zona de existencia de una edicion
+					if (identifiquer) {
+						$scope.fetchResources = function(id) {
+							let obj = { db: 'getproveedores', where: 'ane_id', key: id };
+							getResources.fetchResources(obj).then(
+								function(d) {
+									$scope.infoInputs = d.data[0];
+									$scope.infoInputs.btnUpdate = false;
+								},
+								function(errResponse) {
+									console.error('Error while fetching Currencies');
+								}
+							);
+						};
+						$scope.fetchResources(identifiquer.ane_id);
+					} else {
+						$scope.infoInputs = {};
+						$scope.infoInputs.ane_tipo_cp = 2;
+						$scope.infoInputs.btnUpdate = true;
+					}
+				
 					$scope.units = {};
 					$scope.rr = [];
-					$scope.infoInputs.ane_tipo_cp = 2;
 					$scope.rr.ane_tipdoc = {
 						selectId: 'ane_tipdoc',
 						db: 'tabla_sunat_contabilidad',
@@ -4044,11 +4062,27 @@ app.controller('AsideModalTransaccionCtrl', [
 						xmlhttp.withCredentials = true;
 						xmlhttp.send(sendObj);
 						xmlhttp.onload = (response) => {
-							$uibModalInstance.dismiss();
-							e.stopPropagation();
 							$rootScope.reloadDataProveedor();
-							toaster.pop('success', 'Compra', 'Documento Guardado');
 						};
+						$uibModalInstance.dismiss();
+						e.stopPropagation();  
+						toaster.pop('success', 'Proveedor', 'Datos Grabados');
+					};
+					$scope.actualizarProveedor = function(e) {
+						let sendObj = JSON.stringify($scope.infoInputs);
+						var xmlhttp = new XMLHttpRequest();
+						var theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse($rootScope.d.datos)
+							.database}&tbnom=anexo&identifiquer=ane_id&identifiquerValue=${$scope.infoInputs.ane_id}`;
+						xmlhttp.open('post', theUrl);
+						xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+						xmlhttp.withCredentials = true;
+						xmlhttp.send(sendObj);
+						xmlhttp.onload = (response) => {
+							$rootScope.reloadDataProveedor();
+						};
+						$uibModalInstance.dismiss();
+						e.stopPropagation();
+						toaster.pop('success', 'Proveedor', 'Datos Actualizados');
 						/*                                                                                                      $uibModalInstance.close();
                                                                                                                                 e.stopPropagation(); */
 					};
@@ -4075,12 +4109,12 @@ app.controller('AsideModalTransaccionCtrl', [
 			});
 		};
 
-		$rootScope.nuevoproveedor = function() {
-			$scope.proveedor();
+		$rootScope.nuevoproveedor = function(data) {
+			$scope.proveedor(data);
 		};
 
-		$rootScope.nuevocliente = function() {
-			$scope.cliente();
+		$rootScope.nuevocliente = function(data) {
+			$scope.cliente(data);
 		};
 
 		$scope.cliente = function(identifiquer) {
@@ -4089,7 +4123,7 @@ app.controller('AsideModalTransaccionCtrl', [
 				placement: 'top',
 				size: 'sm',
 				backdrop: true,
-				controller: function($scope, $uibModalInstance, $http, $location) {
+				controller: function($scope, $uibModalInstance, $http, $location,getResources,SweetAlert) {
 					var dir = $location.$$url;
 
 					$scope.cacheStorage = localStorage.getItem('cache');
@@ -4101,10 +4135,29 @@ app.controller('AsideModalTransaccionCtrl', [
 						$scope.cache = { redir: '/app/ventas/clientes' };
 					}
 
-					$scope.infoInputs = {};
+					if (identifiquer) {
+						$scope.fetchResources = function(id) {
+							let obj = { db: 'getclientes', where: 'ane_id', key: id };
+							getResources.fetchResources(obj).then(
+								function(d) {
+									$scope.infoInputs = d.data[0];
+									$scope.infoInputs.btnUpdate = false;
+								},
+								function(errResponse) {
+									console.error('Error while fetching Currencies');
+								}
+							);
+						};
+						$scope.fetchResources(identifiquer.ane_id);
+					} else {
+						$scope.infoInputs = {};
+						$scope.infoInputs.ane_tipo_cp = 1;
+						$scope.infoInputs.btnUpdate = true;
+					}
+
 					$scope.units = {};
 					$scope.rr = [];
-					$scope.infoInputs.ane_tipo_cp = 1;
+			
 
 					$scope.rr.ane_tipdoc = {
 						selectId: 'ane_tipdoc',
@@ -4227,11 +4280,27 @@ app.controller('AsideModalTransaccionCtrl', [
 						xmlhttp.withCredentials = true;
 						xmlhttp.send(sendObj);
 						xmlhttp.onload = (response) => {
-							$uibModalInstance.dismiss();
-							e.stopPropagation();
 							$rootScope.reloadDataCliente();
-							toaster.pop('success', 'Cliente', 'Cliente Guardado');
 						};
+						$uibModalInstance.dismiss();
+						e.stopPropagation();
+						toaster.pop('success', 'Cliente', 'Cliente Guardado');
+					};
+					$scope.actualizarCliente = function(e) {
+						let sendObj = JSON.stringify($scope.infoInputs);
+						let xmlhttp = new XMLHttpRequest();
+						let theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse($rootScope.d.datos)
+							.database}&tbnom=anexo&identifiquer=ane_id&identifiquerValue=${$scope.infoInputs.ane_id}`;
+						xmlhttp.open('post', theUrl);
+						xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+						xmlhttp.withCredentials = true;
+						xmlhttp.send(sendObj);
+						xmlhttp.onload = (response) => {
+							toaster.pop('success', 'Cliente', 'Cliente Actualizado');
+						};
+						$rootScope.reloadDataCliente();
+						$uibModalInstance.dismiss();
+						e.stopPropagation();
 					};
 					$scope.cancel = function(e) {
 						$uibModalInstance.dismiss();
@@ -8938,7 +9007,7 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.mostrarResultados = function() {
 						let resultado = 0;
 						$scope.itemsRegistroUtilidad.forEach((item) => {
-							resultado += parseFloat(item.utilidad_neto);
+							 resultado += parseFloat(item.utilidad_neto)
 						});
 						return resultado;
 					};

@@ -2,7 +2,8 @@
     <div class="header-modal2">
         <div class="pull-right">
             <div role="group" aria-label="tools">
-                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="ok(infoInputs)">Guardar y Cerrar</button>
+                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate==true" ng-disabled="form.$error.required" ng-click="ok(infoInputs)">Guardar</button>
+                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate==false" ng-disabled="form.$error.required" ng-click="updateProductoyServicio(infoInputs)">Actualizar</button>
                 <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
                 <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
                 <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
@@ -12,33 +13,47 @@
     </div>
     <div class="modal-body" style="padding: 30px;">
         <div class="row" ng-controller="SelectCtrl">
-
+            <!-- se  usa el campo de centro de costo para guardar el tipo si es debe o haber-->
             <div class="col-md-12">
                 <label for="pro_nom" ng-class="{'text-danger':form.pro_nom.$error.required == true}">Nombre del Servicio</label>
                 <input required type="text" class="form-control" id="pro_nom" name="pro_nom" ng-model="infoInputs['pro_nom']">
             </div>
             <div class="col-md-4">
-                <label for="form-field-select-2" ng-class="{'text-danger':form.dh.$invalid == true}">
+                <label for="form-field-select-2" ng-class="{'text-danger':form.pro_centro_cos.$invalid == true}">
                     Debe / Haber
                 </label>
-                <select name="dh" ng-model="infoInputs['dh']" class="cs-select cs-skin-elastic" required>
-                    <option value="d">Debe</option>
-                    <option value="h">Haber</option>
+                <select name="pro_centro_cos" ng-model="infoInputs['pro_centro_cos']" class="ui dropdown fluid" required>
+                    <option value="D">Debe</option>
+                    <option value="H">Haber</option>
                 </select>
             </div>
-            <div class="col-md-8" ng-controller="SweetAlertCtrl">
+            <div class="col-md-8">
                 <label for="" ng-class="{'text-danger':myform.cuenta_contable.$error.required == true}">Cuenta Contable</label>
-                <div class="input-group">
-                    <input required type="hidden" class="form-control" name="cuenta_contable" ng-model="infoInputs.cuenta_contable">
-                    <input type="text" class="form-control" name="buscarPlanCuenta" ng-model="infoInputs.buscarPlanCuenta">
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-primary"
-                            ng-click="SwalBuscarPlanCuenta(infoInputs.buscarPlanCuenta)">
-                            <i class="ti-search"></i>
-                        </button>
-                    </span>
-                </div>
+                <ui-select required name="cuentacontable"
+                style="width: 100%; float: left;"
+                ng-model="infoInputs['cuentacontable']" theme="bootstrap">
+                <ui-select-match
+                    placeholder="Escriba 3 letras Para Empezar a Buscar">
+                    {{$select.selected.nom}}
+                </ui-select-match>
+                <ui-select-choices class=""
+                    repeat="item in proveedoresList[0] track by $index"
+                    refresh="cuentaContablesGetAsyncronic($select.search)"
+                    refresh-delay="0">
+                    <div>
+                        <span
+                            ng-bind-html="item.nom | highlight: $select.search"></span>
+                        <br>
+                        <small
+                            ng-bind-html="item.idt | highlight: $select.search"></small>
+                        <br>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
             </div>
         </div>
     </div>
+    <pre ng-if="DEV">
+        {{infoInputs | json}}
+    </pre>
 </form>

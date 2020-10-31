@@ -153,4 +153,31 @@ class Mantenimiento
 
         $stmt->close();
     }
+    function updateGenerico($getdb,$tbnom,$identifiquer,$identifiquerValue)
+    {
+       
+        // query to insert record
+        $query = "UPDATE
+           `$getdb`." . " `$tbnom` " . "
+           SET ";
+        foreach ($this->data as $key => $val) {
+            $query .= $key . "= '" . $val . "',";
+        }
+
+        $query = substr($query, 0, -1);
+
+        $query .= " WHERE " . $identifiquer . "=" . $identifiquerValue;
+
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        // execute query
+        if ($stmt->execute()) {
+            return true;
+        } {
+            return false;
+        }
+
+        $stmt->close(); 
+    }
 };

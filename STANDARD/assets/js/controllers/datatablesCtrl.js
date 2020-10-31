@@ -10,7 +10,6 @@ app.controller('inventarioListaCtrl', inventarioListaCtrl);
 
 function inventarioListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $q, $scope, $rootScope, $filter) {
 	var vm = this;
-
 	function loadaaData() {
 		var defer = $q.defer();
 		$http
@@ -82,7 +81,7 @@ function inventarioListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http
 			options = '';
 			options += `
                     <div class="mini ui buttons basic">
-                        <a class="ui button action-pago">Editar</a>
+                        <a class="ui button action-editar">Editar</a>
                     </div>
               `;
 
@@ -90,6 +89,7 @@ function inventarioListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http
 		})
 	];
 
+	vm.someClickHandlerEdit = someClickHandlerEdit;
 	vm.someClickHandlerStorage = someClickHandlerStorage;
 	vm.someClickHandlerCompras = someClickHandlerCompras;
 	vm.reloadData = reloadData;
@@ -98,6 +98,9 @@ function inventarioListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http
 	vm.dtInstance = {};
 	console.log(vm.dtInstance);
 
+	function someClickHandlerEdit(info) {
+	
+	}
 	function someClickHandlerDelete(info) {
 		alert('Este elemento no se puede eliminar');
 	}
@@ -111,6 +114,14 @@ function inventarioListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http
 	}
 
 	function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+		$('td .action-editar', nRow).unbind('click');
+		$('td .action-editar', nRow).bind('click', function() {
+			if (aData.pro_tip <= 9) {
+				$rootScope.newProductCreate(aData);
+			} else {
+				$rootScope.newServiceCreate(aData);
+			}
+		});
 		$('td .action-ver-detalles', nRow).unbind('click');
 		$('td .action-ver-detalles', nRow).bind('click', function() {
 			$scope.$apply(function() {
@@ -956,7 +967,7 @@ function ventasListaCtrl(
 				sNext: 'Siguiente',
 				sPrevious: 'Anterior'
 			},
-			
+
 			oAria: {
 				sSortAscending: ': activate to sort column ascending',
 				sSortDescending: ': activate to sort column descending'
@@ -1548,8 +1559,7 @@ function clienteListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $
 			options = `
 
 			<div class="contenedor">
-			<button class="dropbtn">Editar</button>
-	
+			<button class="dropbtn action-editar">Editar</button>
 			</div>
 
 
@@ -1561,11 +1571,16 @@ function clienteListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $
 
 	vm.someClickHandlerStorage = someClickHandlerStorage;
 	vm.someClickHandlerCompras = someClickHandlerCompras;
+	vm.someClickHandlerEditar = someClickHandlerEditar;
 	vm.reloadData = reloadData;
 	vm.changeDataFilter1 = changeDataFilter1;
 	vm.changeData = changeData;
 	vm.dtInstance = {};
 	console.log(vm.dtInstance);
+
+	function someClickHandlerEditar(info) {
+		$rootScope.nuevocliente(info)
+	}
 
 	function someClickHandlerDelete(info) {
 		alert('Este elemento no se puede eliminar');
@@ -1580,6 +1595,12 @@ function clienteListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $
 	}
 
 	function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+		$('td .action-editar', nRow).unbind('click');
+		$('td .action-editar', nRow).bind('click', function() {
+			$scope.$apply(function() {
+				vm.someClickHandlerEditar(aData);
+			});
+		});
 		$('td .action-ver-detalles', nRow).unbind('click');
 		$('td .action-ver-detalles', nRow).bind('click', function() {
 			$scope.$apply(function() {
@@ -2037,7 +2058,7 @@ function proveedoresListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $htt
 			<div class="dropdown">
 			<button class="dropbtn"><i class="ti-more-alt"></i></button>
 			<div class="dropdown-content">
-			<a class="action-ver-detalles-compra">Ver/Editar</a>
+			<a class="action-edit">Ver/Editar</a>
 			<a class="action-delete">Eliminar</a>
 			</div>
 			</div>
@@ -2048,10 +2069,15 @@ function proveedoresListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $htt
 	];
 	vm.someClickHandlerDelete = someClickHandlerDelete;
 	vm.someClickHandlerMakePay = someClickHandlerMakePay;
+	vm.someClickHandlerEdit = someClickHandlerEdit;
 	vm.reloadData = reloadData;
 	vm.changeData = changeData;
 
 	vm.dtInstance = {};
+
+	function someClickHandlerEdit(info) {
+		$rootScope.nuevoproveedor(info);
+	}
 
 	function someClickHandlerDelete(info) {
 		alert('Este elemento no se puede eliminar');
@@ -2063,6 +2089,12 @@ function proveedoresListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $htt
 
 	function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 		// on remove on delete
+		$('td .action-edit', nRow).unbind('click');
+		$('td .action-edit', nRow).bind('click', function() {
+			$scope.$apply(function() {
+				vm.someClickHandlerEdit(aData);
+			});
+		});
 		$('td .action-delete', nRow).unbind('click');
 		$('td .action-delete', nRow).bind('click', function() {
 			$scope.$apply(function() {

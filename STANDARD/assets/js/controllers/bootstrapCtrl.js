@@ -399,7 +399,8 @@ app
 				);
 			};
 
-			$rootScope.newProductCreate = function() {
+			$rootScope.newProductCreate = function(data) {
+				$rootScope.tempModel = data;
 				var modalInstance = $uibModal.open({
 					templateUrl: 'STANDARD/assets/sistem-views/inventarios/formulario-de-registro-nuevo-producto.html',
 					controller: 'ModalNuevoProductoCtrl',
@@ -440,7 +441,8 @@ app
 					}
 				);
 			};
-			$rootScope.newServiceCreate = function() {
+			$rootScope.newServiceCreate = function(data) {
+				$rootScope.tempModel = data;
 				var modalInstance = $uibModal.open({
 					templateUrl: 'STANDARD/assets/sistem-views/inventarios/formulario-de-registro-nuevo-servicio.html',
 					controller: 'ModalNuevoServicioCtrl',
@@ -537,13 +539,32 @@ app.controller('ModalNuevoProductoCtrl', [
 	'items',
 	'$rootScope',
 	'$http',
-	function($scope, $uibModalInstance, items, $rootScope, $http) {
+	'getResources',
+	function($scope, $uibModalInstance, items, $rootScope, $http,getResources) {
 		$scope.rr = [];
 		$scope.units = [];
 
-		$scope.infoInputs = {};
-		$scope.infoInputs.pro_ina = '0';
-		$scope.infoInputs.pro_detraccion = false;
+		if ($rootScope.tempModel) {
+			
+			$scope.fetchResources = function(id) {
+				let obj = { db: 'getproductos', where: 'pro_id', key: id };
+				getResources.fetchResources(obj).then(
+					function(d) {
+						$scope.infoInputs = d.data[0];
+						$scope.infoInputs.btnUpdate = false;
+					},
+					function(errResponse) {
+						console.error('Error while fetching Currencies');
+					}
+				);
+			};
+			$scope.fetchResources($rootScope.tempModel.pro_id);
+		} else {
+			$scope.infoInputs = {};
+			$scope.infoInputs.pro_ina = '0';
+			$scope.infoInputs.pro_detraccion = false;
+			$scope.infoInputs.btnUpdate = true;
+		}
 
 		$scope.rr.pro_tip = {
 			selectId: 'pro_tip',
@@ -633,6 +654,7 @@ app.controller('ModalNuevoProductoCtrl', [
 			xml.onload = () => {
 				if (xml.status == 201) {
 				} else {
+					
 				}
 			};
 		};
@@ -645,6 +667,55 @@ app.controller('ModalNuevoProductoCtrl', [
 			xml.open('POST', theUrl);
 			xml.send(data);
 			xml.onload = () => {
+				if (xml.status == 201) {
+					$adver.push(xml.response);
+				} else {
+					$adver.push(xml.response);
+				}
+
+				function IsJsonString(str) {
+					try {
+						JSON.parse(str);
+					} catch (e) {
+						return false;
+					}
+					return true;
+				}
+				var $ff = IsJsonString($adver[0]);
+
+				if ($ff) {
+					var $rr = JSON.parse($adver[0]);
+
+					function verif(list) {
+						return list.status != 200;
+					}
+					var verifx = $rr.find(verif);
+
+					if (verifx === undefined) {
+						toaster.pop('success', 'Producto', 'Item Guardado');
+						$uibModalInstance.close();
+						$uibModalInstance.dismiss('cancel');
+					} else {
+						toaster.pop('error', 'Error', 'Su Producto no pudo ser Guardado');
+					}
+				} else {
+					console.log('error');
+					alert('Este documento no se pudo guardar');
+				}
+			};
+			$uibModalInstance.close($scope.selected.item);
+			$rootScope.reloadDataProductosyServicios();
+		};
+		$scope.updateProductoyServicio = function(val) {
+			var $adver = [];
+			data = JSON.stringify(val);
+			var xml = new XMLHttpRequest();
+			var theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse($rootScope.d.datos)
+				.database}&tbnom=producto_pro&identifiquer=pro_id&identifiquerValue=${val.pro_id}`;
+			xml.open('POST', theUrl);
+			xml.send(data);
+			xml.onload = () => {
+
 				if (xml.status == 201) {
 					$adver.push(xml.response);
 				} else {
@@ -698,18 +769,40 @@ app.controller('ModalNuevoServicioCtrl', [
 	'items',
 	'$rootScope',
 	'$http',
-	function($scope, $uibModalInstance, items, $rootScope, $http) {
+	'getResources',
+	'toaster',
+	function($scope, $uibModalInstance, items, $rootScope, $http,getResources,toaster) {
 		$scope.rr = [];
 		$scope.units = [];
-		$scope.infoInputs = {};
+	
+		if ($rootScope.tempModel) {
+			$scope.fetchResources = function(id) {
+				let obj = { db: 'getproductos', where: 'pro_id', key: id };
+				getResources.fetchResources(obj).then(
+					function(d) {
+						$scope.infoInputs = d.data[0];
+						$scope.infoInputs.cuentacontable = {
+							idt:$scope.infoInputs.cuenta_contable,
+							nom:$scope.infoInputs.tip_pro_desc,
+						}
+						$scope.infoInputs.btnUpdate = false;
+						
+					},
+					function(errResponse) {
+						console.error('Error while fetching Currencies');
+					}
+				);
+			};
+
+			$scope.fetchResources($rootScope.tempModel.pro_id);
+		} else {
+			$scope.infoInputs = {};
+			$scope.infoInputs.pro_ina = '0';
+			$scope.infoInputs.pro_detraccion = false;
+			$scope.infoInputs.btnUpdate = true;
+		}
 		$scope.emp_id = JSON.parse($rootScope.d.datos).database;
-		$scope.rr.pst_id = {
-			selectId: 'pst_id',
-			db: 'presentacion',
-			where: 'pst_id',
-			key: '',
-			mostrar: [ 'id', 'pst_nom' ]
-		};
+
 		$rootScope.buscarOption = function(param) {
 			switch (typeof param) {
 				case 'string':
@@ -753,14 +846,46 @@ app.controller('ModalNuevoServicioCtrl', [
 			xml.send(data);
 			xml.onload = () => {
 				if (xml.status == 201) {
-					$rootScope.reloadDataInventario();
-					$uibModalInstance.close($scope.selected.item);
+					toaster.pop('success', 'Producto', 'Item Guardado');
+					$rootScope.reloadDataProductosyServicios();
 				} else {
-					alert('hubo un error');
+					toaster.pop('error', 'Producto', 'Producto error');
 				}
 			};
+			$uibModalInstance.dismiss('cancel');
+		};
+
+		$scope.updateProductoyServicio = function(val) {
+			var $adver = [];
+			data = JSON.stringify(val);
+			var xml = new XMLHttpRequest();
+			var theUrl = `../../../../api/createNewService/update.php?getdb=${JSON.parse($rootScope.d.datos)
+				.database}&tbnom=producto_pro&identifiquer=pro_id&identifiquerValue=${val.pro_id}`;
+			xml.open('POST', theUrl);
+			xml.send(data);
+			xml.onload = () => {
+
+				if (xml.status == 201) {
+					try {
+						$adver.push(xml.response);
+						toaster.pop('success', 'Servicio', 'Servicio Actualizado');
+						$uibModalInstance.dismiss('cancel');
+						$rootScope.reloadDataProductosyServicios();
+
+					} catch (error) {
+						toaster.pop('error', 'Error', 'Su Servicio no pudo ser Actualizado');
+					}
+				} else {
+					toaster.pop('error', 'Error', 'Su Servicio no pudo ser Actualizado');
+				}				
+			};
+			$uibModalInstance.close();
+			
 		};
 		$scope.cancel = function() {
+			toaster.pop('success', 'Producto', 'Producto Guardado');
+			reloadDataProductosyServicios()
+			$uibModalInstance.close();
 			$uibModalInstance.dismiss('cancel');
 		};
 	}
@@ -980,12 +1105,12 @@ app.controller('ModalGrabarPuntoVentaCtrl', [
 	'toaster',
 	'$window',
 	'SweetAlert',
-	function($scope, $uibModalInstance, items, $rootScope, $http,toaster,$window,SweetAlert) {
+	function($scope, $uibModalInstance, items, $rootScope, $http, toaster, $window, SweetAlert) {
 		$scope.infoInputs = {};
 		$scope.pagos = {};
 		$scope.btn = {};
 
-	// buttons
+		// buttons
 
 		$scope.btnChange = function(scope) {
 			let status;
@@ -1083,63 +1208,64 @@ app.controller('ModalGrabarPuntoVentaCtrl', [
 			return $scope.pagos.transferencia;
 		};
 
-		
-			$scope.GuardarVentaPunto = function() {
-				let $adver = [];
-				let sendObj = JSON.stringify({
-					info: [ $scope.infoInputs ],
-					items: $scope.items,
-					pagos: $scope.pagos
-				});
-				let xmlhttp = new XMLHttpRequest();
-				let theUrl = `../../../../api/insert2TablesVenta/puntoDeVenta.php?getdb=${JSON.parse(
-					$rootScope.d.datos
-				).database}&tbnom=venta`;
-				xmlhttp.open('post', theUrl);
-				xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-				xmlhttp.withCredentials = true;
-				xmlhttp.send(sendObj);
-				xmlhttp.onload = (response) => {
-					if (xmlhttp.status == 201) {
-						$adver.push(xmlhttp.response);
-					} else {
-						$adver.push(xmlhttp.response);
-					}
-	
-					function IsJsonString(str) {
-						try {
-							JSON.parse(str);
-						} catch (e) {
-							return false;
-						}
-						return true;
-					}
-					
-					let $ff = IsJsonString($adver[0]);
-	
-					if ($ff) {
-						let $rr = JSON.parse($adver[0]);
-	
-						function verif(list) {
-							return list.status != 200;
-						}
+		$scope.GuardarVentaPunto = function() {
+			let $adver = [];
+			let sendObj = JSON.stringify({
+				info: [ $scope.infoInputs ],
+				items: $scope.items,
+				pagos: $scope.pagos
+			});
+			let xmlhttp = new XMLHttpRequest();
+			let theUrl = `../../../../api/insert2TablesVenta/puntoDeVenta.php?getdb=${JSON.parse($rootScope.d.datos)
+				.database}&tbnom=venta`;
+			xmlhttp.open('post', theUrl);
+			xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+			xmlhttp.withCredentials = true;
+			xmlhttp.send(sendObj);
+			xmlhttp.onload = (response) => {
+				if (xmlhttp.status == 201) {
+					$adver.push(xmlhttp.response);
+				} else {
+					$adver.push(xmlhttp.response);
+				}
 
-						if ($rr.find(verif) === undefined) {
-							let ultimoIngreso = JSON.parse($adver[0])
-							$uibModalInstance.dismiss('cancel');
-							$window.open(`${$rootScope.miURL}/compass/view/documento-${$scope.infoInputs.formato_impresion}.php?emp_id=${JSON.parse($rootScope.d.datos)
-								.emp_id}&getdb=${JSON.parse($rootScope.d.datos)
-								.database}&nro=${ultimoIngreso[0].ultimo}`)
-						} else {
-							SweetAlert.swal("Venta", `error: ${JSON.stringify($rr.find(verif))}`, "error");
-						}
-					} else {
-						console.log('error');
+				function IsJsonString(str) {
+					try {
+						JSON.parse(str);
+					} catch (e) {
+						return false;
 					}
-					/* $rootScope.loadBtnFilters(); */
-					$rootScope.ReloadPuntoDeVenta();
-				};
+					return true;
+				}
+
+				let $ff = IsJsonString($adver[0]);
+
+				if ($ff) {
+					let $rr = JSON.parse($adver[0]);
+
+					function verif(list) {
+						return list.status != 200;
+					}
+
+					if ($rr.find(verif) === undefined) {
+						let ultimoIngreso = JSON.parse($adver[0]);
+						$uibModalInstance.dismiss('cancel');
+						$window.open(
+							`${$rootScope.miURL}/compass/view/documento-${$scope.infoInputs
+								.formato_impresion}.php?emp_id=${JSON.parse($rootScope.d.datos)
+								.emp_id}&getdb=${JSON.parse($rootScope.d.datos).database}&nro=${ultimoIngreso[0]
+								.ultimo}`
+						);
+					} else {
+						SweetAlert.swal('Venta', `error: ${JSON.stringify($rr.find(verif))}`, 'error');
+					}
+				} else {
+					console.log('error');
+				}
+				/* $rootScope.loadBtnFilters(); */
+				$rootScope.ReloadPuntoDeVenta();
 			};
+		};
 		$scope.cancel = function() {
 			$uibModalInstance.dismiss('cancel');
 		};

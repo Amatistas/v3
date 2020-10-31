@@ -3,7 +3,9 @@
         <div class="header-modal2">
             <div class="pull-right">
                 <div role="group" aria-label="tools">
-                    <button class="btn btn-primary" ng-disabled="myform.$error.required" ng-click="guardarProductoyServicio(infoInputs)">Guardar y Cerrar</button>
+
+                    <button class="btn btn-primary" ng-if="infoInputs.btnUpdate == true " ng-disabled="myform.$error.required" ng-click="guardarProductoyServicio(infoInputs)">Guardar</button>
+                    <button class="btn btn-primary" ng-if="infoInputs.btnUpdate == false " ng-disabled="myform.$error.required" ng-click="updateProductoyServicio(infoInputs)">Actualizar</button>
                     <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
                     <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
                     <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
@@ -28,7 +30,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="pro_codalt">Código Alternativo</label>
-                        <input ng-model="infoInputs['pro_codalt']" type="number" class="form-control" id="pro_codalt" name="pro_codalt">
+                        <input ng-model="infoInputs['pro_codalt']" type="text" class="form-control" id="pro_codalt" name="pro_codalt">
                     </div>
                     <div class="col-md-8">
                         <label for="pro_nom" ng-class="{'text-danger':myform.pro_nom.$error.required == true}">Nombre del Producto</label>
@@ -36,7 +38,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="pro_bar">Código de Barra / SKU</label>
-                        <input ng-model="infoInputs['pro_bar']" type="number" class="form-control" id="pro_bar">
+                        <input ng-model="infoInputs['pro_bar']" type="text" class="form-control" id="pro_bar">
                     </div>
                     <div class="col-md-4">
                         <label for="form-field-select-2" ng-class="{'text-danger':myform.pst_id.$invalid == true}">
@@ -83,7 +85,7 @@
                     <hr>
                     <div class="col-md-3">
                         <label for="pro_isc">% ISC</label>
-                        <input ng-model="infoInputs['pro_isc']" type="number" maxlength="2" class="form-control" id="pro_isc">
+                        <input ng-model="infoInputs['pro_isc']" type="text" maxlength="2" class="form-control" id="pro_isc">
                     </div>
                    <!--  <div class="col-md-3">
                         <label for="pro_sal">Saldo Inicial</label>
@@ -91,7 +93,7 @@
                     </div> -->
                     <div class="col-md-3">
                         <label for="pro_pre" ng-class="{'text-danger':myform.pro_pre.$invalid == true}">Costo del Producto</label>
-                        <input required ng-model="infoInputs['pro_pre']" type="number" class="form-control" id="pro_pre" name="pro_pre" value="{{2500 | currency:'s/.'}}">
+                        <input required ng-model="infoInputs['pro_pre']" type="text" class="form-control" id="pro_pre" name="pro_pre">
                     </div>
                     <div class="col-md-3">
                         <label for="pro_pes" ng-class="{'text-danger':myform.pro_pes.$invalid == true}">Peso (Kg.)</label>
@@ -113,6 +115,9 @@
                             </label>
                         </div>
                     </div>
+                    <pre ng-if="DEV">
+                        {{infoInputs | json}}
+                    </pre>
                 </div>
             </div>
         </div>

@@ -352,6 +352,21 @@ app.controller('SelectCtrl', [
                 return false;
             }
         };
+        $scope.cuentaContablesGetAsyncronic = function(val) {
+            if (val.length >= 3) {
+                $scope.proveedoresList = [];
+                $http
+                    .post(
+                        `../../../../api/mantenimiento/mantenimiento/search.php?getdb=${JSON.parse($rootScope.d.datos)
+							.database}&tbnom=getplancuenta&s=nom&key=${val}`
+                    )
+                    .then(function(response) {
+                        $scope.proveedoresList.push(response.data.data);
+                    });
+            } else {
+                return false;
+            }
+        };
 
         $scope.proveedoresGetAsyncronic = function(val) {
             if (val.length >= 3) {
@@ -383,19 +398,6 @@ app.controller('SelectCtrl', [
                 return false;
             }
         };
-
-        $scope.cuentaContableList = [];
-        $timeout(function() {
-            $http
-                .post(
-                    `../../../../api/mantenimiento/mantenimiento/read.php?getdb=${JSON.parse($rootScope.d.datos)
-						.database}&tbnom=getPlanCuenta&where=id&igual=`
-                )
-                .then(function(response) {
-                    $scope.cuentaContableList.push(response.data.data);
-                });
-        }, 500);
-
         $rootScope.clearItems = function() {
             $scope.person.selected = undefined;
         };

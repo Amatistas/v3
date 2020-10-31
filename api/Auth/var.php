@@ -23,10 +23,10 @@ class Auth
     }
     function validarOnBaseDeDatosEmpresa($bd,$username)
     {
-        $query = "SELECT * FROM `$bd`.personal, nubefaco_nubefapanel.categoriaempresa
+        $query = "SELECT * FROM `$bd`.personal JOIN `$bd`.empresa ON `$bd`.empresa.emp_id =`$bd`.personal.emp_id
         WHERE `$bd`.personal.per_ema = '$username'
-        AND `$bd`.`personal`.per_est = 1
-        AND `$bd`.personal.emp_id = nubefaco_nubefapanel.categoriaempresa.id";
+        AND `$bd`.personal.per_est = 1";
+
         $stmt = $this->conn->prepare($query);
 
         // execute query

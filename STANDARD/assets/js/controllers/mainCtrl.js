@@ -13,6 +13,7 @@ app.controller('AppCtrl', [
 	'$timeout',
 	'cfpLoadingBar',
 	'$transitions',
+	'$location',
 	function(
 		$rootScope,
 		$scope,
@@ -23,10 +24,25 @@ app.controller('AppCtrl', [
 		$document,
 		$timeout,
 		cfpLoadingBar,
-		$transitions
+		$transitions,
+		$location
 	) {
 		$rootScope.d = sessionStorage;
 		$rootScope.miURL = 'http://app.nubefa.com';
+		try {
+			$rootScope.miempresaNamedisplay = JSON.parse(sessionStorage.getItem('datos')).emp_nom;
+		} catch (error) {
+		
+		}
+
+		//configurar ambiente de produccion
+		if ($location.host() == '192.168.0.3') {
+			$rootScope.DEV = true;
+		} else {
+			$rootScope.DEV = false;
+		}
+
+
 		// Loading bar transition
 		// -----------------------------------
 		var $win = $($window);
@@ -346,7 +362,6 @@ app.controller('cuentaAjusteCtrl', [
 		$scope.units = {};
 		$scope.rr = [];
 
-
 		$scope.fetchHeader = function(id) {
 			let obj = { db: 'empresa', where: 'emp_id', key: id };
 			getResources.fetchResources(obj).then(
@@ -360,7 +375,6 @@ app.controller('cuentaAjusteCtrl', [
 		};
 
 		$scope.fetchHeader(JSON.parse($rootScope.d.datos).emp_id);
-
 
 		$scope.rr.to_id = {
 			selectId: 'to_id',
@@ -527,7 +541,7 @@ app.controller('listaPrecioController', [
 	'$scope',
 	'$http',
 	'toaster',
-	function($rootScope, $scope, $http,toaster) {
+	function($rootScope, $scope, $http, toaster) {
 		$rootScope.infoInputs = {};
 
 		//datos de los select normales selectTo
@@ -790,11 +804,11 @@ app.controller('listaPrecioController', [
 			return d;
 		};
 
-		$scope.remove = function(id,pro,index) {
+		$scope.remove = function(id, pro, index) {
 			let obj = {
-				tb:'lista_precio_det',
-				col:'id',
-				ident:id
+				tb: 'lista_precio_det',
+				col: 'id',
+				ident: id
 			};
 			$scope.itemslista.splice(index, 1);
 			let sendObj = JSON.stringify(obj);
@@ -808,8 +822,7 @@ app.controller('listaPrecioController', [
 			xmlhttp.onload = (response) => {
 				if (xmlhttp.status == 200) {
 					toaster.pop('success', 'Precio', 'Guardado');
-					
-				}else{
+				} else {
 					toaster.pop('error', 'Precio', 'No se Pudo eliminar');
 				}
 			};
@@ -829,10 +842,9 @@ app.controller('listaPrecioController', [
 				if (xmlhttp.status == 200) {
 					toaster.pop('success', 'Precio', 'Guardado');
 					$scope.resultados(pro);
-				}else{
+				} else {
 					toaster.pop('error', 'Precio', 'No se Pudo guardar verifique los Campos');
 					$scope.resultados(pro);
-
 				}
 			};
 		};

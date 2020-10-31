@@ -45,12 +45,11 @@ if (true) {
         }
     }
     // create the createNewService
-    if ($createNewService->createAsiento($getdb, $tbnom, $dataInfo)) {
+    if ($createNewService->updateAsiento($getdb, $tbnom, $dataInfo)) {
         ////////////segundo insert bucle para ingresar todos los items
-        $getId = $createNewService->getLastIdRegistroAsiento();
-        $ge = $getId->fetch(PDO::FETCH_ASSOC);
+        $getId = $data->pro_tip;
 
-        if ($createNewService->insertService($getdb, $tbnom, $dataInfo, $ge)) {
+        if ($createNewService->updateService($getdb, $tbnom, $dataInfo, $getId)) {
             http_response_code(201);
             // tell the user
             echo json_encode(array("message" => "Se creo el servicio Correctamente"));
