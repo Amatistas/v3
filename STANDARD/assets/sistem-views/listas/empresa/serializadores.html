@@ -1,0 +1,64 @@
+<div class="container" ng-controller="SerializadoresCtrl">
+    <div ng-controller="AsideModalTransaccionCtrl">
+        <div class="ui secondary menu">
+            <div class="right menu">
+                <div ncy-breadcrumb></div>
+            </div>
+        </div>
+        <!-- start: PAGE TITLE -->
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <h1 class="ui header">Serie
+                </h1>
+            </div>
+            <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="dropdown pull-right" uib-dropdown="">
+                    <div class="btn-group dropdown" uib-dropdown="">
+                        <button type="button" ng-click="nuevaSerie()" class="btn btn-lg text-white btn btn-wide"
+                            style="background-color:#002350; border-radius: 50px 50px 50px 50px;">
+                            Nueva Serie
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-white">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Glosarios de Series</h4>
+                        </div>
+                        <div class="col-md-6" style="height: 400px; overflow-y: scroll;">
+                            <div ng-controller="itemsCtrl">
+                                <table class="ui celled table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>SERIE</th>
+                                            <th>CORRELATIVO</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in itemslistaSerializador track by $index">
+                                            <td>{{item.td_id }}</td>
+                                            <td>{{item.tds_ser}}</td>
+                                            <td>{{item.tds_cor}}</td>
+                                            <td class="left">
+                                                <button  class="btn btn-green" ng-click="editar(item.id,$index)">
+                                                    <i class="fal fa-edit"></i></button>
+                                                <button  class="btn btn-red" ng-click="remove(item.id,$index)">
+                                                    <i class="fal fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1002,27 +1002,35 @@ app.controller('DemoCtrl4', function($scope, $filter, $q, NgTableParams) {
 s
 ]); */
 
-app.controller('puntoVentaCtrl', function($scope, $http, $uibModal, $filter, NgTableParams, $rootScope, SweetAlert,toaster,$state) {
+app.controller('puntoVentaCtrl', function(
+	$scope,
+	$http,
+	$uibModal,
+	$filter,
+	NgTableParams,
+	$rootScope,
+	SweetAlert,
+	toaster,
+	$state
+) {
 	$scope.infoInputs = {};
 
 	$scope.readDefaultSettingsLocalStorage = function() {
 		let predet = localStorage.getItem('predeterminados_punto_de_venta');
-		if(predet != null){
+		if (predet != null) {
 			$scope.infoInputs = JSON.parse(predet);
-		}else{
+		} else {
 			toaster.pop('error', 'Impresión', 'Configure el formato de Impresión');
 			$scope.infoInputs.formato_impresion = 'A4';
 		}
 	};
 	$scope.readDefaultSettingsLocalStorage();
 
-
 	$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
 	$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
 	$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
-	
-	$scope.infoInputs.ane_id = $scope.infoInputs.select_ane_id;
 
+	$scope.infoInputs.ane_id = $scope.infoInputs.select_ane_id;
 
 	$scope.infoInputs.to_id = 1;
 
@@ -1107,9 +1115,9 @@ app.controller('puntoVentaCtrl', function($scope, $http, $uibModal, $filter, NgT
 		mostrar: [ 'id', 'pst_nom' ]
 	};
 
-	$rootScope.ReloadPuntoDeVenta = function(){
+	$rootScope.ReloadPuntoDeVenta = function() {
 		$state.reload();
-	}
+	};
 
 	$scope.serializador = function(serie) {
 		$http
@@ -1818,6 +1826,78 @@ function localCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $q, $sco
 		console.log(json);
 	}
 }
+
+app.controller('SerializadoresCtrl', SerializadoresCtrl);
+function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources, SweetAlert,toaster) {
+	$scope.fetchData = function() {
+		let obj = { db: 'tipo_documento_serie', where: 'td_id', key: '' };
+		getResources.fetchResourcesDoubleSearch(obj).then(
+			function(d) {
+				$scope.itemslistaSerializador = d.data;
+			},
+			function(errResponse) {
+				console.error('Error while fetching Currencies');
+			}
+		);
+	};
+	$scope.fetchData();
+
+	$scope.remove = function(id,index) {
+		SweetAlert.swal(
+			{
+				title: 'Estas seguro?',
+				text: 'Esta acción es irreversible',
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#DD6B55',
+				confirmButtonText: 'Aceptar',
+				cancelButtonText: 'Cancelar',
+				closeOnConfirm: false,
+				closeOnCancel: false
+			},
+			function(isConfirm) {
+				if (isConfirm) {
+					
+					let obj = {
+						tb: 'tipo_documento_serie',
+						col: 'id',
+						ident: id
+					};
+
+					let sendObj = JSON.stringify(obj);
+					var xmlhttp = new XMLHttpRequest();
+					var theUrl = `../../../../api/mantenimiento/mantenimiento/delete.php?getdb=${JSON.parse($rootScope.d.datos)
+						.database}&tbnom=tipo_documento_serie`;
+					xmlhttp.open('post', theUrl);
+					xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+					xmlhttp.withCredentials = true;
+					xmlhttp.send(sendObj);
+					xmlhttp.onload = (response) => {
+						if (xmlhttp.status == 200) {
+							$scope.itemslistaSerializador.splice(index, 1);
+							SweetAlert.swal({
+								title: 'Eliminado!',
+								text: 'La Serie se Elimino',
+								type: 'success',
+								confirmButtonColor: '#007AFF'
+							});
+						} else {
+							
+						}
+					};
+				} else {
+					SweetAlert.swal({
+						title: 'Cancelado',
+						text: 'Your imaginary file is safe :)',
+						type: 'error',
+						confirmButtonColor: '#007AFF'
+					});
+				}
+			}
+		);
+	};
+}
+
 app.controller('tpo_docCtrl', tpo_docCtrl);
 
 function tpo_docCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $q, $scope, $rootScope, $filter) {
@@ -7615,4 +7695,3 @@ function sisSaludCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $q, $
 		console.log(json);
 	}
 }
-

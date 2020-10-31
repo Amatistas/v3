@@ -77,5 +77,39 @@ class informacion
 
         $stmt->close();
     }
+    function getheaderTraslado($getdb, $id)
+    {
+        // query to insert record
+        $query = "SELECT * FROM `$getdb`.headertraslado WHERE  id_tras = $id";
+
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // execute query
+        $stmt->execute();
+        return $stmt;
+
+        $stmt->close();
+    }
+    function getdetalleTraslado($getdb, $id)
+    {
+        // query to insert record
+        $query = "SELECT * FROM `$getdb`.detalletraslado WHERE  id_tras_c = $id";
+
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // execute query
+        $stmt->execute();
+        return $stmt;
+
+        $stmt->close();
+    }
 
 }

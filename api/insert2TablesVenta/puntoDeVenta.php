@@ -85,7 +85,7 @@ if (true) {
             $arr_field2 = array();
             $insert2TablesID = new Insert2Tables($db);
 
-            $insert2TablesID->actualizarSerie($dataInfo->emp_id,$dataInfo->loc_id,$dataInfo->ven_ser, $dataInfo->ven_num);
+            $insert2TablesID->actualizarSerie($dataInfo->emp_id, $dataInfo->loc_id, $dataInfo->ven_ser, $dataInfo->ven_num);
 
 
             //obtener el ultimo id de la compra para asociar la cabezera del asiento y y el detalle del asiento tablas "registo" y "registro_det" 
@@ -145,14 +145,17 @@ if (true) {
             }
 
             foreach ($dataPagos as $key) {
-                //insertar pagos 
-                if ($insert2TablesItems->create_pago($getdb, $dataInfo, $key, $venid['ven_id'])) {
-                    // set response code - 201 created
-                    http_response_code(201);
-                    // tell the user
-                    array_push($adver, array("message" => "se inserto el pagos.", "status" => "200"));
+                if (isset($key->active)) {
+                    //insertar pagos 
+                    if ($insert2TablesItems->create_pago($getdb, $dataInfo, $key, $venid['ven_id'])) {
+                        // set response code - 201 created
+                        http_response_code(201);
+                        // tell the user
+                        array_push($adver, array("message" => "se inserto el pagos.", "status" => "200"));
+                    } else {
+                        array_push($adver, array("message" => "No se pudo Insertar los pagos", "status" => "503"));
+                    }
                 } else {
-                    array_push($adver, array("message" => "No se pudo Insertar los pagos", "status" => "503"));
                 }
             }
 

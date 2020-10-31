@@ -179,19 +179,22 @@
                                 <tbody>
                                     <tr ng-repeat="item in itemListAlmacen track by $index" class="">
                                         <td class="center"> {{$index}} </td>
-                                        <td> {{item.pro_nom}} </td>
+                                        <td> {{item.cd_des}} </td>
+                                        <td class="hidden"> {{item.pro_nom}} </td>
                                         <td class="col-md-1">
                                             <input required type="text" class="form-control" name="cantidad"
                                                 ng-model="item.cantidad" ng-blind="item.cantidad" readonly>
-
                                         </td>                                      
                                         <td class="left">
-                                            <button disabled class="btn btn-red" ng-click="eliminarItem($index)">
+                                            <button  class="btn btn-red" ng-click="eliminarItem($index)">
                                                 <i class="glyphicon glyphicon-trash"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <pre ng-if="DEV">
+                                {{itemListAlmacen | json}}
+                            </pre>
                         </div>
                     </div>
                 </div>

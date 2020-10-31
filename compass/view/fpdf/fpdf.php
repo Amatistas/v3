@@ -71,6 +71,7 @@ public $arry;
 public $arry2;
 public $arry3;
 public $arry4;
+
 /*******************************************************************************
 *                               Public methods                                 *
 *******************************************************************************/
@@ -110,6 +111,7 @@ function __construct($orientation='P', $unit='mm', $size='A4', $utf8 = false,$ar
 	$this->arry2 = $arry2;
 	$this->arry3 = $arry3;
 	$this->arry4 = $arry4;
+
 	// Font path
 	if(defined('FPDF_FONTPATH'))
 	{

@@ -835,6 +835,22 @@ app.config([
                     "asideCtrl", sessionVerificacion
                 ),
             })
+            .state("app.seriealizador", {
+                url: "/series",
+                templateUrl: "STANDARD/assets/sistem-views/listas/empresa/serializadores.html",
+                title: "Series",
+                icon: "ti-layout-media-left-alt",
+                ncyBreadcrumb: {
+                    label: "Series",
+                },
+                resolve: loadSequence(
+                    "ngTable",
+                    "ngTableCtrl",
+                    "dynamicTableCtrl",
+                    "asideCtrl", 
+                    sessionVerificacion
+                ),
+            })
             .state("app.categorias", {
                 url: "/categorias",
                 templateUrl: "STANDARD/assets/sistem-views/listas/personal/categorias.html",
