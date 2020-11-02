@@ -583,6 +583,7 @@ app.controller('ModalSerializadoCtrl', [
 			};
 			$scope.fetchResources($rootScope.tempModel.id);
 		} else {
+			$scope.rr = [];
 			$scope.infoInputs = {};
 			$scope.infoInputs.ofi_id = JSON.parse($rootScope.d.datos).ofi_id;
 			$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
@@ -644,45 +645,25 @@ app.controller('ModalSerializadoCtrl', [
 			var xml = new XMLHttpRequest();
 			var theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse(
 				$rootScope.d.datos
-			).database}&tbnom=producto_pro&identifiquer=pro_id&identifiquerValue=${val.pro_id}`;
+			).database}&tbnom=tipo_documento_serie&identifiquer=id&identifiquerValue=${val.id}`;
 			xml.open('POST', theUrl);
 			xml.send(data);
 			xml.onload = () => {
 				if (xml.status == 201) {
-					$adver.push(xml.response);
-				} else {
-					$adver.push(xml.response);
-				}
-
-				function IsJsonString(str) {
 					try {
-						JSON.parse(str);
-					} catch (e) {
-						return false;
-					}
-					return true;
-				}
-				var $ff = IsJsonString($adver[0]);
-
-				if ($ff) {
-					var $rr = JSON.parse($adver[0]);
-
-					function verif(list) {
-						return list.status != 200;
-					}
-					var verifx = $rr.find(verif);
-
-					if (verifx === undefined) {
-						toaster.pop('success', 'Producto', 'Item Guardado');
+						$adver.push(xml.response);
+						toaster.pop('success', 'Serie', 'Serie actulizada');
 						$uibModalInstance.close();
 						$uibModalInstance.dismiss('cancel');
-					} else {
-						toaster.pop('error', 'Error', 'Su Producto no pudo ser Guardado');
+						$state.reload();
+					} catch (error) {
+						alert('not fund');
 					}
 				} else {
-					console.log('error');
-					alert('Este documento no se pudo guardar');
+					toaster.pop('error', 'Serie', 'Serie no actulizada');
+					$adver.push(xml.response);
 				}
+
 			};
 		};
 

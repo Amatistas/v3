@@ -10,7 +10,7 @@
                   <div class="form-group">
                       <div class="col-md-12">
                           <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
-                              Upload a File:
+                             Cargar Certificado
                           </label>
                           <div class="input-group">
                               <div class="ui buttons">
@@ -20,12 +20,12 @@
                           </div>
                       </div>
                       <div class="col-md-4">
-                          <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
-                              Ingrese su contraseña
+                          <label ng-class="{'text-danger':form.claveCertificado.$invalid == true}">
+                              Ingrese Clave de Certificado
                           </label>
                               <div class="input-group">
                                   <div class="">
-                                      <input type="password" class="form-control" ng-model="datos.djqw231asd">
+                                      <input type="password" required class="form-control" name="claveCertificado" ng-model="datos.djqw231asd">
                                   </div>
                               </div>
                           </div>
@@ -78,7 +78,7 @@
             <div class="form-group">
                 <div class="col-md-6">
                     <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
-                        Usuario Sunat
+                        Usuario Segundario Sunat
                     </label>
                     <div class="input-group">
                       
@@ -89,7 +89,7 @@
                 </div>
                 <div class="col-md-6">
                     <label ng-class="{'text-danger':form.ane_alias.$invalid == true}">
-                        Ruc Sunat
+                        Ruc de la Empresa 
                     </label>
                     <div class="input-group">
                      

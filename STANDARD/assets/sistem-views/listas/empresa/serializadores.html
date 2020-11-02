@@ -41,7 +41,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="item in itemslistaSerializador track by $index">
+                                        <tr ng-repeat="item in itemslistaSerializador | orderBy :'td_id' track by $index">
                                             <td>{{item.td_id }}</td>
                                             <td>{{item.tds_ser}}</td>
                                             <td>{{item.tds_cor}}</td>

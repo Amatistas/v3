@@ -91,8 +91,17 @@ class PDF extends FPDF
                     $var = "NOTA DE CRÉDITO";
                     break;
                       
-            case 22:
-                $var = "COMPROBANTE DE TRASLADO";
+            case 41:
+                $var = "COMPROBANTE DE CARGA";
+                break;
+            case 40:
+                $var = "COMPROBANTE DE SALIDA INTERNA";
+                break;
+            case 42:
+                $var = "COMPROBANTE DE DESCARGA";
+                break;
+            case 43:
+                $var = "COMPROBANTE DE ENTRADA INTERNA";
                 break;
             case 11:
                 $var = "RUC";
@@ -167,7 +176,7 @@ class PDF extends FPDF
             $this->cell(30, 6, $col[0], 1, '', 'C');
             $this->cell(30, 6, $col[1], 1, '', 'C');
             $this->Ln(8);
-        }else if($this->arry[0]['to_id'] == 22){
+        }else if($this->arry[0]['to_id'] == 41||$this->arry[0]['to_id'] == 40||$this->arry[0]['to_id'] == 42||$this->arry[0]['to_id'] == 43){
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(140, 10);
             $this->MultiCell(60, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['to_id'])  ."\n". $this->arry[0]['documento'], 1, 'C');

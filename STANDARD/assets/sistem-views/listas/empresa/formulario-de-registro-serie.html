@@ -2,8 +2,8 @@
     <div class="modal-header">
         <div class="pull-right">
             <div role="group" aria-label="tools">
-                <button type="button" ng-if="infoInputs.btnUpdate = true" ng-click="guardarSerie(infoInputs)" class="btn btn-primary">Guardar</button>
-                <button type="button" ng-if="infoInputs.btnUpdate = false" ng-click="editarSerie(infoInputs)" class="btn btn-primary">Actulizar</button>
+                <button type="button" ng-if="infoInputs.btnUpdate == true" ng-click="guardarSerie(infoInputs)" class="btn btn-primary">Guardar</button>
+                <button type="button" ng-if="infoInputs.btnUpdate == false" ng-click="editarSerie(infoInputs)" class="btn btn-primary">Actulizar</button>
                 <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
                 <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
                 <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
