@@ -2,29 +2,30 @@
     <div class="modal-header">
         <div class="pull-right">
             <div role="group" aria-label="tools">
+                <button type="button" ng-if="infoInputs.btnUpdate = true" ng-click="guardarSerie(infoInputs)" class="btn btn-primary">Guardar</button>
+                <button type="button" ng-if="infoInputs.btnUpdate = false" ng-click="editarSerie(infoInputs)" class="btn btn-primary">Actulizar</button>
                 <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
                 <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
                 <button type="button" class="btn btn-link" ng-click="cancel()"><i class="ti-close"></i></button>
             </div>
         </div>
-        <h3 class="titulo-modal">Tipos de Socios</h3>
+        <h3 class="titulo-modal">Serie</h3>
     </div>
     <div class="container-fluid">
         <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
               <div class="row" style="padding: 10px;">
-                <div class="col-md-12">
-                    <label for="tdso_id" ng-class="{'text-danger':form.tdso_desc.$error.required == true}">Código</label>
-                    <input required type="text" class="form-control" id="tdso_id" name="tdso_id" ng-model="infoInputs['tdso_id']">
-                </div>are_id
-                <div class="col-md-12">guardarArea
-                    <label for="tdso_desc" ng-class="{'text-danger':form.tdso_desc.$error.required == true}">Descripción</label>
-                    <input required type="text" class="form-control" id="tdso_desc" name="tdso_desc" ng-model="infoInputs['tdso_desc']">
-                </div>are_des
-            </div>
-        </div>
-        <div style="display: flex; align-items: flex-end;">
-            <div role="group" aria-label="tools">
-                <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardartpoSoc()">Guardar y Cerrar</button>
+                <div class="col-md-4">
+                    <label for="td_id" ng-class="{'text-danger':form.td_id.$error.required == true}">CODIGO</label>
+                    <input required type="text" class="form-control" id="td_id" name="td_id" ng-model="infoInputs['td_id']">
+                </div>
+                <div class="col-md-4"> 
+                    <label for="tds_ser" ng-class="{'text-danger':form.tds_ser.$error.required == true}">SERIE</label>
+                    <input required type="text" class="form-control" id="tds_ser" name="tds_ser" ng-model="infoInputs['tds_ser']">
+                </div>
+                <div class="col-md-4">
+                    <label for="tds_cor" ng-class="{'text-danger':form.tds_cor.$error.required == true}">CORRELATIVO</label>
+                    <input required type="text" class="form-control" id="tds_cor" name="tds_cor" ng-model="infoInputs['tds_cor']">
+                </div>
             </div>
         </div>
     </div>

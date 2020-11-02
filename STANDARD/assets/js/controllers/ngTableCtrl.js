@@ -1125,7 +1125,8 @@ app.controller('puntoVentaCtrl', function(
 				`../../../../api/mantenimiento/mantenimiento/search3.php?getdb=${JSON.parse($rootScope.d.datos)
 					.database}&tbnom=tipo_documento_serie&s=${serie}&key=td_id&where=emp_id&igual=${JSON.parse(
 					$rootScope.d.datos
-				).emp_id}&where2=ofi_id&igual2=1`
+				).emp_id}&where2=ofi_id&igual2=${JSON.parse($rootScope.d.datos)
+					.ofi_id}`
 			)
 			.then(function(response) {
 				setTimeout(() => {
@@ -1830,7 +1831,7 @@ function localCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $q, $sco
 app.controller('SerializadoresCtrl', SerializadoresCtrl);
 function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources, SweetAlert,toaster) {
 	$scope.fetchData = function() {
-		let obj = { db: 'tipo_documento_serie', where: 'td_id', key: '' };
+		let obj = { db: 'tipo_documento_serie', where: 'ofi_id', key: JSON.parse($rootScope.d.datos).ofi_id };
 		getResources.fetchResourcesDoubleSearch(obj).then(
 			function(d) {
 				$scope.itemslistaSerializador = d.data;
@@ -1841,6 +1842,16 @@ function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources
 		);
 	};
 	$scope.fetchData();
+
+	$scope.nuevaSerie = function (){
+		$rootScope.newSerializadorCreate()
+
+	}
+
+	$scope.editar = function (item){
+		$rootScope.newSerializadorCreate(item)
+
+	}
 
 	$scope.remove = function(id,index) {
 		SweetAlert.swal(
@@ -1857,7 +1868,6 @@ function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources
 			},
 			function(isConfirm) {
 				if (isConfirm) {
-					
 					let obj = {
 						tb: 'tipo_documento_serie',
 						col: 'id',
@@ -1888,7 +1898,7 @@ function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources
 				} else {
 					SweetAlert.swal({
 						title: 'Cancelado',
-						text: 'Your imaginary file is safe :)',
+						text: 'la Operacion se a cancelado',
 						type: 'error',
 						confirmButtonColor: '#007AFF'
 					});

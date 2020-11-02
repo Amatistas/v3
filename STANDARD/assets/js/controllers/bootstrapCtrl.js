@@ -420,6 +420,28 @@ app
 					}
 				);
 			};
+
+			$rootScope.newSerializadorCreate = function(data) {
+				$rootScope.tempModel = data;
+				var modalInstance = $uibModal.open({
+					templateUrl: 'STANDARD/assets/sistem-views/listas/empresa/formulario-de-registro-serie.html',
+					controller: 'ModalSerializadoCtrl',
+					size: 'lg',
+					resolve: {
+						items: function() {
+							return $scope.items;
+						}
+					}
+				});
+				modalInstance.result.then(
+					function(selectedItem) {
+						$scope.selected = selectedItem;
+					},
+					function() {
+						$log.info('Modal dismissed at: ' + new Date());
+					}
+				);
+			};
 			$rootScope.newAsientos = function() {
 				var modalInstance = $uibModal.open({
 					templateUrl:
@@ -533,6 +555,143 @@ app.controller('ModalInstanceCtrl', [
 	}
 ]);
 
+app.controller('ModalSerializadoCtrl', [
+	'$scope',
+	'$uibModalInstance',
+	'$rootScope',
+	'$http',
+	'getResources',
+	'$state',
+	'toaster',
+	function($scope, $uibModalInstance, $rootScope, $http, getResources, $state, toaster) {
+		$scope.rr = [];
+		$scope.units = [];
+		if ($rootScope.tempModel) {
+			$scope.fetchResources = function(id) {
+				let obj = { db: 'tipo_documento_serie', where: 'id', key: id };
+				getResources.fetchResources(obj).then(
+					function(d) {
+						$scope.infoInputs = d.data[0];
+						$scope.infoInputs.btnUpdate = false;
+						$scope.infoInputs.ofi_id = JSON.parse($rootScope.d.datos).ofi_id;
+						$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
+					},
+					function(errResponse) {
+						console.error('Error while fetching Currencies');
+					}
+				);
+			};
+			$scope.fetchResources($rootScope.tempModel.id);
+		} else {
+			$scope.infoInputs = {};
+			$scope.infoInputs.ofi_id = JSON.parse($rootScope.d.datos).ofi_id;
+			$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
+			$scope.infoInputs.pro_ina = '0';
+			$scope.infoInputs.pro_detraccion = false;
+			$scope.infoInputs.btnUpdate = true;
+		}
+
+		$scope.guardarSerie = function(val) {
+			var $adver = [];
+			data = JSON.stringify(val);
+			var xml = new XMLHttpRequest();
+			var theUrl = `../../../../api/mantenimiento/mantenimiento/create.php?getdb=${JSON.parse($rootScope.d.datos)
+				.database}&tbnom=tipo_documento_serie`;
+			xml.open('POST', theUrl);
+			xml.send(data);
+			xml.onload = () => {
+				if (xml.status == 201) {
+					$adver.push(xml.response);
+				} else {
+					$adver.push(xml.response);
+				}
+
+				function IsJsonString(str) {
+					try {
+						JSON.parse(str);
+					} catch (e) {
+						return false;
+					}
+					return true;
+				}
+				var $ff = IsJsonString($adver[0]);
+
+				if ($ff) {
+					var $rr = JSON.parse($adver[0]);
+
+					function verif(list) {
+						return list.status != 200;
+					}
+					var verifx = $rr.find(verif);
+
+					if (verifx === undefined) {
+						toaster.pop('success', 'Serie', 'Item Guardado');
+						$uibModalInstance.close();
+						$uibModalInstance.dismiss('cancel');
+					} else {
+						toaster.pop('error', 'Error', 'Su Serie no pudo ser Guardado');
+					}
+				} else {
+					console.log('error');
+					alert('Este documento no se pudo guardar');
+				}
+			};
+			$state.reload();
+		};
+		$scope.editarSerie = function(val) {
+			var $adver = [];
+			data = JSON.stringify(val);
+			var xml = new XMLHttpRequest();
+			var theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse(
+				$rootScope.d.datos
+			).database}&tbnom=producto_pro&identifiquer=pro_id&identifiquerValue=${val.pro_id}`;
+			xml.open('POST', theUrl);
+			xml.send(data);
+			xml.onload = () => {
+				if (xml.status == 201) {
+					$adver.push(xml.response);
+				} else {
+					$adver.push(xml.response);
+				}
+
+				function IsJsonString(str) {
+					try {
+						JSON.parse(str);
+					} catch (e) {
+						return false;
+					}
+					return true;
+				}
+				var $ff = IsJsonString($adver[0]);
+
+				if ($ff) {
+					var $rr = JSON.parse($adver[0]);
+
+					function verif(list) {
+						return list.status != 200;
+					}
+					var verifx = $rr.find(verif);
+
+					if (verifx === undefined) {
+						toaster.pop('success', 'Producto', 'Item Guardado');
+						$uibModalInstance.close();
+						$uibModalInstance.dismiss('cancel');
+					} else {
+						toaster.pop('error', 'Error', 'Su Producto no pudo ser Guardado');
+					}
+				} else {
+					console.log('error');
+					alert('Este documento no se pudo guardar');
+				}
+			};
+		};
+
+		$scope.cancel = function() {
+			$uibModalInstance.dismiss('cancel');
+		};
+	}
+]);
+
 app.controller('ModalNuevoProductoCtrl', [
 	'$scope',
 	'$uibModalInstance',
@@ -540,12 +699,11 @@ app.controller('ModalNuevoProductoCtrl', [
 	'$rootScope',
 	'$http',
 	'getResources',
-	function($scope, $uibModalInstance, items, $rootScope, $http,getResources) {
+	function($scope, $uibModalInstance, items, $rootScope, $http, getResources) {
 		$scope.rr = [];
 		$scope.units = [];
 
 		if ($rootScope.tempModel) {
-			
 			$scope.fetchResources = function(id) {
 				let obj = { db: 'getproductos', where: 'pro_id', key: id };
 				getResources.fetchResources(obj).then(
@@ -654,7 +812,6 @@ app.controller('ModalNuevoProductoCtrl', [
 			xml.onload = () => {
 				if (xml.status == 201) {
 				} else {
-					
 				}
 			};
 		};
@@ -710,12 +867,12 @@ app.controller('ModalNuevoProductoCtrl', [
 			var $adver = [];
 			data = JSON.stringify(val);
 			var xml = new XMLHttpRequest();
-			var theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse($rootScope.d.datos)
-				.database}&tbnom=producto_pro&identifiquer=pro_id&identifiquerValue=${val.pro_id}`;
+			var theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse(
+				$rootScope.d.datos
+			).database}&tbnom=producto_pro&identifiquer=pro_id&identifiquerValue=${val.pro_id}`;
 			xml.open('POST', theUrl);
 			xml.send(data);
 			xml.onload = () => {
-
 				if (xml.status == 201) {
 					$adver.push(xml.response);
 				} else {
@@ -771,10 +928,10 @@ app.controller('ModalNuevoServicioCtrl', [
 	'$http',
 	'getResources',
 	'toaster',
-	function($scope, $uibModalInstance, items, $rootScope, $http,getResources,toaster) {
+	function($scope, $uibModalInstance, items, $rootScope, $http, getResources, toaster) {
 		$scope.rr = [];
 		$scope.units = [];
-	
+
 		if ($rootScope.tempModel) {
 			$scope.fetchResources = function(id) {
 				let obj = { db: 'getproductos', where: 'pro_id', key: id };
@@ -782,11 +939,10 @@ app.controller('ModalNuevoServicioCtrl', [
 					function(d) {
 						$scope.infoInputs = d.data[0];
 						$scope.infoInputs.cuentacontable = {
-							idt:$scope.infoInputs.cuenta_contable,
-							nom:$scope.infoInputs.tip_pro_desc,
-						}
+							idt: $scope.infoInputs.cuenta_contable,
+							nom: $scope.infoInputs.tip_pro_desc
+						};
 						$scope.infoInputs.btnUpdate = false;
-						
 					},
 					function(errResponse) {
 						console.error('Error while fetching Currencies');
@@ -864,27 +1020,24 @@ app.controller('ModalNuevoServicioCtrl', [
 			xml.open('POST', theUrl);
 			xml.send(data);
 			xml.onload = () => {
-
 				if (xml.status == 201) {
 					try {
 						$adver.push(xml.response);
 						toaster.pop('success', 'Servicio', 'Servicio Actualizado');
 						$uibModalInstance.dismiss('cancel');
 						$rootScope.reloadDataProductosyServicios();
-
 					} catch (error) {
 						toaster.pop('error', 'Error', 'Su Servicio no pudo ser Actualizado');
 					}
 				} else {
 					toaster.pop('error', 'Error', 'Su Servicio no pudo ser Actualizado');
-				}				
+				}
 			};
 			$uibModalInstance.close();
-			
 		};
 		$scope.cancel = function() {
 			toaster.pop('success', 'Producto', 'Producto Guardado');
-			reloadDataProductosyServicios()
+			reloadDataProductosyServicios();
 			$uibModalInstance.close();
 			$uibModalInstance.dismiss('cancel');
 		};

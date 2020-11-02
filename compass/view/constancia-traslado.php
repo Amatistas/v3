@@ -85,17 +85,15 @@ $fpdf->cell(130,6,substr('Producto',0,60),1,'','L');
 
 $fpdf->cell(30,6,'Presentación',1,'','R');
 $fpdf->cell(30,6,'Cantidad',1,'','R');
-$fpdf->Ln();
 
-   
-    $fpdf->cell(130,6,'',1,'','L');
- 
-        $fpdf->cell(30,6,'',1,'','R');
-        $fpdf->cell(30,6,'',2,'',' ',1,'','R');
+foreach ($arry6 as $arr) {
+    $fpdf->Ln();
 
-        $fpdf->cell(30,6,'',2,'',' ',1,'','R');
-        $fpdf->cell(30,6,'',1,'','R');
-    
+    $fpdf->cell(130,6,substr($arr['pro_nom'],0,60),1,'','L');
+     $fpdf->cell(30,6,$arr['pst_id'],1,'','R');
+     $fpdf->cell(30,6,$arr['cantidad'],1,'','R');
+    }
+
     $fpdf->Ln();
 
 /////////////////item de productos end///////////
