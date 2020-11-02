@@ -128,8 +128,8 @@ class PDF extends FPDF
 //   var_dump($this->arry5);
 //   var_dump($this->arry6);
                    // Logo
-                //    $this->Image("../../api/upload/".substr($this->arry3[0]['fe_log'],2), 10, 8, 33);
-                //    var_dump("../../api/upload/".substr($this->arry3[0]['fe_log'],1));
+                $this->Image("../../api/upload/".substr($this->arry3[0]['fe_log'],2), 10, 8, 33);
+                 
                    $this->SetFont('Arial', 'I', 8);
            
                    $this->SetXY(55, 8);
@@ -165,7 +165,7 @@ class PDF extends FPDF
             $this->Ln(8);
         }else if($this->arry[0]['to_id'] == 22){
 
-            }
+        }
         else if($this->arry4!=NULL){       
             $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . "COMPROBANTE DE EGRESO"  ."\n", 1, 'C');
             // Line break
@@ -180,9 +180,7 @@ class PDF extends FPDF
             $this->SetLineWidth(0.4);
             $this->line(10, 40, 200, 40);
             $this->SetY(45);
-        } else if($this->arry!=NULL){
-
-        }
+        } 
         else{
 
             $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  ."\n". $this->arry[0]['documento'], 1, 'C');
