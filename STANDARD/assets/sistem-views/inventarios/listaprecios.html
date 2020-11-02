@@ -34,7 +34,7 @@
             <div class="container" ng-init="resultados(person.selected)">
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <label>
                                 Productos y Servicios
                             </label>
@@ -66,27 +66,22 @@
                                 </span>
                             </div>
                         </div>
-
                         <div class="col-md-1">
                             <label for="lpd_fac">Factor</label>
                             <input ng-model="person.selected.lpd_fac"
                                 ng-change="person.selected = modffactorCompra(person.selected)" type="text"
                                 class="form-control" id="lpd_fac" name="lpd_fac">
                         </div>
-
                         <div class="col-md-2">
-
                             <label for="pst_id">
                                 Presentación
                             </label>
-
                             <select ng-model="person.selected.pst_id" class="form-control" id="pst_id " name="pst_id"
                                 ng-init="buscarOption(rr.pst_id)">
                                 <option value="{{opt.id}}" ng-repeat="opt in units['pst_id']">{{opt.label}}</option>
                             </select>
                         </div>
-
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label for="form-field-select-2">
                                 Lista de Precio
                             </label>
@@ -95,8 +90,7 @@
                                 <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">{{opt.label}}</option>
                             </select>
                         </div>
-<!-- 
-                        <div class="col-md-1">
+<!--                         <div class="col-md-1">
                             <button class="btn btn-primary" style="margin-top: 30px;"
                                 ng-click="resultados(person.selected)"><i class="fa fa-search"></i></button>
                         </div> -->
