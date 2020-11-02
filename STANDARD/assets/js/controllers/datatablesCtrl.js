@@ -98,9 +98,7 @@ function inventarioListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http
 	vm.dtInstance = {};
 	console.log(vm.dtInstance);
 
-	function someClickHandlerEdit(info) {
-	
-	}
+	function someClickHandlerEdit(info) {}
 	function someClickHandlerDelete(info) {
 		alert('Este elemento no se puede eliminar');
 	}
@@ -1304,7 +1302,8 @@ function trasladoListaCtrl(
 	$rootScope,
 	$filter,
 	toaster,
-	$location
+	$location,
+	$window
 ) {
 	var vm = this;
 
@@ -1392,17 +1391,23 @@ function trasladoListaCtrl(
 				options += `
 			<div class="contenedor">
 			
-			<a class="dropbtn action-pago">Ver Detalle</a>
+			<a class="dropbtn action-ver-detalle">Ver Detalle</a>
 		
 			</div>		
 				`;
+			} else if (data.td_nom === 'Entrada Interna') {
+				options += `
+				<div class="contenedor">
+				<a class="dropbtn action-ver-detalle">Ver Detalles</a>
+				</div>		
+					`;
 			} else if (data.td_nom === 'Salida Interna') {
 				if (data.status_tras === '1') {
 					if (idLocal === data.local_destino) {
 						options += `
 					<div class="contenedor">
 					<a class="dropbtn action-registro-almacen">Ingresar</a>
-					<a class="dropbtn action-pago">Ver Detalle</a>
+					<a class="dropbtn action-ver-detalle">Ver Detalle</a>
 					</div>		
 						`;
 					}
@@ -1440,7 +1445,6 @@ function trasladoListaCtrl(
 	function someClickHandlerCompras(info) {
 		$rootScope.compraDetalle(info);
 	}
-
 	function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 		$('td .action-registro-almacen', nRow).unbind('click');
 		$('td .action-registro-almacen', nRow).bind('click', function() {
@@ -1449,14 +1453,14 @@ function trasladoListaCtrl(
 			});
 		});
 
-		$('td .action-ver-detalles', nRow).unbind('click');
-		$('td .action-ver-detalles', nRow).bind('click', function() {
+		$('td .action-ver-detalle', nRow).unbind('click');
+		$('td .action-ver-detalle', nRow).bind('click', function() {
 			$scope.$apply(function() {
-				console.log(aData.ven_id);
-				$location.path(`/app/ventas/venta-detalle/${aData.ven_id}/`);
-
-				/*$location.path(`/api/ventas/venta-detalle/${aData.ven_id}`) */
-				vm.someClickHandlerDetails(aData);
+				console.log(aData);
+			 	$window.open(
+					`${$rootScope.miURL}/compass/view/constancia-traslado.php?emp_id=${JSON.parse($rootScope.d.datos)
+						.emp_id}&getdb=${JSON.parse($rootScope.d.datos).database}&nro=${aData.id_tras}&id_tras=${aData.id_tras}`
+				); 
 			});
 		});
 		return nRow;
@@ -1579,7 +1583,7 @@ function clienteListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $
 	console.log(vm.dtInstance);
 
 	function someClickHandlerEditar(info) {
-		$rootScope.nuevocliente(info)
+		$rootScope.nuevocliente(info);
 	}
 
 	function someClickHandlerDelete(info) {
