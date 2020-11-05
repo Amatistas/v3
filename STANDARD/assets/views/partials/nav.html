@@ -82,9 +82,14 @@
                     <span class="title">Caja</span>
                 </a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-if="CLASIC == true">
                 <a ui-sref="app.punto.puntoventa">
                     <span class="title">Punto de Venta</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="BOTICA == true">
+                <a ui-sref="app.punto.puntoventabotica">
+                    <span class="title">Punto de Venta Botica</span>
                 </a>
             </li>
             <li ng-show="false" ui-sref-active="active">

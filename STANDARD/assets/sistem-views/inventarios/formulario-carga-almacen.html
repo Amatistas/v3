@@ -24,7 +24,7 @@
                                         Documento
                                     </label>
                                     <select  class="ui fluid dropdown" required ng-model="infoInputs['td_id']"
-                                        id="td_id" name="td_id" ng-init="fetch = fetchSerializador('SE')">
+                                        id="td_id" name="td_id" ng-init="fetch = fetchSerializador(infoInputs.tip_ope)">
                                         <option value="SE">
                                             SE</option>>
                                     </select>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="col-md-4 ">
+                        <div class="col-md-9">
                             <label>
                                 Productos y Servicios
                             </label>

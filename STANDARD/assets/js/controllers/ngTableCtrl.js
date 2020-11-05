@@ -1125,8 +1125,292 @@ app.controller('puntoVentaCtrl', function(
 				`../../../../api/mantenimiento/mantenimiento/search3.php?getdb=${JSON.parse($rootScope.d.datos)
 					.database}&tbnom=tipo_documento_serie&s=${serie}&key=td_id&where=emp_id&igual=${JSON.parse(
 					$rootScope.d.datos
-				).emp_id}&where2=ofi_id&igual2=${JSON.parse($rootScope.d.datos)
-					.ofi_id}`
+				).emp_id}&where2=ofi_id&igual2=${JSON.parse($rootScope.d.datos).ofi_id}`
+			)
+			.then(function(response) {
+				setTimeout(() => {
+					$scope.infoInputs.ven_serSel = $scope.serialSelector[0];
+				}, 150);
+				return ($scope.serialSelector = response.data.data);
+			});
+	};
+	$rootScope.buscarOption = function(param) {
+		switch (typeof param) {
+			case 'string':
+				var obj = JSON.parse(param);
+				break;
+			case 'object':
+				var obj = param;
+				break;
+			default:
+				break;
+		}
+
+		var arr = obj.selectId;
+
+		$http
+			.get(
+				`../../../../api/mantenimiento/mantenimiento/read.php?getdb=${JSON.parse($rootScope.d.datos)
+					.database}&tbnom=${obj.db}&where=${obj.where}&igual=${obj.key}`
+			)
+			.then(function(response) {
+				var options = response.data.data;
+				$scope.units[arr] = [];
+				$.each(options, function(i, val) {
+					$scope.units[arr].push({
+						id: val[obj.mostrar[0]],
+						label: val[obj.mostrar[1]]
+					});
+				});
+				return $scope.units[arr];
+			});
+	};
+	$scope.itemListVentas = [];
+	$scope.additem = function(item, stock) {
+		function validaVacio(valor) {
+			valor = valor == undefined ? '' : valor;
+			if (!valor || 0 === valor.length) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function isNumber(x) {
+			if (isNaN(x)) {
+				return x;
+			}
+			return parseInt(x);
+		}
+
+		// COMPRUEBA CAMPOS VACIOS
+		if (isNumber(validaVacio(item.vd_can))) {
+			toaster.pop('error', 'Alerta', 'Complete la Cantidad del Producto');
+		} else if (item.vd_can > stock) {
+			toaster.pop('error', 'Alerta', 'Completa todo el Formulario');
+		} else {
+			$scope.itemListVentas.push(item);
+			$scope.productos.selected = undefined;
+		}
+	};
+
+	$scope.eliminarItem = function(index) {
+		$scope.itemListVentas.splice(index, 1);
+	};
+
+	$scope.getMontoTotal = function() {
+		var total = 0;
+		for (var i = 0, len = $scope.itemListVentas.length; i < len; i++) {
+			total = total + $scope.itemListVentas[i].vd_can * $scope.itemListVentas[i].vd_pre;
+		}
+		return total;
+	};
+
+	$scope.getMontoDescuento = 0;
+
+	$scope.getMontoTotalAfecto = function() {
+		var total = 0;
+		for (var i = 0, len = $scope.itemListVentas.length; i < len; i++) {
+			if ($scope.itemListVentas[i].vd_ina == '0') {
+				total = total + $scope.itemListVentas[i].vd_can * $scope.itemListVentas[i].vd_pre;
+			}
+		}
+		return total;
+	};
+
+	$scope.getMontoTotalInafecto = function() {
+		var total = 0;
+		for (var i = 0, len = $scope.itemListVentas.length; i < len; i++) {
+			if ($scope.itemListVentas[i].vd_ina == '1') {
+				total = total + $scope.itemListVentas[i].vd_can * $scope.itemListVentas[i].vd_pre;
+			}
+		}
+		return total;
+	};
+	$scope.getMontoIgv = function(val) {
+		var total = parseFloat(val / $scope.valorIgvConvertido) * (parseFloat($scope.mySessionEmpresa.emp_igv) / 100);
+		return total;
+	};
+
+	$scope.guardarPuntoVenta = function(data, items) {
+		$rootScope.formularioModalPagoNuevoPuntoVenta = data;
+		$rootScope.formularioModalPagoNuevoPuntoVentaItems = items;
+		var modalInstance = $uibModal.open({
+			templateUrl: 'STANDARD/assets/sistem-views/ventas/formulario-modal-pago-nuevo-punto-venta.html',
+			controller: 'ModalGrabarPuntoVentaCtrl',
+			size: 'lg',
+			resolve: {
+				items: function() {
+					return $scope.items;
+				}
+			}
+		});
+		modalInstance.result.then(
+			function(selectedItem) {
+				$scope.selected = selectedItem;
+			},
+			function() {
+				console.log.info('Modal dismissed at: ' + new Date());
+			}
+		);
+	};
+
+	$scope.guardarVenta = function() {
+		let sendObj = JSON.stringify({
+			info: [ $scope.infoInputs ],
+			items: $scope.itemListVentas
+		});
+		var xmlhttp = new XMLHttpRequest();
+		var theUrl = `../../../../api/insert2Tables/create.php?getdb=${JSON.parse($rootScope.d.datos)
+			.database}&tbnom=venta`;
+		xmlhttp.open('post', theUrl);
+		xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+		xmlhttp.withCredentials = true;
+		xmlhttp.send(sendObj);
+		xmlhttp.onload = (response) => {
+			alert(response);
+		};
+	};
+});
+
+app.controller('puntoVentaMedicinaCtrl', function(
+	$scope,
+	$http,
+	$uibModal,
+	$filter,
+	NgTableParams,
+	$rootScope,
+	SweetAlert,
+	toaster,
+	$state,
+	getResources
+) {
+	$scope.infoInputs = {};
+
+	$scope.readDefaultSettingsLocalStorage = function() {
+		let predet = localStorage.getItem('predeterminados_punto_de_venta');
+		if (predet != null) {
+			$scope.infoInputs = JSON.parse(predet);
+		} else {
+			toaster.pop('error', 'Impresión', 'Configure el formato de Impresión');
+			$scope.infoInputs.formato_impresion = 'A4';
+		}
+	};
+	$scope.readDefaultSettingsLocalStorage();
+
+	$scope.getComponenteDelMedicamento = function(product) {
+		let obj = { route: 'insert2TablesVenta/getComponentesPuntodeVentaBotica', pro_id: product.vt_pro_id };
+		getResources.fetchResourcesFromAPI(obj).then(
+			function(d) {
+				$scope.itemsComponentes = d.data;
+			},
+			function(errResponse) {
+				console.error('Error while fetching Currencies');
+			}
+		); 
+	};
+
+	$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
+	$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
+	$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
+
+	$scope.infoInputs.ane_id = $scope.infoInputs.select_ane_id;
+
+	$scope.infoInputs.to_id = 1;
+
+	var f = new Date();
+
+	var ano = f.getFullYear();
+	var mes = f.getMonth();
+	var dia = f.getDate();
+
+	var fechahoy = new Date(ano, mes, dia);
+
+	$scope.infoInputs.fechahoy = fechahoy;
+	$scope.infoInputs.ven_fecreg = fechahoy;
+	$scope.infoInputs.ven_fecemi = fechahoy;
+
+	function sumarDias(fecha, dias) {
+		fecha = new Date(fecha);
+		fecha.setDate(fecha.getDate() + dias);
+		return fecha;
+	}
+
+	$scope.infoInputs.ven_fecven = sumarDias(fechahoy, 30);
+
+	$scope.units = {};
+	$scope.rr = [];
+	$scope.valorIgvConvertido = 1.18;
+	$scope.mySessionEmpresa = [];
+	$scope.mySessionEmpresa.emp_igv = 18;
+	let misDecimales = 2;
+
+	$scope.productos = {};
+
+	//traer ajustes predeterminados:
+
+	$scope.rr.td_id = {
+		selectId: 'td_id',
+		db: 'tipo_operacion_td',
+		where: 'to_id',
+		key: 1,
+		mostrar: [ 'td_id', 'td_id' ]
+	};
+	$scope.rr.mnd_id = {
+		selectId: 'mnd_id',
+		db: 'moneda',
+		where: 'mnd_id',
+		key: '',
+		mostrar: [ 'mnd_id', 'mnd_id' ]
+	};
+	$scope.rr.fp_id = {
+		selectId: 'fp_id',
+		db: 'forma_pago',
+		where: 'fp_id',
+		key: '',
+		mostrar: [ 'fp_id', 'fp_nom' ]
+	};
+	$scope.rr.lp_id = {
+		selectId: 'lp_id',
+		db: 'lista_precio_list',
+		where: 'lp_id',
+		key: '',
+		mostrar: [ 'lp_id', 'lp_nom' ]
+	};
+	$scope.rr.ofi_id = {
+		selectId: 'ofi_id',
+		db: 'local',
+		where: 'emp_id',
+		key: '',
+		mostrar: [ 'loc_id', 'loc_nom' ]
+	};
+	$scope.rr.alm_id = {
+		selectId: 'alm_id',
+		db: 'almacen_info',
+		where: 'loc_id',
+		key: JSON.parse($rootScope.d.datos).ofi_id,
+		mostrar: [ 'alm_id', 'alm_nom' ]
+	};
+
+	$scope.rr.pst_id = {
+		selectId: 'pst_id',
+		db: 'presentacion',
+		where: 'id',
+		key: '',
+		mostrar: [ 'id', 'pst_nom' ]
+	};
+
+	$rootScope.ReloadPuntoDeVenta = function() {
+		$state.reload();
+	};
+
+	$scope.serializador = function(serie) {
+		$http
+			.get(
+				`../../../../api/mantenimiento/mantenimiento/search3.php?getdb=${JSON.parse($rootScope.d.datos)
+					.database}&tbnom=tipo_documento_serie&s=${serie}&key=td_id&where=emp_id&igual=${JSON.parse(
+					$rootScope.d.datos
+				).emp_id}&where2=ofi_id&igual2=${JSON.parse($rootScope.d.datos).ofi_id}`
 			)
 			.then(function(response) {
 				setTimeout(() => {
@@ -1829,7 +2113,7 @@ function localCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $q, $sco
 }
 
 app.controller('SerializadoresCtrl', SerializadoresCtrl);
-function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources, SweetAlert,toaster) {
+function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources, SweetAlert, toaster) {
 	$scope.fetchData = function() {
 		let obj = { db: 'tipo_documento_serie', where: 'ofi_id', key: JSON.parse($rootScope.d.datos).ofi_id };
 		getResources.fetchResourcesDoubleSearch(obj).then(
@@ -1843,17 +2127,15 @@ function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources
 	};
 	$scope.fetchData();
 
-	$scope.nuevaSerie = function (){
-		$rootScope.newSerializadorCreate()
+	$scope.nuevaSerie = function() {
+		$rootScope.newSerializadorCreate();
+	};
 
-	}
+	$scope.editar = function(item) {
+		$rootScope.newSerializadorCreate(item);
+	};
 
-	$scope.editar = function (item){
-		$rootScope.newSerializadorCreate(item)
-
-	}
-
-	$scope.remove = function(id,index) {
+	$scope.remove = function(id, index) {
 		SweetAlert.swal(
 			{
 				title: 'Estas seguro?',
@@ -1876,8 +2158,9 @@ function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources
 
 					let sendObj = JSON.stringify(obj);
 					var xmlhttp = new XMLHttpRequest();
-					var theUrl = `../../../../api/mantenimiento/mantenimiento/delete.php?getdb=${JSON.parse($rootScope.d.datos)
-						.database}&tbnom=tipo_documento_serie`;
+					var theUrl = `../../../../api/mantenimiento/mantenimiento/delete.php?getdb=${JSON.parse(
+						$rootScope.d.datos
+					).database}&tbnom=tipo_documento_serie`;
 					xmlhttp.open('post', theUrl);
 					xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 					xmlhttp.withCredentials = true;
@@ -1892,7 +2175,6 @@ function SerializadoresCtrl($http, $q, $scope, $rootScope, $filter, getResources
 								confirmButtonColor: '#007AFF'
 							});
 						} else {
-							
 						}
 					};
 				} else {

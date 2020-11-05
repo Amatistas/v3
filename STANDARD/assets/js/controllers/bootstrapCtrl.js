@@ -421,6 +421,30 @@ app
 				);
 			};
 
+			$rootScope.newProductoMedicCreate = function(data) {
+				$rootScope.tempModel = data;
+				var modalInstance = $uibModal.open({
+					templateUrl:
+						'STANDARD/assets/sistem-views/inventarios/formulario-de-registro-nuevo-producto-medic.html',
+					controller: 'ModalNuevoProductoMedicoCtrl',
+					size: 'lg',
+					resolve: {
+						items: function() {
+							return $scope.items;
+						}
+					}
+				});
+
+				modalInstance.result.then(
+					function(selectedItem) {
+						$scope.selected = selectedItem;
+					},
+					function() {
+						$log.info('Modal dismissed at: ' + new Date());
+					}
+				);
+			};
+
 			$rootScope.newSerializadorCreate = function(data) {
 				$rootScope.tempModel = data;
 				var modalInstance = $uibModal.open({
@@ -663,7 +687,6 @@ app.controller('ModalSerializadoCtrl', [
 					toaster.pop('error', 'Serie', 'Serie no actulizada');
 					$adver.push(xml.response);
 				}
-
 			};
 		};
 
@@ -734,6 +757,243 @@ app.controller('ModalNuevoProductoCtrl', [
 			key: '',
 			mostrar: [ 'scat_id', 'scat_nom' ]
 		};
+		$scope.rr.mar_id = {
+			selectId: 'mar_id',
+			db: 'marca',
+			where: 'mar_id',
+			key: '',
+			mostrar: [ 'mar_id', 'mar_nom' ]
+		};
+
+		$rootScope.buscarOption = function(param) {
+			switch (typeof param) {
+				case 'string':
+					var obj = JSON.parse(param);
+					break;
+				case 'object':
+					var obj = param;
+					break;
+				default:
+					break;
+			}
+			/*  if (obj.key === "miEmpresa") {
+                    obj.key = miEmpresa
+                } else {
+                    obj.key = obj.key
+                } */
+
+			var arr = obj.selectId;
+
+			$http
+				.get(
+					`../../../../api/mantenimiento/mantenimiento/read.php?getdb=${JSON.parse($rootScope.d.datos)
+						.database}&tbnom=${obj.db}&where=${obj.where}&igual=${obj.key}`
+				)
+				.then(function(response) {
+					var options = response.data.data;
+					$scope.units[arr] = [];
+					$.each(options, function(i, val) {
+						$scope.units[arr].push({
+							id: val[obj.mostrar[0]],
+							label: val[obj.mostrar[1]]
+						});
+					});
+					return $scope.units[arr];
+				});
+		};
+
+		$scope.items = items;
+		$scope.selected = {
+			item: $scope.items[0]
+		};
+
+		$scope.popoverGuardarCategorias = function(val) {
+			var xml = new XMLHttpRequest();
+			var theUrl = `../../../../api/mantenimiento/mantenimiento/create.php?getdb=${JSON.parse($rootScope.d.datos)
+				.database}&tbnom=categoria`;
+			xml.open('POST', theUrl);
+			xml.send(JSON.stringify({ cat_nom: val }));
+			xml.onload = () => {
+				if (xml.status == 201) {
+				} else {
+				}
+			};
+		};
+		$scope.guardarProductoyServicio = function(val) {
+			var $adver = [];
+			data = JSON.stringify(val);
+			var xml = new XMLHttpRequest();
+			var theUrl = `../../../../api/mantenimiento/mantenimiento/create.php?getdb=${JSON.parse($rootScope.d.datos)
+				.database}&tbnom=producto_pro`;
+			xml.open('POST', theUrl);
+			xml.send(data);
+			xml.onload = () => {
+				if (xml.status == 201) {
+					$adver.push(xml.response);
+				} else {
+					$adver.push(xml.response);
+				}
+
+				function IsJsonString(str) {
+					try {
+						JSON.parse(str);
+					} catch (e) {
+						return false;
+					}
+					return true;
+				}
+				var $ff = IsJsonString($adver[0]);
+
+				if ($ff) {
+					var $rr = JSON.parse($adver[0]);
+
+					function verif(list) {
+						return list.status != 200;
+					}
+					var verifx = $rr.find(verif);
+
+					if (verifx === undefined) {
+						toaster.pop('success', 'Producto', 'Item Guardado');
+						$uibModalInstance.close();
+						$uibModalInstance.dismiss('cancel');
+					} else {
+						toaster.pop('error', 'Error', 'Su Producto no pudo ser Guardado');
+					}
+				} else {
+					console.log('error');
+					alert('Este documento no se pudo guardar');
+				}
+			};
+			$uibModalInstance.close($scope.selected.item);
+			$rootScope.reloadDataProductosyServicios();
+		};
+		$scope.updateProductoyServicio = function(val) {
+			var $adver = [];
+			data = JSON.stringify(val);
+			var xml = new XMLHttpRequest();
+			var theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse(
+				$rootScope.d.datos
+			).database}&tbnom=producto_pro&identifiquer=pro_id&identifiquerValue=${val.pro_id}`;
+			xml.open('POST', theUrl);
+			xml.send(data);
+			xml.onload = () => {
+				if (xml.status == 201) {
+					$adver.push(xml.response);
+				} else {
+					$adver.push(xml.response);
+				}
+
+				function IsJsonString(str) {
+					try {
+						JSON.parse(str);
+					} catch (e) {
+						return false;
+					}
+					return true;
+				}
+				var $ff = IsJsonString($adver[0]);
+
+				if ($ff) {
+					var $rr = JSON.parse($adver[0]);
+
+					function verif(list) {
+						return list.status != 200;
+					}
+					var verifx = $rr.find(verif);
+
+					if (verifx === undefined) {
+						toaster.pop('success', 'Producto', 'Item Guardado');
+						$uibModalInstance.close();
+						$uibModalInstance.dismiss('cancel');
+					} else {
+						toaster.pop('error', 'Error', 'Su Producto no pudo ser Guardado');
+					}
+				} else {
+					console.log('error');
+					alert('Este documento no se pudo guardar');
+				}
+			};
+			$uibModalInstance.close($scope.selected.item);
+			$rootScope.reloadDataProductosyServicios();
+		};
+
+		$scope.cancel = function() {
+			$rootScope.reloadDataProductosyServicios();
+			$uibModalInstance.dismiss('cancel');
+		};
+	}
+]);
+
+app.controller('ModalNuevoProductoMedicoCtrl', [
+	'$scope',
+	'$uibModalInstance',
+	'items',
+	'$rootScope',
+	'$http',
+	'getResources',
+	function($scope, $uibModalInstance, items, $rootScope, $http, getResources) {
+		$scope.rr = [];
+		$scope.units = [];
+
+		if ($rootScope.tempModel) {
+			$scope.fetchResources = function(id) {
+				let obj = { db: 'getproductos', where: 'pro_id', key: id };
+				getResources.fetchResources(obj).then(
+					function(d) {
+						$scope.infoInputs = d.data[0];
+						$scope.infoInputs.btnUpdate = false;
+					},
+					function(errResponse) {
+						console.error('Error while fetching Currencies');
+					}
+				);
+			};
+			$scope.fetchResources($rootScope.tempModel.pro_id);
+		} else {
+			$scope.infoInputs = {};
+			$scope.infoInputs.pro_ina = '0';
+			$scope.infoInputs.pro_detraccion = false;
+			$scope.infoInputs.btnUpdate = true;
+		}
+
+		$scope.rr.pro_tip = {
+			selectId: 'pro_tip',
+			db: 'tipo_producto',
+			where: 'tip_pro_id',
+			key: '',
+			mostrar: [ 'tip_pro_id', 'tip_pro_desc' ]
+		};
+		
+		$scope.rr.apl_id = {
+			selectId: 'apl_id',
+			db: 'aplicacion',
+			where: 'apl_cod',
+			key: '',
+			mostrar: [ 'id', 'apl_des' ]
+		};
+
+		$scope.rr.pst_id = {
+			selectId: 'pst_id',
+			db: 'presentacion',
+			where: 'pst_id',
+			key: '',
+			mostrar: [ 'id', 'pst_nom' ]
+		};
+		$scope.rr.cat_id = {
+			selectId: 'cat_id',
+			db: 'categoria',
+			where: 'cat_id',
+			key: '',
+			mostrar: [ 'cat_id', 'cat_nom' ]
+		};
+		$scope.rr.scat_id = {
+			selectId: 'scat_id',
+			db: 'subcategoria',
+			where: 'scat_id',
+			key: '',
+			mostrar: [ 'scat_id', 'scat_nom' ]
+		}; //funcion médica
+
 		$scope.rr.mar_id = {
 			selectId: 'mar_id',
 			db: 'marca',

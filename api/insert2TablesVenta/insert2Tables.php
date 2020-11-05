@@ -638,4 +638,17 @@ class Insert2Tables
         }
         $stmt->close();
     }
+    function readComponenteProducto($getdb,$pro_id,$emp_id)
+    {
+        // query to insert record
+        $query = "SELECT * FROM componente JOIN producto_componente ON producto_componente.com_id = componente.id_comp  WHERE pro_id = '$pro_id'";
+       
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
 };

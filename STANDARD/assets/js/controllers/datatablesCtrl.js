@@ -1436,6 +1436,7 @@ function trasladoListaCtrl(
 	function someClickHandlerGenerateBill(info) {
 		$rootScope.venta(info);
 	}
+	
 	function someClickHandlerDetails(info) {}
 
 	function someClickHandlerStorage(info) {
@@ -1445,6 +1446,7 @@ function trasladoListaCtrl(
 	function someClickHandlerCompras(info) {
 		$rootScope.compraDetalle(info);
 	}
+
 	function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 		$('td .action-registro-almacen', nRow).unbind('click');
 		$('td .action-registro-almacen', nRow).bind('click', function() {

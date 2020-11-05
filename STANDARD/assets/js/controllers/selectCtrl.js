@@ -234,6 +234,60 @@ app.controller('SelectCtrl', [
             }
         };
        
+        $scope.productosVentaMedicGetAsyncronic = function(val, lp, alm) {
+            if (lp && alm) {
+                $scope.productosData = [];
+                $http
+                    .get(`../../../../api/mantenimiento/mantenimiento/search3.php?getdb=${JSON.parse($rootScope.d.datos).database}&tbnom=getproductoslistadeprecioventas&s=${val}&key=pro_nom&where=lp_id&igual=${lp}&where2=id_almac_info&igual2=${alm}`)
+                    .then(function(response) {
+                        var product = response.data.data;
+                        angular.forEach(product, function(val, i) {
+                            var newItem = {
+                                pro_tip: val.pro_tip,
+                                vt_pro_id: val.pro_id,
+                                vd_can: 1,
+                                stock:val.stock,
+                                pst_id: val.pst_id,
+                                pst_nom: val.pst_nom,
+                                pro_pes :val.pro_pes,
+
+                                vd_fac: val.lpd_fac,// factor del producto
+                                vd_costo_total:val.falso_monto,//costo del producto
+                                vd_com: val.lpd_com,//precio de venta
+                                vd_val: val.lpd_vpre,//precio sin igv (monto bruto)
+                                vd_igv: val.lpd_porcentaje_igv, //porcentaje de igv 
+                                vd_tt_igv: val.lpd_valor_igv,// valor del igv
+                                vd_pre: val.lpd_pre,// precio de venta
+
+                                vd_imptot: 0, //multiplicacion de cantidad por vd_pre
+
+
+                                det_com_id: val.pro_id,
+                                
+                                pro_cod: val.pro_cod,
+                                
+                                vd_bar: val.pro_bar,
+                                
+                                pro_nom: val.pro_nom,
+                                
+                                /* vd_percent_igv:, */
+                                vd_affection_igv_type_code: 10,
+
+                                vd_ina: val.pro_ina,
+                                vd_isc: val.pro_isc,
+                                
+                                vd_can: 1
+                            };
+                            $scope.productosData.push(newItem);
+                        });
+                    });
+            } else {
+                /* toster */
+                toaster.clear();
+                toaster.pop('error', 'Error', 'Seleccione una Lista de Precio y Almacen');
+            }
+        };
+       
         $scope.productosVentaGetAsyncronic = function(val, lp, alm) {
             if (lp && alm) {
                 $scope.productosData = [];
@@ -282,6 +336,9 @@ app.controller('SelectCtrl', [
                 toaster.pop('error', 'Error', 'Seleccione una Lista de Precio y Almacen');
             }
         };
+
+
+
         $scope.productosGuiaRemisionGetAsyncronic = function(val, alm) {
             if (val && alm) {
                 $scope.productosData = [];

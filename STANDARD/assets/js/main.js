@@ -48,6 +48,9 @@ app.run(['$rootScope', '$state', '$stateParams', '$trace',
             picture: 'app/img/user/02.jpg'
         };
 
+        $rootScope.CLASIC = true;
+        $rootScope.BOTICA = true;
+
         //$trace.enable('TRANSITION');
     }
 ]);

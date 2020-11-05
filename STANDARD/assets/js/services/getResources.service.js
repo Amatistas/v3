@@ -43,6 +43,20 @@ function getResources($http, $q, $rootScope) {
 						return $q.reject(errResponse);
 					}
 				);
+        },
+		fetchResourcesFromAPI: function(obj) {
+			return $http
+				/* .post(`../../../api/mantenimiento/mantenimiento/read.php?getdb=${JSON.parse($rootScope.d.datos).database}&tbnom=${obj.db}&where=${obj.where}&igual=${obj.key}`)
+				 */.post(`../../../../api/${obj.route}.php?getdb=${JSON.parse($rootScope.d.datos).database}&pro_id=${obj.pro_id}&emp_id=${JSON.parse($rootScope.d.datos).emp_id}`)
+				.then(
+					function(response) {
+						return response.data;
+					},
+					function(errResponse) {
+						console.error('Error while fetching users');
+						return $q.reject(errResponse);
+					}
+				);
         }
 	};
 }

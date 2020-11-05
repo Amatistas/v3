@@ -4,13 +4,12 @@ getSeriales.$inject = [ '$http', '$q', '$rootScope' ];
 
 function getSeriales($http, $q, $rootScope) {
 	return {
-		fetchSerializador: function(serie) {
+		fetchSerieTipoOperacion: function(serie) {
+			//serie es to_id
 			return $http
 				.get(
-					`../../../../api/mantenimiento/mantenimiento/search3.php?getdb=${JSON.parse($rootScope.d.datos)
-						.database}&tbnom=tipo_documento_serie&s=${serie}&key=td_id&where=emp_id&igual=${JSON.parse(
-						$rootScope.d.datos
-					).emp_id}&where2=ofi_id&igual2=1`
+					`../../../../api/mantenimiento/mantenimiento/read.php?getdb=${JSON.parse($rootScope.d.datos)
+						.database}&tbnom=tipo_operacion_td&where=to_id&igual=${serie}`
 				)
 				.then(
 					function(response) {
@@ -22,6 +21,24 @@ function getSeriales($http, $q, $rootScope) {
 					}
 				);
 		},
+	return {
+		fetchSerializador: function(serie) {
+			return $http
+				.get(
+					`../../../../api/mantenimiento/mantenimiento/search3.php?getdb=${JSON.parse($rootScope.d.datos)
+						.database}&tbnom=tipo_operacion_td&s=${serie}&key=to_id&where=emp_id&igual=${JSON.parse(
+						$rootScope.d.datos).emp_id}&where2=ofi_id&igual2=${JSON.parse($rootScope.d.datos).ofi_id}`
+				)
+				.then(
+					function(response) {
+						return response.data;
+					},
+					function(errResponse) {
+						console.error('Error while fetching users');
+						return $q.reject(errResponse);
+					}
+				);
+		}, 
 		fetchSerialesNumeracion: function(type) {
 			return $http
 				.get(

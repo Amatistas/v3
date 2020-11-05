@@ -1515,9 +1515,8 @@ app.controller('AsideModalTransaccionCtrl', [
 									$window.open(
 										`${$rootScope.miURL}/compass/view/documento-A4.php?emp_id=${JSON.parse(
 											$rootScope.d.datos
-										).emp_id}&getdb=${JSON.parse(
-											$rootScope.d.datos
-										).database}&nro=${ultimoIngreso[0].ultimo}`
+										).emp_id}&getdb=${JSON.parse($rootScope.d.datos)
+											.database}&nro=${ultimoIngreso[0].ultimo}`
 									);
 								} else {
 									toaster.pop('error', 'Error', 'Su Documento no pudo ser Guardado');
@@ -3617,23 +3616,21 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.infoInputsCATH = $scope.fetchHeader(row.ven_id);
 					$scope.itemListVentasCATH = $scope.fetchDetalle(row.ven_id);
 
-	
 					setTimeout(function() {
-
 						$scope.infoInputs = $scope.infoInputsCATH[0][0];
 						$scope.itemListVentas = $scope.itemListVentasCATH[0];
-						
+
 						$scope.infoInputs.td_id = 'NC';
-						
+
 						$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
 						$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
 						$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
-						
+
 						$scope.infoInputs.docRelacionado = true;
 						$scope.infoInputs.estatus_documento = 1;
-						
+
 						$scope.infoInputs.documento_asociado = row.cen_ven_id;
-						
+
 						$scope.infoInputs.ane_id = row.ane_id;
 
 						$scope.infoInputs.ane_alias = row.cliente;
@@ -3642,13 +3639,12 @@ app.controller('AsideModalTransaccionCtrl', [
 						$scope.infoInputs.mnd_id = 'PEN';
 						$scope.infoInputs.to_id = 9;
 						$scope.infoInputs.tipo_ope_sunat = 9;
-					
+
 						$scope.infoInputs.ven_fecreg = fechahoy;
 						$scope.infoInputs.ven_fecemi = fechahoy;
 						$scope.infoInputs.ven_fecven = sumarDias(fechahoy, 30);
 
 						$scope.infoInputs.notas_sunat = 0;
-
 					}, 250);
 
 					$scope.rr.mnd_id = {
@@ -3727,9 +3723,8 @@ app.controller('AsideModalTransaccionCtrl', [
 									$window.open(
 										`${$rootScope.miURL}/compass/view/documento-A4.php?emp_id=${JSON.parse(
 											$rootScope.d.datos
-										).emp_id}&getdb=${JSON.parse(
-											$rootScope.d.datos
-										).database}&nro=${ultimoIngreso[0].ultimo}`
+										).emp_id}&getdb=${JSON.parse($rootScope.d.datos)
+											.database}&nro=${ultimoIngreso[0].ultimo}`
 									);
 								} else {
 									toaster.pop('error', 'Error', 'Su Documento no pudo ser Guardado');
@@ -3909,7 +3904,7 @@ app.controller('AsideModalTransaccionCtrl', [
 				placement: 'top',
 				size: 'sm',
 				backdrop: true,
-				controller: function($scope, $uibModalInstance, $http, $location, toaster, $rootScope,getResources) {
+				controller: function($scope, $uibModalInstance, $http, $location, toaster, $rootScope, getResources) {
 					var dir = $location.$$url;
 
 					$scope.cacheStorage = localStorage.getItem('cache');
@@ -3990,7 +3985,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						$scope.infoInputs.ane_tipo_cp = 2;
 						$scope.infoInputs.btnUpdate = true;
 					}
-				
+
 					$scope.units = {};
 					$scope.rr = [];
 					$scope.rr.ane_tipdoc = {
@@ -4065,14 +4060,15 @@ app.controller('AsideModalTransaccionCtrl', [
 							$rootScope.reloadDataProveedor();
 						};
 						$uibModalInstance.dismiss();
-						e.stopPropagation();  
+						e.stopPropagation();
 						toaster.pop('success', 'Proveedor', 'Datos Grabados');
 					};
 					$scope.actualizarProveedor = function(e) {
 						let sendObj = JSON.stringify($scope.infoInputs);
 						var xmlhttp = new XMLHttpRequest();
-						var theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse($rootScope.d.datos)
-							.database}&tbnom=anexo&identifiquer=ane_id&identifiquerValue=${$scope.infoInputs.ane_id}`;
+						var theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse(
+							$rootScope.d.datos
+						).database}&tbnom=anexo&identifiquer=ane_id&identifiquerValue=${$scope.infoInputs.ane_id}`;
 						xmlhttp.open('post', theUrl);
 						xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 						xmlhttp.withCredentials = true;
@@ -4123,7 +4119,7 @@ app.controller('AsideModalTransaccionCtrl', [
 				placement: 'top',
 				size: 'sm',
 				backdrop: true,
-				controller: function($scope, $uibModalInstance, $http, $location,getResources,SweetAlert) {
+				controller: function($scope, $uibModalInstance, $http, $location, getResources, SweetAlert) {
 					var dir = $location.$$url;
 
 					$scope.cacheStorage = localStorage.getItem('cache');
@@ -4157,7 +4153,6 @@ app.controller('AsideModalTransaccionCtrl', [
 
 					$scope.units = {};
 					$scope.rr = [];
-			
 
 					$scope.rr.ane_tipdoc = {
 						selectId: 'ane_tipdoc',
@@ -4289,8 +4284,9 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.actualizarCliente = function(e) {
 						let sendObj = JSON.stringify($scope.infoInputs);
 						let xmlhttp = new XMLHttpRequest();
-						let theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse($rootScope.d.datos)
-							.database}&tbnom=anexo&identifiquer=ane_id&identifiquerValue=${$scope.infoInputs.ane_id}`;
+						let theUrl = `../../../../api/mantenimiento/mantenimiento/updateGen.php?getdb=${JSON.parse(
+							$rootScope.d.datos
+						).database}&tbnom=anexo&identifiquer=ane_id&identifiquerValue=${$scope.infoInputs.ane_id}`;
 						xmlhttp.open('post', theUrl);
 						xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 						xmlhttp.withCredentials = true;
@@ -4348,6 +4344,10 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.ok = function(e) {
 						$uibModalInstance.close();
 						$rootScope.newProductCreate();
+					};
+					$scope.ok1_1 = function(e) {
+						$uibModalInstance.close();
+						$rootScope.newProductoMedicCreate();
 					};
 					$scope.ok2 = function(e) {
 						$uibModalInstance.close();
@@ -9007,7 +9007,7 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.mostrarResultados = function() {
 						let resultado = 0;
 						$scope.itemsRegistroUtilidad.forEach((item) => {
-							 resultado += parseFloat(item.utilidad_neto)
+							resultado += parseFloat(item.utilidad_neto);
 						});
 						return resultado;
 					};
@@ -9046,7 +9046,7 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.infoInputs.usu_tras = JSON.parse($rootScope.d.datos).usu_id;
 					$scope.infoInputs.tip_doc = 22;
 					$scope.infoInputs.tip_ope = 41;
-					$scope.infoInputs.td_id = 'UP';
+					/* $scope.infoInputs.td_id = 'UP'; */
 					$scope.infoInputs.status_tras = 0;
 					$scope.infoInputs.almacen_destino = 0;
 					$scope.infoInputs.local_destino = 0;
@@ -9066,8 +9066,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						mostrar: [ 'id', 'pst_id' ]
 					};
 					$scope.fetchSerializador = function(type) {
-						var res = [];
-						getserialesdecomprobantes.fetchSerializador(type).then(
+						getserialesdecomprobantes.fetchSerieTipoOperacion(type).then(
 							function(d) {
 								res.push(d);
 							},
@@ -9075,7 +9074,6 @@ app.controller('AsideModalTransaccionCtrl', [
 								console.error('Error while fetching Currencies');
 							}
 						);
-						return res;
 					};
 
 					$scope.buscarOptionSelect = function(arr) {

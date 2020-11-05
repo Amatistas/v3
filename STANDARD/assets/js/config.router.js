@@ -315,6 +315,26 @@ app.config([
                     sessionVerificacion
                 ),
             })
+            .state("app.punto.puntoventabotica", {
+                url: "/punto-venta-botica",
+                templateUrl: "STANDARD/assets/sistem-views/ventas/registro-formulario-punto-venta-botica.html",
+                title: "Punto de Venta Botica",
+                icon: "ti-layout-media-left-alt",
+                ncyBreadcrumb: {
+                    label: "Punto de Venta Botica",
+                },
+                resolve: loadSequence(
+                    "ui.select",
+                    "selectCtrl",
+                    "ngTable",
+                    "ngTableCtrl",
+                    "dynamicTableCtrl",
+                    "toasterCtrl",
+                    "asideCtrl",
+                    "sweetAlertCtrl",
+                    sessionVerificacion
+                ),
+            })
             .state("app.punto.cajapuntoventa", {
                 url: "/caja",
                 templateUrl: "STANDARD/assets/sistem-views/ventas/caja.html",
