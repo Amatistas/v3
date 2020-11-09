@@ -23,8 +23,8 @@
                                     <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
                                         Documento
                                     </label>
-                                    <select  class="ui fluid dropdown" required ng-model="infoInputs['td_id']"
-                                        id="td_id" name="td_id" ng-init="fetch = fetchSerializador(infoInputs.td_id)">
+                                    <select class="ui fluid dropdown" required ng-model="infoInputs['td_id']" id="td_id"
+                                        name="td_id" ng-init="fetch = fetchSerializador(infoInputs.td_id)">
                                         <option value="SI">
                                             SI</option>>
                                     </select>
@@ -61,10 +61,11 @@
                                         </label>
                                         <select class="ui fluid dropdown" required ng-model="infoInputs['id_almacen']"
                                             id="alm_id" name="id_almacen" ng-init="buscarOptionSelect(rr.id_almacen)">
-                                            <option value="{{opt.id}}" ng-repeat="opt in units['id_almacen']">{{opt.label}}
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['id_almacen']">
+                                                {{opt.label}}
                                             </option>
                                         </select>
-                                        
+
                                     </div>
                                 </div>
 
@@ -82,24 +83,30 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="ofi_id" ng-class="{'text-danger':form.local_destino.$invalid == true}">
+                                        <label for="ofi_id"
+                                            ng-class="{'text-danger':form.local_destino.$invalid == true}">
                                             Local Destino
                                         </label>
-                                        <select class="ui fluid dropdown" required ng-model="infoInputs['local_destino']"
-                                            id="alm_id" name="local_destino" ng-init="buscarOptionSelect(rr.local_destino)" ng-change="put_almacen_destino(infoInputs.local_destino)">
-                                            <option value="{{opt.id}}" ng-repeat="opt in units['local_destino']">{{opt.label}}
+                                        <select class="ui fluid dropdown" required
+                                            ng-model="infoInputs['local_destino']" id="alm_id" name="local_destino"
+                                            ng-init="buscarOptionSelect(rr.local_destino)"
+                                            ng-change="put_almacen_destino(infoInputs.local_destino)">
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['local_destino']">
+                                                {{opt.label}}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="ofi_id" ng-class="{'text-danger':form.almacen_destino.$invalid == true}">
+                                        <label for="ofi_id"
+                                            ng-class="{'text-danger':form.almacen_destino.$invalid == true}">
                                             Almacén Destino
                                         </label>
-                                        <select class="ui fluid dropdown" required ng-model="infoInputs['almacen_destino']"
-                                            id="alm_id" name="almacen_destino">
-                                            <option value="{{opt.id}}" ng-repeat="opt in units['almacen_destino']">{{opt.label}}
+                                        <select class="ui fluid dropdown" required
+                                            ng-model="infoInputs['almacen_destino']" id="alm_id" name="almacen_destino">
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['almacen_destino']">
+                                                {{opt.label}}
                                             </option>
                                         </select>
                                     </div>
@@ -174,9 +181,10 @@
                             <label for="pst">
                                 Presentación
                             </label>
-                            <select ng-model="person.selected.presentacion" class="form-control" id="presentacion " name="presentacion"
-                                ng-init="buscarOptionSelect(rr.presentacion)">
-                                <option value="{{opt.id}}" ng-repeat="opt in units['presentacion']">{{opt.label}}</option>
+                            <select ng-model="person.selected.presentacion" class="form-control" id="presentacion "
+                                name="presentacion" ng-init="buscarOptionSelect(rr.presentacion)">
+                                <option value="{{opt.id}}" ng-repeat="opt in units['presentacion']">{{opt.label}}
+                                </option>
                             </select>
                         </div>
                         <div class="col-md-1">
@@ -206,7 +214,7 @@
                                         <td class="col-md-1">
                                             <input required type="text" class="form-control" name="cantidad"
                                                 ng-model="item.cantidad" ng-blind="item.cantidad">
-                                        </td>                                      
+                                        </td>
                                         <td class="left">
                                             <a class="btn btn-red" ng-click="eliminarItem($index)">
                                                 <i class="glyphicon glyphicon-trash"></i></a>

@@ -89,8 +89,7 @@ class PDF extends FPDF
                 break;
                 case 'NC':
                     $var = "NOTA DE CRÉDITO";
-                    break;
-                      
+                break;  
             case 41:
                 $var = "COMPROBANTE DE CARGA";
                 break;
@@ -104,13 +103,11 @@ class PDF extends FPDF
                 $var = "COMPROBANTE DE ENTRADA INTERNA";
                 break;
             case 11:
-                $var = "RUC";
-                break;
-          
-            case 6:
                 $var = "DNI";
                 break;
-  
+            case 23:
+                $var = "RUC";
+                break;
             default:
                 $var = "NA";
                 break;
@@ -123,9 +120,6 @@ class PDF extends FPDF
             case 13:
                 $var = array('peso', 'total');
                 break;
-                          
-        
-  
             default:
                 $var = array('precio', 'importe');
                 break;
@@ -140,15 +134,15 @@ class PDF extends FPDF
 //   var_dump($this->arry5);
 //   var_dump($this->arry6);
                    // Logo
-                $this->Image("../../api/upload/".substr($this->arry3[0]['fe_log'],2), 10, 8, 33);
+                 $this->Image("../../api/upload/".substr($this->arry3[0]['fe_log'],2), 10, 8, 33);
                  
                    $this->SetFont('Arial', 'I', 8);
            
                    $this->SetXY(55, 8);
-                   $this->MultiCell(100, 4, $this->arry3[0]['emp_nom'] . "\n " . substr($this->arry3[0]['emp_dir'], 0, 59) . "\n" . substr($this->arry3[0]['departamento'] . " - " . $this->arry3[0]['provincia'] . " - " . $this->arry3[0]['distrito'], 0, 59) . "\n" . substr("Email: " . $this->arry3[0]['emp_ema'], 0, 59) . "\n" . substr("Teléf: " . $this->arry3[0]['emp_tel'] . " Cel: " . $this->arry3[0]['emp_cel'], 0, 59) . " \n", 0, 'L');
+                   $this->MultiCell(100, 4, $this->arry3[0]['emp_nom'] . "\n " . substr($this->arry3[0]['emp_dir'], 0, 47) . "\n" . substr($this->arry3[0]['departamento'] . " - " . $this->arry3[0]['provincia'] . " - " . $this->arry3[0]['distrito'], 0, 59) . "\n" . substr("Email: " . $this->arry3[0]['emp_ema'], 0, 59) . "\n" . substr("Teléf: " . $this->arry3[0]['emp_tel'] . " Cel: " . $this->arry3[0]['emp_cel'], 0, 59) . " \n", 0, 'L');
               
                 
-  
+  var_dump($this->arry3);
   
         if($this->arry[0]['to_id'] == 13){
             $this->SetFont('Arial', 'B', 9);
@@ -259,6 +253,6 @@ class PDF extends FPDF
         $this->Cell(0, 5, 'Página ' . $this->PageNo() . '/{nb}', 0, 0, 'R');
         // opacidad
         $this->SetAlpha(0.1);  
-        $this->Image("../../api/upload/".substr($this->arry3[0]['fe_log'],2), 46, 130, 120);
+         $this->Image("../../api/upload/".substr($this->arry3[0]['fe_log'],2), 46, 130, 120);
     }
 }
