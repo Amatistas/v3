@@ -31,44 +31,20 @@
                 <label>Contraseña</label>
                 <input type="password" class="form-control" name="name" ng-model="vm.user.clave" required />
             </div> -->
-
             <div class="form-actions">
-                <div class="checkbox clip-check check-primary">
+<!--                 <div class="checkbox clip-check check-primary">
                     <input type="checkbox" id="remember" value="1">
                     <label for="remember">
                         Recuerdame
                     </label>
-                </div>
+                </div> -->
+                <a ng-show="vm.currentStep == 1" class="btn btn-link pull-right" name="next" type="button" ng-href="/#!/login/registro">Registrar</a>
                 <button ng-show="vm.currentStep == 1" class="btn btn-primary pull-right" name="next" type="button" ng-click="vm.validateEmail()">Ingresar<i class="fa fa-arrow-circle-right"></i></button>
             </div>
-
-
-            <!-- <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="">
-                            <fieldset class="checkbox">
-                                <div class="vs-checkbox-con vs-checkbox-primary">
-                                    <input type="checkbox">
-                                    <span class="vs-checkbox">
-                          <span class="vs-checkbox--check">
-                            <i class="vs-icon feather icon-check"></i>
-                          </span>
-                                    </span>
-                                    <span class="">Recuerdame</span>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class=""><a href="auth-forgot-password.html" class="card-link">¿Olvidaste tu contraseña?</a></div>
-                    </div>
-                </div>
-            </div> -->
         </fieldset>
     </form>
     <!-- start: COPYRIGHT -->
     <div class="copyright">
-        {{app.year}} &copy; {{ app.name }} by {{ app.author }}.
+        {{app.year}} &copy; {{ app.name }}.
     </div>
 </div>

@@ -21,7 +21,6 @@ function getSeriales($http, $q, $rootScope) {
 					}
 				);
 		},
-	return {
 		fetchSerializador: function(serie) {
 			return $http
 				.get(
