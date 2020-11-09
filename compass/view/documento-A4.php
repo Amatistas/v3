@@ -117,7 +117,7 @@ $fpdf->cell(130,6,'',0,'','L');
 $fpdf->cell(30,6,'Total a Pagar',1,'','L');
 $fpdf->cell(30,6,$op->montoPagar($arry2),1,'','R');
 $fpdf->Ln();
-$fpdf->cell(130,6,'Vendedor: '.$fpdf->arry[0]['usuario']."  "."Cta Ahorro: 0011-0566-7602000598-49 Cta Interbancaria: 011-566-000200059849-76",0,'','L');
+$fpdf->cell(130,6,'Vendedor: '.$fpdf->arry[0]['usuario']."  "."Cta Ahorro:  Cta Interbancaria: ",0,'','L');
 
 $fpdf->AliasNbPages();
 $fpdf->Output('I','nombre.pdf','UTF-8');
