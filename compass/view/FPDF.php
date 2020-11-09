@@ -141,8 +141,7 @@ class PDF extends FPDF
                    $this->SetXY(55, 8);
                    $this->MultiCell(100, 4, $this->arry3[0]['emp_nom'] . "\n " . substr($this->arry3[0]['emp_dir'], 0, 47) . "\n" . substr($this->arry3[0]['departamento'] . " - " . $this->arry3[0]['provincia'] . " - " . $this->arry3[0]['distrito'], 0, 59) . "\n" . substr("Email: " . $this->arry3[0]['emp_ema'], 0, 59) . "\n" . substr("Teléf: " . $this->arry3[0]['emp_tel'] . " Cel: " . $this->arry3[0]['emp_cel'], 0, 59) . " \n", 0, 'L');
               
-                
-  var_dump($this->arry3);
+
   
         if($this->arry[0]['to_id'] == 13){
             $this->SetFont('Arial', 'B', 9);
