@@ -1,7 +1,5 @@
 app.factory('getReportesReportes', getReportesReportes);
-
 getReportesReportes.$inject = [ '$http', '$q', '$rootScope' ];
-
 function getReportesReportes($http, $q, $rootScope) {
 	return {
 		fetchReporteCompra: function(fechainicio,fechafin) {

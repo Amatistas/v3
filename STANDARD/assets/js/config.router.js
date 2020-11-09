@@ -1989,6 +1989,10 @@ app.config([
                     sessionVerificacion
                 ),
             })
+            .state("login.registro", {
+                url: "/registro",
+                templateUrl: "STANDARD/assets/sistem-views/Auth/registro.html",
+            })
             .state("login.original", {
                 url: "/iniciar",
                 templateUrl: "STANDARD/assets/views/login_login.html",
