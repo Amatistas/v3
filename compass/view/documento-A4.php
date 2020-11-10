@@ -71,39 +71,29 @@ $fpdf->SetFont('Arial','',8);
 
 
 
-
 foreach ($arry2 as $arr) {
 
 
     $x_axis=$fpdf->getx();
 $c_width=20;
 $c2_width=90;
-$c_height=10;
+$c3_width=15;
+$c4_width=25;
+$c_height=8;
 $text="aim success ";
 $fpdf->vcell($c_width,$c_height,$x_axis,$arr['pro_cod']);
 $x_axis=$fpdf->getx();
 $fpdf->vcell($c2_width,$c_height,$x_axis,$arr['pro_nom']);
 $x_axis=$fpdf->getx();
-$fpdf->vcell($c_width,$c_height,$x_axis,$arr['vd_can']);
+$fpdf->vcell($c3_width,$c_height,$x_axis,$arr['vd_can']);
 $x_axis=$fpdf->getx();
-$fpdf->vcell($c_width,$c_height,$x_axis,$arr['pst_nom']);
+$fpdf->vcell($c3_width,$c_height,$x_axis,$arr['pst_nom']);
 $x_axis=$fpdf->getx();
-$fpdf->vcell($c_width,$c_height,$x_axis,"S/. " .  number_format($arr['vd_pre']));
+$fpdf->vcell($c4_width,$c_height,$x_axis,"S/. " .  number_format($arr['vd_pre']));
 $x_axis=$fpdf->getx();
-$fpdf->vcell($c_width,$c_height,$x_axis,"S/. " . number_format($arr['vd_pre'] * $arr['vd_can'],2,',',' '));
+$fpdf->vcell($c4_width,$c_height,$x_axis,"S/. " . number_format($arr['vd_pre'] * $arr['vd_can'],2,',',' '));
 $fpdf->Ln();
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 }
 

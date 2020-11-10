@@ -153,7 +153,7 @@ class PDF extends FPDF
         if ($this->arry[0]['to_id'] == 13) {
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(150, 10);
-            $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
+            $this->MultiCell(50, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
             // Line break
             $this->SetMargins(10, 30, 20, 20);
 
@@ -180,7 +180,7 @@ class PDF extends FPDF
             
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(140, 10);
-            $this->MultiCell(60, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['to_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
+            $this->MultiCell(60, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['to_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
             // Line break
             $this->SetMargins(10, 30, 20, 20);
 
@@ -197,7 +197,7 @@ class PDF extends FPDF
 
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(150, 10);
-            $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . "COMPROBANTE DE EGRESO"  . "\n", 1, 'C');
+            $this->MultiCell(50, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . "COMPROBANTE DE EGRESO"  . "\n", 1, 'C');
             // Line break
             $this->SetMargins(10, 30, 20, 20);
 
@@ -234,7 +234,7 @@ class PDF extends FPDF
             $this->line(175, 67, 175, 199);
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(150, 10);
-            $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
+            $this->MultiCell(50, 5, "RUC:  " . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
             // Line break
             $this->SetMargins(10, 30, 20, 20);
 
@@ -299,7 +299,7 @@ class PDF extends FPDF
         $w_w1=$w_w+$w_w+$w_w+3;
         $len=strlen($text);// check the length of the cell and splits the text into 7 character each and saves in a array 
         
-        $lengthToSplit = 50;
+        $lengthToSplit = 53;
         if($len>$lengthToSplit){
         $w_text=str_split($text,$lengthToSplit);
         $this->SetX($x_axis);
@@ -313,7 +313,7 @@ class PDF extends FPDF
         }
         else{
             $this->SetX($x_axis);
-            $this->Cell($c_width,$c_height,$text,0,0,'L',0);}
+            $this->Cell($c_width,$c_height,$text,0,0,'R',0);}
             }
 
 
