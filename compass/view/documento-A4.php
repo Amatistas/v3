@@ -64,20 +64,19 @@ $fpdf->SetFont('Arial','',8);
 
 foreach ($arry2 as $arr) {
     $fpdf->cell(20,6,$arr['pro_cod'],0,'','L');
-    $fpdf->MultiCell(90, 6,$arr['pro_nom'], 0, 'L');
-    $fpdf->SetXY(120, 68);
+    $fpdf->MultiCell(90,6,$arr['pro_nom']);
     // $fpdf->MultiCell(90,6,$arr['pro_nom'],1,'L',true);
     $fpdf->cell(15,6,$arr['vd_can'] ,0,'','C');
     $fpdf->cell(15,6, $arr['pst_nom'],0,'','C');
     $fpdf->cell(25,6,"S/. " .  number_format($arr['vd_pre'],2,',',' '),0,'','R');
-    $fpdf->cell(25,6,"S/. " . number_format($arr['vd_pre'] * $arr['vd_can'],2,',',' '),0,'','R');
+    $fpdf->cell(25,6,"S/. " . number_format($arr['vd_pre'] * $arr['vd_can'],2,',',' '),0,'','R');   
     $fpdf->Ln();
 }
 
 /////////////////item de productos end///////////
-
-$fpdf->Ln(125);
+$fpdf->SetY(199);
 $num = new Num2letras();
+
 $fpdf->cell(140,6,'Son: '.$num->numero(round(floatval($arry[0]['ven_totdoc']), 3)),0,'','L');
 
 // $fpdf->Ln();
@@ -121,6 +120,9 @@ $fpdf->cell(25,6,'Total a Pagar',1,'','L');
 $fpdf->cell(25,6,$op->montoPagar($arry2),1,'','R');
 $fpdf->Ln();
 $fpdf->cell(140,6,'Vendedor: '.$fpdf->arry[0]['usuario']."  "."Cta Ahorro:  Cta Interbancaria: ",0,'','L');
+
+
+
 
 $fpdf->AliasNbPages();
 $fpdf->Output('I','nombre.pdf','UTF-8');

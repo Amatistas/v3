@@ -262,6 +262,8 @@ class PDF extends FPDF
 
     function Footer()
     { 
+        
+
         // Posición: a 1,5 cm del final
         $this->SetY(-18);
         // Arial italic 8
