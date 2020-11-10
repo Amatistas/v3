@@ -3,6 +3,12 @@
 class PDF extends FPDF
 {
 
+
+
+    
+
+
+
     protected $extgstates = array();
 
     // alpha: real value from 0 (transparent) to 1 (opaque)
@@ -144,7 +150,6 @@ class PDF extends FPDF
         $this->MultiCell(100, 4, $this->arry3[0]['emp_nom'] . "\n " . substr($this->arry3[0]['emp_dir'], 0, 47) . "\n" . substr($this->arry3[0]['departamento'] . " - " . $this->arry3[0]['provincia'] . " - " . $this->arry3[0]['distrito'], 0, 59) . "\n" . substr("Email: " . $this->arry3[0]['emp_ema'], 0, 59) . "\n" . substr("Teléf: " . $this->arry3[0]['emp_tel'] . " Cel: " . $this->arry3[0]['emp_cel'], 0, 59) . " \n", 0, 'L');
 
 
-
         if ($this->arry[0]['to_id'] == 13) {
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(150, 10);
@@ -172,6 +177,7 @@ class PDF extends FPDF
             $this->cell(30, 6, $col[1], 1, '', 'C');
             $this->Ln(8);
         } else if ($this->arry[0]['to_id'] == 41 || $this->arry[0]['to_id'] == 40 || $this->arry[0]['to_id'] == 42 || $this->arry[0]['to_id'] == 43) {
+            
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(140, 10);
             $this->MultiCell(60, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['to_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
@@ -186,7 +192,9 @@ class PDF extends FPDF
             $this->SetLineWidth(0.4);
             $this->line(10, 45, 200, 45);
             $this->SetY(50);
+
         } else if ($this->arry4 != NULL) {
+
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(150, 10);
             $this->MultiCell(50, 5, "RUC" . $this->arry3[0]['emp_ruc'] . "\n " . "COMPROBANTE DE EGRESO"  . "\n", 1, 'C');
@@ -202,6 +210,7 @@ class PDF extends FPDF
             $this->SetLineWidth(0.4);
             $this->line(10, 40, 200, 40);
             $this->SetY(45);
+
         } else {
             $this->SetLineWidth(0.2);
             $this->line(10, 67, 200, 67);
@@ -280,4 +289,34 @@ class PDF extends FPDF
         $this->SetAlpha(0.1);
         $this->Image("../../api/upload/" . substr($this->arry3[0]['fe_log'], 2), 30, 110, 90);
     }
+
+
+
+
+    function vcell($c_width,$c_height,$x_axis,$text){
+        $w_w=$c_height/3;
+        $w_w_1=$w_w+2;
+        $w_w1=$w_w+$w_w+$w_w+3;
+        $len=strlen($text);// check the length of the cell and splits the text into 7 character each and saves in a array 
+        
+        $lengthToSplit = 50;
+        if($len>$lengthToSplit){
+        $w_text=str_split($text,$lengthToSplit);
+        $this->SetX($x_axis);
+        $this->Cell($c_width,$w_w_1,$w_text[0],'','','');
+        if(isset($w_text[1])) {
+            $this->SetX($x_axis);
+            $this->Cell($c_width,$w_w1,$w_text[1],0,'','');
+        }
+        $this->SetX($x_axis);
+        $this->Cell($c_width,$c_height,'',0,0,'L',0);
+        }
+        else{
+            $this->SetX($x_axis);
+            $this->Cell($c_width,$c_height,$text,0,0,'L',0);}
+            }
+
+
+
+
 }

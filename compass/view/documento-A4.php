@@ -62,15 +62,49 @@ $fpdf->SetFont('Arial','',8);
 
 /////////////////item de productos///////////////
 
+
+
+
+
+
+
+
+
+
+
 foreach ($arry2 as $arr) {
-    $fpdf->cell(20,6,$arr['pro_cod'],0,'','L');
-    $fpdf->MultiCell(90,6,$arr['pro_nom']);
-    // $fpdf->MultiCell(90,6,$arr['pro_nom'],1,'L',true);
-    $fpdf->cell(15,6,$arr['vd_can'] ,0,'','C');
-    $fpdf->cell(15,6, $arr['pst_nom'],0,'','C');
-    $fpdf->cell(25,6,"S/. " .  number_format($arr['vd_pre'],2,',',' '),0,'','R');
-    $fpdf->cell(25,6,"S/. " . number_format($arr['vd_pre'] * $arr['vd_can'],2,',',' '),0,'','R');   
-    $fpdf->Ln();
+
+
+    $x_axis=$fpdf->getx();
+$c_width=20;
+$c2_width=90;
+$c_height=10;
+$text="aim success ";
+$fpdf->vcell($c_width,$c_height,$x_axis,$arr['pro_cod']);
+$x_axis=$fpdf->getx();
+$fpdf->vcell($c2_width,$c_height,$x_axis,$arr['pro_nom']);
+$x_axis=$fpdf->getx();
+$fpdf->vcell($c_width,$c_height,$x_axis,$arr['vd_can']);
+$x_axis=$fpdf->getx();
+$fpdf->vcell($c_width,$c_height,$x_axis,$arr['pst_nom']);
+$x_axis=$fpdf->getx();
+$fpdf->vcell($c_width,$c_height,$x_axis,"S/. " .  number_format($arr['vd_pre']));
+$x_axis=$fpdf->getx();
+$fpdf->vcell($c_width,$c_height,$x_axis,"S/. " . number_format($arr['vd_pre'] * $arr['vd_can'],2,',',' '));
+$fpdf->Ln();
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 /////////////////item de productos end///////////
@@ -122,9 +156,8 @@ $fpdf->Ln();
 $fpdf->cell(140,6,'Vendedor: '.$fpdf->arry[0]['usuario']."  "."Cta Ahorro:  Cta Interbancaria: ",0,'','L');
 
 
-
-
 $fpdf->AliasNbPages();
 $fpdf->Output('I','nombre.pdf','UTF-8');
+
 ?>
 
