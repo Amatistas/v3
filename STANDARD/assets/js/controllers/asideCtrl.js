@@ -1525,14 +1525,14 @@ app.controller('AsideModalTransaccionCtrl', [
 								console.log('error');
 							}
 							/* $rootScope.loadBtnFilters(); */
-							$rootScope.reloadDataVenta();
+						
 						};
 					};
 
 					$scope.cancel = function(e) {
 						if ($location.$$url == '/app/ventas/formulario-ventas') {
 							$rootScope.loadBtnFilters();
-							$rootScope.reloadDataVenta();
+						
 							$uibModalInstance.dismiss();
 							e.stopPropagation();
 							$location.url(`/app/ventas/lista-ventas`);
