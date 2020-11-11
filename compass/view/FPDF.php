@@ -316,7 +316,4 @@ class PDF extends FPDF
             $this->Cell($c_width,$c_height,$text,0,0,'R',0);}
             }
 
-
-
-
 }
