@@ -77,7 +77,24 @@ class Operaciones
         }
         return number_format($a, 2, ',', ' ');
     }
+    public function tipomoneda($moneda){
 
+ 
+        switch ($moneda) {
+            case 'PEN':
+                $var = 'S/.';
+                break;
+            case 'USD':
+                $var = '$';
+                break;
+                default:
+                $var = "";
+                break;
+        }
+    
+    return $var;
+    
+    }
     public function montoDocum($docu)
     {
         $a = 0;
