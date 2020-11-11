@@ -299,7 +299,7 @@ class PDF extends FPDF
         $w_w1=$w_w+$w_w+$w_w+3;
         $len=strlen($text);// check the length of the cell and splits the text into 7 character each and saves in a array 
         
-        $lengthToSplit = 53;
+        $lengthToSplit = 50;
         if($len>$lengthToSplit){
         $w_text=str_split($text,$lengthToSplit);
         $this->SetX($x_axis);

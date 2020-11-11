@@ -74,7 +74,7 @@ $fpdf->SetFont('Arial','',8);
 foreach ($arry2 as $arr) {
 
 
-    $x_axis=$fpdf->getx();
+$x_axis=$fpdf->getx();
 $c_width=20;
 $c2_width=90;
 $c3_width=15;
@@ -93,8 +93,6 @@ $fpdf->vcell($c4_width,$c_height,$x_axis,"S/. " .  number_format($arr['vd_pre'])
 $x_axis=$fpdf->getx();
 $fpdf->vcell($c4_width,$c_height,$x_axis,"S/. " . number_format($arr['vd_pre'] * $arr['vd_can'],2,',',' '));
 $fpdf->Ln();
-    
-
 }
 
 /////////////////item de productos end///////////
