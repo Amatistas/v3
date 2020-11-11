@@ -240,7 +240,7 @@ class PDF extends FPDF
 
             $this->SetFont('Arial', '', 9);
             $this->SetXY(10, 30);
-            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_razsoc'], 0, 49) . "\n" . tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc'] . "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'], 0, 70) . "\n"  . "Concepto: " . substr($this->arry[0]['ven_obs'], 0, 70). "\n"."Teléfono: ".$this->arry[0]['ane_tel'], 0, 'L');
+            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_razsoc'], 0, 49) . "\n" . tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc']."   " ."Teléfono: ".$this->arry[0]['ane_tel']. "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'], 0, 70) . "\n"  . "Concepto: " . substr($this->arry[0]['ven_obs'], 0, 70), 0, 'L');
             $this->SetXY(120, 30);
             $this->MultiCell(80, 5, "Fecha Emi.: " . $this->arry[0]['ven_fecreg']."  "."Fecha Venc.: " .$this->arry[0]['ven_fecven']. "\n" . "Condición: " . $this->arry[0]['fp_nom'] . "\n" . "G.R Remitente: \n" . "G.R Transportista: \n"."vendedor: ".$this->arry[0]['usuario'], 0, 'L');
             $this->SetLineWidth(0.2);
