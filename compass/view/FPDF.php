@@ -159,7 +159,7 @@ class PDF extends FPDF
 
             $this->SetFont('Arial', '', 9);
             $this->SetXY(10, 30);
-            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_razsoc'], 0, 49) . "\n" . tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc'] . "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'] . "\n" . "Ubigeo: " . $this->arry[0]['departamento'] . "\n" . "OC: " . $this->arry[0]['ven_obs'], 0, 70), 0, 'L');
+            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc'] . "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'] . "\n" . "Ubigeo: " . $this->arry[0]['departamento'] . "\n" . "OC: " . $this->arry[0]['ven_obs'], 0, 70), 0, 'L');
             $this->SetXY(120, 30);
             $this->MultiCell(80, 5, "Fecha Emisión: " . $this->arry[0]['ven_fecreg'] . "\n" . "Pto Partida: " . substr($this->arry[0]['ane_dir'] . " - " . $this->arry[0]['provincia'] . " - " . $this->arry[0]['departamento'], 0, 70) . "\n" . "Pto Llegada: " . $this->arry[0]['ven_direccion_destino'] . " - " . $this->arry[0]['provincia'] . " - " . $this->arry[0]['departamento'] . "\n", 0, 'L');
             $this->SetLineWidth(0.4);
@@ -240,9 +240,9 @@ class PDF extends FPDF
 
             $this->SetFont('Arial', '', 9);
             $this->SetXY(10, 30);
-            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_razsoc'], 0, 49) . "\n" . tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc']."   " ."Teléfono: ".$this->arry[0]['ane_tel']. "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'], 0, 70) . "\n"  . "Concepto: " . substr($this->arry[0]['ven_obs'], 0, 70), 0, 'L');
+            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc']."   " ."Teléfono: ".$this->arry[0]['ane_tel']." / ".$this->arry[0]['ane_cel']. "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'], 0, 70) . "\n"  . "Concepto: " . substr($this->arry[0]['ven_obs'], 0, 70), 0, 'L');
             $this->SetXY(120, 30);
-            $this->MultiCell(80, 5, "Fecha Emi.: " . $this->arry[0]['ven_fecreg']."  "."Fecha Venc.: " .$this->arry[0]['ven_fecven']. "\n" . "Condición: " . $this->arry[0]['fp_nom'] . "\n" . "G.R Remitente: \n" . "G.R Transportista: \n"."vendedor: ".$this->arry[0]['usuario'], 0, 'L');
+            $this->MultiCell(80, 5, "Fecha Emi.: " . $this->arry[0]['ven_fecreg']."  "."Fecha Venc.: " .$this->arry[0]['ven_fecven']. "\n" . "Condición: " . $this->arry[0]['fp_nom'] . "\n" . "G.R Remitente: \n" . "G.R Transportista: \n"."vendedor: ".$this->arry[0]['hash'], 0, 'L');
             $this->SetLineWidth(0.2);
             $this->line(10, 55, 200, 55);
             $this->line(10, 29, 200, 29);
@@ -300,6 +300,7 @@ class PDF extends FPDF
         $len=strlen($text);// check the length of the cell and splits the text into 7 character each and saves in a array 
         
         $lengthToSplit = 50;
+        $lengthToSplit2 = 10;
         if($len>$lengthToSplit){
         $w_text=str_split($text,$lengthToSplit);
         $this->SetX($x_axis);
@@ -315,5 +316,25 @@ class PDF extends FPDF
             $this->SetX($x_axis);
             $this->Cell($c_width,$c_height,$text,0,0,'R',0);}
             }
+
+    function vcell2($c_width,$c_height,$x_axis,$text){
+        $w_w=$c_height/3;
+        $w_w_1=$w_w+2;
+        $w_w1=$w_w+$w_w+$w_w+3;
+        $len=strlen($text);// check the length of the cell and splits the text into 7 character each and saves in a array 
+        
+        $lengthToSplit = 10;
+
+        if($len>$lengthToSplit){
+        $w_text=str_split($text,$lengthToSplit);
+        $this->SetX($x_axis);
+        $this->Cell($c_width,$w_w_1,$w_text[0],'','','');
+        if(isset($w_text[1])) {
+            $this->SetX($x_axis);
+            $this->Cell($c_width,$w_w1,$w_text[1],0,'','');
+        }
+        $this->SetX($x_axis);
+        $this->Cell($c_width,$c_height,'',0,0,'L',0);
+        }}
 
 }

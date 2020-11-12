@@ -1604,6 +1604,7 @@ app.controller('AsideModalTransaccionCtrl', [
 								return ($scope.serialSelector = response.data.data);
 							});
 					};
+				
 					$scope.rr.td_id = {
 						selectId: 'td_id',
 						db: 'tipo_operacion_td',
@@ -1646,6 +1647,13 @@ app.controller('AsideModalTransaccionCtrl', [
 						where: 'emp_id',
 						key: '',
 						mostrar: [ 'alm_id', 'alm_nom' ]
+					};
+					$scope.rr.fd_id = {
+						selectId: 'fd_id',
+						db: 'tipo_operacion_td',
+						where: 'to_id',
+						key: 11,
+						mostrar: [ 'fd_id', 'td_id' ]
 					};
 					$rootScope.buscarOption = function(param) {
 						switch (typeof param) {
