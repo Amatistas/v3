@@ -82,7 +82,7 @@ $c_height=8;
 
 $fpdf->vcell2($c_width,$c_height,$x_axis,$arr['pro_cod']);
 $x_axis=$fpdf->getx();
-$fpdf->vcell($c2_width,$c_height,$x_axis,$arr['pro_nom']);
+$fpdf->vcell3($c2_width,$c_height,$x_axis,$arr['pro_nom']);
 $x_axis=$fpdf->getx();
 $fpdf->vcell($c3_width,$c_height,$x_axis,$arr['vd_can']);
 $x_axis=$fpdf->getx();
