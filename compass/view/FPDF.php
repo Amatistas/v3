@@ -292,7 +292,7 @@ class PDF extends FPDF
 
 
 
-
+    
     function vcell($c_width,$c_height,$x_axis,$text){
         $w_w=$c_height/3;
         $w_w_1=$w_w+2;
