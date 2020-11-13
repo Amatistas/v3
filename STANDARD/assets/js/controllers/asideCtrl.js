@@ -1509,7 +1509,6 @@ app.controller('AsideModalTransaccionCtrl', [
 
 								if (verifx === undefined) {
 									let ultimoIngreso = JSON.parse($adver[0]);
-
 									toaster.pop('success', 'Venta', 'Documento Guardado');
 									$uibModalInstance.close();
 									$window.open(
@@ -1519,6 +1518,7 @@ app.controller('AsideModalTransaccionCtrl', [
 											.database}&nro=${ultimoIngreso[0].ultimo}`
 									);
 								} else {
+									$uibModalInstance.close();
 									toaster.pop('error', 'Error', 'Su Documento no pudo ser Guardado');
 								}
 							} else {

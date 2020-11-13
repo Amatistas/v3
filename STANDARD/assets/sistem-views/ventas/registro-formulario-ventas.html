@@ -27,7 +27,7 @@
                         <div class="col-md-10">
                             <div class="row">
                                 <div class="form-group">
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <div class="two fields">
                                             <div class="field">
                                                 <label for="td_id"
@@ -111,6 +111,19 @@
                                             </div>
                                         </div>
                                    </div>
+                                   <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="fp_id" ng-class="{'text-danger':form.fp_id.$invalid == true}">
+                                            Condición de Pago
+                                        </label>
+                                        <select class="ui fluid dropdown" required ng-model="infoInputs['fp_id']"
+                                            id="fp_id" name="fp_id" ng-init="buscarOption(rr.fp_id)">
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['fp_id']">
+                                                {{opt.label}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
 
                                     <div class="col-md-1">
                                         <div class="form-group">
@@ -178,10 +191,18 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <label for="ven_obs">Observación</label>
                                         <input type="text" class="form-control" id="ven_obs"
                                             ng-model="infoInputs.ven_obs">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="ven_obs">
+                                                Vendedor
+                                            </label>
+                                            <input type="text" class="form-control" ng-model="infoInputs['hash']">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

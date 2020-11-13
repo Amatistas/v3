@@ -37,16 +37,16 @@ if (true) {
     if (true) {
         //momento de validacion
         $field = $field->fields($getdb, $tbnom);
-        
+
         $numfield = $field->rowCount();
         $arr_field = array();
 
-      
+
 
         while ($row = $field->fetch(PDO::FETCH_ASSOC)) {
             array_push($arr_field, $row['Field']);
         }
-      
+
 
         foreach ($arr_field as $clave => $val) {
             if (isset($dataInfo->$val)) {
@@ -59,11 +59,11 @@ if (true) {
         // create the insert2Tables
         if ($insert2Tables->create($getdb, $tbnom, $arr_field)) {
 
-            if(isset($dataInfo->documento_asociado)){
-                if($insert2Tables->actualizarEstadoProceso($dataInfo->documento_asociado,1)){
-                    array_push($adver, array("message" => "se actualizo el estado de proceso", "status" => "502"));
-                }else {
-                    array_push($adver, array("message" => "no se actualizo el estado de proceso", "status" => "200"));
+            if (isset($dataInfo->documento_asociado)) {
+                if ($insert2Tables->actualizarEstadoProceso($dataInfo->documento_asociado, 1)) {
+                    array_push($adver, array("message" => "se actualizo el estado de proceso", "status" => "200"));
+                } else {
+                    array_push($adver, array("message" => "no se actualizo el estado de proceso", "status" => "502"));
                 }
             }
             ////////////segundo insert bucle para ingresar todos los items
@@ -80,7 +80,7 @@ if (true) {
             $arr_field2 = array();
             $insert2TablesID = new Insert2Tables($db);
 
-            $insert2TablesID->actualizarSerie($dataInfo->emp_id,$dataInfo->loc_id,$dataInfo->ven_ser, $dataInfo->ven_num);
+            $insert2TablesID->actualizarSerie($dataInfo->emp_id, $dataInfo->loc_id, $dataInfo->ven_ser, $dataInfo->ven_num);
 
             //obtener el ultimo id de la compra para asociar la cabezera del asiento y y el detalle del asiento tablas "registo" y "registro_det" 
             $ven_id = $insert2TablesID->getLastIdVenta();
@@ -91,9 +91,9 @@ if (true) {
             while ($row2 = $field2->fetch(PDO::FETCH_ASSOC)) {
                 array_push($arr_field2, $row2['Field']);
             }
-            
 
-           
+
+
             ///////bucle que cuenta la cantidad de items que contiene la compra y repite los prcesos de insercion de almacen, registro_det
             for ($i = 0; $i < count($dataItems); $i++) {
                 //descomposicion del array $arr_field2  
@@ -110,7 +110,7 @@ if (true) {
                 }
 
                 $insert2TablesItems->venta_id = $venid['ven_id'];
-                array_push($adver, array("message" => "ultimo id venta", "status" => "200","ultimo"=> $insert2TablesItems->venta_id));
+                array_push($adver, array("message" => "ultimo id venta", "status" => "200", "ultimo" => $insert2TablesItems->venta_id));
 
                 if ($insert2TablesItems->create_det($getdb, $tbnom_det, $arr_field2)) {
 
@@ -143,7 +143,6 @@ if (true) {
 
             // tell the user
             array_push($adver, array("message" => "La Cabezera de La venta Se Creo Exitosamente", "status" => "200"));
-
         }
         // if unable to create the insert2Tables, tell the user
         else {

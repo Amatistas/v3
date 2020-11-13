@@ -134,7 +134,7 @@ $fpdf->Ln();
 $fpdf->cell(140,6,'',0,'','L');
 ;
 $fpdf->cell(25,6,'Total a Pagar',1,'','L');
-$fpdf->cell(25,6,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format(($arry[0]['ven_totdoc']-$arry[0]['ven_totdscto']),2,',',' '),1,'','R');
+$fpdf->cell(25,6,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format(($arry[0]['ven_totdoc']),2,',',' '),1,'','R');
 $fpdf->Ln();
 $fpdf->cell(140,6,$fpdf->arry3[0]['emp_nom']."  "."Cta Ahorro: ".$arry3[0]['cuenta_inter']."  Cta Interbancaria: ".$arry3[0]['cuenta_ahorro'],0,'','L');
 
