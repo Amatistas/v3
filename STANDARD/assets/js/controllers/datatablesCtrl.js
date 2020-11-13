@@ -1001,13 +1001,13 @@ function ventasListaCtrl(
 		DTColumnBuilder.newColumn('cliente').withTitle('CLIENTE'),
 		DTColumnBuilder.newColumn('documento').withTitle('DOCUMENTO'),
 		DTColumnBuilder.newColumn(null).withTitle('TOTAL').renderWith(function(data, type, full) {
-			var monto = $filter('currency')(data.total, 'S/');
+			var monto = $filter('currency')(data.total - data.ven_totdscto, 'S/');
 			return monto;
 		}),
 		DTColumnBuilder.newColumn(null).withTitle('SALDO').renderWith(function(data, type, full) {
 			if (data.to_nom == 'Ventas') {
 				if (data.vd_dt > 0) {
-					putTotalOperacion = function(i, v, k) {
+					putTotalOperacion = function(i, v, k, z) {
 						function isNumber(x) {
 							if (isNaN(x)) {
 								return 0;
@@ -1017,9 +1017,10 @@ function ventasListaCtrl(
 						var i = isNumber(parseFloat(i));
 						var v = isNumber(parseFloat(v));
 						var k = isNumber(parseFloat(k));
-						return i - v - k;
+						var z = isNumber(parseFloat(z));
+						return i - v - k - z;
 					};
-					var saldo = putTotalOperacion(data.total, data.saldo, data.ven_dt);
+					var saldo = putTotalOperacion(data.total, data.saldo, data.ven_dt, data.ven_totdscto);
 					var monto = `<a data-tooltip="Detracción: ${$filter('currency')(
 						data.ven_dt,
 						'S/'
@@ -1027,7 +1028,7 @@ function ventasListaCtrl(
 
 					return monto;
 				} else {
-					putTotalOperacion = function(i, v) {
+					putTotalOperacion = function(i, v, z) {
 						function isNumber(x) {
 							if (isNaN(x)) {
 								return 0;
@@ -1036,9 +1037,10 @@ function ventasListaCtrl(
 						}
 						var i = isNumber(parseFloat(i));
 						var v = isNumber(parseFloat(v));
-						return i - v;
+						var z = isNumber(parseFloat(z));
+						return i - v - z;
 					};
-					var saldo = putTotalOperacion(data.total, data.saldo);
+					var saldo = putTotalOperacion(data.total, data.saldo ,data.ven_totdscto);
 
 					var monto = $filter('currency')(saldo, 'S/');
 
