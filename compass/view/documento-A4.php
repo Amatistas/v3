@@ -65,11 +65,6 @@ $fpdf->SetFont('Arial','',8);
 /////////////////item de productos///////////////
 
 
-
-
-
-
-
 foreach ($arry2 as $arr) {
 
 
