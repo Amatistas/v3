@@ -292,7 +292,7 @@ class PDF extends FPDF
 
 
 
-    
+
     function vcell($c_width,$c_height,$x_axis,$text){
         $w_w=$c_height/3;
         $w_w_1=$w_w+2;
@@ -346,7 +346,7 @@ class PDF extends FPDF
         $w_w1=$w_w+$w_w+$w_w+3;
         $len=strlen($text);// check the length of the cell and splits the text into 7 character each and saves in a array 
         
-        $lengthToSplit = 10;
+        $lengthToSplit = 12;
 
         if($len>$lengthToSplit){
         $w_text=str_split($text,$lengthToSplit);
