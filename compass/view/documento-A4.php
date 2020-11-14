@@ -83,9 +83,9 @@ $fpdf->vcell($c3_width,$c_height,$x_axis,$arr['vd_can']);
 $x_axis=$fpdf->getx();
 $fpdf->vcell($c3_width,$c_height,$x_axis,$arr['pst_nom']);
 $x_axis=$fpdf->getx();
-$fpdf->vcell($c4_width,$c_height,$x_axis,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arr['vd_pre'] - $arr['vd_igv_unico'],2,',',' '));
+$fpdf->vcell($c4_width,$c_height,$x_axis,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format(($arr['vd_pre'] / 1.18),2,',',' '));
 $x_axis=$fpdf->getx();
-$fpdf->vcell($c4_width,$c_height,$x_axis,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format(($arr['vd_pre']-$arr['vd_igv_unico']) * $arr['vd_can'],2,',',' '));
+$fpdf->vcell($c4_width,$c_height,$x_axis,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format(($arr['vd_pre']/1.18) * $arr['vd_can'],2,',',' '));
 $fpdf->Ln();
 }
 

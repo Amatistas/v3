@@ -106,7 +106,7 @@ class Gofactura
                 case '0':
                     //producto afecto/gravado 
                     if ($this->VENTADETALLE[$k]['vd_gra'] == 0) {
-                        /*                         $item1->setCodProducto('P001')
+                        /*  $item1->setCodProducto('P001')
                             ->setUnidad('NIU')
                             ->setDescripcion('PROD 1')
                             ->setCantidad(2)

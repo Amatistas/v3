@@ -354,15 +354,16 @@
                                             <!--vd_ina total inafecto -->
                                             vd_ina:{{item.vd_ina}}
                                             lp_id:{{item.lp_id = infoInputs.lp_id}}
-                                            <!--
-                                               ()   vd_fac: val.lpd_fac,// factor del producto
-                                               ()   vd_costo_total:val.falso_monto,//costo del producto
-                                               ()   vd_com: val.lpd_com,//precio de venta
-                                               ()   vd_val: val.lpd_vpre,//precio sin igv (monto bruto)
-                                               ()   vd_igv: val.lpd_porcentaje_igv, //porcentaje de igv 
-                                               ()   vd_tt_igv: val.lpd_valor_igv,// valor del igv
-                                               ()    vd_pre: val.lpd_pre,// precio de venta
-                                                        -->
+                                            
+                                            Cantidad: {{item.Cantidad = item.vd_can}}
+                                                        MtoValorUnitario: {{item.MtoValorUnitario = item.vd_val}}
+                                                        MtoValorVenta: {{item.MtoValorVenta = item.MtoValorUnitario * item.vd_can}}
+                                                        MtoBaseIgv: {{item.MtoBaseIgv = item.MtoValorVenta}}
+                                                        PorcentajeIgv: {{item.PorcentajeIgv = item.vd_igv}}
+                                                        Igv: {{item.Igv = item.MtoValorVenta * 0.18 }}
+                                                        TipAfeIgv: {{item.TipAfeIgv = 10 }}
+                                                        TotalImpuestos: {{item.TotalImpuestos =  item.Igv}}
+                                                        MtoPrecioUnitario: {{item.MtoPrecioUnitario =  item.vd_pre }}
                                             </pre>
                                         </div>
                                     </td>
