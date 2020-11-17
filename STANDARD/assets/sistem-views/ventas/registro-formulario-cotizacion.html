@@ -201,7 +201,7 @@
                                 <ul class="list-unstyled amounts text-small">
                                     <li class="text-extra-large text-dark margin-top-15">
                                         <strong>Total a Pagar:</strong>
-                                        {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento}}
+                                        {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: 2}}
                                     </li>
                                 </ul>
                             </div>
