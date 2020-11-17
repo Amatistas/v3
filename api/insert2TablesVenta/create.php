@@ -58,7 +58,6 @@ if (true) {
 
         // create the insert2Tables
         if ($insert2Tables->create($getdb, $tbnom, $arr_field)) {
-
             if (isset($dataInfo->documento_asociado)) {
                 if ($insert2Tables->actualizarEstadoProceso($dataInfo->documento_asociado, 1)) {
                     array_push($adver, array("message" => "se actualizo el estado de proceso", "status" => "200"));

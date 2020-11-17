@@ -2221,14 +2221,14 @@ app.controller('AsideModalTransaccionCtrl', [
 
 					$scope.rr.vh_id = {
 						selectId: 'id_vehiculo',
-						db: 'carroGuia',
+						db: 'carroguia',
 						where: 'vh_id',
 						key: '',
 						mostrar: [ 'vh_id', 'marca' ]
 					};
 					$scope.rr.ven_motsnt = {
 						selectId: 'ven_motsnt',
-						db: 'sunat_motivos_translado',
+						db: 'sunat_motivos_traslado',
 						where: 'cod',
 						key: '',
 						mostrar: [ 'cod', 'descripcion' ],
