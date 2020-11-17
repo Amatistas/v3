@@ -415,7 +415,7 @@
                             </li>
                             <li class="list-group-item ">
                                 <span class="text-dark ">Total Documento</span>
-                                <span class="pull-right text-primary">{{infoInputs.ven_totdoc = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento}}</span>
+                                <span class="pull-right text-primary">{{infoInputs.ven_totdoc = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: 2}}</span>
                             </li>
                         </ul>
                     </div>
