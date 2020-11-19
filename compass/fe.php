@@ -106,7 +106,7 @@ class FE
         }
         $stmt->close();
     }
-    function updateRespuesta($respuesta,$getdb)
+    function updateRespuesta($respuesta, $getdb)
     {
 
         $venta_id = intval($this->venta_id);
