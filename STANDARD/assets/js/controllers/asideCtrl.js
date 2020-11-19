@@ -1525,14 +1525,13 @@ app.controller('AsideModalTransaccionCtrl', [
 								console.log('error');
 							}
 							/* $rootScope.loadBtnFilters(); */
-						
 						};
 					};
 
 					$scope.cancel = function(e) {
 						if ($location.$$url == '/app/ventas/formulario-ventas') {
 							$rootScope.loadBtnFilters();
-						
+
 							$uibModalInstance.dismiss();
 							e.stopPropagation();
 							$location.url(`/app/ventas/lista-ventas`);
@@ -1604,7 +1603,7 @@ app.controller('AsideModalTransaccionCtrl', [
 								return ($scope.serialSelector = response.data.data);
 							});
 					};
-				
+
 					$scope.rr.td_id = {
 						selectId: 'td_id',
 						db: 'tipo_operacion_td',
@@ -2095,22 +2094,66 @@ app.controller('AsideModalTransaccionCtrl', [
 				}
 			});
 		};
-		$scope.remisionGuia = function(identifiquer) {
+		$rootScope.remisionGuia = function(row) {
 			$aside.open({
 				templateUrl: 'STANDARD/assets/sistem-views/ventas/registro-formulario-guia-remision.html',
 				placement: 'top',
 				size: 'sm',
 				backdrop: true,
-				controller: function($scope, $uibModalInstance, $http) {
+				controller: function($scope, $uibModalInstance, $http,getInformacionDocumentos) {
 					$scope.infoInputs = {};
-					$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
-					$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
-					$scope.infoInputs.ane_id = $scope.infoInputs.select_ane_id;
-					$scope.infoInputs.loc_id = 0;
-					$scope.infoInputs.to_id = 13;
-					$scope.infoInputs.tipo_ope_sunat = 9;
-					$scope.infoInputs.td_id = 'GR';
-					$scope.productos = {};
+					$scope.itemListVentas = [];
+
+					if (row) {
+						getInformacionDocumentos.fetchDocumento(row.ven_id, 'ven_id', 'venta').then(
+							function(d) {
+								$scope.infoInputs = d[0];
+								$scope.infoInputs.anexo_display_name = row.cliente;
+								$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
+								$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
+								$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
+								$scope.infoInputs.ane_id = row.ane_id;
+								$scope.infoInputs.to_id = 13;
+								$scope.infoInputs.tipo_ope_sunat = 9;
+								$scope.infoInputs.td_id = 'GR';
+								$scope.infoInputs.docRelacionado = true;
+								$scope.infoInputs.documento_asociado = row.ven_id;
+							},
+							function(errResponse) {
+								alert('venta no encontrada');
+								console.error('Error while fetching Currencies');
+							}
+						);
+						getInformacionDocumentos.fetchDocumento(row.ven_id, 'venta_id', 'venta_det_especifico').then(
+							function(d) {
+								$scope.itemListVentas = d;
+							},
+							function(errResponse) {
+								alert('venta_det no encontrada');
+								console.error('Error while fetching Currencies');
+							}
+						);
+
+						$scope.infoInputs.docRelacionado = true;
+						$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
+						$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
+						$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
+						$scope.infoInputs.ane_id = row.ane_id;
+
+						$scope.infoInputs.to_id = 13;
+						$scope.infoInputs.tipo_ope_sunat = 9;
+						$scope.infoInputs.td_id = 'GR';
+						$scope.productos = {};
+					} else {
+						$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
+						$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
+						$scope.infoInputs.ane_id = $scope.infoInputs.select_ane_id;
+						$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
+						$scope.infoInputs.to_id = 13;
+						$scope.infoInputs.tipo_ope_sunat = 9;
+						$scope.infoInputs.td_id = 'GR';
+						$scope.productos = {};					
+					}
 
 					var f = new Date();
 					var ano = f.getFullYear();
@@ -2316,7 +2359,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						}
 						return total;
 					};
-					
+
 					$scope.getMontoTotal = function() {
 						var total = 0;
 						for (var i = 0, len = $scope.itemListVentas.length; i < len; i++) {

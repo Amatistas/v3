@@ -18,10 +18,7 @@
                 <div ng-controller="itemsCtrl">
                     <div class="row" style="background-color: #eee;">
                         <div class="col-md-10">
-
-
                             <div class="row">
-
                                 <div class="col-md-2">
                                     <div class="two fields">
                                         <div class="field">
@@ -60,7 +57,7 @@
                                         <label ng-class="{'text-danger':form.select_ane_id.$invalid == true}">
                                             Cliente
                                         </label>
-                                        <div class="input-group">
+                                        <div class="input-group" ng-if="infoInputs.docRelacionado == false">
                                             <div class="">
                                                 <ui-select required name="select_ane_id"
                                                     style="width: 100%; float: left;"
@@ -97,6 +94,11 @@
                                                 {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
                                             </div>
                                         </div>
+                                        <div class="input-group col-md-12" ng-if="infoInputs.docRelacionado == true">
+                                            <input type="text" class="form-control" id="anexo_name"
+                                                ng-bind="infoInputs.anexo_display_name"
+                                                ng-value="infoInputs.anexo_display_name" readonly>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -120,17 +122,6 @@
                                                 ng-model="infoInputs['ven_fecven']" ng-required="true">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <label for="ven_motsnt"
-                                        ng-class="{'text-danger':form.ven_motsnt.$invalid == true }">
-                                        Motivo
-                                    </label>
-                                    <select ng-model="infoInputs['ven_motsnt']" class="ui fluid dropdown"
-                                        id="ven_motsnt" name="ven_motsnt" ng-init="buscarOption(rr.ven_motsnt)">
-                                        <option value="{{opt.id}}" ng-repeat="opt in units['ven_motsnt']" required>
-                                            {{opt.label}}</option>
-                                    </select>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="field">
@@ -166,6 +157,18 @@
                                     <select ng-model="infoInputs['id_chofer']" class="ui fluid dropdown" id="id_chofer"
                                         name="id_chofer" ng-init="buscarOption(rr.id_chofer)" required>
                                         <option value="{{opt.id}}" ng-repeat="opt in units['id_chofer']">
+                                            {{opt.label}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="ven_motsnt"
+                                        ng-class="{'text-danger':form.ven_motsnt.$error.required == true }">
+                                        Motivo
+                                    </label>
+                                    <select ng-model="infoInputs['ven_motsnt']" class="ui fluid dropdown"
+                                        id="ven_motsnt" name="ven_motsnt" ng-init="buscarOption(rr.ven_motsnt)"
+                                        ng-required="true">
+                                        <option value="{{opt.id}}" ng-repeat="opt in units['ven_motsnt']">
                                             {{opt.label}}</option>
                                     </select>
                                 </div>

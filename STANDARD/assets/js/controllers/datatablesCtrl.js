@@ -1067,6 +1067,7 @@ function ventasListaCtrl(
 				  <a class="">Anular Venta</a>
   				${facturar}
   				<a class="action-ver-detalles">Ver Detalle</a>
+				<a class="action-guia-remision">Guia de Remisión</a>
   				<a class="">Cobrar Venta</a>
   				</div>
 				</div>
@@ -1084,7 +1085,7 @@ function ventasListaCtrl(
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
   				<div class="dropdown-content">
 				  <a class="">Eliminar</a>
-				
+  				<a class="action-guia-remision">Guia de Remisión</a>
   				<a class="action-ver-detalles">Ver Detalle</a>
 				${facturar}
   				</div>
@@ -1171,6 +1172,7 @@ function ventasListaCtrl(
 	vm.someClickHandlerSendSunat = someClickHandlerSendSunat;
 	vm.someClickHandlerDetails = someClickHandlerDetails;
 	vm.someClickHandlerGenerateBill = someClickHandlerGenerateBill;
+	vm.someClickHandlerGenerateGuideRemision = someClickHandlerGenerateGuideRemision;
 	vm.someClickHandlerCreditNote = someClickHandlerCreditNote;
 	vm.someClickHandlerCompras = someClickHandlerCompras;
 	vm.someClickHandlerEnviarBoletasVarias = someClickHandlerEnviarBoletasVarias;
@@ -1190,6 +1192,10 @@ function ventasListaCtrl(
 
 	function someClickHandlerGenerateBill(info) {
 		$rootScope.venta(info);
+	}
+
+	function someClickHandlerGenerateGuideRemision(info) {
+		$rootScope.remisionGuia(info);
 	}
 	function someClickHandlerCreditNote(info) {
 		$rootScope.notadecreditoVenta(info);
@@ -1260,6 +1266,13 @@ function ventasListaCtrl(
 		$('td .action-facturar', nRow).bind('click', function() {
 			$scope.$apply(function() {
 				vm.someClickHandlerGenerateBill(aData);
+			});
+		});
+
+		$('td .action-guia-remision', nRow).unbind('click');
+		$('td .action-guia-remision', nRow).bind('click', function() {
+			$scope.$apply(function() {
+				vm.someClickHandlerGenerateGuideRemision(aData);
 			});
 		});
 		$('td .action-ver-detalles', nRow).unbind('click');
