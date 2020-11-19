@@ -68,7 +68,6 @@
         color: white;
     }
 </style>
-
 <div class="container" ng-controller="ventasListaCtrl as showCase">
     <div ng-controller="AsideModalTransaccionCtrl">
         <!-- start: PAGE TITLE -->
@@ -129,11 +128,11 @@
             <div class="row" style="margin-bottom: 15px;">
                 <div class="col-md-12">
                     <button style="width: 225px;" type="button" class="btn boton6">
-                        <h3 class="text-white"> S/ 50</h3>
-                        1 Estimado
+                        <h3 class="text-white"> S/ 0</h3>
+                        0 Estimado
                     </button>
                     <button style="width: 225px;" type="button" class="btn btn-wide boton5">
-                        <h3 class="text-white"> S/ 50</h3>
+                        <h3 class="text-white"> S/ 0</h3>
                         0 Actividad no facturada
                     </button>
                     <button style="width: 225px;" type="button" class="btn btn-wide boton">
@@ -143,8 +142,8 @@
                     <button style="width: 225px;" type="button" class="btn btn-wide boton4"
                         ng-click="filtroPendientesPorCobrar()"
                         ng-class="{ 'activo4': statusfiltroPendientesPorCobrar == true}">
-                        <h3 class="text-white"> S/ 15350</h3>
-                        3 Facturas Abiertas
+                        <h3 class="text-white"> S/ 0</h3>
+                        0 Facturas Abiertas
                     </button>
                     <button style="width: 225px;" type="button" class="btn btn-wide boton2">
                         <h3 class="text-white"> S/ 0</h3>
@@ -154,28 +153,6 @@
             </div>
             <div class="row">
                 <div ng-app="main" class="panel panel-white">
-                    <!--   <div class="panel-body">
-                       <div class="btn-group dropdown" uib-dropdown="">
-                            <button type="button" class="btn btn-primary btn-squared dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-                            Acciones Por Selección <i class="fa fa-angle-down"></i>
-                        </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a ng-click="realizarPagos(checkboxes.items)">
-                                    Pagar Transacciónes
-                                </a>
-                                    <a ng-click="enviarComprobantes(checkboxes.items)">
-                                    Enviar Comporbantes
-                                </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <a ng-click="showCase.changeData()" class="btn btn-wide btn-primary btn-squared">
-                        change<i class="fa fa-refresh"></i>
-                    </a>
-                        <a ng-click="showCase.reloadData()" class="btn btn-wide btn-primary btn-squared">
-                        Reload <i class="fa fa-refresh"></i>
-                    </a> -->
                     <div class="row" ng-controller="ModalDemoCtrl">
                         <div class="col-md-12">
                             <table class="ui table" width="100%" datatable="" dt-options="showCase.dtOptions"
@@ -187,5 +164,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

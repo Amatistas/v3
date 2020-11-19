@@ -1040,7 +1040,7 @@ function ventasListaCtrl(
 						var z = isNumber(parseFloat(z));
 						return i - v - z;
 					};
-					var saldo = putTotalOperacion(data.total, data.saldo ,data.ven_totdscto);
+					var saldo = putTotalOperacion(data.total, data.saldo, data.ven_totdscto);
 
 					var monto = $filter('currency')(saldo, 'S/');
 
@@ -1085,6 +1085,25 @@ function ventasListaCtrl(
   				<div class="dropdown-content">
 				  <a class="">Eliminar</a>
 				
+  				<a class="action-ver-detalles">Ver Detalle</a>
+				${facturar}
+  				</div>
+				</div>
+				</div>		
+					`;
+			} else if (data.td_id == 'GR') {
+				if (data.estatus_documento_guia == 0) {
+					var facturar = '<a class="action-facturar">Facturar</a>';
+				} else {
+					var facturar = '';
+				}
+				options += `
+				<div class="contenedor">
+				<div class="dropdown">
+  				<button class="dropbtn"><i class="ti-more-alt"></i></button>
+  				<div class="dropdown-content">
+  				<a class="action-facturar">Facturar</a>
+				  <a class="">Eliminar</a>
   				<a class="action-ver-detalles">Ver Detalle</a>
 				${facturar}
   				</div>
@@ -1438,7 +1457,7 @@ function trasladoListaCtrl(
 	function someClickHandlerGenerateBill(info) {
 		$rootScope.venta(info);
 	}
-	
+
 	function someClickHandlerDetails(info) {}
 
 	function someClickHandlerStorage(info) {
@@ -1461,10 +1480,11 @@ function trasladoListaCtrl(
 		$('td .action-ver-detalle', nRow).bind('click', function() {
 			$scope.$apply(function() {
 				console.log(aData);
-			 	$window.open(
+				$window.open(
 					`${$rootScope.miURL}/compass/view/constancia-traslado.php?emp_id=${JSON.parse($rootScope.d.datos)
-						.emp_id}&getdb=${JSON.parse($rootScope.d.datos).database}&nro=${aData.id_tras}&id_tras=${aData.id_tras}`
-				); 
+						.emp_id}&getdb=${JSON.parse($rootScope.d.datos)
+						.database}&nro=${aData.id_tras}&id_tras=${aData.id_tras}`
+				);
 			});
 		});
 		return nRow;

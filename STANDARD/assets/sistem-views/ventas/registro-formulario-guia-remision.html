@@ -18,24 +18,24 @@
                 <div ng-controller="itemsCtrl">
                     <div class="row" style="background-color: #eee;">
                         <div class="col-md-10">
-                        
-                            
+
+
                             <div class="row">
 
                                 <div class="col-md-2">
                                     <div class="two fields">
-                                    <div class="field">
-                                        <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
-                                            Documento
-                                        </label>
-                                        <select class="ui fluid dropdown" required ng-model="infoInputs['td_id']"
-                                            id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)"
-                                            ng-change="serializador(infoInputs.td_id)">
-                                            <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">
-                                                {{opt.label}}</option>
-                                        </select>
+                                        <div class="field">
+                                            <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                                Documento
+                                            </label>
+                                            <select class="ui fluid dropdown" required ng-model="infoInputs['td_id']"
+                                                id="td_id" name="td_id" ng-init="buscarOption(rr.td_id)"
+                                                ng-change="serializador(infoInputs.td_id)">
+                                                <option value="{{opt.id}}" ng-repeat="opt in units['td_id']">
+                                                    {{opt.label}}</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="ven_ser">Serie</label>
@@ -52,53 +52,53 @@
                                     </div>
 
                                     <label for="ven_num">Numero</label>
-                                    <input type="text" class="form-control" id="ven_num"
-                                        ng-model="infoInputs.ven_num" readonly>
+                                    <input type="text" class="form-control" id="ven_num" ng-model="infoInputs.ven_num"
+                                        readonly>
                                 </div>
                                 <div class="form-group">
-                                <div class="col-md-6">
-                                    <label ng-class="{'text-danger':form.select_ane_id.$invalid == true}">
-                                        Cliente
-                                    </label>
-                                    <div class="input-group">
-                                        <div class="">
-                                            <ui-select required name="select_ane_id"
-                                                style="width: 100%; float: left;"
-                                                ng-model="infoInputs['select_ane_id']" theme="bootstrap">
-                                                <ui-select-match
-                                                    placeholder="Escriba 3 letras Para Empezar a Buscar">
-                                                    {{$select.selected.ane_alias}}
-                                                </ui-select-match>
-                                                <ui-select-choices class=""
-                                                    repeat="item in proveedoresList[0] track by $index"
-                                                    refresh="clientesGetAsyncronic($select.search)"
-                                                    refresh-delay="0">
-                                                    <div>
-                                                        <span ng-if="item.ane_tipdoc == 11"
-                                                            class="glyphicon glyphicon-user"></span>
-                                                        <span ng-if="item.ane_tipdoc == 6"
-                                                            class="glyphicon glyphicon-briefcase"></span>
-                                                        <span
-                                                            ng-bind-html="item.ane_alias | highlight: $select.search"></span>
-                                                        <br>
-                                                        <small
-                                                            ng-bind-html="item.ane_numdoc | highlight: $select.search"></small>
-                                                        <br>
-                                                        <small ng-bind-html="item.ane_email"></small>
-                                                    </div>
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-link" ng-click="nuevocliente()"><i
-                                                    class="ti-plus"></i></button>
-                                        </span>
-                                        <div class="hidden">
-                                            {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
+                                    <div class="col-md-6">
+                                        <label ng-class="{'text-danger':form.select_ane_id.$invalid == true}">
+                                            Cliente
+                                        </label>
+                                        <div class="input-group">
+                                            <div class="">
+                                                <ui-select required name="select_ane_id"
+                                                    style="width: 100%; float: left;"
+                                                    ng-model="infoInputs['select_ane_id']" theme="bootstrap">
+                                                    <ui-select-match
+                                                        placeholder="Escriba 3 letras Para Empezar a Buscar">
+                                                        {{$select.selected.ane_alias}}
+                                                    </ui-select-match>
+                                                    <ui-select-choices class=""
+                                                        repeat="item in proveedoresList[0] track by $index"
+                                                        refresh="clientesGetAsyncronic($select.search)"
+                                                        refresh-delay="0">
+                                                        <div>
+                                                            <span ng-if="item.ane_tipdoc == 11"
+                                                                class="glyphicon glyphicon-user"></span>
+                                                            <span ng-if="item.ane_tipdoc == 6"
+                                                                class="glyphicon glyphicon-briefcase"></span>
+                                                            <span
+                                                                ng-bind-html="item.ane_alias | highlight: $select.search"></span>
+                                                            <br>
+                                                            <small
+                                                                ng-bind-html="item.ane_numdoc | highlight: $select.search"></small>
+                                                            <br>
+                                                            <small ng-bind-html="item.ane_email"></small>
+                                                        </div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-link" ng-click="nuevocliente()"><i
+                                                        class="ti-plus"></i></button>
+                                            </span>
+                                            <div class="hidden">
+                                                {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                 </div>
                             </div>
 
                             <div class="row">
@@ -116,14 +116,14 @@
                                             ng-class="{'text-danger':form.ven_fecven.$invalid == true }">Fecha De
                                             Vencimiento</label>
                                         <div class="">
-                                            <input type="date" name="ven_fecven" id="ven_fecven"
-                                                class="form-control" ng-model="infoInputs['ven_fecven']"
-                                                ng-required="true">
+                                            <input type="date" name="ven_fecven" id="ven_fecven" class="form-control"
+                                                ng-model="infoInputs['ven_fecven']" ng-required="true">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <label for="ven_motsnt" ng-class="{'text-danger':form.ven_motsnt.$invalid == true }">
+                                <div class="col-md-1">
+                                    <label for="ven_motsnt"
+                                        ng-class="{'text-danger':form.ven_motsnt.$invalid == true }">
                                         Motivo
                                     </label>
                                     <select ng-model="infoInputs['ven_motsnt']" class="ui fluid dropdown"
@@ -132,7 +132,20 @@
                                             {{opt.label}}</option>
                                     </select>
                                 </div>
-                                
+                                <div class="col-md-2">
+                                    <div class="field">
+                                        <label for="lp_id" ng-class="{'text-danger':form.lp_id.$invalid == true }">
+                                            Lista de Precio
+                                        </label>
+                                        <select ng-model="infoInputs['lp_id']" class="ui fluid dropdown" id="lp_id"
+                                            name="lp_id" ng-init="buscarOption(rr.lp_id)" required>
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">
+                                                {{opt.label}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="cd_alm" ng-class="{'text-danger':form.cd_alm.$invalid == true}">
@@ -147,11 +160,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="id_chofer"  ng-class="{'text-danger':form.id_chofer.$invalid == true}">
+                                    <label for="id_chofer" ng-class="{'text-danger':form.id_chofer.$invalid == true}">
                                         Chofer
                                     </label>
-                                    <select ng-model="infoInputs['id_chofer']" class="ui fluid dropdown"
-                                        id="id_chofer" name="id_chofer" ng-init="buscarOption(rr.id_chofer)" required>
+                                    <select ng-model="infoInputs['id_chofer']" class="ui fluid dropdown" id="id_chofer"
+                                        name="id_chofer" ng-init="buscarOption(rr.id_chofer)" required>
                                         <option value="{{opt.id}}" ng-repeat="opt in units['id_chofer']">
                                             {{opt.label}}</option>
                                     </select>
@@ -180,18 +193,18 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-4" ng-class="{'text-danger':form.id_chofer.$invalid == true}">
-                                        <label >
+                                        <label>
                                             Ubigeo
                                         </label>
                                         <div class="input-group">
-                                            <ui-select name="pys" style="width: 100%; float: left;" ng-model="infoInputs.ubigeobuscador"
-                                                on-select="" theme="bootstrap">
+                                            <ui-select name="pys" style="width: 100%; float: left;"
+                                                ng-model="infoInputs.ubigeobuscador" on-select="" theme="bootstrap">
                                                 <ui-select-match placeholder="Escriba 3 letras para buscar">
                                                     {{$select.selected.ubi}}
                                                 </ui-select-match>
                                                 <ui-select-choices repeat="item in ubigeoList[0] track by $index"
-                                                    refresh="ubigeoGetAsyncronic($select.search)"
-                                                    refresh-delay="0" minimum-input-length="3">
+                                                    refresh="ubigeoGetAsyncronic($select.search)" refresh-delay="0"
+                                                    minimum-input-length="3">
                                                     <div class="item">
                                                         <div class="content">
                                                             <div>
@@ -202,7 +215,8 @@
                                                 </ui-select-choices>
                                             </ui-select>
                                             <span class="input-group-btn">
-                                                <button type="button" ng-click="infoInputs.ubigeobuscador.selected=undefined"
+                                                <button type="button"
+                                                    ng-click="infoInputs.ubigeobuscador.selected=undefined"
                                                     class="btn btn-primary">
                                                     <i class="fal fa-trash"></i>
                                                 </button>
@@ -214,24 +228,24 @@
                                     </div>
                                 </div>
                             </div>
-                        
-                                <!----------------------------------------------------------------------------------->
-                    
+
+                            <!----------------------------------------------------------------------------------->
+
                             <div class="row" ng-show="true">
                                 <div class="row" style="padding: 10px;">
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="col-md-2">
                             <div class="cuadro col-md-12 pull-right ">
                                 <ul class="list-unstyled amounts text-small">
                                     <li class="text-extra-large text-dark margin-top-15">
                                         <strong>Peso Total:</strong>
-                                        {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento}}
+                                        {{infoInputs.ven_peso = getTotalPeso() | number : 2}}
                                     </li>
                                 </ul>
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -248,7 +262,7 @@
                                         {{$select.selected.pro_nom}}
                                     </ui-select-match>
                                     <ui-select-choices repeat="item in productosData track by $index"
-                                        refresh="productosGuiaRemisionGetAsyncronic($select.search,infoInputs.cd_alm)"
+                                        refresh="productosVentaGetAsyncronic($select.search,infoInputs.lp_id,infoInputs.cd_alm)"
                                         refresh-delay="0" minimum-input-length="3">
                                         <div class="item">
                                             <div class="content">
@@ -275,7 +289,7 @@
                             <div class="col-md-1">
                                 <label for="stock">Stock</label>
                                 <input ng-model="productos.selected.stock" type="text" class="form-control" id="stock"
-                                    readonly> 
+                                    readonly>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -358,15 +372,16 @@
                                             <!--vd_ina total inafecto -->
                                             vd_ina:{{item.vd_ina}}
                                             lp_id:{{item.lp_id = infoInputs.lp_id}}
-                                            <!--
-                                               ()   vd_fac: val.lpd_fac,// factor del producto
-                                               ()   vd_costo_total:val.falso_monto,//costo del producto
-                                               ()   vd_com: val.lpd_com,//precio de venta
-                                               ()   vd_val: val.lpd_vpre,//precio sin igv (monto bruto)
-                                               ()   vd_igv: val.lpd_porcentaje_igv, //porcentaje de igv 
-                                               ()   vd_tt_igv: val.lpd_valor_igv,// valor del igv
-                                               ()    vd_pre: val.lpd_pre,// precio de venta
-                                                        -->
+                                            
+                                            Cantidad: {{item.Cantidad = item.vd_can}}
+                                                        MtoValorUnitario: {{item.MtoValorUnitario = item.vd_val}}
+                                                        MtoValorVenta: {{item.MtoValorVenta = item.MtoValorUnitario * item.vd_can}}
+                                                        MtoBaseIgv: {{item.MtoBaseIgv = item.MtoValorVenta}}
+                                                        PorcentajeIgv: {{item.PorcentajeIgv = item.vd_igv}}
+                                                        Igv: {{item.Igv = item.MtoValorVenta * 0.18 }}
+                                                        TipAfeIgv: {{item.TipAfeIgv = 10 }}
+                                                        TotalImpuestos: {{item.TotalImpuestos =  item.Igv}}
+                                                        MtoPrecioUnitario: {{item.MtoPrecioUnitario =  item.vd_pre }}
                                             </pre>
                                         </div>
                                     </td>
@@ -380,11 +395,55 @@
                         </table>
                     </div>
                     <div class="col-md-2">
+                        <ul class="list-group list-group-flush hidden">
+                            <li class="list-group-item ">
+                                <span class="text-light ">Afecto</span><span
+                                    class="pull-right">{{infoInputs.ven_afe = ((getMontoTotalAfecto() / valorIgvConvertido)).toFixed(2)}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">Inafecto</span><span
+                                    class="pull-right">{{ infoInputs.ven_ina = getMontoTotalInafecto().toFixed(2)}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="collapse-title text-warning">Descuento</span>
+                                <span
+                                    class="pull-right">{{((getMontoDescuento * 100) /(getMontoTotalInafecto() + getMontoTotalAfecto())).toFixed(2)}}
+                                    %</span>
+                                <span>
+                                    <div class="hidden">
+                                        {{infoInputs.ven_totdscto = getMontoDescuento}}
+                                    </div>
+                                    <input type="number" name="getMontoDescuento" id="getMontoDescuento"
+                                        class="form-control" ng-model="getMontoDescuento" min="0"
+                                        max="{{((getMontoTotalInafecto() + getMontoTotalAfecto()).toFixed(2))}}">
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="text-light">ISC</span><span class="pull-right">0</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">IGV/IVA</span><span
+                                    class="pull-right ng-binding ">{{infoInputs.ven_igv = (getMontoIgv(getMontoTotalAfecto())).toFixed(2)}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">Documento</span><span class="pull-right ng-binding ">0</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-light ">Percepción</span><span class="pull-right ">0</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="text-dark ">Total Documento</span>
+                                <span
+                                    class="pull-right text-primary">{{infoInputs.ven_totdoc = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: 2}}</span>
+                            </li>
+                        </ul>
+
                         <ul class="list-group list-group-flush ">
                             <li class="list-group-item ">
                                 <span class="text-dark">Total Peso
                                 </span><span
-                                    class="pull-right text-primary">{{infoInputs.ven_peso = getTotalPeso()}} KG</span>
+                                    class="pull-right text-primary">{{infoInputs.ven_peso = getTotalPeso() | number : 2}}
+                                    KG</span>
                             </li>
                         </ul>
                     </div>

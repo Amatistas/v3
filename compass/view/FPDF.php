@@ -242,7 +242,7 @@ class PDF extends FPDF
             $this->SetXY(10, 30);
             $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc']."   " ."Teléfono: ".$this->arry[0]['ane_tel']." / ".$this->arry[0]['ane_tel2']. "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'], 0, 70) . "\n"  . "Concepto: " . substr($this->arry[0]['ven_obs'], 0, 70), 0, 'L');
             $this->SetXY(120, 30);
-            $this->MultiCell(80, 5, "Fecha Emi.: " . $this->arry[0]['ven_fecreg']."  "."Fecha Venc.: " .$this->arry[0]['ven_fecven']. "\n" . "Condición: " . $this->arry[0]['fp_nom'] . "\n" . "G.R Remitente: \n" . "G.R Transportista: \n"."vendedor: ".$this->arry[0]['hash'], 0, 'L');
+            $this->MultiCell(80, 5, "Fecha Emi.: " . $this->arry[0]['ven_fecreg']."  "."Fecha Venc.: " .$this->arry[0]['ven_fecven']. "\n" . "Condición: " . $this->arry[0]['fp_nom'] . "\n" . "G.R Remitente: \n" . "G.R Transportista: \n"."Vendedor: ".$this->arry[0]['hash'], 0, 'L');
             $this->SetLineWidth(0.2);
             $this->line(10, 55, 200, 55);
             $this->line(10, 29, 200, 29);

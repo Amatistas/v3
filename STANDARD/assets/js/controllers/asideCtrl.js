@@ -2106,6 +2106,7 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
 					$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
 					$scope.infoInputs.ane_id = $scope.infoInputs.select_ane_id;
+					$scope.infoInputs.loc_id = 0;
 					$scope.infoInputs.to_id = 13;
 					$scope.infoInputs.tipo_ope_sunat = 9;
 					$scope.infoInputs.td_id = 'GR';
@@ -2313,6 +2314,42 @@ app.controller('AsideModalTransaccionCtrl', [
 						for (var i = 0, len = $scope.itemListVentas.length; i < len; i++) {
 							total = total + $scope.itemListVentas[i].vd_can * $scope.itemListVentas[i].pro_pes;
 						}
+						return total;
+					};
+					
+					$scope.getMontoTotal = function() {
+						var total = 0;
+						for (var i = 0, len = $scope.itemListVentas.length; i < len; i++) {
+							total = total + $scope.itemListVentas[i].vd_can * $scope.itemListVentas[i].vd_pre;
+						}
+						return total;
+					};
+
+					$scope.getMontoDescuento = 0;
+
+					$scope.getMontoTotalAfecto = function() {
+						var total = 0;
+						for (var i = 0, len = $scope.itemListVentas.length; i < len; i++) {
+							if ($scope.itemListVentas[i].vd_ina == '0') {
+								total = total + $scope.itemListVentas[i].vd_can * $scope.itemListVentas[i].vd_pre;
+							}
+						}
+						return total;
+					};
+
+					$scope.getMontoTotalInafecto = function() {
+						var total = 0;
+						for (var i = 0, len = $scope.itemListVentas.length; i < len; i++) {
+							if ($scope.itemListVentas[i].vd_ina == '1') {
+								total = total + $scope.itemListVentas[i].vd_can * $scope.itemListVentas[i].vd_pre;
+							}
+						}
+						return total;
+					};
+					$scope.getMontoIgv = function(val) {
+						var total =
+							parseFloat(val / $scope.valorIgvConvertido) *
+							(parseFloat($scope.mySessionEmpresa.emp_igv) / 100);
 						return total;
 					};
 					$scope.guardarGuiaRemision = function() {
