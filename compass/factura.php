@@ -65,7 +65,7 @@ switch ($VENTA['td_id']) {
         $GO = new Gofactura($VENTA, $VENTADETALLE, $MIEMPRESA, $CLIENTE, $UBIGEOCLIENTE, $UBIGEOEMPRESA, $getdb);
 
         if ($respuesta = $GO->generateFactura()) {
-            if ($fe->updateRespuesta($respuesta)) {
+            if ($fe->updateRespuesta($respuesta,$getdb)) {
                 echo json_encode(array("respuesta" => $respuesta));
             } else {
                 echo json_encode(array("respuesta" => "no se pudo actualizar el estatus de la factura pero si fue aprovada exitosamente"));

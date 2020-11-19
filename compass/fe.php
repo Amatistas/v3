@@ -106,12 +106,12 @@ class FE
         }
         $stmt->close();
     }
-    function updateRespuesta($respuesta)
+    function updateRespuesta($respuesta,$getdb)
     {
 
         $venta_id = intval($this->venta_id);
         $json_respuesta = json_encode($respuesta);
-        $query = "UPDATE venta
+        $query = "UPDATE `$getdb`.venta
         SET notas_sunat = '$json_respuesta'
         WHERE ven_id = $venta_id ";
         // prepare query
