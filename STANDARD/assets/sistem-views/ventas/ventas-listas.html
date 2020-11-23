@@ -114,17 +114,10 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="btn-group dropdown pull-right">
-                        <button type="button" class=" btn btn-lg text-white btn btn-wide"
-                            style="background-color:#002350; border-radius: 50px;" ng-click="enviarResumenBoletas()">
-                            Resumen de Boletas
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
-
-        <div ng-app="main" ng-controller="DemoCtrl3">
+        <div ng-controller="DemoCtrl3">
             <div class="row" style="margin-bottom: 15px;">
                 <div class="col-md-12">
                     <button style="width: 225px;" type="button" class="btn boton6">
@@ -152,13 +145,11 @@
                 </div>
             </div>
             <div class="row">
-                <div ng-app="main" class="panel panel-white">
-                    <div class="row" ng-controller="ModalDemoCtrl">
-                        <div class="col-md-12">
-                            <table class="ui table" width="100%" datatable="" dt-options="showCase.dtOptions"
-                                dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance">
-                            </table>
-                        </div>
+                <div class="col-md-12">
+                    <div ng-controller="ModalDemoCtrl">
+                        <table class='ui table' width="100%" datatable="" dt-options="showCase.dtOptions"
+                            dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance">
+                        </table>
                     </div>
                 </div>
             </div>

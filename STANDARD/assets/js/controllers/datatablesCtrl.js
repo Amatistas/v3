@@ -913,6 +913,7 @@ function asientoListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $
 app.controller('ventasListaCtrl', ventasListaCtrl);
 
 function ventasListaCtrl(
+	$compile,
 	DTOptionsBuilder,
 	DTColumnBuilder,
 	$resource,
@@ -923,9 +924,13 @@ function ventasListaCtrl(
 	$filter,
 	toaster,
 	$location,
-	$window
+	$window,
+	SweetAlert
 ) {
 	var vm = this;
+	setTimeout(() => {
+		$('.dt-buttons .btn').removeClass('dt-button');
+	}, 250);
 
 	function loadaaData() {
 		var defer = $q.defer();
@@ -941,10 +946,54 @@ function ventasListaCtrl(
 		return defer.promise;
 	}
 
+	vm.selected = {};
+	vm.selectAll = false;
+	vm.toggleAll = toggleAll;
+	vm.toggleOne = toggleOne;
+
+	let titleHtml =
+		'<input type="checkbox" ng-model="showCase.selectAll" ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
+
 	vm.dtOptions = DTOptionsBuilder.fromFnPromise(loadaaData())
+		.withOption('createdRow', function(row, data, dataIndex) {
+			// Recompiling so we can bind Angular directive to the DT
+			$compile(angular.element(row).contents())($scope);
+		})
+		.withOption('headerCallback', function(header) {
+			if (!vm.headerCompiled) {
+				// Use this headerCompiled field to only compile header once
+				vm.headerCompiled = true;
+				$compile(angular.element(header).contents())($scope);
+			}
+		})
+		.withDOM(
+			"<'ui grid'" +
+				"<'row'" +
+				"<'eight wide column'B>" +
+				"<'right aligned eight wide column'f>" +
+				'>' +
+				"<'row'" +
+				"<'sixteen wide column'tr>" +
+				'>' +
+				"<'row'" +
+				"<'seven wide column'l>" +
+				"<'right aligned nine wide column'p>" +
+				'>' +
+				'>'
+		)
 		.withPaginationType('full_numbers')
-		.withOption('bInfo', false)
-		.withPaginationType('full_numbers')
+		.withButtons([
+			{
+				text: 'Resumen de Boletas',
+				action: function() {
+					let bol = vm.selected;
+					console.log(bol);
+					console.log(bol.filter(el => el = true));
+				},
+				className: 'mini ui basic button'
+			}
+		])
+		.withOption('initComplete', initComplete)
 		.withOption('order', [ 0, 'desc' ])
 		.withOption('lengthMenu', [ [ 10, 50, 200, 1000 ], [ 10, 50, 200, 1000 ] ])
 		.withLanguage({
@@ -954,7 +1003,7 @@ function ventasListaCtrl(
 			sInfoFiltered: '(filtered from _MAX_ total entries)',
 			sInfoPostFix: '',
 			sInfoThousands: ',',
-			sLengthMenu: '_MENU_ ',
+			sLengthMenu: '_MENU_  Por página',
 			sLoadingRecords: 'Cargando...',
 			sProcessing: 'Procesando',
 			sSearch: 'Buscar: ',
@@ -971,28 +1020,14 @@ function ventasListaCtrl(
 				sSortDescending: ': activate to sort column descending'
 			}
 		})
-		.withOption('rowCallback', rowCallback)
-		.withDOM(
-			"<'ui grid'" +
-				"<'row'" +
-				"<'eight wide column'l>" +
-				"<'right aligned eight wide column'f>" +
-				'>' +
-				"<'row dt-table'" +
-				"<'sixteen wide column'tr>" +
-				'>' +
-				"<'row'" +
-				"<'seven wide column'i>" +
-				"<'right aligned nine wide column'p>" +
-				'>' +
-				'>'
-		);
+		.withOption('rowCallback', rowCallback);
 	vm.dtColumns = [
 		DTColumnBuilder.newColumn('ven_id').withTitle('ID').notVisible(),
-		DTColumnBuilder.newColumn(null).withTitle('').renderWith(function(data, type, full) {
+		DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable().renderWith(function(data, type, full, meta) {
+			vm.selected[full.ven_id] = false;
 			return (
 				'<input type="checkbox" ng-model="showCase.selected[' +
-				data.com_id +
+				data.ven_id +
 				']" ng-click="showCase.toggleOne(showCase.selected)">'
 			);
 		}),
@@ -1076,6 +1111,25 @@ function ventasListaCtrl(
 			} else if (data.td_id == 'CT') {
 				if (data.estatus_documento == 0) {
 					var facturar = '<a class="action-facturar">Facturar</a>';
+				} else {
+					var facturar = '';
+				}
+				options += `
+				<div class="contenedor">
+				<div class="dropdown">
+  				<button class="dropbtn"><i class="ti-more-alt"></i></button>
+  				<div class="dropdown-content">
+				  <a class="">Eliminar</a>
+  				<a class="action-guia-remision">Guia de Remisión</a>
+  				<a class="action-ver-detalles">Ver Detalle</a>
+				${facturar}
+  				</div>
+				</div>
+				</div>		
+				`;
+			} else if (data.td_id == 'NV') {
+				if (data.estatus_documento == 0) {
+					var facturar = '<a class="action-nota-credito">Devolucion</a>';
 				} else {
 					var facturar = '';
 				}
@@ -1236,6 +1290,30 @@ function ventasListaCtrl(
 	function someClickHandlerCompras(info) {
 		$rootScope.compraDetalle(info);
 	}
+	function initComplete() {
+		setTimeout(() => {
+			$('.dt-buttons .btn').removeClass('.dt-button');
+		}, 250);
+	}
+	function toggleAll(selectAll, selectedItems) {
+		for (var id in selectedItems) {
+			if (selectedItems.hasOwnProperty(id)) {
+				console.log(id);
+				selectedItems[id] = selectAll;
+			}
+		}
+	}
+	function toggleOne(selectedItems) {
+		for (var id in selectedItems) {
+			if (selectedItems.hasOwnProperty(id)) {
+				if (!selectedItems[id]) {
+					vm.selectAll = false;
+					return;
+				}
+			}
+		}
+		vm.selectAll = true;
+	}
 
 	function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 		$('td .action-enviar-sunat', nRow).unbind('click');
@@ -1249,7 +1327,6 @@ function ventasListaCtrl(
 				vm
 					.someClickHandlerSendSunat(aData)
 					.then(function(r) {
-						console.log(r);
 						$rootScope.buttonEvent.removeClass('running');
 						$rootScope.sunatToaster.clear();
 						$rootScope.sunatToaster.pop('success', 'Su Factura ha sido aceptada');
