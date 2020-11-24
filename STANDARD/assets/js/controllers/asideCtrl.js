@@ -1273,7 +1273,7 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.valorIgvConvertido = 1.18;
 					$scope.mySessionEmpresa = [];
 					$scope.mySessionEmpresa.emp_igv = 18;
-					let misDecimales = 2;
+					let misDecimales = JSON.parse($rootScope.d.datos).emp_dec;
 					$scope.misDecimales = misDecimales;
 
 					$scope.serializador = function(serie) {
@@ -1583,7 +1583,7 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.valorIgvConvertido = 1.18;
 					$scope.mySessionEmpresa = [];
 					$scope.mySessionEmpresa.emp_igv = 18;
-					let misDecimales = 2;
+					let misDecimales = JSON.parse($rootScope.d.datos).emp_dec;
 					$scope.misDecimales = misDecimales;
 
 					$scope.serializador = function(serie) {
@@ -1861,7 +1861,9 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.valorIgvConvertido = 1.18;
 					$scope.mySessionEmpresa = [];
 					$scope.mySessionEmpresa.emp_igv = 18;
-					let misDecimales = 2;
+					
+					let misDecimales = JSON.parse($rootScope.d.datos).emp_dec;
+					$scope.misDecimales = misDecimales;
 
 					$scope.rr.td_id = {
 						selectId: 'td_id',
@@ -2177,7 +2179,7 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.valorIgvConvertido = 1.18;
 					$scope.mySessionEmpresa = [];
 					$scope.mySessionEmpresa.emp_igv = 18;
-					let misDecimales = 2;
+					let misDecimales = JSON.parse($rootScope.d.datos).emp_dec;
 					$scope.misDecimales = misDecimales;
 
 					$scope.serializador = function(serie) {

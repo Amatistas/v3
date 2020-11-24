@@ -151,43 +151,7 @@ class Gofactura
                     }
                     break;
 
-                case '1':
-                    //producto inafecto/no gravado 
-                    if ($this->VENTADETALLE[$k]['vd_gra'] == 0) {
-                        $item = (new SaleDetail())
-                            ->setCodProducto($PRODUCTOS['pro_bar'])
-                            ->setUnidad($PRESENTACION['pst_snt']) // Unidad - Catalog. 03
-                            ->setDescripcion($PRODUCTOS['pro_nom'])
-                            ->setCantidad(round($this->VENTADETALLE[$k]['vd_can'], 2)) // cantidad
-                            ->setMtoValorUnitario($valorUnitario = round($this->VENTADETALLE[$k]['vd_pre'] - $this->VENTADETALLE[$k]['vd_igv_unico'], 2)) // valor unitario (sin igv)
-                            ->setMtoValorVenta(round($valorUnitario * $this->VENTADETALLE[$k]['vd_can']))   // valor unitario * cantidad sin igv
-                            ->setMtoBaseIgv(round($this->VENTADETALLE[$k]['vd_pre'] * $this->VENTADETALLE[$k]['vd_can']))         // valor unitario * cantidad sin igv  
-                            ->setPorcentajeIgv(0) // 18%
-                            ->setIgv(0) // igv del valor unitario  * cantidad 
-                            ->setTipAfeIgv('30') // Gravado Op. Onerosa - Catalog. 07
-                            ->setTotalImpuestos(0)  // igv del valor unitario * cantidad
-                            ->setMtoPrecioUnitario(round($this->VENTADETALLE[$k]['vd_pre']), 2); // precio total del producto unitario con igv 
-                    } else {
-                        //producto inafecto/no gravado 
-                        //
-                        $item = (new SaleDetail())
-                            ->setCodProducto('P005')
-                            ->setUnidad('NIU')
-                            ->setDescripcion('PROD 5')
-                            ->setCantidad(2)
-                            ->setMtoValorUnitario(0)
-                            ->setMtoValorGratuito(100)
-                            ->setMtoValorVenta(200)
-                            ->setMtoBaseIgv(200)
-                            ->setPorcentajeIgv(0)
-                            ->setIgv(0)
-                            ->setTipAfeIgv('32') // Catalog 07: Inafecto - Retiro,
-                            ->setTotalImpuestos(0)
-                            ->setMtoPrecioUnitario(0);
-                    }
-                    break;
-
-                default:
+               default:
                     echo "ya valiste";
                     break;
             }

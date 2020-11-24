@@ -44,7 +44,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-md-2">
                                         <label for="ven_ser">Serie</label>
                                         <select ng-init="serializador(infoInputs['td_id'])" class="ui fluid dropdown"
@@ -214,7 +213,7 @@
                                 <ul class="list-unstyled amounts text-small">
                                     <li class="text-extra-large text-dark margin-top-15">
                                         <strong>Total a Pagar:</strong>
-                                        {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number:2}}
+                                        {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: misDecimales}}
                                     </li>
                                 </ul>
                             </div>
@@ -256,7 +255,7 @@
                                                     <b>{{item.pro_nom}}</b>
                                                 </div>
                                                 <div class="description">{{item.pst_nom}} S/
-                                                    {{item.vd_pre | number : 2}}</div>
+                                                    {{item.vd_pre | number : misDecimales}}</div>
                                             </div>
                                         </div>
                                     </ui-select-choices>
@@ -283,7 +282,7 @@
                         </div>
                         <div class="col-md-1">
                             <label for="vd_pre">Precio</label>
-                            <input ng-model="productos.selected.vd_pre" type="text" class="form-control" id="vd_pre">
+                            <input ng-model="productos.selected.vd_pre | number: misDecimales" type="text" class="form-control" id="vd_pre">
                         </div>
                         <div class="col-md-1">
                             <label for="vd_can">Cantidad</label>
@@ -320,11 +319,11 @@
                                             ng-blind="item.vd_can" id="vd_can ">
                                     </td>
                                     <td class="col-md-2">
-                                        <input type="text " class="form-control" ng-model="item.vd_pre"
+                                        <input type="text " class="form-control" ng-model="item.vd_pre | number: misDecimales"
                                             ng-blind="item.vd_pre" id="vd_pre" readonly>
                                     </td>
                                     <td class="col-md-2">
-                                        {{item.vd_pre * item.vd_can | number:2}}
+                                        {{item.vd_pre * item.vd_can | number: misDecimales}}
                                     </td>
                                     <td class="hidden">
                                         <div class="hidden">
@@ -382,16 +381,16 @@
                         <ul class="list-group list-group-flush ">
                             <li class="list-group-item ">
                                 <span class="text-light ">Afecto</span><span
-                                    class="pull-right">{{infoInputs.ven_afe = ((getMontoTotalAfecto() / valorIgvConvertido)).toFixed(2)}}</span>
+                                    class="pull-right">{{infoInputs.ven_afe = ((getMontoTotalAfecto() / valorIgvConvertido)) | number : misDecimales}}</span>
                             </li>
                             <li class="list-group-item ">
                                 <span class="text-light ">Inafecto</span><span
-                                    class="pull-right">{{ infoInputs.ven_ina = getMontoTotalInafecto().toFixed(2)}}</span>
+                                    class="pull-right">{{ infoInputs.ven_ina = getMontoTotalInafecto() | number:misDecimales}}</span>
                             </li>
                             <li class="list-group-item ">
                                 <span class="collapse-title text-warning">Descuento</span>
                                 <span
-                                    class="pull-right">{{((getMontoDescuento * 100) /(getMontoTotalInafecto() + getMontoTotalAfecto())).toFixed(2)}}
+                                    class="pull-right">{{ ((getMontoDescuento * 100) /(getMontoTotalInafecto() + getMontoTotalAfecto())) | number: misDecimales}}
                                     %</span>
                                 <span>
                                     <div class="hidden">
@@ -399,7 +398,7 @@
                                     </div>
                                     <input type="number" name="getMontoDescuento" id="getMontoDescuento"
                                         class="form-control" ng-model="getMontoDescuento" min="0"
-                                        max="{{((getMontoTotalInafecto() + getMontoTotalAfecto()).toFixed(2))}}">
+                                        max="{{(getMontoTotalInafecto() + getMontoTotalAfecto()) | number: misDecimales}}">
                                 </span>
                             </li>
                             <li class="list-group-item">
@@ -407,7 +406,7 @@
                             </li>
                             <li class="list-group-item ">
                                 <span class="text-light ">IGV/IVA</span><span
-                                    class="pull-right ng-binding ">{{infoInputs.ven_igv = (getMontoIgv(getMontoTotalAfecto())).toFixed(2)}}</span>
+                                    class="pull-right ng-binding ">{{infoInputs.ven_igv = getMontoIgv(getMontoTotalAfecto()) | number: misDecimales}}</span>
                             </li>
                             <li class="list-group-item ">
                                 <span class="text-light ">Documento</span><span class="pull-right ng-binding ">0</span>
@@ -418,7 +417,7 @@
                             <li class="list-group-item ">
                                 <span class="text-dark ">Total Documento</span>
                                 <span
-                                    class="pull-right text-primary">{{infoInputs.ven_totdoc = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: 2}}</span>
+                                    class="pull-right text-primary">{{infoInputs.ven_totdoc = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: misDecimales}}</span>
                             </li>
                         </ul>
                     </div>

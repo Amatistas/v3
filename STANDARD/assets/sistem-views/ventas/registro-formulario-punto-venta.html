@@ -97,7 +97,7 @@
                                                                 <b>{{item.pro_nom}}</b>
                                                             </div>
                                                             <div class="description">{{item.pst_nom}} S/
-                                                                {{item.vd_pre | number : 2}}</div>
+                                                                {{item.vd_pre | number: misDecimales}}</div>
                                                         </div>
                                                     </div>
                                                 </ui-select-choices>
@@ -151,12 +151,12 @@
                                                 <td class="center">{{$index + 1}}</td>
                                                 <td> {{item.pro_nom}}</td>
                                                 <td class="col-md-1"><input type="text" class="form-control"
-                                                        ng-model="item.vd_can" ng-blind="item.vd_can" id="vd_can"></td>
+                                                        ng-model="item.vd_can | number: misDecimales" ng-blind="item.vd_can" id="vd_can"></td>
                                                 <td class="col-md-1"><input type="text" class="form-control"
                                                         ng-model="item.vd_pre" ng-blind="item.vd_pre" id="vd_pre"
                                                         readonly></td>
                                                 <td class="col-md-1">
-                                                    <p>{{item.vd_pre * item.vd_can}}</p>
+                                                    <p>{{item.vd_pre * item.vd_can | number: misDecimales}}</p>
                                                 </td>
                                                 <td class="hidden">
                                                     <div class="hidden">
@@ -244,20 +244,20 @@
                                         <li class="text-extra-large text-dark "
                                             style="padding-top: 5px ; font-size: 20px !important; color: #fff !important;">
                                             Grabado total:
-                                            {{infoInputs.ven_afe = ((getMontoTotalAfecto() / valorIgvConvertido)).toFixed(2) | number:2}}
+                                            {{infoInputs.ven_afe = ((getMontoTotalAfecto() / valorIgvConvertido)) | number: misDecimales}}
                                             <br/>
                                             No Grabado total:
-                                            {{infoInputs.ven_ina = ((getMontoTotalInafecto())).toFixed(2) | number:2}}
+                                            {{infoInputs.ven_ina = ((getMontoTotalInafecto())) | number: misDecimales}}
                                         </li>
                                         <li class="text-extra-large text-dark "
                                             style="border-bottom:1px solid; padding: 2px 0px; font-size: 20px !important; color: #fff !important;">
                                             IGV / IVA:
-                                            {{infoInputs.ven_igv = (getMontoIgv(getMontoTotalAfecto())) | number: 2}}
+                                            {{infoInputs.ven_igv = (getMontoIgv(getMontoTotalAfecto())) | number: misDecimales}}
                                         </li>
                                         <li class="text-extra-large text-dark "
                                             style="padding-bottom: 5px; font-size: 35px !important; color: #fff !important;">
                                             <strong>Total: </strong>
-                                            {{infoInputs.ven_totdoc = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number:2}}
+                                            {{infoInputs.ven_totdoc = (getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: misDecimales}}
                                         </li>
                                     </ul>
                                 </div>

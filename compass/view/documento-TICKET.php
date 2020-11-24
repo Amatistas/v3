@@ -139,9 +139,9 @@ $fpdf->SetFont('Arial','',8);
 $fpdf->setXY(0,55);
 $fpdf->MultiCell(75,4,"Cliente:".substr($arry[0]['ane_razsoc'], 0, 49)."\n".tipo($arry[0]['ane_tipdoc'])." ".$arry[0]['ane_numdoc']."\n"."Dirección: ".$arry[0]['ane_dir']." ". $arry[0]['departamento']." ".$arry[0]['provincia'] . "\n" . "OC: ".$arry[0]['ven_obs'],0,'C');
 $fpdf->Ln(10);
-$fpdf->setXY(0,80);
+$fpdf->setXY(0,83);
 $fpdf->MultiCell(75,4,"Fecha Emisión: ".$arry[0]['ven_fecreg']."\n"."Condición: ".$arry[0]['fp_nom']."\n"."G.R Remitente: \n"."G.R Transportista: \n",0,'C');
-$fpdf->setXY(0,96);
+$fpdf->setXY(0,100);
 $fpdf->MultiCell(75,4,"Tipo Moneda: ".tipoMoneda($arry[0]['mnd_id'])."\n"."Tipo de Pago: ".$arry[0]['tp_nom']."\n",0,'C');
 $fpdf->Ln(3);
 $fpdf->SetFont('Arial','',8);    //Letra Arial, negrita (Bold), tam. 20

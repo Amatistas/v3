@@ -3,6 +3,7 @@
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/fe.php';
 require __DIR__ . '/Gofactura.php';
+require __DIR__ . '/GoBoleta.php';
 require __DIR__ . '/GoAnulacionFactura.php';
 require __DIR__ . '/GoGuiaRemision.php';
 require __DIR__ . '/num2letra.php';
@@ -71,19 +72,18 @@ switch ($VENTA['td_id']) {
                 echo json_encode(array("respuesta" => "no se pudo actualizar el estatus de la factura pero si fue aprovada exitosamente"));
             }
         }
-
         break;
 
     case 'BO':
+
         echo json_encode(array("respuesta" => "Boletas no configuradas todavia"));
         break;
 
     case 'GR':
 
         $GO = new GoGuiaRemision($VENTA, $VENTADETALLE, $MIEMPRESA, $CLIENTE, $UBIGEOCLIENTE, $UBIGEOEMPRESA, $getdb);
-
         if ($respuesta = $GO->generateFactura()) {
-            if ($fe->updateRespuesta($respuesta)) {
+            if ($fe->updateRespuesta($respuesta,$getdb)) {
                 echo json_encode(array("respuesta" => $respuesta));
             } else {
                 echo json_encode(array("respuesta" => "no se pudo actualizar el estatus de la factura pero si fue aprovada exitosamente"));
@@ -96,7 +96,7 @@ switch ($VENTA['td_id']) {
         $GO = new GoNotaCredito($VENTA, $VENTADETALLE, $MIEMPRESA, $CLIENTE, $UBIGEOCLIENTE, $UBIGEOEMPRESA, $getdb);
 
         if ($respuesta = $GO->generateNote()) {
-            if ($fe->updateRespuesta($respuesta)) {
+            if ($fe->updateRespuesta($respuesta,$getdb)) {
                 echo json_encode(array("respuesta" => $respuesta));
             } else {
                 echo json_encode(array("respuesta" => "no se pudo actualizar el estatus de la factura pero si fue aprovada exitosamente"));
@@ -113,7 +113,7 @@ switch ($VENTA['td_id']) {
 }else if (isset($data->anulacion)){
     $GO = new GoAnulacionFactura($VENTA, $VENTADETALLE, $MIEMPRESA, $CLIENTE, $UBIGEOCLIENTE, $UBIGEOEMPRESA, $getdb);
     if ($respuesta = $GO->generateAnulacion()) {
-        if ($fe->updateRespuesta($respuesta)) {
+        if ($fe->updateRespuesta($respuesta,$getdb)) {
             echo json_encode(array("respuesta" => $respuesta));
         } else {
             echo json_encode(array("respuesta" => "no se pudo actualizar el estatus de la factura pero si fue aprovada exitosamente"));

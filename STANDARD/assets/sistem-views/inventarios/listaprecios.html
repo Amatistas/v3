@@ -2,19 +2,27 @@
 
     <div class="container">
         <div class="ui secondary menu">
-            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.productoyservicios')}" ui-sref="app.inventario.productoyservicios">
+            <a class="item" ui-sref-active="active"
+                ng-class="{'active open':$state.includes('app.inventario.productoyservicios')}"
+                ui-sref="app.inventario.productoyservicios">
                 <span class="title" translate="sidebar.nav.inventarios.PRODUCTOSYSERVICIOS">Productos y Servicios</span>
             </a>
-            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.listaprecios')}" ui-sref="app.inventario.listaprecios">
+            <a class="item" ui-sref-active="active"
+                ng-class="{'active open':$state.includes('app.inventario.listaprecios')}"
+                ui-sref="app.inventario.listaprecios">
                 <span class="title" translate="sidebar.nav.inventarios.LISTADEPRECIOS">Lista de Precio</span>
             </a>
-            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.stock')}" ui-sref="app.inventario.stock">
+            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.stock')}"
+                ui-sref="app.inventario.stock">
                 <span class="title">Stock</span>
             </a>
-            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.movimientoAlamcen')}" ui-sref="app.inventario.movimientoAlamcen">
+            <a class="item" ui-sref-active="active"
+                ng-class="{'active open':$state.includes('app.inventario.movimientoAlamcen')}"
+                ui-sref="app.inventario.movimientoAlamcen">
                 <span class="title">Almacén</span>
             </a>
-            <a class="item" ui-sref-active="active" ng-class="{'active open':$state.includes('app.inventario.traslado')}" ui-sref="app.inventario.traslado">
+            <a class="item" ui-sref-active="active"
+                ng-class="{'active open':$state.includes('app.inventario.traslado')}" ui-sref="app.inventario.traslado">
                 <span class="title">Operaciones de Inventario</span>
             </a>
             <div class="right menu">
@@ -90,10 +98,6 @@
                                 <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">{{opt.label}}</option>
                             </select>
                         </div>
-<!--                         <div class="col-md-1">
-                            <button class="btn btn-primary" style="margin-top: 30px;"
-                                ng-click="resultados(person.selected)"><i class="fa fa-search"></i></button>
-                        </div> -->
                     </div>
                 </div>
                 <div class="row" style="margin-top: 15px;">
@@ -110,7 +114,8 @@
                                 <div class="row">
                                     <!--precio de compra del producto -->
                                     <div class="col-md-6">Precio de Compra</div>
-                                    <div class="col-md-6"><input type="number" ng-model="person.selected.falso_monto"
+                                    <div class="col-md-6"><input type="text"
+                                            ng-model="person.selected.falso_monto | number : misDicimales"
                                             id="falso_monto" name="falso_monto" class="form-control" readonly>
                                     </div>
                                 </div>
@@ -118,44 +123,46 @@
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">% UTILIDAD</div>
-                                    <div class="col-md-6"><input type="number" ng-model="person.selected.lpd_uti"
+                                    <div class="col-md-6"><input type="text"
+                                            ng-model="person.selected.lpd_uti | number : misDicimales"
                                             ng-change="person.selected = modfUtilidadCompra(person.selected)"
-                                            id="lpd_uti" name="lpd_uti" ng-value="0" class="form-control  " value="0">
+                                            id="lpd_uti" name="lpd_uti" ng-value="0" class="form-control" value="0">
                                     </div>
                                 </div>
                             </li>
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">V. Venta</div>
-                                    <div class="col-md-6"><input type="number" ng-model="person.selected.lpd_vpre"
+                                    <div class="col-md-6 form-group has-warning"><input type="text" ng-model="person.selected.lpd_vpre"
                                             ng-change="person.selected = modfValorVentaCompra(person.selected)"
-                                            id="lpd_vpre" name="lpd_vpre" class="form-control  "></div>
+                                            id="lpd_vpre" name="lpd_vpre" class="form-control"></div>
                                 </div>
                             </li>
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">IGV</div>
-                                    <div class="col-md-6"><input type="number"
-                                            ng-model="person.selected.lpd_porcentaje_igv" id="lpd_porcentaje_igv" name="lpd_porcentaje_igv"
-                                            class="form-control" readonly="">
+                                    <div class="col-md-6"><input type="text"
+                                            ng-model="person.selected.lpd_porcentaje_igv" id="lpd_porcentaje_igv"
+                                            name="lpd_porcentaje_igv" class="form-control" readonly="">
                                     </div>
                                 </div>
                             </li>
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">VALOR IGV</div>
-                                    <div class="col-md-6"><input type="number"
-                                            ng-model="person.selected.lpd_valor_igv" id="lpd_valor_igv" name="lpd_valor_igv"
-                                            class="form-control" readonly="">
+                                    <div class="col-md-6"><input type="text"
+                                            ng-model="person.selected.lpd_valor_igv | number : misDicimales"
+                                            id="lpd_valor_igv" name="lpd_valor_igv" class="form-control" readonly="">
                                     </div>
                                 </div>
                             </li>
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">P. VENTA</div>
-                                    <div class="col-md-6"><input type="number" ng-model="person.selected.lpd_pre"
+                                    <div class="col-md-6"><input type="text"
+                                            ng-model="person.selected.lpd_pre | number : misDicimales "
                                             ng-change="person.selected = modfPrecioVentaCompra(person.selected)"
-                                            id="lpd_pre" name="lpd_pre" class="form-control  "></div>
+                                            id="lpd_pre" name="lpd_pre" class="form-control" readonly></div>
                                 </div>
                             </li>
                             <div class="list-group-item ">
@@ -181,19 +188,20 @@
                                 <tbody>
                                     <tr ng-repeat="item in itemslista track by $index">
                                         <td>{{item.lpd_fac }}</td>
-                                        <td>{{item.lpd_com | number : 2}}</td>
-                                        <td>{{item.lpd_vpre | number : 2}}</td>
-                                        <td>{{item.lpd_porcentaje_igv | number : 2}}</td>
-                                        <td>{{item.lpd_valor_igv | number : 2}}</td>
-                                        <td>{{item.lpd_pre | number : 2}}</td>
+                                        <td>{{item.lpd_com | number: misDecimales}}</td>
+                                        <td>{{item.lpd_vpre | number: misDecimales}}</td>
+                                        <td>{{item.lpd_porcentaje_igv | number: misDecimales}}</td>
+                                        <td>{{item.lpd_valor_igv | number: misDecimales}}</td>
+                                        <td>{{item.lpd_pre | number: misDecimales}}</td>
                                         <td class="left">
-                                            <button  class="btn btn-red" ng-click="remove(item.id,person.selected,$index)">
+                                            <button class="btn btn-red"
+                                                ng-click="remove(item.id,person.selected,$index)">
                                                 <i class="glyphicon glyphicon-trash"></i></button>
                                         </td>
                                     </tr>
-                              
+
                                 </tbody>
-                            </table>
+                            </table>s
                         </div>
                     </div>
 

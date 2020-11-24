@@ -966,34 +966,32 @@ function ventasListaCtrl(
 				$compile(angular.element(header).contents())($scope);
 			}
 		})
+		.withButtons([
+            {
+                text: 'Enviar Resumen de Boletas',
+                key: '1',
+                action: function (e, dt, node, config) {
+                    alert('let´s go');
+                }
+            }
+        ])
 		.withDOM(
 			"<'ui grid'" +
 				"<'row'" +
-				"<'eight wide column'B>" +
+				"<'eight wide column'>" +
 				"<'right aligned eight wide column'f>" +
 				'>' +
-				"<'row'" +
-				"<'sixteen wide column'tr>" +
+				"<'row dt-table'" +
+				"<'sixteen wide column'Btr>" +
 				'>' +
 				"<'row'" +
-				"<'seven wide column'l>" +
+				"<'seven wide column'i>" +
 				"<'right aligned nine wide column'p>" +
 				'>' +
 				'>'
 		)
+		// Add Table tools compatibility
 		.withPaginationType('full_numbers')
-		.withButtons([
-			{
-				text: 'Resumen de Boletas',
-				action: function() {
-					let bol = vm.selected;
-					console.log(bol);
-					console.log(bol.filter(el => el = true));
-				},
-				className: 'mini ui basic button'
-			}
-		])
-		.withOption('initComplete', initComplete)
 		.withOption('order', [ 0, 'desc' ])
 		.withOption('lengthMenu', [ [ 10, 50, 200, 1000 ], [ 10, 50, 200, 1000 ] ])
 		.withLanguage({
@@ -1014,7 +1012,6 @@ function ventasListaCtrl(
 				sNext: 'Siguiente',
 				sPrevious: 'Anterior'
 			},
-
 			oAria: {
 				sSortAscending: ': activate to sort column ascending',
 				sSortDescending: ': activate to sort column descending'
@@ -1024,12 +1021,8 @@ function ventasListaCtrl(
 	vm.dtColumns = [
 		DTColumnBuilder.newColumn('ven_id').withTitle('ID').notVisible(),
 		DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable().renderWith(function(data, type, full, meta) {
-			vm.selected[full.ven_id] = false;
-			return (
-				'<input type="checkbox" ng-model="showCase.selected[' +
-				data.ven_id +
-				']" ng-click="showCase.toggleOne(showCase.selected)">'
-			);
+			vm.selected[data.ven_id] = false;
+			return `<input type="checkbox" ng-model="showCase.selected['${data.ven_id}']" ng-click="showCase.toggleOne(showCase.selected)">`;
 		}),
 		DTColumnBuilder.newColumn('ven_fecreg').withTitle('FECHA').withOption('width', '100px'),
 		DTColumnBuilder.newColumn('to_nom').withTitle('TIPO DE OPERACIÓN'),
@@ -1076,9 +1069,7 @@ function ventasListaCtrl(
 						return i - v - z;
 					};
 					var saldo = putTotalOperacion(data.total, data.saldo, data.ven_totdscto);
-
 					var monto = $filter('currency')(saldo, 'S/');
-
 					return monto;
 				}
 			} else {
@@ -1289,11 +1280,6 @@ function ventasListaCtrl(
 
 	function someClickHandlerCompras(info) {
 		$rootScope.compraDetalle(info);
-	}
-	function initComplete() {
-		setTimeout(() => {
-			$('.dt-buttons .btn').removeClass('.dt-button');
-		}, 250);
 	}
 	function toggleAll(selectAll, selectedItems) {
 		for (var id in selectedItems) {

@@ -17,7 +17,7 @@ $db = $database->getConnection($getdb);
 
 $auth = new Auth($db);
 
-$data = json_decode(file_get_contents("php://input"),true);
+$data = json_decode(file_get_contents("php://input"), true);
 
 if (!empty($data['username']) || !empty($data['password'])) {
 
@@ -29,9 +29,10 @@ if (!empty($data['username']) || !empty($data['password'])) {
     if ($row1 = $fethVal->fetch(PDO::FETCH_ASSOC)) {
         $fethVal2 = $auth->validarOnBaseDeDatosEmpresa($row1['usu_bd'], $username);
         if ($row2 = $fethVal2->fetch(PDO::FETCH_ASSOC)) {
-            if ($password == $row2['usu_cla'] ) {
+            if ($password == $row2['usu_cla']) {
                 $_SESSION['emp_id'] = $row2['emp_id'];
                 $_SESSION['emp_nom'] = $row2['emp_nom'];
+                $_SESSION['emp_dec'] = $row2['emp_dec'];
                 $_SESSION['ofi_id'] = $row2['ofi_id'];
                 $_SESSION['usu_id'] = $row2['per_id'];
                 $_SESSION['database'] = $row1['usu_bd'];
@@ -43,8 +44,6 @@ if (!empty($data['username']) || !empty($data['password'])) {
                 $_SESSION['usu_jer'] = $row2['usu_jer'];
                 $_SESSION['usu_almperm'] = $row2['usu_almper'];
                 $_SESSION['usu_notperm'] = $row2['usu_notperm'];
-                
-            /*     $_SESSION['tde_sho'] = $row2['tde_sho']; */
 
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $username;
@@ -53,12 +52,11 @@ if (!empty($data['username']) || !empty($data['password'])) {
 
                 http_response_code(200);
                 echo $datosdesession = json_encode($_SESSION);
-
-            }else{
+            } else {
                 http_response_code(502);
                 json_encode(array("error" => "clave incorrecta"));
             }
-        }else{
+        } else {
             http_response_code(404);
             json_encode(array("error" => "usuario no asignado a una empresa"));
         }
@@ -66,8 +64,7 @@ if (!empty($data['username']) || !empty($data['password'])) {
         http_response_code(404);
         json_encode(array("error" => "usuario no encontrado"));
     }
-   
-}else{
+} else {
     http_response_code(404);
-    echo json_encode(array("error"=>"complete todo el formulario"));
+    echo json_encode(array("error" => "complete todo el formulario"));
 }
