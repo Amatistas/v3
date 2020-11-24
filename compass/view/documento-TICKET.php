@@ -113,7 +113,7 @@ function formatoMoneda($type){
     return $var;
   }
 
-
+$dec = $arry3[0]['emp_dec'];
 
 $fpdf = new FPDF($orientation='P',$unit='mm',array(80,350),true,$arry,$arry2,$arry3,$arry4);
 $fpdf->AddPage();
@@ -166,7 +166,7 @@ $fpdf->Ln();
 $fpdf->setX(1);
 $fpdf->Cell(22,5,'Cant.'.$arr['vd_can']." ".$arr['pst_nom'],0,'L');
 $fpdf->Cell(25,5,$arr['vd_pre']." ".formatoMoneda($arry[0]['mnd_id']),0,'','L');
-$fpdf->Cell(15,5,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format((($arr['vd_pre'] * $arr['vd_can'])/1.18),2,',',' '),0,'','L');
+$fpdf->Cell(15,5,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format((($arr['vd_pre'] * $arr['vd_can'])/1.18),$dec,',',' '),0,'','L');
 
 $num = new Num2letras();
 
@@ -176,50 +176,50 @@ if($arry[0]['ven_afe'] != 0){
     $fpdf->Ln(10);
     $fpdf->setX(30);
     $fpdf->Cell(25,3,"AFECTO: ",0,'','L');
-    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_afe'],2,',',' '),0,'','L');
+    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_afe'],$dec,',',' '),0,'','L');
 }
 if($arry[0]['ven_ina'] != 0){
 
     $fpdf->Ln(5);
     $fpdf->setX(30);
     $fpdf->Cell(25,3,"Inafecto: ",0,'','L');
-    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_ina'],2,',',' '),0,'','L');
+    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_ina'],$dec,',',' '),0,'','L');
 }
 if($arry[0]['ven_isc'] != 0){
 
     $fpdf->Ln(5);
     $fpdf->setX(30);
     $fpdf->Cell(25,3,"ISC: ",0,'','L');
-    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_isc'],2,',',' '),0,'','L');
+    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_isc'],$dec,',',' '),0,'','L');
 }
 
 $fpdf->Ln(5);
 $fpdf->setX(30);  
 $fpdf->Cell(25,3,"IGV/IVA ",0,'','L');
-$fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_igv'],2,',',' '),0,'','L');
+$fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_igv'],$dec,',',' '),0,'','L');
 if($arry[0]['ven_totdscto'] != 0){
 
     $fpdf->Ln(5);
     $fpdf->setX(30);  
     $fpdf->Cell(25,3,"Total Dsctos ",0,'','L');
-    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_totdscto'],2,',',' '),0,'','L');
+    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_totdscto'],$dec,',',' '),0,'','L');
 }
 
 $fpdf->Ln(5);
 $fpdf->setX(30);  
 $fpdf->Cell(25,3,"Total Dcmt ",0,'','L');
-$fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_totdoc'],2,',',' '),0,'','L');
+$fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry[0]['ven_totdoc'],$dec,',',' '),0,'','L');
 if($arry2[0]['ven_per'] != 0){
 
     $fpdf->Ln(5);
     $fpdf->setX(30);  
     $fpdf->Cell(25,3,"Percepción ",0,'','L');
-    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry2[0]['ven_per'],2,',',' '),0,'','L');
+    $fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format($arry2[0]['ven_per'],$dec,',',' '),0,'','L');
 }
 $fpdf->Ln(5);
 $fpdf->setX(30);  
 $fpdf->Cell(25,3,"Total a Pagar ",0,'','L');
-$fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format(($arry[0]['ven_totdoc']),2,',',' '),0,'','L');
+$fpdf->Cell(15,3,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format(($arry[0]['ven_totdoc']),$dec,',',' '),0,'','L');
 $fpdf->Ln(5);
 $fpdf->setX(1);
 $fpdf->Cell(5,3,'Son: '.$num->numero(round(floatval($arry[0]['ven_totdoc']), 3)));
@@ -238,6 +238,6 @@ $fpdf->Cell(60,3,"ESTE DOCUMENTO PUEDE SER",0,'','C');
 $fpdf->Ln();
 $fpdf->Cell(60,3,"CONSULTADO EN",0,'','C');
 $fpdf->Ln();
-$fpdf->Cell(60,3,"http://www.contabilizado.com",0,'','C');
+$fpdf->Cell(60,3,"https://www.contabilizado.com",0,'','C');
 $fpdf->AliasNbPages();
 $fpdf->Output('I','nombre.pdf','UTF-8');

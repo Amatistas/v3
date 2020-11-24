@@ -210,13 +210,13 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-md-4 ">
+                        <div class="col-md-5">
                             <label>
                                 Productos y Servicios
                             </label>
                             <div class="input-group">
-                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="productos.selected"
-                                    on-select="algo('22')" theme="bootstrap">
+                                <ui-select name="pys" style="max-width: 600px; min-width: 600px; float: left;"
+                                    ng-model="productos.selected" on-select="algo('22')" theme="bootstrap">
                                     <ui-select-match placeholder="Escriba 3 letras para buscar">
                                         {{$select.selected.pro_nom}}
                                     </ui-select-match>
@@ -251,17 +251,15 @@
                                 <span class="input-group-btn">
                                     <button type="button" ng-click="productos.selected=undefined"
                                         class="btn btn-primary">
-                                        <i class="fa fa-trash-o"></i>
+                                        <i class="fal fa-trash-o"></i>
                                     </button>
                                 </span>
                             </div>
                         </div>
-                        <div ng-if="productos.selected">
-                            <div class="col-md-1">
-                                <label for="stock">Stock</label>
-                                <input ng-model="productos.selected.stock" type="text" class="form-control" id="stock"
-                                    readonly>
-                            </div>
+                        <div class="col-md-1">
+                            <label for="stock">Stock</label>
+                            <input ng-model="productos.selected.stock" type="text" class="form-control" id="stock"
+                                readonly>
                         </div>
                         <div class="col-md-1">
                             <label for="pst_id">Presentación</label>
@@ -270,15 +268,15 @@
                         </div>
                         <div class="col-md-1">
                             <label for="vd_pre">Precio</label>
-                            <input ng-model="productos.selected.vd_pre | number: misDecimales " type="text" class="form-control" id="vd_pre"
-                                readonly>
+                            <input ng-model="productos.selected.vd_pre | number: misDecimales " type="text"
+                                class="form-control" id="vd_pre" readonly>
                         </div>
                         <div class="col-md-1">
                             <label for="vd_can">Cantidad</label>
                             <input ng-model="productos.selected.vd_can" type="text" class="form-control" id="vd_can">
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-primary" style="margin-top: 21px;"
+                            <button class="btn btn-primary" style="margin-top: 30px;"
                                 ng-click="additem(productos.selected)">Insertar</button>
                         </div>
                     </div>
@@ -308,8 +306,9 @@
                                             ng-blind="item.vd_can" id="vd_can ">
                                     </td>
                                     <td class="col-md-2">
-                                        <input type="text " class="form-control" ng-model="item.vd_pre | number: misDecimales"
-                                            ng-blind="item.vd_pre" id="vd_pre" readonly>
+                                        <input type="text " class="form-control"
+                                            ng-model="item.vd_pre | number: misDecimales" ng-blind="item.vd_pre"
+                                            id="vd_pre" readonly>
                                     </td>
                                     <td class="col-md-2">
                                         {{item.vd_pre * item.vd_can | number: misDecimales }}
