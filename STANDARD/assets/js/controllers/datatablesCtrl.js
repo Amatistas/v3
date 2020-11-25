@@ -969,9 +969,8 @@ function ventasListaCtrl(
 		.withButtons([
             {
                 text: 'Enviar Resumen de Boletas',
-                key: '1',
                 action: function (e, dt, node, config) {
-                    alert('let´s go');
+                    alert('disabled');
                 }
             }
         ])

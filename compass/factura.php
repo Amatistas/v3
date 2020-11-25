@@ -76,7 +76,15 @@ switch ($VENTA['td_id']) {
 
     case 'BO':
 
-        echo json_encode(array("respuesta" => "Boletas no configuradas todavia"));
+        $GO = new GoBoleta($VENTA, $VENTADETALLE, $MIEMPRESA, $CLIENTE, $UBIGEOCLIENTE, $UBIGEOEMPRESA, $getdb);
+
+        if ($respuesta = $GO->generateFactura()) {
+            if ($fe->updateRespuesta($respuesta,$getdb)) {
+                echo json_encode(array("respuesta" => $respuesta));
+            } else {
+                echo json_encode(array("respuesta" => "no se pudo actualizar el estatus de la factura pero si fue aprovada exitosamente"));
+            }
+        }
         break;
 
     case 'GR':

@@ -15,7 +15,7 @@ use Greenter\See;
 
 require __DIR__ . '/vendor/autoload.php';
 
-class Gofactura
+class GoBoleta
 {
     public $VENTA;
     public $VENTADETALLE;
@@ -40,7 +40,7 @@ class Gofactura
 
         $see = new See();
         $see->setCertificate(file_get_contents('../api/upload/' . substr($this->MIEMPRESA['fe_cerrut'], 2)));
-        $see->setService(SunatEndpoints::FE_BETA);
+        $see->setService(SunatEndpoints::FE_PRODUCCION);
         $see->setClaveSOL($this->MIEMPRESA['emp_ruc'], $this->MIEMPRESA['fe_sntusu'], $this->MIEMPRESA['fe_sntcla']);
 
         //insertar Certificado
@@ -72,7 +72,7 @@ class Gofactura
         $invoice = (new Invoice())
             ->setUblVersion('2.1')
             ->setTipoOperacion('0101') // Venta - Catalog. 51
-            ->setTipoDoc('01') // Factura - Catalog. 01 
+            ->setTipoDoc('03') // Factura - Catalog. 01 
             ->setSerie($this->VENTA['ven_ser'])
             ->setCorrelativo($this->VENTA['ven_num'])
             ->setFechaEmision(new DateTime($this->VENTA['ven_fecemi']))
@@ -80,7 +80,7 @@ class Gofactura
             ->setCompany($company)
             ->setClient($client)
             ->setMtoOperGravadas(round($this->VENTA['ven_afe'], 2))
-            ->setMtoOperInafectas(round($this->VENTA['ven_ina'], 2))
+           // ->setMtoOperInafectas(round($this->VENTA['ven_ina'], 2))
             ->setMtoIGV(round($this->VENTA['ven_igv'], 2))
             ->setTotalImpuestos(round($this->VENTA['ven_igv'], 2))
             ->setValorVenta(round($this->VENTA['ven_afe'] + $this->VENTA['ven_ina'], 2))
@@ -100,61 +100,21 @@ class Gofactura
             $infoPresentacion = $fe->getPresentacionPorducto($PRODUCTOS['pst_id']);
             $PRESENTACION = $infoPresentacion->fetch(PDO::FETCH_ASSOC);
 
-            //reconocedor de tipo de items (super Importante )
-            switch ($this->VENTADETALLE[$k]['vd_ina']) {
-                    //zona de gravados normales
-                case '0':
-                    //producto afecto/gravado 
-                    if ($this->VENTADETALLE[$k]['vd_gra'] == 0) {
-                        /*  $item1->setCodProducto('P001')
-                            ->setUnidad('NIU')
-                            ->setDescripcion('PROD 1')
-                            ->setCantidad(2)
-                            ->setMtoValorUnitario(100)
-                            ->setMtoValorVenta(200)
-                            ->setMtoBaseIgv(200)
-                            ->setPorcentajeIgv(18)
-                            ->setIgv(36)
-                            ->setTipAfeIgv('10') // Catalog: 07
-                            ->setTotalImpuestos(36)
-                            ->setMtoPrecioUnitario(118); */
-
-                        $item = (new SaleDetail())
-                            ->setCodProducto($PRODUCTOS['pro_bar'])
-                            ->setUnidad($PRESENTACION['pst_snt']) // Unidad - Catalog. 03
-                            ->setDescripcion($PRODUCTOS['pro_nom'])
-                            ->setCantidad(round($this->VENTADETALLE[$k]['Cantidad'], 2)) // cantidad
-                            ->setMtoValorUnitario($valorUnitario = round($this->VENTADETALLE[$k]['MtoValorUnitario'], 2)) // valor unitario (sin igv)
-                            ->setMtoValorVenta(round($this->VENTADETALLE[$k]['MtoValorVenta'], 2))   // valor unitario * cantidad sin igv
-                            ->setMtoBaseIgv(round($this->VENTADETALLE[$k]['MtoBaseIgv'], 2))         // valor unitario * cantidad sin igv  
-                            ->setPorcentajeIgv(round($this->VENTADETALLE[$k]['PorcentajeIgv'], 2)) // 18%
-                            ->setIgv(round($this->VENTADETALLE[$k]['Igv'], 2)) // igv del valor unitario  * cantidad 
-                            ->setTipAfeIgv('10') // Gravado Op. Onerosa - Catalog. 07
-                            ->setTotalImpuestos(round($this->VENTADETALLE[$k]['TotalImpuestos']), 2)  // igv del valor unitario * cantidad
-                            ->setMtoPrecioUnitario(round($this->VENTADETALLE[$k]['MtoPrecioUnitario']), 2); // precio total del producto unitario con igv                    
-                    } else {
-                        //producto afecto/gravado gratuito 
-                        $item = (new SaleDetail())
-                            ->setCodProducto('P004')
-                            ->setUnidad('NIU')
-                            ->setDescripcion('PROD 4')
-                            ->setCantidad(1)
-                            ->setMtoValorUnitario(0)
-                            ->setMtoValorGratuito(100)
-                            ->setMtoValorVenta(100)
-                            ->setMtoBaseIgv(100)
-                            ->setPorcentajeIgv(18)
-                            ->setIgv(18)
-                            ->setTipAfeIgv('13') // Catalog 07: Gravado - Retiro,
-                            ->setTotalImpuestos(18)
-                            ->setMtoPrecioUnitario(0);
-                    }
-                    break;
-
-               default:
-                    echo "ya valiste";
-                    break;
-            }
+            //boleta no posee el reconocedor de tipo 
+            //zona de gravados normales
+            $item = (new SaleDetail())
+                ->setCodProducto($PRODUCTOS['pro_bar'])
+                ->setUnidad($PRESENTACION['pst_snt']) // Unidad - Catalog. 03
+                ->setDescripcion($PRODUCTOS['pro_nom'])
+                ->setCantidad(round($this->VENTADETALLE[$k]['Cantidad'], 2)) // cantidad
+                ->setMtoValorUnitario($valorUnitario = round($this->VENTADETALLE[$k]['MtoValorUnitario'], 2)) // valor unitario (sin igv)
+                ->setMtoValorVenta(round($this->VENTADETALLE[$k]['MtoValorVenta'], 2))   // valor unitario * cantidad sin igv
+                ->setMtoBaseIgv(round($this->VENTADETALLE[$k]['MtoBaseIgv'], 2))         // valor unitario * cantidad sin igv  
+                ->setPorcentajeIgv(round($this->VENTADETALLE[$k]['PorcentajeIgv'], 2)) // 18%
+                ->setIgv(round($this->VENTADETALLE[$k]['Igv'], 2)) // igv del valor unitario  * cantidad 
+                ->setTipAfeIgv('10') // Gravado Op. Onerosa - Catalog. 07
+                ->setTotalImpuestos(round($this->VENTADETALLE[$k]['TotalImpuestos']), 2)  // igv del valor unitario * cantidad
+                ->setMtoPrecioUnitario(round($this->VENTADETALLE[$k]['MtoPrecioUnitario']), 2); // precio total del producto unitario con igv                    
             array_push($letItemsArray, $item);
         }
 

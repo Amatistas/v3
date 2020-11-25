@@ -37,7 +37,6 @@ class Gofactura
     }
     public function generateFactura()
     {
-
         $see = new See();
         $see->setCertificate(file_get_contents('../api/upload/' . substr($this->MIEMPRESA['fe_cerrut'], 2)));
         $see->setService(SunatEndpoints::FE_PRODUCCION);
