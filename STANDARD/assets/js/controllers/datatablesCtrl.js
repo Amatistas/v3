@@ -953,7 +953,6 @@ function ventasListaCtrl(
 
 	let titleHtml =
 		'<input type="checkbox" ng-model="showCase.selectAll" ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
-
 	vm.dtOptions = DTOptionsBuilder.fromFnPromise(loadaaData())
 		.withOption('createdRow', function(row, data, dataIndex) {
 			// Recompiling so we can bind Angular directive to the DT

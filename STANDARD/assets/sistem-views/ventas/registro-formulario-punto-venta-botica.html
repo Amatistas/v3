@@ -67,8 +67,9 @@
                                         </label>
                                         <div class="input-group">
                                             <ui-select name="pys" style="width: 100%; float: left;"
-                                                ng-model="productos.selected" on-select="getComponenteDelMedicamento(productos.selected)" theme="bootstrap"
-                                                autofocus="true">
+                                                ng-model="productos.selected"
+                                                on-select="getComponenteDelMedicamento(productos.selected)"
+                                                theme="bootstrap" autofocus="true">
                                                 <ui-select-match placeholder="Escriba 3 letras para buscar">
                                                     {{$select.selected.pro_nom}}
                                                 </ui-select-match>
@@ -130,7 +131,36 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="vd_pre">Laboratorio</label>
+                                    <input ng-model="productos.selected.vd_prex" readonly type="text"
+                                        class="form-control" id="vd_pre">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="vd_pre">Aplicación</label>
+                                    <input ng-model="productos.selected.vd_prex" readonly type="text"
+                                        class="form-control" id="vd_pre">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="vd_pre">Ubicación</label>
+                                    <input ng-model="productos.selected.vd_prex" readonly type="text"
+                                        class="form-control" id="vd_pre">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="vd_pre">F. Médica</label>
+                                    <input ng-model="productos.selected.vd_prex" readonly type="text"
+                                        class="form-control" id="vd_pre">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-success margin-top-5"> Sustancia Activa </button>
+                                    <button class="btn btn-success margin-top-5"> Automático </button>
+                                    <button class="btn btn-success margin-top-5"> Receta Médica </button>
+                                    <button class="btn btn-success margin-top-5"> Sugerencia </button>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div style="height: 350px; overflow-y: scroll;">
                                     <table class="table table-hover ">
@@ -258,47 +288,7 @@
                                 </ul>
                             </div>
                             <div style="height: 200px;">
-                                <div class="col-md-3">
-                                    <label for="vd_pre">Laboratorio</label>
-                                    <input ng-model="productos.selected.vd_prex" readonly type="text" class="form-control"
-                                        id="vd_pre">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="vd_pre">Aplicación</label>
-                                    <input ng-model="productos.selected.vd_prex" readonly type="text" class="form-control"
-                                        id="vd_pre">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="vd_pre">Ubicación</label>
-                                    <input ng-model="productos.selected.vd_prex" readonly type="text" class="form-control"
-                                        id="vd_pre">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="vd_pre">F. Médica</label>
-                                    <input ng-model="productos.selected.vd_prex" readonly type="text" class="form-control"
-                                        id="vd_pre">
-                                </div>
                                 <div class="col-md-12 margin-top-5">
-                                    <div class="panel panel-green">
-                                        <div class="panel-heading">
-                                            <b class="panel-title">Sustancia Activa</b>
-                                        </div>
-                                        <div class="panel-body">
-                                            <form name="myForm" class="">
-                                                <div class="col-md-6">
-                                                    <button class="btn btn-success margin-top-5"> Automático </button>
-                                                    <button class="btn btn-success margin-top-5"> Receta Médica </button>
-                                                    <button class="btn btn-success margin-top-5"> Sugerencia </button>
-                                                </div>
-                                            </form>
-                                            <div class="col-md-6">
-                                                <a ng-repeat="item in itemsComponentes track by $index" class="badge">
-                                                   {{ item.cpt_nom }}
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div>
                                         <div class="col-md-3">
                                             <div class="two fields">

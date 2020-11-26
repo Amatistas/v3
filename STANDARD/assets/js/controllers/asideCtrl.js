@@ -2105,7 +2105,6 @@ app.controller('AsideModalTransaccionCtrl', [
 				controller: function($scope, $uibModalInstance, $http,getInformacionDocumentos) {
 					$scope.infoInputs = {};
 					$scope.itemListVentas = [];
-
 					if (row) {
 						getInformacionDocumentos.fetchDocumento(row.ven_id, 'ven_id', 'venta').then(
 							function(d) {
@@ -2147,6 +2146,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						$scope.infoInputs.td_id = 'GR';
 						$scope.productos = {};
 					} else {
+						$scope.infoInputs.docRelacionado = false;
 						$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
 						$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
 						$scope.infoInputs.ane_id = $scope.infoInputs.select_ane_id;

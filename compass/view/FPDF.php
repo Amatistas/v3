@@ -236,7 +236,7 @@ class PDF extends FPDF
             $this->SetXY(150, 10);
             $this->MultiCell(50, 5, "RUC:  " . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
             // Line break
-            $this->SetMargins(10, 30, 20, 20);
+            $this->SetMargins(10, 30, 20, 100);
 
             $this->SetFont('Arial', '', 9);
             $this->SetXY(10, 30);
