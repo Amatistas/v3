@@ -910,8 +910,8 @@ function asientoListaCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, $http, $
 		console.log(json);
 	}
 }
-app.controller('ventasListaCtrl', ventasListaCtrl);
 
+app.controller('ventasListaCtrl', ventasListaCtrl);
 function ventasListaCtrl(
 	$compile,
 	DTOptionsBuilder,
@@ -968,9 +968,9 @@ function ventasListaCtrl(
 		})
 		.withButtons([
             {
-                text: 'Enviar Resumen de Boletas',
+                text: 'Seleccionar todos',
                 action: function (e, dt, node, config) {
-                    alert('disabled');
+					vm.toggleAll(vm.selectAll, vm.selected)
                 }
             }
         ])
