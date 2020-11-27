@@ -80,7 +80,7 @@ class GoAnulacionFactura
             ->setDesMotivoBaja('ERROR EN CÁLCULOS'); // Motivo por el cual se da de baja.
 
         $cDeBaja = new Voided();
-        $cDeBaja->setCorrelativo('5') // Correlativo, necesario para diferenciar c. de baja de en un mismo día.
+        $cDeBaja->setCorrelativo('1') // Correlativo, necesario para diferenciar c. de baja de en un mismo día.
             ->setFecGeneracion(new \DateTime('2020-10-23 12:51:00')) // Fecha de emisión de los comprobantes a dar de baja
             ->setFecComunicacion(new \DateTime('2020-10-23 12:51:00')) // Fecha de envio de la C. de baja
             ->setCompany($company)

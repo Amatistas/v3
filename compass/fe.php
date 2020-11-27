@@ -124,4 +124,7 @@ class FE
         }
         $stmt->close();
     }
+    function corretativos(){
+
+    }
 }
