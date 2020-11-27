@@ -1211,9 +1211,11 @@ function ventasListaCtrl(
  					   <span class="sr-only">Toggle Dropdown</span>
  					 </button>
 					  <ul class="dropdown-menu">
-						<li><a href="../folders/${JSON.parse($rootScope.d.datos).database}/${file}.xml"  download> XML </a>
-						</li>
- 					   <li><a class="action-descargar-pdf">PDF</a></li>
+					  <li><a href="../folders/${JSON.parse($rootScope.d.datos).database}/${file}.xml" download> XML </a>
+					  </li>
+					  <li><a class="action-descargar-pdf">PDF</a></li>
+					  <li><a href="../folders/${JSON.parse($rootScope.d.datos).database}/R-${file}.zip" download> CDR </a>
+					  </li>
  					 </ul>
 					</div>
 				  `;
