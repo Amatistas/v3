@@ -158,15 +158,15 @@ $fpdf->Cell(5,5,'---------------------------------------------------------------
 
 foreach ($arry2 as $arr ) {
     # code...
+    $fpdf->Ln();
+    $fpdf->setX(1);
+    $fpdf->Cell(30,5,substr($arr['pro_nom'],0,40),0,'C');
+    $fpdf->Ln();
+    $fpdf->setX(1);
+    $fpdf->Cell(22,5,'Cant.'.$arr['vd_can']." ".$arr['pst_nom'],0,'L');
+    $fpdf->Cell(25,5,$arr['vd_pre']." ".formatoMoneda($arry[0]['mnd_id']),0,'','L');
+    $fpdf->Cell(15,5,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format((($arr['vd_pre'] * $arr['vd_can'])/1.18),$dec,',',' '),0,'','L');
 }
-$fpdf->Ln();
-$fpdf->setX(1);
-$fpdf->Cell(30,5,substr($arr['pro_nom'],0,40),0,'C');
-$fpdf->Ln();
-$fpdf->setX(1);
-$fpdf->Cell(22,5,'Cant.'.$arr['vd_can']." ".$arr['pst_nom'],0,'L');
-$fpdf->Cell(25,5,$arr['vd_pre']." ".formatoMoneda($arry[0]['mnd_id']),0,'','L');
-$fpdf->Cell(15,5,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format((($arr['vd_pre'] * $arr['vd_can'])/1.18),$dec,',',' '),0,'','L');
 
 $num = new Num2letras();
 

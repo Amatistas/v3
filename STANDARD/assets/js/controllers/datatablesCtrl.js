@@ -1201,6 +1201,9 @@ function ventasListaCtrl(
 				  `;
 				}
 				if (data.notas_sunat.indexOf('ACEPTADA') != -1) {
+					let res = JSON.parse(data.notas_sunat);
+					console.log(res)
+					console.log(res[0])
 					options += `
 					<div class="btn-group dropup">
 					<button type="button" class="btn btn-success btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1208,7 +1211,7 @@ function ventasListaCtrl(
  					   <span class="sr-only">Toggle Dropdown</span>
  					 </button>
 					  <ul class="dropdown-menu">
-						<li><a href="URL_DOCUMENTO" download> Descargar </a>
+						<li><a href="${$rootScope.miURL}/folders/${JSON.parse($rootScope.d.datos).database}/${res[1].documento}" download> Descargar </a>
 						</li>
  					   <li><a class="action-descargar-xml">XML</a></li>
  					   <li><a class="action-descargar-pdf">PDF</a></li>
