@@ -33,6 +33,7 @@ if (!empty($data['username']) || !empty($data['password'])) {
                 $_SESSION['emp_id'] = $row2['emp_id'];
                 $_SESSION['emp_nom'] = $row2['emp_nom'];
                 $_SESSION['emp_dec'] = $row2['emp_dec'];
+                $_SESSION['emp_ruc'] = $row2['emp_ruc'];
                 $_SESSION['ofi_id'] = $row2['ofi_id'];
                 $_SESSION['usu_id'] = $row2['per_id'];
                 $_SESSION['database'] = $row1['usu_bd'];

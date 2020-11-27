@@ -142,7 +142,7 @@ class PDF extends FPDF
         //   var_dump($this->arry5);
         //   var_dump($this->arry6);
         // Logo
-        $this->Image("../../api/upload/" . substr($this->arry3[0]['fe_log'], 2), 10, 8, 33);
+        $this->Image("../../api/upload/" . substr($this->arry3[0]['fe_log'], 2), 10, 8, 43,20);
 
         $this->SetFont('Arial', 'I', 8);
 

@@ -966,13 +966,13 @@ function ventasListaCtrl(
 			}
 		})
 		.withButtons([
-            {
-                text: 'Seleccionar todos',
-                action: function (e, dt, node, config) {
-					vm.toggleAll(vm.selectAll, vm.selected)
-                }
-            }
-        ])
+			{
+				text: 'Seleccionar todos',
+				action: function(e, dt, node, config) {
+					vm.toggleAll(vm.selectAll, vm.selected);
+				}
+			}
+		])
 		.withDOM(
 			"<'ui grid'" +
 				"<'row'" +
@@ -1202,9 +1202,18 @@ function ventasListaCtrl(
 				}
 				if (data.notas_sunat.indexOf('ACEPTADA') != -1) {
 					options += `
-					
-					<span style="padding:5px 8px!important;font-size:11px;border-radius:3px;color:white;" class=" label-success">Aceptado</span>
-				
+					<div class="btn-group dropup">
+					<button type="button" class="btn btn-success btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ 					   <span>Aceptada</span>
+ 					   <span class="sr-only">Toggle Dropdown</span>
+ 					 </button>
+					  <ul class="dropdown-menu">
+						<li><a href="URL_DOCUMENTO" download> Descargar </a>
+						</li>
+ 					   <li><a class="action-descargar-xml">XML</a></li>
+ 					   <li><a class="action-descargar-pdf">PDF</a></li>
+ 					 </ul>
+					</div>
 				  `;
 				}
 			}
@@ -1358,6 +1367,20 @@ function ventasListaCtrl(
 		$('td .action-nota-credito', nRow).bind('click', function() {
 			$scope.$apply(function() {
 				vm.someClickHandlerCreditNote(aData);
+			});
+		});
+		$('td .action-descargar-xml', nRow).unbind('click');
+		$('td .action-descargar-xml', nRow).bind('click', function() {
+			let res = JSON.parse(aData.notas_sunat);
+			location.href = `${$rootScope.miURL}/folders/${JSON.parse($rootScope.d.datos).database}/${res[0][1].documento}.xml`;
+		});
+		$('td .action-descargar-pdf', nRow).unbind('click');
+		$('td .action-descargar-pdf', nRow).bind('click', function() {
+			$scope.$apply(function() {
+				$window.open(
+					`${$rootScope.miURL}/compass/view/documento-A4.php?emp_id=${JSON.parse($rootScope.d.datos)
+						.emp_id}&getdb=${JSON.parse($rootScope.d.datos).database}&nro=${aData.ven_id}`
+				);
 			});
 		});
 		return nRow;

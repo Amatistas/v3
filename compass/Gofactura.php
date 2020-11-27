@@ -38,7 +38,7 @@ class Gofactura
     {
         $see = new See();
         $see->setCertificate(file_get_contents('../api/upload/' . substr($this->MIEMPRESA['fe_cerrut'], 2)));
-        $see->setService(SunatEndpoints::FE_PRODUCCION);
+        $see->setService(SunatEndpoints::FE_BETA);
         $see->setClaveSOL($this->MIEMPRESA['emp_ruc'], $this->MIEMPRESA['fe_sntusu'], $this->MIEMPRESA['fe_sntcla']);
 
         //insertar Certificado
@@ -87,7 +87,7 @@ class Gofactura
 
         $letItemsArray = array();
         foreach ($this->VENTADETALLE as $k => $v) {
-            /*    var_dump($k,$v); */
+      
             $database = new Database();
             $db = $database->getConnection($this->getdb);
             $fe = new FE($db, null, null);
@@ -104,23 +104,10 @@ class Gofactura
                 case '0':
                     //producto afecto/gravado 
                     if ($this->VENTADETALLE[$k]['vd_gra'] == 0) {
-                        /*  $item1->setCodProducto('P001')
-                            ->setUnidad('NIU')
-                            ->setDescripcion('PROD 1')
-                            ->setCantidad(2)
-                            ->setMtoValorUnitario(100)
-                            ->setMtoValorVenta(200)
-                            ->setMtoBaseIgv(200)
-                            ->setPorcentajeIgv(18)
-                            ->setIgv(36)
-                            ->setTipAfeIgv('10') // Catalog: 07
-                            ->setTotalImpuestos(36)
-                            ->setMtoPrecioUnitario(118); */
-
                         $item = (new SaleDetail())
                             ->setCodProducto($PRODUCTOS['pro_bar'])
                             ->setUnidad($PRESENTACION['pst_snt']) // Unidad - Catalog. 03
-                            ->setDescripcion($PRODUCTOS['pro_nom'])
+                            ->setDescripcion(substr($PRODUCTOS['pro_nom'],0,15))
                             ->setCantidad(round($this->VENTADETALLE[$k]['Cantidad'], 2)) // cantidad
                             ->setMtoValorUnitario($valorUnitario = round($this->VENTADETALLE[$k]['MtoValorUnitario'], 2)) // valor unitario (sin igv)
                             ->setMtoValorVenta(round($this->VENTADETALLE[$k]['MtoValorVenta'], 2))   // valor unitario * cantidad sin igv
@@ -155,7 +142,7 @@ class Gofactura
                         $item = (new SaleDetail())
                             ->setCodProducto($PRODUCTOS['pro_bar'])
                             ->setUnidad($PRESENTACION['pst_snt']) // Unidad - Catalog. 03
-                            ->setDescripcion($PRODUCTOS['pro_nom'])
+                            ->setDescripcion(substr($PRODUCTOS['pro_nom'], 0, 15))
                             ->setCantidad(round($this->VENTADETALLE[$k]['vd_can'], 2)) // cantidad
                             ->setMtoValorUnitario($valorUnitario = round($this->VENTADETALLE[$k]['vd_pre'] - $this->VENTADETALLE[$k]['vd_igv_unico'], 2)) // valor unitario (sin igv)
                             ->setMtoValorVenta(round($valorUnitario * $this->VENTADETALLE[$k]['vd_can']))   // valor unitario * cantidad sin igv
@@ -196,7 +183,7 @@ class Gofactura
         $legend = (new Legend())
             ->setCode('1000') // Monto en letras - Catalog. 52
             ->setValue($num->numero(round($this->VENTA['ven_totdoc'], 2)));
-
+        
         $invoice->setDetails($letItemsArray)
             ->setLegends([$legend]);
         $result = $see->send($invoice);
@@ -233,6 +220,7 @@ class Gofactura
         if ($code === 0) {
             http_response_code(200);
             array_push($respuesta, array("status" => "ACEPTADA"));
+            array_push($respuesta, array("documento" => $invoice->getName()));
         } else if ($code >= 4000) {
             http_response_code(502);
             array_push($respuesta, array("status" => "ACEPTADA CON OBSERVACIONES", "detail" => array(PHP_EOL), "attr" => array($cdr->getNotes())));
