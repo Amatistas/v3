@@ -72,9 +72,6 @@ class PDF extends FPDF
     }
 
 
-    function Header()
-    {
-
         function tipo($type)
         {
             switch ($type) {
@@ -134,6 +131,9 @@ class PDF extends FPDF
             }
             return $var;
         }
+    function Header()
+    {
+
 
         //   var_dump($this->arry);
         //   var_dump($this->arry2);
@@ -153,13 +153,13 @@ class PDF extends FPDF
         if ($this->arry[0]['to_id'] == 13) {
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(150, 10);
-            $this->MultiCell(50, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
+            $this->MultiCell(50, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . $this->tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
             // Line break
             $this->SetMargins(10, 30, 20, 20);
 
             $this->SetFont('Arial', '', 9);
             $this->SetXY(10, 30);
-            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc'] . "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'] . "\n" . "Ubigeo: " . $this->arry[0]['departamento'] . "\n" . "OC: " . $this->arry[0]['ven_obs'], 0, 70), 0, 'L');
+            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . $this->tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc'] . "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'] . "\n" . "Ubigeo: " . $this->arry[0]['departamento'] . "\n" . "OC: " . $this->arry[0]['ven_obs'], 0, 70), 0, 'L');
             $this->SetXY(120, 30);
             $this->MultiCell(80, 5, "Fecha Emisión: " . $this->arry[0]['ven_fecreg'] . "\n" . "Pto Partida: " . substr($this->arry[0]['ane_dir'] . " - " . $this->arry[0]['provincia'] . " - " . $this->arry[0]['departamento'], 0, 70) . "\n" . "Pto Llegada: " . $this->arry[0]['ven_direccion_destino'] . " - " . $this->arry[0]['provincia'] . " - " . $this->arry[0]['departamento'] . "\n", 0, 'L');
             $this->SetLineWidth(0.4);
@@ -172,7 +172,7 @@ class PDF extends FPDF
             $this->cell(90, 6, 'Descripción', 1, '', 'C');
             $this->cell(20, 6, 'Cant', 1, '', 'C');
             // $this->cell(15,6,'Psnt',1,'','C');
-            $col = tipo2($this->arry[0]['to_id']);
+            $col = $this->tipo2($this->arry[0]['to_id']);
             $this->cell(30, 6, $col[0], 1, '', 'C');
             $this->cell(30, 6, $col[1], 1, '', 'C');
             $this->Ln(8);
@@ -180,7 +180,7 @@ class PDF extends FPDF
             
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(140, 10);
-            $this->MultiCell(60, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['to_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
+            $this->MultiCell(60, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . $this->tipo($this->arry[0]['to_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
             // Line break
             $this->SetMargins(10, 30, 20, 20);
 
@@ -234,13 +234,13 @@ class PDF extends FPDF
             $this->line(175, 67, 175, 199);
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(150, 10);
-            $this->MultiCell(50, 5, "RUC:  " . $this->arry3[0]['emp_ruc'] . "\n " . tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
+            $this->MultiCell(50, 5, "RUC:  " . $this->arry3[0]['emp_ruc'] . "\n " . $this->tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
             // Line break
-            $this->SetMargins(10, 30, 20, 100);
+            $this->SetMargins(10, 100, 20, 20);
 
             $this->SetFont('Arial', '', 9);
             $this->SetXY(10, 30);
-            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc']."   " ."Teléfono: ".$this->arry[0]['ane_tel']." / ".$this->arry[0]['ane_tel2']. "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'], 0, 70) . "\n"  . "Concepto: " . substr($this->arry[0]['ven_obs'], 0, 70), 0, 'L');
+            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . $this->tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc']."   " ."Teléfono: ".$this->arry[0]['ane_tel']." / ". "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'], 0, 70) . "\n"  . "Concepto: " . substr($this->arry[0]['ven_obs'], 0, 70), 0, 'L');
             $this->SetXY(120, 30);
             $this->MultiCell(80, 5, "Fecha Emi.: " . $this->arry[0]['ven_fecreg']."  "."Fecha Venc.: " .$this->arry[0]['ven_fecven']. "\n" . "Condición: " . $this->arry[0]['fp_nom'] . "\n" . "G.R Remitente: \n" . "G.R Transportista: \n"."Vendedor: ".$this->arry[0]['hash'], 0, 'L');
             $this->SetLineWidth(0.2);
@@ -257,7 +257,7 @@ class PDF extends FPDF
             $this->cell(15, 6, 'Cant', 1, '', 'C');
             $this->cell(15, 6, 'Psnt', 1, '', 'C');
             // $this->cell(15,6,'Psnt',1,'','C');
-            $col = tipo2($this->arry[0]['to_id']);
+            $col = $this->tipo2($this->arry[0]['to_id']);
             $this->cell(25, 6, $col[0], 1, '', 'C');
             $this->cell(25, 6, $col[1], 1, '', 'C');
             $this->Ln(8);
