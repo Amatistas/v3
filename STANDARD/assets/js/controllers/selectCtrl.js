@@ -297,8 +297,10 @@ app.controller('SelectCtrl', [
                         var product = response.data.data;
                         angular.forEach(product, function(val, i) {
                             var newItem = {
+
                                 pro_tip: val.pro_tip,
                                 vt_pro_id: val.pro_id,
+
                                 vd_can: 1,
                                 stock:val.stock,
                                 pst_id: val.pst_id,
@@ -315,12 +317,12 @@ app.controller('SelectCtrl', [
 
                                 vd_imptot: 0, //multiplicacion de cantidad por vd_pre
 
-
                                 det_com_id: val.pro_id,
                                 pro_cod: val.pro_cod,
                                 vd_bar: val.pro_bar,
                                 pro_nom: val.pro_nom,
                                 /* vd_percent_igv:, */
+                                
                                 vd_affection_igv_type_code: 10,
 
                                 vd_ina: val.pro_ina,

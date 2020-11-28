@@ -88,8 +88,8 @@ class Mantenimiento
         foreach ($field as $key => $val) {
             $query .= $val . "=:" . $val . ",";
         }
-        $query = substr($query, 0, -1);
 
+        $query = substr($query, 0, -1);
 
         // prepare query
         $stmt = $this->conn->prepare($query);
@@ -101,13 +101,15 @@ class Mantenimiento
         foreach ($field as $key => $val) {
             $stmt->bindParam(":" . $val, $this->$val);
         }
+
+        
         // execute query
         if ($stmt->execute()) {
             return true;
         } {
             return false;
         }
-
+                
         $stmt->close();
     }
 
@@ -153,9 +155,9 @@ class Mantenimiento
 
         $stmt->close();
     }
-    function updateGenerico($getdb,$tbnom,$identifiquer,$identifiquerValue)
+    function updateGenerico($getdb, $tbnom, $identifiquer, $identifiquerValue)
     {
-       
+
         // query to insert record
         $query = "UPDATE
            `$getdb`." . " `$tbnom` " . "
@@ -178,6 +180,6 @@ class Mantenimiento
             return false;
         }
 
-        $stmt->close(); 
+        $stmt->close();
     }
 };

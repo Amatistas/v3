@@ -159,6 +159,7 @@ class GoBoleta
         if ($code === 0) {
             http_response_code(200);
             array_push($respuesta, array("status" => "ACEPTADA"));
+            array_push($respuesta, array("documento" => $invoice->getName()));
         } else if ($code >= 4000) {
             http_response_code(502);
             array_push($respuesta, array("status" => "ACEPTADA CON OBSERVACIONES", "detail" => array(PHP_EOL), "attr" => array($cdr->getNotes())));

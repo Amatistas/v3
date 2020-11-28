@@ -925,7 +925,8 @@ function ventasListaCtrl(
 	toaster,
 	$location,
 	$window,
-	SweetAlert
+	SweetAlert,
+	$state
 ) {
 	var vm = this;
 	setTimeout(() => {
@@ -1074,8 +1075,8 @@ function ventasListaCtrl(
 				return $filter('currency')(0, 'S/');
 			}
 		}),
-		/*   DTColumnBuilder.newColumn('alm_nom').withTitle('ALMACEN'),*/
-		DTColumnBuilder.newColumn(null).withTitle('').renderWith(function(data, type, full) {
+		/* DTColumnBuilder.newColumn('alm_nom').withTitle('ALMACEN'),*/
+		DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(function(data, type, full) {
 			var options = '';
 			if (data.notas_sunat.indexOf('ANULADA') != -1) {
 				options += `
@@ -1190,18 +1191,19 @@ function ventasListaCtrl(
 					`;
 				}
 			}
-
 			return options;
-		}),
-		DTColumnBuilder.newColumn(null).withTitle('').renderWith(function(data, type, full) {
+		}).withOption('width', '10px')
+		,
+		DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(function(data, type, full) {
 			options = '';
 			if (data.td_id == 'FA' || data.td_id == 'BO' || data.td_id == 'NC') {
+
 				if (data.notas_sunat == '0') {
 					options += `				
 				<button type="button" class="btn btn-warning btn-xs action-enviar-sunat ld-ext-right">
-				Por Enviar <img src="STANDARD/assets/images/spinners.gif" class="ld ld-ring"></button>
-		 	 `;
+				Por Enviar <img src="STANDARD/assets/images/spinners.gif" class="ld ld-ring"></button>`;
 				}
+
 				if (data.notas_sunat.indexOf('ANULADA') != -1) {
 					options += `
 				<button type="button" class="btn btn-danger btn-xs ld-ext-right">
@@ -1209,13 +1211,20 @@ function ventasListaCtrl(
 				</button>
 				  `;
 				}
+
 				if (data.notas_sunat.indexOf('RECHAZADA') != -1) {
 					options += `
-				<button type="button" class="btn btn-danger btn-xs ld-ext-right" ng-click="openAside('right')">
-					<span style="font-size:11px">Rechazada</span>
-				</button>
+					<div class="btn-group btn-group-xs" role="group" aria-label="">
+						<button type="button" class="btn btn-danger btn-xs ld-ext-right action-ver-rechazo">
+							Rechazada
+						</button>
+						<button type="button" class="btn btn-warning btn-xs ld-ext-right action-enviar-sunat">
+						<i class="fal fa-redo"></i>
+						</button>
+					</div>
 				  `;
 				}
+
 				if (data.notas_sunat.indexOf('ACEPTADA') != -1) {
 					let res = JSON.parse(data.notas_sunat);
 					let file = res[0][1] ? res[0][1].documento : 'none';
@@ -1237,9 +1246,8 @@ function ventasListaCtrl(
 				}
 			}
 			return options;
-		})
+		}).withOption('width', '120px')
 	];
-
 	vm.someClickHandlerSendSunat = someClickHandlerSendSunat;
 	vm.someClickHandlerDetails = someClickHandlerDetails;
 	vm.someClickHandlerGenerateBill = someClickHandlerGenerateBill;
@@ -1257,6 +1265,7 @@ function ventasListaCtrl(
 	function someClickHandlerEnviarBoletasVarias(info) {
 		alert('Este elemento no se puede eliminar');
 	}
+	
 	function someClickHandlerDelete(info) {
 		alert('Este elemento no se puede eliminar');
 	}
@@ -1307,6 +1316,7 @@ function ventasListaCtrl(
 	function someClickHandlerCompras(info) {
 		$rootScope.compraDetalle(info);
 	}
+
 	function toggleAll(selectAll, selectedItems) {
 		for (var id in selectedItems) {
 			if (selectedItems.hasOwnProperty(id)) {
@@ -1315,6 +1325,7 @@ function ventasListaCtrl(
 			}
 		}
 	}
+
 	function toggleOne(selectedItems) {
 		for (var id in selectedItems) {
 			if (selectedItems.hasOwnProperty(id)) {
@@ -1333,22 +1344,25 @@ function ventasListaCtrl(
 			$rootScope.buttonEvent = $(this);
 			$rootScope.sunatToaster = toaster;
 			$rootScope.buttonEvent.addClass('running');
-			$rootScope.sunatToaster.pop('info', 'Enviando a Sunat...');
-
 			$scope.$apply(function() {
 				vm
 					.someClickHandlerSendSunat(aData)
 					.then(function(r) {
-						$rootScope.buttonEvent.removeClass('running');
-						$rootScope.sunatToaster.clear();
 						$rootScope.sunatToaster.pop('success', 'Su Factura ha sido aceptada');
+						$rootScope.buttonEvent.removeClass('running');
+						vm.dtInstance.changeData(loadaaData());
 					})
 					.catch(() => {
-						console.log('Algo salió mal');
-						toaster.clear();
 						toaster.pop('error', 'Su Factura no ha sido aceptada');
+						$rootScope.buttonEvent.removeClass('running');
+						vm.dtInstance.changeData(loadaaData());
 					});
 			});
+		});
+
+		$('td .action-ver-rechazo', nRow).unbind('click');
+		$('td .action-ver-rechazo', nRow).bind('click', function() {
+			SweetAlert.swal('Motivo de Rechazo', `Error:${aData.notas_sunat}`, 'error');
 		});
 
 		$('td .action-facturar', nRow).unbind('click');

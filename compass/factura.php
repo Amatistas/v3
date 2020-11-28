@@ -64,7 +64,6 @@ if(!isset($data->anulacion)){
 switch ($VENTA['td_id']) {
     case 'FA':
         $GO = new Gofactura($VENTA, $VENTADETALLE, $MIEMPRESA, $CLIENTE, $UBIGEOCLIENTE, $UBIGEOEMPRESA, $getdb);
-
         if ($respuesta = $GO->generateFactura()) {
             if ($fe->updateRespuesta($respuesta,$getdb)) {
                 echo json_encode(array("respuesta" => $respuesta));

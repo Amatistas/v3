@@ -56,12 +56,10 @@ if(true){
  
         // tell the user
         array_push($adver,array("message" => "Datos Guardados", "status" => "200"));
-
     }
  
     // if unable to create the mantenimiento, tell the user
-    else{
- 
+    else{        
         // set response code - 503 service unavailable
         http_response_code(503);
 

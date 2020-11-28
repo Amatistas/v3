@@ -178,7 +178,6 @@ class Gofactura
             }
             array_push($letItemsArray, $item);
         }
-
         $num = new Num2letras();
         $legend = (new Legend())
             ->setCode('1000') // Monto en letras - Catalog. 52

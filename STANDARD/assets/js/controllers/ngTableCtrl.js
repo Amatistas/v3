@@ -1231,7 +1231,16 @@ app.controller('puntoVentaCtrl', function(
 		var total = parseFloat(val / $scope.valorIgvConvertido) * (parseFloat($scope.mySessionEmpresa.emp_igv) / 100);
 		return total;
 	};
+	$scope.sustanciaActiva = function(id) {
+		let obj = { db: 'venta', where: 'ven_id', key: id };
 
+		getResources.fetchResources(obj).then((res) => {
+			alert(res);
+		}, (Erro) => {
+			alert(Erro);
+		});
+		
+	};
 	$scope.guardarPuntoVenta = function(data, items) {
 		$rootScope.formularioModalPagoNuevoPuntoVenta = data;
 		$rootScope.formularioModalPagoNuevoPuntoVentaItems = items;
@@ -1307,7 +1316,7 @@ app.controller('puntoVentaMedicinaCtrl', function(
 			function(errResponse) {
 				console.error('Error while fetching Currencies');
 			}
-		); 
+		);
 	};
 
 	$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
