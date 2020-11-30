@@ -3627,32 +3627,61 @@ app.controller('AsideModalTransaccionCtrl', [
 					getBuscarOptionsSelect,
 					getResources,
 					getserialesdecomprobantes
-				) {
-					$scope.fetchHeader = function(id) {
-						let resp = [];
-						let obj = { db: 'venta', where: 'ven_id', key: id };
+				) {					
+					$scope.infoInputs = {};
+					$scope.units = {};
+					$scope.rr = {};
+					$scope.fetchHeader = function(content) {
+						let obj = { db: 'venta', where: 'ven_id', key: content.id };
 						getResources.fetchResources(obj).then(
 							function(d) {
-								resp.push(d.data);
+
+								let row = d.data[0]
+
+								$scope.infoInputs = row;
+								$scope.infoInputs.td_id = 'NC';
+
+								$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
+								$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
+								$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
+
+								$scope.infoInputs.docRelacionado = true;
+								$scope.infoInputs.estatus_documento = 1;
+
+								
+								$scope.infoInputs.documento_asociado = content.cen_ven_id;
+								$scope.infoInputs.ane_id = content.ane_id;
+								$scope.infoInputs.ane_alias = content.cliente;
+								$scope.infoInputs.NumDocfectado = content.documentosunat;
+
+
+								$scope.infoInputs.mnd_id = 'PEN';
+								$scope.infoInputs.to_id = 9;
+								$scope.infoInputs.tipo_ope_sunat = 9;
+
+								$scope.infoInputs.ven_fecreg = fechahoy;
+								$scope.infoInputs.ven_fecemi = fechahoy;
+								$scope.infoInputs.ven_fecven = sumarDias(fechahoy, 30);
+
+								$scope.infoInputs.notas_sunat = 0;
+
+								console.log($scope.infoInputs)
 							},
-							function(errResponse) {
-								console.error('Error while fetching Currencies');
+							function(Error) {
+								console.error(Error);
 							}
 						);
-						return resp;
 					};
 					$scope.fetchDetalle = function(id) {
-						let resp = [];
-						let obj = { db: 'detalle_venta_det', where: 'venta_id', key: id };
+					let obj = { db: 'detalle_venta_det', where: 'venta_id', key: id };
 						getResources.fetchResources(obj).then(
 							function(d) {
-								resp.push(d.data);
+								$scope.itemListVentas = d.data;
 							},
-							function(errResponse) {
-								console.error('Error while fetching Currencies');
+							function(Error) {
+								console.error(Error);
 							}
 						);
-						return resp;
 					};
 					$scope.fetchSerializador = function(type) {
 						var res = [];
@@ -3661,7 +3690,7 @@ app.controller('AsideModalTransaccionCtrl', [
 								res.push(d);
 							},
 							function(errResponse) {
-								console.error('Error while fetching Currencies');
+								console.error('Error capturando la serie de comporbantes posiblemente no este asignado la serie con el local y empresa');
 							}
 						);
 						return res;
@@ -3679,7 +3708,7 @@ app.controller('AsideModalTransaccionCtrl', [
 								return $scope.units[arr];
 							},
 							function(errResponse) {
-								console.error('Error while fetching Currencies');
+								console.error('Error Select:' + errResponse);
 							}
 						);
 						return $scope.units[arr];
@@ -3697,45 +3726,11 @@ app.controller('AsideModalTransaccionCtrl', [
 						return fecha;
 					}
 
-					$scope.infoInputs = {};
-					$scope.units = {};
-					$scope.rr = {};
-
 					//cabezera de la venta
 
-					$scope.infoInputsCATH = $scope.fetchHeader(row.ven_id);
-					$scope.itemListVentasCATH = $scope.fetchDetalle(row.ven_id);
+					$scope.fetchHeader(row);
+					$scope.fetchDetalle(row.ven_id);
 
-					setTimeout(function() {
-						$scope.infoInputs = $scope.infoInputsCATH[0][0];
-						$scope.itemListVentas = $scope.itemListVentasCATH[0];
-
-						$scope.infoInputs.td_id = 'NC';
-
-						$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
-						$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
-						$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
-
-						$scope.infoInputs.docRelacionado = true;
-						$scope.infoInputs.estatus_documento = 1;
-
-						$scope.infoInputs.documento_asociado = row.cen_ven_id;
-
-						$scope.infoInputs.ane_id = row.ane_id;
-
-						$scope.infoInputs.ane_alias = row.cliente;
-						$scope.infoInputs.NumDocfectado = row.documentosunat;
-
-						$scope.infoInputs.mnd_id = 'PEN';
-						$scope.infoInputs.to_id = 9;
-						$scope.infoInputs.tipo_ope_sunat = 9;
-
-						$scope.infoInputs.ven_fecreg = fechahoy;
-						$scope.infoInputs.ven_fecemi = fechahoy;
-						$scope.infoInputs.ven_fecven = sumarDias(fechahoy, 30);
-
-						$scope.infoInputs.notas_sunat = 0;
-					}, 250);
 
 					$scope.rr.mnd_id = {
 						selectId: 'mnd_id',
@@ -3773,7 +3768,6 @@ app.controller('AsideModalTransaccionCtrl', [
 							info: [ $scope.infoInputs ],
 							items: $scope.itemListVentas
 						});
-						console.log(sendObj);
 						var xmlhttp = new XMLHttpRequest();
 						var theUrl = `../../../../api/insert2TablesVenta/notaCreditoVenta.php?getdb=${JSON.parse(
 							$rootScope.d.datos

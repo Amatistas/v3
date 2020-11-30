@@ -115,9 +115,11 @@ function formatoMoneda($type){
 
 $dec = $arry3[0]['emp_dec'];
 
-$fpdf = new FPDF($orientation='P',$unit='mm',array(80,350),true,$arry,$arry2,$arry3,$arry4);
+$fpdf = new FPDF($orientation='P',$unit='mm',array(80,1000),true,$arry,$arry2,$arry3,$arry4);
 $fpdf->AddPage();
 $fpdf->SetFont('Arial','B',8);    //Letra Arial, negrita (Bold), tam. 20
+$fpdf->SetMargins(10,30,20);
+$fpdf->SetAutoPageBreak(true,10);
 $textypos = 20;
 $fpdf->setY(2);
 $fpdf->setX(20);
@@ -164,8 +166,8 @@ foreach ($arry2 as $arr ) {
     $fpdf->Ln();
     $fpdf->setX(1);
     $fpdf->Cell(22,5,'Cant.'.$arr['vd_can']." ".$arr['pst_nom'],0,'L');
-    $fpdf->Cell(25,5,$arr['vd_pre']." ".formatoMoneda($arry[0]['mnd_id']),0,'','L');
-    $fpdf->Cell(15,5,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format((($arr['vd_pre'] * $arr['vd_can'])/1.18),$dec,',',' '),0,'','L');
+    $fpdf->Cell(25,5,formatoMoneda($arry[0]['mnd_id']). " ".number_format(($arr['vd_pre'] / 1.18),$dec,',',' '),0,'','L');
+    $fpdf->Cell(15,5,$op->tipomoneda($arry[0]['mnd_id'])." ".number_format(($arr['vd_pre']/1.18) * $arr['vd_can'],$dec,',',' '),0,'','L');
 }
 
 $num = new Num2letras();

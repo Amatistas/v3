@@ -65,10 +65,18 @@ class Mantenimiento
         return $stmt;
         $stmt->close();
     }
+
     function search3($keyword, $key, $getdb, $tbnom, $where, $igual, $where2, $igual2)
     {
+    //@ $keyword  palabra q se esta buscando
+    //@ $key  columna donde se esta buscando
+    //@ $where primera condicion
+    //@ $igual respuesta de la primera condicion 
+    //@ $where2 segunda condicion
+    //@ $igual2 respuesta de la segunda condicion 
+    //
         // select all query
-        $query = "SELECT * FROM `$getdb`." . "`$tbnom`" . "where $where = $igual AND $where2 = $igual2 AND $key LIKE '%$keyword%'";
+        $query = "SELECT * FROM `$getdb`." . "`$tbnom`" . " where $where = $igual AND $where2 = $igual2 AND $key LIKE '%$keyword%'";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);

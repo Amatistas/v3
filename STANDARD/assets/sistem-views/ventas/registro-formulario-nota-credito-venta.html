@@ -3,12 +3,10 @@
         <div class="modal-header" ng-controller="itemsCtrl">
             <div class="pull-right">
                 <div role="group" aria-label="tools">
-                    <button class="btn btn-primary" ng-disabled="form.$error.required"
-                        ng-click="guardarNotaCredito()">Guardar</button>
+                    <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarNotaCredito()">Guardar</button>
                     <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
                     <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
-                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
-                            class="ti-close"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
                 </div>
             </div>
             <div class="col-md-3">
@@ -24,13 +22,12 @@
                                 <div class="form-group">
                                     <div class="col-md-1">
                                         <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
-                                            Documento
+                                            Documento   
                                         </label>
-                                        <select disabled class="ui fluid dropdown" required
+                                        <select class="ui fluid dropdown" required disabled
                                             ng-model="infoInputs['td_id']" id="td_id" name="td_id"
                                             ng-init="fetch = fetchSerializador('NC')">
-                                            <option value="NC">
-                                                NC</option>
+                                            <option value="NC">NC</option>
                                         </select>
                                     </div>
                                     <div class="hidden">
@@ -51,11 +48,11 @@
 
                                     <div class="col-md-1">
                                         <div class="form-group">
-                                            <label for="moneda" readonly
+                                            <label for="moneda"
                                                 ng-class="{'text-danger':form.mnd_id.$invalid == true}">
                                                 Moneda
                                             </label>
-                                            <select disabled class="ui fluid dropdown"
+                                            <select class="ui fluid dropdown" disabled
                                                 required ng-model="infoInputs['mnd_id']" id="mnd_id" name="mnd_id"
                                                 ng-init="buscarOptionSelect(rr.mnd_id)">
                                                 <option value="{{opt.id}}" ng-repeat="opt in units['mnd_id']">
@@ -65,23 +62,21 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-
                                         <label for="lp_id" ng-class="{'text-danger':form.lp_id.$invalid == true }">
                                             Lista de Precio
                                         </label>
-                                        <select disabled ng-model="infoInputs['lp_id']" class="ui fluid dropdown"
+                                        <select  ng-model="infoInputs['lp_id']" disabled class="ui fluid dropdown"
                                             id="lp_id" name="lp_id" ng-init="buscarOptionSelect(rr.lp_id)" required>
                                             <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">
                                                 {{opt.label}}</option>
                                         </select>
-
                                     </div>
                                     <div class="col-md-2">
                                         <label for="lp_id">
                                             Documento Referencia
                                         </label>
-                                        <input type="text" readonly class="form-control"
-                                            ng-model="infoInputs.NumDocfectado">
+                                        <input type="text" readonly readonly class="form-control"
+                                            ng-model="infoInputs['NumDocfectado']">
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -89,7 +84,7 @@
                                                 ng-class="{'text-danger':form.ven_fecemi.$invalid == true }">Fecha De
                                                 Emision</label>
                                             <div class="">
-                                                <input type="date" name="ven_fecemi" id="ven_fecemi"
+                                                <input type="date" readonly name="ven_fecemi" id="ven_fecemi"
                                                     class="form-control" ng-model="infoInputs['ven_fecemi']"
                                                     ng-required="true" required>
                                             </div>
@@ -124,7 +119,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-5">
                                         <label for="ane_alias">Cliente</label>
                                         <input type="text" class="form-control" id="ane_alias"
                                             ng-model="infoInputs['ane_alias']" readonly>
@@ -140,7 +135,6 @@
                             <thead>
                                 <tr>
                                     <th class="center">NRO</th>
-                                    <!--   <th class="center">TIP</th> -->
                                     <th>DESCRIPCIÓN</th>
                                     <th class="col-md-2">CANTIDAD</th>
                                     <th class="col-md-2">PRECIO</th>
@@ -202,6 +196,7 @@
                     </div>
                 </div>
                 <div class="row ">
+                    <pre>{{ infoInputs | json }}</pre>
                 </div>
             </div>
         </div>

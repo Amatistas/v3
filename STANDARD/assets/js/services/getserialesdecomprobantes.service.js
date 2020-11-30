@@ -6,6 +6,7 @@ function getSeriales($http, $q, $rootScope) {
 	return {
 		fetchSerieTipoOperacion: function(serie) {
 			//serie es to_id
+			console.log(serie);
 			return $http
 				.get(
 					`../../../../api/mantenimiento/mantenimiento/read.php?getdb=${JSON.parse($rootScope.d.datos)
@@ -13,6 +14,7 @@ function getSeriales($http, $q, $rootScope) {
 				)
 				.then(
 					function(response) {
+						console.log(response.data)
 						return response.data;
 					},
 					function(errResponse) {
@@ -25,7 +27,7 @@ function getSeriales($http, $q, $rootScope) {
 			return $http
 				.get(
 					`../../../../api/mantenimiento/mantenimiento/search3.php?getdb=${JSON.parse($rootScope.d.datos)
-						.database}&tbnom=tipo_operacion_td&s=${serie}&key=to_id&where=emp_id&igual=${JSON.parse(
+						.database}&tbnom=tipo_documento_serie&s=${serie}&key=td_id&where=emp_id&igual=${JSON.parse(
 						$rootScope.d.datos).emp_id}&where2=ofi_id&igual2=${JSON.parse($rootScope.d.datos).ofi_id}`
 				)
 				.then(

@@ -1568,7 +1568,6 @@ app.controller('ModalGrabarPuntoVentaCtrl', [
 		$scope.detectarTargeta = function() {
 			if ($scope.pagos.tarjeta.import_cc >= 1) {
 				$scope.pagos.tarjeta.tipo_pagos = 7;
-
 				$scope.pagos.tarjeta.co_empre_id = JSON.parse($rootScope.d.datos).emp_id;
 				$scope.pagos.tarjeta.co_empre_id = 16;
 				$scope.pagos.tarjeta.co_usu_id = JSON.parse($rootScope.d.datos).usu_id;

@@ -13,8 +13,8 @@ include '../mantenimiento/fields.php';
 $database = new Database();
 $getdb=$_GET["getdb"];//nombre de la base de datos donde se van a buscar los items
 $tbnom=$_GET["tbnom"];//nombre de la tabla 
-$keywords=isset($_GET["s"]) ? $_GET["s"] : "";// palabra clave que se buscara
-$key=$_GET["key"];// la palabra clave de que se esta buscando 
+$keywords=$_GET["s"];// palabra clave que se buscara
+$key=$_GET["key"];// la columna  de que se esta buscando el $keyword 
 $where=$_GET["where"];// la palabra clave de que se esta buscando 
 $igual=$_GET["igual"];// la palabra clave de que se esta buscando 
 $where2=$_GET["where2"];// la palabra clave de que se esta buscando 

@@ -1,8 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
@@ -18,6 +15,7 @@ use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\Legend;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\See;
+
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -45,7 +43,7 @@ class GoNotaCredito
     {
         $see = new See();
         $see->setCertificate(file_get_contents('../api/upload/' . substr($this->MIEMPRESA['fe_cerrut'], 2)));
-        $see->setService(SunatEndpoints::FE_BETA);
+        $see->setService(SunatEndpoints::FE_PRODUCCION);
         $see->setClaveSOL($this->MIEMPRESA['emp_ruc'], $this->MIEMPRESA['fe_sntusu'], $this->MIEMPRESA['fe_sntcla']);
 
         //insertar Certificado
@@ -108,99 +106,35 @@ class GoNotaCredito
             $infoPresentacion = $fe->getPresentacionPorducto($PRODUCTOS['pst_id']);
             $PRESENTACION = $infoPresentacion->fetch(PDO::FETCH_ASSOC);
 
-            //reconocedor de tipo de items (super Importante )
-            switch ($this->VENTADETALLE[$k]['vd_ina']) {
-                    //zona de gravados normales
-                case '0':
-                    //producto afecto/gravado 
-                    if ($this->VENTADETALLE[$k]['vd_gra'] == 0) {
-                        $item = (new SaleDetail())
-                            ->setCodProducto($PRODUCTOS['pro_bar'])
-                            ->setUnidad($PRESENTACION['pst_snt']) // Unidad - Catalog. 03
-                            ->setDescripcion($PRODUCTOS['pro_nom'])
-                            ->setCantidad(round($this->VENTADETALLE[$k]['Cantidad'], 2)) // cantidad
-                            ->setMtoValorUnitario($valorUnitario = round($this->VENTADETALLE[$k]['MtoValorUnitario'], 2)) // valor unitario (sin igv)
-                            ->setMtoValorVenta(round($this->VENTADETALLE[$k]['MtoValorVenta'], 2))   // valor unitario * cantidad sin igv
-                            ->setMtoBaseIgv(round($this->VENTADETALLE[$k]['MtoBaseIgv'], 2))         // valor unitario * cantidad sin igv  
-                            ->setPorcentajeIgv(round($this->VENTADETALLE[$k]['PorcentajeIgv'], 2)) // 18%
-                            ->setIgv(round($this->VENTADETALLE[$k]['Igv'], 2)) // igv del valor unitario  * cantidad 
-                            ->setTipAfeIgv('10') // Gravado Op. Onerosa - Catalog. 07
-                            ->setTotalImpuestos(round($this->VENTADETALLE[$k]['TotalImpuestos']), 2)  // igv del valor unitario * cantidad
-                            ->setMtoPrecioUnitario(round($this->VENTADETALLE[$k]['MtoPrecioUnitario']), 2); // precio total del producto unitario con igv                    
-                    } else {
-                        //producto afecto/gravado gratuito 
-                        $item = (new SaleDetail())
-                            ->setCodProducto('P004')
-                            ->setUnidad('NIU')
-                            ->setDescripcion('PROD 4')
-                            ->setCantidad(1)
-                            ->setMtoValorUnitario(0)
-                            ->setMtoValorGratuito(100)
-                            ->setMtoValorVenta(100)
-                            ->setMtoBaseIgv(100)
-                            ->setPorcentajeIgv(18)
-                            ->setIgv(18)
-                            ->setTipAfeIgv('13') // Catalog 07: Gravado - Retiro,
-                            ->setTotalImpuestos(18)
-                            ->setMtoPrecioUnitario(0);
-                    }
-                    break;
-
-                case '1':
-                    //producto inafecto/no gravado 
-                    if ($this->VENTADETALLE[$k]['vd_gra'] == 0) {
-                        $item = (new SaleDetail())
-                            ->setCodProducto($PRODUCTOS['pro_bar'])
-                            ->setUnidad($PRESENTACION['pst_snt']) // Unidad - Catalog. 03
-                            ->setDescripcion($PRODUCTOS['pro_nom'])
-                            ->setCantidad(round($this->VENTADETALLE[$k]['vd_can'], 2)) // cantidad
-                            ->setMtoValorUnitario($valorUnitario = round($this->VENTADETALLE[$k]['vd_pre'] - $this->VENTADETALLE[$k]['vd_igv_unico'], 2)) // valor unitario (sin igv)
-                            ->setMtoValorVenta(round($valorUnitario * $this->VENTADETALLE[$k]['vd_can']))   // valor unitario * cantidad sin igv
-                            ->setMtoBaseIgv(round($this->VENTADETALLE[$k]['vd_pre'] * $this->VENTADETALLE[$k]['vd_can']))         // valor unitario * cantidad sin igv  
-                            ->setPorcentajeIgv(0) // 18%
-                            ->setIgv(0) // igv del valor unitario  * cantidad 
-                            ->setTipAfeIgv('30') // Gravado Op. Onerosa - Catalog. 07
-                            ->setTotalImpuestos(0)  // igv del valor unitario * cantidad
-                            ->setMtoPrecioUnitario(round($this->VENTADETALLE[$k]['vd_pre']), 2); // precio total del producto unitario con igv 
-                    } else {
-                        //producto inafecto/no gravado 
-                        //
-                        $item = (new SaleDetail())
-                            ->setCodProducto('P005')
-                            ->setUnidad('NIU')
-                            ->setDescripcion('PROD 5')
-                            ->setCantidad(2)
-                            ->setMtoValorUnitario(0)
-                            ->setMtoValorGratuito(100)
-                            ->setMtoValorVenta(200)
-                            ->setMtoBaseIgv(200)
-                            ->setPorcentajeIgv(0)
-                            ->setIgv(0)
-                            ->setTipAfeIgv('32') // Catalog 07: Inafecto - Retiro,
-                            ->setTotalImpuestos(0)
-                            ->setMtoPrecioUnitario(0);
-                    }
-                    break;
-
-                default:
-                    echo "ya valiste";
-                    break;
-            }
+            $item = (new SaleDetail())
+                ->setCodProducto($PRODUCTOS['pro_bar'])
+                ->setUnidad($PRESENTACION['pst_snt']) // Unidad - Catalog. 03
+                ->setDescripcion($PRODUCTOS['pro_nom'])
+                ->setCantidad(round($this->VENTADETALLE[$k]['Cantidad'], 2)) // cantidad
+                ->setMtoValorUnitario($valorUnitario = round($this->VENTADETALLE[$k]['MtoValorUnitario'], 2)) // valor unitario (sin igv)
+                ->setMtoValorVenta(round($this->VENTADETALLE[$k]['MtoValorVenta'], 2))   // valor unitario * cantidad sin igv
+                ->setMtoBaseIgv(round($this->VENTADETALLE[$k]['MtoBaseIgv'], 2))         // valor unitario * cantidad sin igv  
+                ->setPorcentajeIgv(round($this->VENTADETALLE[$k]['PorcentajeIgv'], 2)) // 18%
+                ->setIgv(round($this->VENTADETALLE[$k]['Igv'], 2)) // igv del valor unitario  * cantidad 
+                ->setTipAfeIgv('10') // Gravado Op. Onerosa - Catalog. 07
+                ->setTotalImpuestos(round($this->VENTADETALLE[$k]['TotalImpuestos']), 2)  // igv del valor unitario * cantidad
+                ->setMtoPrecioUnitario(round($this->VENTADETALLE[$k]['MtoPrecioUnitario']), 2); // precio total del producto unitario con igv                    
+                    
+         
             array_push($letItemsArray, $item);
         }
-
         $num = new Num2letras();
         $legend = (new Legend())
             ->setCode('1000') // Monto en letras - Catalog. 52
             ->setValue($num->numero(round($this->VENTA['ven_totdoc'], 2)));
 
-        $invoice->setDetails($letItemsArray)
+        $note->setDetails($letItemsArray)
             ->setLegends([$legend]);
-        $result = $see->send($invoice);
+        $result = $see->send($note);
 
         // Guardar XML firmado digitalmente.
         file_put_contents(
-            '../folders/' . $this->getdb . '/' . $invoice->getName() . '.xml',
+            '../folders/' . $this->getdb . '/' . $note->getName() . '.xml',
             $see->getFactory()->getLastXml()
         );
         // Verificamos que la conexión con SUNAT fue exitosa.
@@ -219,7 +153,7 @@ class GoNotaCredito
         }
 
         // Guardamos el CDR
-        file_put_contents('../folders/' . $this->getdb . '/R-' . $invoice->getName() . '.zip', $result->getCdrZip());
+        file_put_contents('../folders/' . $this->getdb . '/R-' . $note->getName() . '.zip', $result->getCdrZip());
 
         $cdr = $result->getCdrResponse();
 

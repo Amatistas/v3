@@ -114,17 +114,17 @@
                                 <div class="row">
                                     <!--precio de compra del producto -->
                                     <div class="col-md-6">Precio de Compra</div>
-                                    <div class="col-md-6"><input type="text"
-                                            ng-model="person.selected.falso_monto | number : misDicimales"
-                                            id="falso_monto" name="falso_monto" class="form-control" readonly>
+                                    <div class="col-md-6"><input type="number"
+                                            ng-model="person.selected.falso_monto"
+                                            id="falso_monto" name="falso_monto" class="form-control">
                                     </div>
                                 </div>
                             </li>
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">% UTILIDAD</div>
-                                    <div class="col-md-6"><input type="text"
-                                            ng-model="person.selected.lpd_uti | number : misDicimales"
+                                    <div class="col-md-6"><input type="number"
+                                            ng-model="person.selected.lpd_uti"
                                             ng-change="person.selected = modfUtilidadCompra(person.selected)"
                                             id="lpd_uti" name="lpd_uti" ng-value="0" class="form-control" value="0">
                                     </div>
@@ -133,7 +133,8 @@
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">V. Venta</div>
-                                    <div class="col-md-6 form-group has-warning"><input type="text" ng-model="person.selected.lpd_vpre"
+                                    <div class="col-md-6"><input type="number"
+                                            ng-model="person.selected.lpd_vpre"
                                             ng-change="person.selected = modfValorVentaCompra(person.selected)"
                                             id="lpd_vpre" name="lpd_vpre" class="form-control"></div>
                                 </div>
@@ -141,7 +142,7 @@
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">IGV</div>
-                                    <div class="col-md-6"><input type="text"
+                                    <div class="col-md-6"><input type="number"
                                             ng-model="person.selected.lpd_porcentaje_igv" id="lpd_porcentaje_igv"
                                             name="lpd_porcentaje_igv" class="form-control" readonly="">
                                     </div>
@@ -150,8 +151,8 @@
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">VALOR IGV</div>
-                                    <div class="col-md-6"><input type="text"
-                                            ng-model="person.selected.lpd_valor_igv | number : misDicimales"
+                                    <div class="col-md-6"><input type="number"
+                                            ng-model="person.selected.lpd_valor_igv"
                                             id="lpd_valor_igv" name="lpd_valor_igv" class="form-control" readonly="">
                                     </div>
                                 </div>
@@ -159,10 +160,10 @@
                             <li class="list-group-item ">
                                 <div class="row">
                                     <div class="col-md-6">P. VENTA</div>
-                                    <div class="col-md-6"><input type="text"
-                                            ng-model="person.selected.lpd_pre | number : misDicimales "
+                                    <div class="col-md-6"><input type="number"
+                                            ng-model="person.selected.lpd_pre"
                                             ng-change="person.selected = modfPrecioVentaCompra(person.selected)"
-                                            id="lpd_pre" name="lpd_pre" class="form-control" readonly></div>
+                                            id="lpd_pre" name="lpd_pre" class="form-control"></div>
                                 </div>
                             </li>
                             <div class="list-group-item ">
@@ -207,5 +208,4 @@
             </div>
         </div>
     </form>
-
 </div>

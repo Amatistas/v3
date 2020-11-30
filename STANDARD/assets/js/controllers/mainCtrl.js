@@ -537,7 +537,9 @@ app.controller('listaPrecioController', [
 	'$scope',
 	'$http',
 	'toaster',
-	function($rootScope, $scope, $http, toaster) {
+	'mathParse',
+	function($rootScope, $scope, $http, toaster,mathParse) {
+
 		$rootScope.infoInputs = {};
 
 		//datos de los select normales selectTo
@@ -551,8 +553,8 @@ app.controller('listaPrecioController', [
 		$scope.person = {};
 		$scope.person.selected = {};
 
-		var misDecimales = 2;
 
+		$scope.misDecimales = JSON.parse($rootScope.d.datos).emp_dec;
 		$scope.mySessionEmpresa = JSON.parse($rootScope.d.datos).emp_id;
 
 		var porImpuesto = 18;
@@ -637,6 +639,12 @@ app.controller('listaPrecioController', [
 				});
 		};
 
+	// Redondeo decimal
+	if (!Math.round10) {
+		Math.round10 = function(value, exp) {
+			return mathParse.decimalAdjust('round', value, exp);
+		};
+	}
 		$scope.modffactorCompra = function(v) {
 			var newVal = parseFloat(v.lpd_com) * parseFloat(v.lpd_fac);
 			var tot = newVal * (v.lpd_uti / 100 + 1);
@@ -668,11 +676,12 @@ app.controller('listaPrecioController', [
 				lpd_com: v.lpd_com, //precio del producto
 
 				falso_monto: newVal,
-				lpd_uti: v.lpd_uti, //porcentaje de utlidad
-				lpd_vpre: tot, //valor de venta sin igv
-				lpd_porcentaje_igv: v.lpd_porcentaje_igv, //impuesto igv
-				lpd_valor_igv: valorigv, //impuesto igv
-				lpd_pre: pv //precio de venta total
+			
+				lpd_uti: Math.round10(v.lpd_uti,- + $scope.misDecimales), //porcentaje de utlidad
+				lpd_vpre:Math.round10(tot,- + $scope.misDecimales), //valor de venta sin igv
+				lpd_porcentaje_igv:Math.round10(v.lpd_porcentaje_igv,- + $scope.misDecimales), //impuesto igv
+				lpd_valor_igv:Math.round10(valorigv,- + $scope.misDecimales), //impuesto igv
+				lpd_pre:Math.round10(pv,- + $scope.misDecimales) //precio de venta total
 			};
 
 			return d;
@@ -708,12 +717,12 @@ app.controller('listaPrecioController', [
 
 				lpd_fac: v.lpd_fac, //factor
 
-				falso_monto: v.falso_monto,
-				lpd_uti: v.lpd_uti, //porcentaje de utlidad
-				lpd_vpre: tot, //valor de venta sin igv
-				lpd_porcentaje_igv: v.lpd_porcentaje_igv, //impuesto igv
-				lpd_valor_igv: valorigv, //impuesto igv
-				lpd_pre: pv //precio de venta total
+				falso_monto: Math.round10(v.falso_monto,- + $scope.misDecimales),
+				lpd_uti: Math.round10(v.lpd_uti,- + $scope.misDecimales), //porcentaje de utlidad
+				lpd_vpre: Math.round10(tot,- + $scope.misDecimales), //valor de venta sin igv
+				lpd_porcentaje_igv: Math.round10(v.lpd_porcentaje_igv,- + $scope.misDecimales), //impuesto igv
+				lpd_valor_igv: Math.round10(valorigv,- + $scope.misDecimales), //impuesto igv
+				lpd_pre: Math.round10(pv,- + $scope.misDecimales) //precio de venta total
 			};
 
 			return d;
@@ -748,21 +757,20 @@ app.controller('listaPrecioController', [
 
 				lpd_fac: v.lpd_fac, //factor
 
-				falso_monto: v.falso_monto,
-				lpd_uti: utilidad, //porcentaje de utlidad
-				lpd_vpre: v.lpd_vpre, //valor de venta sin igv
-				lpd_porcentaje_igv: v.lpd_porcentaje_igv, //impuesto igv
-				lpd_valor_igv: valorigv, //impuesto igv
-				lpd_pre: pv //precio de venta total
+				falso_monto: Math.round10(v.falso_monto,- + $scope.misDecimales),
+				lpd_uti: Math.round10(utilidad,- + $scope.misDecimales), //porcentaje de utlidad
+				lpd_vpre: Math.round10(v.lpd_vpre,- + $scope.misDecimales), //valor de venta sin igv
+				lpd_porcentaje_igv: Math.round10(v.lpd_porcentaje_igv,- + $scope.misDecimales), //impuesto igv
+				lpd_valor_igv: Math.round10(valorigv,- + $scope.misDecimales), //impuesto igv
+				lpd_pre: Math.round10(pv,- + $scope.misDecimales) //precio de venta total
 			};
-
 			return d;
 		};
 
 		$scope.modfPrecioVentaCompra = function(v) {
 			var operacion = parseFloat(v.lpd_pre / (porImpuesto / 100 + 1));
-			var valorigv = parseFloat(v.lpd_pre * 0.18);
 			var operacion2 = parseFloat(operacion / v.falso_monto * 100 - 100);
+			var valorigv = parseFloat(operacion * 0.18);
 
 			var d = {
 				pro_tip: v.pro_tip,
@@ -789,12 +797,12 @@ app.controller('listaPrecioController', [
 
 				lpd_fac: v.lpd_fac, //factor
 
-				falso_monto: v.falso_monto,
-				lpd_uti: operacion2, //porcentaje de utlidad
-				lpd_vpre: operacion, //valor de venta sin igv
-				lpd_porcentaje_igv: v.lpd_porcentaje_igv, //impuesto igv
-				lpd_valor_igv: valorigv,
-				lpd_pre: v.lpd_pre //precio de venta total
+				falso_monto: Math.round10(v.falso_monto,- + $scope.misDecimales),
+				lpd_uti: Math.round10(operacion2,- + $scope.misDecimales), //porcentaje de utlidad
+				lpd_vpre: Math.round10(operacion,- + $scope.misDecimales), //valor de venta sin igv
+				lpd_porcentaje_igv: Math.round10(v.lpd_porcentaje_igv,- + $scope.misDecimales), //impuesto igv
+				lpd_valor_igv: Math.round10(valorigv,- + $scope.misDecimales),
+				lpd_pre: Math.round10(v.lpd_pre,- + $scope.misDecimales) //precio de venta total
 			};
 
 			return d;

@@ -6,6 +6,7 @@ require __DIR__ . '/Gofactura.php';
 require __DIR__ . '/GoBoleta.php';
 require __DIR__ . '/GoAnulacionFactura.php';
 require __DIR__ . '/GoGuiaRemision.php';
+require __DIR__ . '/GoNotadecredito.php';
 require __DIR__ . '/num2letra.php';
 require '../api/config/database.php';
 
@@ -99,9 +100,7 @@ switch ($VENTA['td_id']) {
 
         break;
     case 'NC':
-
         $GO = new GoNotaCredito($VENTA, $VENTADETALLE, $MIEMPRESA, $CLIENTE, $UBIGEOCLIENTE, $UBIGEOEMPRESA, $getdb);
-
         if ($respuesta = $GO->generateNote()) {
             if ($fe->updateRespuesta($respuesta,$getdb)) {
                 echo json_encode(array("respuesta" => $respuesta));

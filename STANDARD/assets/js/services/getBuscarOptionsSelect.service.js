@@ -14,13 +14,11 @@ function getBuscarOptionsSelect($http, $q, $rootScope) {
                 default:
                     break;
 			}
-			
-			if (obj.panel) {
-				obj.bd = 'nubefaco_nubefa';
-			} else {
-				obj.bd = JSON.parse($rootScope.d.datos).database;
-			}
+
+			obj.bd = (obj.panel)?'nubefaco_nubefapanel':JSON.parse($rootScope.d.datos).database
+
             let arr = obj.selectId;
+			
 			return $http
 				.get(
 					`../../../../api/mantenimiento/mantenimiento/read.php?getdb=${obj.bd}&tbnom=${obj.db}&where=${obj.where}&igual=${obj.key}`
