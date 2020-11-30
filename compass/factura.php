@@ -9,7 +9,7 @@ require __DIR__ . '/Gofactura.php';
 require __DIR__ . '/GoBoleta.php';
 require __DIR__ . '/GoAnulacionFactura.php';
 require __DIR__ . '/GoGuiaRemision.php';
-require __DIR__ . '/GoNotadecredito.php';
+require __DIR__ . '/Gonotadecredito.php';
 require __DIR__ . '/num2letra.php';
 require '../api/config/database.php';
 
