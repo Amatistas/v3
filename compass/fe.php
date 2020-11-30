@@ -1,7 +1,6 @@
 <?php
 class FE
 {
-
     public $conn;
     // constructor with $db as database connection
     public function __construct($db, $venta_id, $emp_id)
