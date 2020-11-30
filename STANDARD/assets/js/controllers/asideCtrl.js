@@ -3627,7 +3627,11 @@ app.controller('AsideModalTransaccionCtrl', [
 					getBuscarOptionsSelect,
 					getResources,
 					getserialesdecomprobantes
-				) {					
+					) {		
+					
+					
+					$scope.baserow = row;			
+					console.log($scope.baserow)
 					$scope.infoInputs = {};
 					$scope.units = {};
 					$scope.rr = {};
@@ -3638,9 +3642,10 @@ app.controller('AsideModalTransaccionCtrl', [
 
 								let row = d.data[0]
 
-								$scope.infoInputs = row;
+							    $scope.infoInputs = row;
+								$scope.infoInputs.base_td_id = row.td_id;
 								$scope.infoInputs.td_id = 'NC';
-
+								
 								$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
 								$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
 								$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
@@ -3683,9 +3688,10 @@ app.controller('AsideModalTransaccionCtrl', [
 							}
 						);
 					};
-					$scope.fetchSerializador = function(type) {
+					$scope.fetchSerializador = function(type,base) {
 						var res = [];
-						getserialesdecomprobantes.fetchSerializador(type).then(
+						console.log(type,base);
+						getserialesdecomprobantes.fetchSerializador(type,base).then(
 							function(d) {
 								res.push(d);
 							},

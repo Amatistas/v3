@@ -70,19 +70,16 @@ class GoNotaCredito
             ->setRazonSocial($this->MIEMPRESA['emp_nomcom'])
             ->setNombreComercial($this->MIEMPRESA['emp_nom'])
             ->setAddress($address);
-
-        // Nota
-
+       
         $note = new Note();
-
         $note
             ->setUblVersion('2.1')
             ->setTipoDoc('07')
-            ->setSerie($this->VENTA['ven_num'])
+            ->setSerie($this->VENTA['ven_ser'])
             ->setCorrelativo($this->VENTA['ven_num'])
             ->setFechaEmision(new DateTime($this->VENTA['ven_fecemi']))
             ->setTipDocAfectado('01') // Tipo Doc: Factura
-            ->setNumDocfectado('F001-1') // Factura: Serie-Correlativo
+            ->setNumDocfectado($this->VENTA['NumDocfectado']) // Factura: Serie-Correlativo
             ->setCodMotivo('07') // Catalogo. 09
             ->setDesMotivo('DEVOLUCION POR ITEM')
             ->setTipoMoneda($this->VENTA['mnd_id'])
@@ -119,8 +116,6 @@ class GoNotaCredito
                 ->setTipAfeIgv('10') // Gravado Op. Onerosa - Catalog. 07
                 ->setTotalImpuestos(round($this->VENTADETALLE[$k]['TotalImpuestos']), 2)  // igv del valor unitario * cantidad
                 ->setMtoPrecioUnitario(round($this->VENTADETALLE[$k]['MtoPrecioUnitario']), 2); // precio total del producto unitario con igv                    
-                    
-         
             array_push($letItemsArray, $item);
         }
         $num = new Num2letras();
@@ -130,6 +125,7 @@ class GoNotaCredito
 
         $note->setDetails($letItemsArray)
             ->setLegends([$legend]);
+
         $result = $see->send($note);
 
         // Guardar XML firmado digitalmente.

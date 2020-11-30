@@ -59,9 +59,9 @@ if (true) {
             
             if(isset($dataInfo->ven_id)){
                 if($insert2Tables->actualizarEstadoProceso($dataInfo->ven_id,1)){
-                    array_push($adver, array("message" => "no se actualizo el estado de proceso", "status" => "200"));
+                    array_push($adver, array("message" => "se actualizo el estado de proceso", "status" => "200"));
                 }else {
-                    array_push($adver, array("message" => "se actualizo el estado de proceso", "status" => "502"));
+                    array_push($adver, array("message" => "no se actualizo el estado de proceso", "status" => "502"));
                 }
             }
             

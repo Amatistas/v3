@@ -6,7 +6,6 @@ function getSeriales($http, $q, $rootScope) {
 	return {
 		fetchSerieTipoOperacion: function(serie) {
 			//serie es to_id
-			console.log(serie);
 			return $http
 				.get(
 					`../../../../api/mantenimiento/mantenimiento/read.php?getdb=${JSON.parse($rootScope.d.datos)
@@ -23,7 +22,7 @@ function getSeriales($http, $q, $rootScope) {
 					}
 				);
 		},
-		fetchSerializador: function(serie) {
+		fetchSerializador: function(serie,base=false) {
 			return $http
 				.get(
 					`../../../../api/mantenimiento/mantenimiento/search3.php?getdb=${JSON.parse($rootScope.d.datos)
