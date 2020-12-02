@@ -2,13 +2,10 @@
 // Añadir capítulo
 class PDF extends FPDF
 {
-
-
-
-    
-
-
-
+    function host()
+    {
+       return $_SERVER['SERVER_NAME'];
+    }
     protected $extgstates = array();
 
     // alpha: real value from 0 (transparent) to 1 (opaque)
@@ -72,67 +69,68 @@ class PDF extends FPDF
     }
 
 
-        function tipo($type)
-        {
-            switch ($type) {
-                case 'FA':
-                    $var = "FACTURA ELECTRÓNICA";
-                    break;
-                case 'BO':
-                    $var = "BOLETA ELECTRÓNICA";
-                    break;
+    function tipo($type)
+    {
+        switch ($type) {
+            case 'FA':
+                $var = "FACTURA ELECTRÓNICA";
+                break;
+            case 'BO':
+                $var = "BOLETA ELECTRÓNICA";
+                break;
 
-                case 'CT':
-                    $var = "COTIZACIÓN";
-                    break;
-                case 'GR':
-                    $var = "GUIA DE REMISIÓN ELECTRÓNICA";
-                    break;
-                case 'Pagos':
-                    $var = "COMPROBANTE DE EGRESO";
-                    break;
-                case 'NC':
-                    $var = "NOTA DE CRÉDITO";
-                    break;
-                case 41:
-                    $var = "COMPROBANTE DE CARGA";
-                    break;
-                case 40:
-                    $var = "COMPROBANTE DE SALIDA INTERNA";
-                    break;
-                case 42:
-                    $var = "COMPROBANTE DE DESCARGA";
-                    break;
-                case 43:
-                    $var = "COMPROBANTE DE ENTRADA INTERNA";
-                    break;
-                case 11:
-                    $var = "DNI";
-                    break;
-                case 23:
-                    $var = "RUC";
-                    break;
-                default:
-                    $var = "NA";
-                    break;
-            }
-            return $var;
+            case 'CT':
+                $var = "COTIZACIÓN";
+                break;
+            case 'GR':
+                $var = "GUIA DE REMISIÓN ELECTRÓNICA";
+                break;
+            case 'Pagos':
+                $var = "COMPROBANTE DE EGRESO";
+                break;
+            case 'NC':
+                $var = "NOTA DE CRÉDITO";
+                break;
+            case 41:
+                $var = "COMPROBANTE DE CARGA";
+                break;
+            case 40:
+                $var = "COMPROBANTE DE SALIDA INTERNA";
+                break;
+            case 42:
+                $var = "COMPROBANTE DE DESCARGA";
+                break;
+            case 43:
+                $var = "COMPROBANTE DE ENTRADA INTERNA";
+                break;
+            case 11:
+                $var = "DNI";
+                break;
+            case 23:
+                $var = "RUC";
+                break;
+            default:
+                $var = "NA";
+                break;
         }
+        return $var;
+    }
 
-        function tipo2($type)
-        {
-            switch ($type) {
-                case 13:
-                    $var = array('peso', 'total');
-                    break;
-                default:
-                    $var = array('precio', 'importe');
-                    break;
-            }
-            return $var;
+    function tipo2($type)
+    {
+        switch ($type) {
+            case 13:
+                $var = array('peso', 'total');
+                break;
+            default:
+                $var = array('precio', 'importe');
+                break;
         }
+        return $var;
+    }
     function Header()
     {
+        $DEV = ($this->host() == 'beta.nubefa.com')?true:false;
 
 
         //   var_dump($this->arry);
@@ -142,10 +140,13 @@ class PDF extends FPDF
         //   var_dump($this->arry5);
         //   var_dump($this->arry6);
         // Logo
-        $this->Image("../../api/upload/" . substr($this->arry3[0]['fe_log'], 2), 10, 8, 43,20);
+        $this->Image("../../api/upload/" . substr($this->arry3[0]['fe_log'], 2), 10, 8, 43, 20);
 
         $this->SetFont('Arial', 'I', 8);
 
+        
+        ($DEV == true)?$this->MultiCell(100,1,'Modo de Desarrollo',0, 'L'):'';
+       
         $this->SetXY(55, 8);
         $this->MultiCell(100, 4, $this->arry3[0]['emp_nom'] . "\n " . substr($this->arry3[0]['emp_dir'], 0, 47) . "\n" . substr($this->arry3[0]['departamento'] . " - " . $this->arry3[0]['provincia'] . " - " . $this->arry3[0]['distrito'], 0, 59) . "\n" . substr("Email: " . $this->arry3[0]['emp_ema'], 0, 59) . "\n" . substr("Teléf: " . $this->arry3[0]['emp_tel'] . " Cel: " . $this->arry3[0]['emp_cel'], 0, 59) . " \n", 0, 'L');
 
@@ -177,7 +178,7 @@ class PDF extends FPDF
             $this->cell(30, 6, $col[1], 1, '', 'C');
             $this->Ln(8);
         } else if ($this->arry[0]['to_id'] == 41 || $this->arry[0]['to_id'] == 40 || $this->arry[0]['to_id'] == 42 || $this->arry[0]['to_id'] == 43) {
-            
+
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(140, 10);
             $this->MultiCell(60, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . $this->tipo($this->arry[0]['to_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
@@ -192,7 +193,6 @@ class PDF extends FPDF
             $this->SetLineWidth(0.4);
             $this->line(10, 45, 200, 45);
             $this->SetY(50);
-
         } else if ($this->arry4 != NULL) {
 
             $this->SetFont('Arial', 'B', 9);
@@ -210,7 +210,6 @@ class PDF extends FPDF
             $this->SetLineWidth(0.4);
             $this->line(10, 40, 200, 40);
             $this->SetY(45);
-
         } else {
             $this->SetLineWidth(0.2);
             $this->line(10, 67, 200, 67);
@@ -240,9 +239,9 @@ class PDF extends FPDF
 
             $this->SetFont('Arial', '', 9);
             $this->SetXY(10, 30);
-            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . $this->tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc']."   " ."Teléfono: ".$this->arry[0]['ane_tel']." / ". "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'], 0, 70) . "\n"  . "Concepto: " . substr($this->arry[0]['ven_obs'], 0, 70), 0, 'L');
+            $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . $this->tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc'] . "   " . "Teléfono: " . $this->arry[0]['ane_tel'] . " / " . "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'], 0, 70) . "\n"  . "Concepto: " . substr($this->arry[0]['ven_obs'], 0, 70), 0, 'L');
             $this->SetXY(120, 30);
-            $this->MultiCell(80, 5, "Fecha Emi.: " . $this->arry[0]['ven_fecreg']."  "."Fecha Venc.: " .$this->arry[0]['ven_fecven']. "\n" . "Condición: " . $this->arry[0]['fp_nom'] . "\n" . "G.R Remitente: \n" . "G.R Transportista: \n"."Vendedor: ".$this->arry[0]['hash'], 0, 'L');
+            $this->MultiCell(80, 5, "Fecha Emi.: " . $this->arry[0]['ven_fecreg'] . "  " . "Fecha Venc.: " . $this->arry[0]['ven_fecven'] . "\n" . "Condición: " . $this->arry[0]['fp_nom'] . "\n" . "G.R Remitente: \n" . "G.R Transportista: \n" . "Vendedor: " . $this->arry[0]['hash'], 0, 'L');
             $this->SetLineWidth(0.2);
             $this->line(10, 55, 200, 55);
             $this->line(10, 29, 200, 29);
@@ -263,15 +262,15 @@ class PDF extends FPDF
             $this->Ln(8);
         }
 
-     
+
 
         // $this->Ln(5);
     }
 
 
     function Footer()
-    { 
-        
+    {
+
 
         // Posición: a 1,5 cm del final
         $this->SetY(-18);
@@ -293,73 +292,77 @@ class PDF extends FPDF
 
 
 
-    function vcell($c_width,$c_height,$x_axis,$text){
-        $w_w=$c_height/3;
-        $w_w_1=$w_w+2;
-        $w_w1=$w_w+$w_w+$w_w+3;
-        $len=strlen($text);// check the length of the cell and splits the text into 7 character each and saves in a array 
-        
-        $lengthToSplit = 50;
-      
-        if($len>$lengthToSplit){
-        $w_text=str_split($text,$lengthToSplit);
-        $this->SetX($x_axis);
-        $this->Cell($c_width,$w_w_1,$w_text[0],'','','');
-        if(isset($w_text[1])) {
-            $this->SetX($x_axis);
-            $this->Cell($c_width,$w_w1,$w_text[1],0,'','');
-        }
-        $this->SetX($x_axis);
-        $this->Cell($c_width,$c_height,'',0,0,'L',0);
-        }
-        else{
-            $this->SetX($x_axis);
-            $this->Cell($c_width,$c_height,$text,0,0,'R',0);}
-            }
-    function vcell3($c_width,$c_height,$x_axis,$text){
-        $w_w=$c_height/3;
-        $w_w_1=$w_w+2;
-        $w_w1=$w_w+$w_w+$w_w+3;
-        $len=strlen($text);// check the length of the cell and splits the text into 7 character each and saves in a array 
-        
-        $lengthToSplit = 50;
-      
-        if($len>$lengthToSplit){
-        $w_text=str_split($text,$lengthToSplit);
-        $this->SetX($x_axis);
-        $this->Cell($c_width,$w_w_1,$w_text[0],'','','');
-        if(isset($w_text[1])) {
-            $this->SetX($x_axis);
-            $this->Cell($c_width,$w_w1,$w_text[1],0,'','');
-        }
-        $this->SetX($x_axis);
-        $this->Cell($c_width,$c_height,'',0,0,'L',0);
-        }
-        else{
-            $this->SetX($x_axis);
-            $this->Cell($c_width,$c_height,$text,0,0,'L',0);}
-            }
+    function vcell($c_width, $c_height, $x_axis, $text)
+    {
+        $w_w = $c_height / 3;
+        $w_w_1 = $w_w + 2;
+        $w_w1 = $w_w + $w_w + $w_w + 3;
+        $len = strlen($text); // check the length of the cell and splits the text into 7 character each and saves in a array 
 
-    function vcell2($c_width,$c_height,$x_axis,$text){
-        $w_w=$c_height/3;
-        $w_w_1=$w_w+2;
-        $w_w1=$w_w+$w_w+$w_w+3;
-        $len=strlen($text);// check the length of the cell and splits the text into 7 character each and saves in a array 
-        
+        $lengthToSplit = 50;
+
+        if ($len > $lengthToSplit) {
+            $w_text = str_split($text, $lengthToSplit);
+            $this->SetX($x_axis);
+            $this->Cell($c_width, $w_w_1, $w_text[0], '', '', '');
+            if (isset($w_text[1])) {
+                $this->SetX($x_axis);
+                $this->Cell($c_width, $w_w1, $w_text[1], 0, '', '');
+            }
+            $this->SetX($x_axis);
+            $this->Cell($c_width, $c_height, '', 0, 0, 'L', 0);
+        } else {
+            $this->SetX($x_axis);
+            $this->Cell($c_width, $c_height, $text, 0, 0, 'R', 0);
+        }
+    }
+    function vcell3($c_width, $c_height, $x_axis, $text)
+    {
+        $w_w = $c_height / 3;
+        $w_w_1 = $w_w + 2;
+        $w_w1 = $w_w + $w_w + $w_w + 3;
+        $len = strlen($text); // check the length of the cell and splits the text into 7 character each and saves in a array 
+
+        $lengthToSplit = 50;
+
+        if ($len > $lengthToSplit) {
+            $w_text = str_split($text, $lengthToSplit);
+            $this->SetX($x_axis);
+            $this->Cell($c_width, $w_w_1, $w_text[0], '', '', '');
+            if (isset($w_text[1])) {
+                $this->SetX($x_axis);
+                $this->Cell($c_width, $w_w1, $w_text[1], 0, '', '');
+            }
+            $this->SetX($x_axis);
+            $this->Cell($c_width, $c_height, '', 0, 0, 'L', 0);
+        } else {
+            $this->SetX($x_axis);
+            $this->Cell($c_width, $c_height, $text, 0, 0, 'L', 0);
+        }
+    }
+
+    function vcell2($c_width, $c_height, $x_axis, $text)
+    {
+        $w_w = $c_height / 3;
+        $w_w_1 = $w_w + 2;
+        $w_w1 = $w_w + $w_w + $w_w + 3;
+        $len = strlen($text); // check the length of the cell and splits the text into 7 character each and saves in a array 
+
         $lengthToSplit = 9;
 
-        if($len>$lengthToSplit){
-        $w_text=str_split($text,$lengthToSplit);
-        $this->SetX($x_axis);
-        $this->Cell($c_width,$w_w_1,$w_text[0],'','','');
-        if(isset($w_text[1])) {
+        if ($len > $lengthToSplit) {
+            $w_text = str_split($text, $lengthToSplit);
             $this->SetX($x_axis);
-            $this->Cell($c_width,$w_w1,$w_text[1],0,'','');
+            $this->Cell($c_width, $w_w_1, $w_text[0], '', '', '');
+            if (isset($w_text[1])) {
+                $this->SetX($x_axis);
+                $this->Cell($c_width, $w_w1, $w_text[1], 0, '', '');
+            }
+            $this->SetX($x_axis);
+            $this->Cell($c_width, $c_height, '', 0, 0, 'L', 0);
+        } else {
+            $this->SetX($x_axis);
+            $this->Cell($c_width, $c_height, $text, 0, 0, 'R', 0);
         }
-        $this->SetX($x_axis);
-        $this->Cell($c_width,$c_height,'',0,0,'L',0);
-        }   else{
-            $this->SetX($x_axis);
-            $this->Cell($c_width,$c_height,$text,0,0,'R',0);}}
-
+    }
 }

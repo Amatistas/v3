@@ -1,6 +1,9 @@
+##documentos
 *.png
 *.jpg
 *.gif
 *.pem
 *.zip
 *.xml
+##folders
+.vscode/

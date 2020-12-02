@@ -225,6 +225,13 @@
                                             ng-model="infoInputs[0].emp_dec">
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <label class="control-label" ng-class="{'text-danger':form.decimal.$invalid == true}">
+                                        Mostrar Precios Con IGV (al momento de impresion de documentos FACTURAS, BOLETAS, COTIZACION,)
+                                        <i ng-class="{'ti-bell':form.decimal.$invalid == true}"></i>
+                                    </label>
+                                    <input type="checkbox" ng-model="infoInputs[0].emp_cap"><!-- capricho de los decimales y esas pajas  -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -232,7 +239,6 @@
                 <button class="btn btn-primary" ng-disabled="form.$error.required" type="submit" ng-click="guardar()">
                     Guardar
                 </button>
-
             </div>
         </div>
     </div>

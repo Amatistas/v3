@@ -29,7 +29,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$trace',
                 isSidebarFixed: true, // true if you want to initialize the template with fixed sidebar
                 isSidebarClosed: false, // true if you want to initialize the template with closed sidebar
                 isFooterFixed: false, // true if you want to initialize the template with fixed footer
-                theme: 'theme-5', // indicate the theme chosen for your project
+                theme: 'theme-6', // indicate the theme chosen for your project
                 logo: 'STANDARD/assets/images/logo.png', // relative path of the project logo
             }
         };

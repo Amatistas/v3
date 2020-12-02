@@ -1,7 +1,6 @@
 <?php
 class Database{
- 
-    // specify your own database credentials
+     // specify your own database credentials
   /*   private $host = "3.16.113.166";
     //private $db_name = "nubefa";
     private $username = "pedro";

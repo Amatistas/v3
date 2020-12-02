@@ -28,15 +28,16 @@ app.controller('AppCtrl', [
 		$location
 	) {
 		$rootScope.d = sessionStorage;
-		$rootScope.miURL = 'http://app.nubefa.com';
 		try {
 			$rootScope.miempresaNamedisplay = JSON.parse(sessionStorage.getItem('datos')).emp_nom;
 		} catch (error) {}
 
 		//configurar ambiente de produccion
-		if ($location.host() == '192.168.0.3') {
+		if ($location.host() == 'beta.nubefa.com') {
 			$rootScope.DEV = true;
+			$rootScope.miURL = 'http://beta.nubefa.com';
 		} else {
+			$rootScope.miURL = 'http://app.nubefa.com';
 			$rootScope.DEV = false;
 		}
 
