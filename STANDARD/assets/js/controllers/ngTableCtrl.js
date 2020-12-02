@@ -1241,6 +1241,7 @@ app.controller('puntoVentaCtrl', function(
 		});
 		
 	};
+	
 	$scope.guardarPuntoVenta = function(data, items) {
 		$rootScope.formularioModalPagoNuevoPuntoVenta = data;
 		$rootScope.formularioModalPagoNuevoPuntoVentaItems = items;

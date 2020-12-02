@@ -963,7 +963,7 @@ app.controller('ModalNuevoProductoMedicoCtrl', [
 			key: '',
 			mostrar: [ 'tip_pro_id', 'tip_pro_desc' ]
 		};
-		
+
 		$scope.rr.apl_id = {
 			selectId: 'apl_id',
 			db: 'aplicacion',
@@ -1499,7 +1499,8 @@ app.controller('ModalGrabarPuntoVentaCtrl', [
 	'toaster',
 	'$window',
 	'SweetAlert',
-	function($scope, $uibModalInstance, items, $rootScope, $http, toaster, $window, SweetAlert) {
+	'mathParse',
+	function($scope, $uibModalInstance, items, $rootScope, $http, toaster, $window, SweetAlert, mathParse) {
 		$scope.infoInputs = {};
 		$scope.pagos = {};
 		$scope.btn = {};
@@ -1518,37 +1519,20 @@ app.controller('ModalGrabarPuntoVentaCtrl', [
 
 		$scope.button5 = true;
 
-		/* 
-		$scope.button = function() {
-			$scope.btn_button = true;
-			$scope.pagos.debito = {};
-		};
-		$scope.button2 = function() {
-			$scope.btn_button2 = true;
-			$scope.pagos.cheque = {};
-		};
-		$scope.button3 = function() {
-			$scope.btn_button3 = true;
-			$scope.pagos.transferencia = {};
-		};
-		$scope.button4 = function() {
-			$scope.btn_button4 = true;
-			$scope.pagos.credito = {};
-		};
-		$scope.button5 = function() {
-			$scope.btn_button5 = true;
-			$scope.pagos.efectivo = {};
-		};
-		// */
-
 		$scope.infoInputs = $rootScope.formularioModalPagoNuevoPuntoVenta;
 		$scope.items = $rootScope.formularioModalPagoNuevoPuntoVentaItems;
 
 		//automatic zone
 		//
+		if (!Math.round10) {
+			Math.round10 = function(value, exp) {
+				return mathParse.decimalAdjust('round', value, exp);
+			};
+		}
 
 		$scope.detectarEfectivo = function() {
 			if ($scope.pagos.efectivo.get_efectivo >= 1) {
+				$scope.pagos.efectivo.get_efectivo.Math.round10($scope.pagos.efectivo.get_efectivo, -2);
 				$scope.pagos.efectivo.tipo_pagos = 1;
 				$scope.pagos.efectivo.co_empre_id = JSON.parse($rootScope.d.datos).emp_id;
 				$scope.pagos.efectivo.co_empre_id = 16;
@@ -1567,6 +1551,7 @@ app.controller('ModalGrabarPuntoVentaCtrl', [
 
 		$scope.detectarTargeta = function() {
 			if ($scope.pagos.tarjeta.import_cc >= 1) {
+				$scope.pagos.tarjeta.import_cc.Math.round10($scope.pagos.tarjeta.import_cc, -2);
 				$scope.pagos.tarjeta.tipo_pagos = 7;
 				$scope.pagos.tarjeta.co_empre_id = JSON.parse($rootScope.d.datos).emp_id;
 				$scope.pagos.tarjeta.co_empre_id = 16;
@@ -1585,6 +1570,7 @@ app.controller('ModalGrabarPuntoVentaCtrl', [
 
 		$scope.detectarTransferencia = function() {
 			if ($scope.pagos.transferencia.import_cc >= 1) {
+				$scope.pagos.transferencia.import_cc.Math.round10($scope.pagos.transferencia.import_cc, -2);
 				$scope.pagos.transferencia.tipo_pagos = 4;
 				$scope.pagos.transferencia.co_empre_id = JSON.parse($rootScope.d.datos).emp_id;
 				$scope.pagos.transferencia.co_empre_id = 16;

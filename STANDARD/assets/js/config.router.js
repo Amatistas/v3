@@ -93,7 +93,6 @@ app.config([
                 ncyBreadcrumb: {
                     label: "Dashboard",
                 },
-
             })
             .state("app.ui", {
                 url: "/ui",

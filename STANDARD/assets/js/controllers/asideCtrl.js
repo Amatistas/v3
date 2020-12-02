@@ -1861,7 +1861,7 @@ app.controller('AsideModalTransaccionCtrl', [
 					$scope.valorIgvConvertido = 1.18;
 					$scope.mySessionEmpresa = [];
 					$scope.mySessionEmpresa.emp_igv = 18;
-					
+
 					let misDecimales = JSON.parse($rootScope.d.datos).emp_dec;
 					$scope.misDecimales = misDecimales;
 
@@ -2102,7 +2102,7 @@ app.controller('AsideModalTransaccionCtrl', [
 				placement: 'top',
 				size: 'sm',
 				backdrop: true,
-				controller: function($scope, $uibModalInstance, $http,getInformacionDocumentos) {
+				controller: function($scope, $uibModalInstance, $http, getInformacionDocumentos) {
 					$scope.infoInputs = {};
 					$scope.itemListVentas = [];
 					if (row) {
@@ -2154,7 +2154,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						$scope.infoInputs.to_id = 13;
 						$scope.infoInputs.tipo_ope_sunat = 9;
 						$scope.infoInputs.td_id = 'GR';
-						$scope.productos = {};					
+						$scope.productos = {};
 					}
 
 					var f = new Date();
@@ -2926,9 +2926,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						var y = isNumber(parseFloat(i));
 						var b = isNumber(parseFloat(v));
 						var k = isNumber(parseFloat(k));
-						console.log(y);
-						console.log(b);
-						console.log(k);
+
 						return (y + b - k) * -1;
 					};
 					$scope.rr.fp_id = {
@@ -2941,7 +2939,7 @@ app.controller('AsideModalTransaccionCtrl', [
 
 					$scope.rr.ban_id = {
 						selectId: 'ban_id',
-						db: 'getBancosCuenta',
+						db: 'getbancoscuenta',
 						where: 'ban_id',
 						key: '',
 						mostrar: [ 'ban_id', 'banco' ]
@@ -3084,7 +3082,7 @@ app.controller('AsideModalTransaccionCtrl', [
 					};
 					$scope.rr.ban_id = {
 						selectId: 'ban_id',
-						db: 'getBancosCuenta',
+						db: 'getbancoscuenta',
 						where: 'ban_id',
 						key: '',
 						mostrar: [ 'ban_id', 'banco' ]
@@ -3627,11 +3625,9 @@ app.controller('AsideModalTransaccionCtrl', [
 					getBuscarOptionsSelect,
 					getResources,
 					getserialesdecomprobantes
-					) {		
-					
-					
-					$scope.baserow = row;			
-					console.log($scope.baserow)
+				) {
+					$scope.baserow = row;
+					console.log($scope.baserow);
 					$scope.infoInputs = {};
 					$scope.units = {};
 					$scope.rr = {};
@@ -3639,13 +3635,12 @@ app.controller('AsideModalTransaccionCtrl', [
 						let obj = { db: 'venta', where: 'ven_id', key: content.id };
 						getResources.fetchResources(obj).then(
 							function(d) {
+								let row = d.data[0];
 
-								let row = d.data[0]
-
-							    $scope.infoInputs = row;
+								$scope.infoInputs = row;
 								$scope.infoInputs.base_td_id = row.td_id;
 								$scope.infoInputs.td_id = 'NC';
-								
+
 								$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
 								$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
 								$scope.infoInputs.loc_id = JSON.parse($rootScope.d.datos).ofi_id;
@@ -3653,12 +3648,10 @@ app.controller('AsideModalTransaccionCtrl', [
 								$scope.infoInputs.docRelacionado = true;
 								$scope.infoInputs.estatus_documento = 1;
 
-								
 								$scope.infoInputs.documento_asociado = content.cen_ven_id;
 								$scope.infoInputs.ane_id = content.ane_id;
 								$scope.infoInputs.ane_alias = content.cliente;
 								$scope.infoInputs.NumDocfectado = content.documentosunat;
-
 
 								$scope.infoInputs.mnd_id = 'PEN';
 								$scope.infoInputs.to_id = 9;
@@ -3670,7 +3663,7 @@ app.controller('AsideModalTransaccionCtrl', [
 
 								$scope.infoInputs.notas_sunat = 0;
 
-								console.log($scope.infoInputs)
+								console.log($scope.infoInputs);
 							},
 							function(Error) {
 								console.error(Error);
@@ -3678,7 +3671,7 @@ app.controller('AsideModalTransaccionCtrl', [
 						);
 					};
 					$scope.fetchDetalle = function(id) {
-					let obj = { db: 'detalle_venta_det', where: 'venta_id', key: id };
+						let obj = { db: 'detalle_venta_det', where: 'venta_id', key: id };
 						getResources.fetchResources(obj).then(
 							function(d) {
 								$scope.itemListVentas = d.data;
@@ -3688,15 +3681,17 @@ app.controller('AsideModalTransaccionCtrl', [
 							}
 						);
 					};
-					$scope.fetchSerializador = function(type,base) {
+					$scope.fetchSerializador = function(type, base) {
 						var res = [];
-						console.log(type,base);
-						getserialesdecomprobantes.fetchSerializador(type,base).then(
+						console.log(type, base);
+						getserialesdecomprobantes.fetchSerializador(type, base).then(
 							function(d) {
 								res.push(d);
 							},
 							function(errResponse) {
-								console.error('Error capturando la serie de comporbantes posiblemente no este asignado la serie con el local y empresa');
+								console.error(
+									'Error capturando la serie de comporbantes posiblemente no este asignado la serie con el local y empresa'
+								);
 							}
 						);
 						return res;
@@ -3736,7 +3731,6 @@ app.controller('AsideModalTransaccionCtrl', [
 
 					$scope.fetchHeader(row);
 					$scope.fetchDetalle(row.ven_id);
-
 
 					$scope.rr.mnd_id = {
 						selectId: 'mnd_id',

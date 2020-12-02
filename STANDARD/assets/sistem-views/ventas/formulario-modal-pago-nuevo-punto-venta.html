@@ -11,7 +11,7 @@
             </div>
             <h3 class="titulo-modal">PAGO</h3>
         </div>
-        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+        <div class="modal-body" style="padding: 30px;">
             <div class="row" style="margin-bottom: 15px;">
                 <div class="col-md-12">
                     <button style="width: 200px;" type="button" class="btn btn-wide boton5" ng-click="button5 = btnChange(button5)" ng-class="{ 'activo5': button5 == true}">
@@ -44,11 +44,11 @@
                                     <label>
                                         Total Documento
                                     </label>
-                                    <input readonly type="number" name="import_cc" class="form-control" placeholder="" ng-model="pagos.efectivo.import_cc = infoInputs.ven_totdoc">
+                                    <input readonly type="text" name="import_cc" class="form-control" placeholder="" ng-model="pagos.efectivo.import_cc = infoInputs.ven_totdoc | number:2">
                                     <label>
                                         Cambio
                                     </label>
-                                    <input readonly type="number" name="get_vuelto" class="form-control" placeholder="" ng-model="pagos.efectivo.get_vuelto = pagos.efectivo.get_efectivo - pagos.efectivo.import_cc">
+                                    <input readonly type="text" name="get_vuelto" class="form-control" placeholder="" ng-model="pagos.efectivo.get_vuelto = pagos.efectivo.get_efectivo - pagos.efectivo.import_cc | number:2">
                                 </div>
                             </div>
                         </div>

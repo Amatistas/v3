@@ -70,7 +70,8 @@
                                         </label>
                                         <div class="input-group">
                                             <ui-select name="pys" style="width: 100%; float: left;"
-                                                ng-model="productos.selected" on-select="" theme="bootstrap" autofocus="true">
+                                                ng-model="productos.selected" on-select="" theme="bootstrap"
+                                                autofocus="true">
                                                 <ui-select-match placeholder="Escriba 3 letras para buscar">
                                                     {{$select.selected.pro_nom}}
                                                 </ui-select-match>
@@ -97,7 +98,7 @@
                                                                 <b>{{item.pro_nom}}</b>
                                                             </div>
                                                             <div class="description">{{item.pst_nom}} S/
-                                                                {{item.vd_pre | number: misDecimales}}</div>
+                                                                {{item.vd_pre}}</div>
                                                         </div>
                                                     </div>
                                                 </ui-select-choices>
@@ -151,7 +152,7 @@
                                                 <td class="center">{{$index + 1}}</td>
                                                 <td> {{item.pro_nom}}</td>
                                                 <td class="col-md-1"><input type="text" class="form-control"
-                                                        ng-model="item.vd_can | number: misDecimales" ng-blind="item.vd_can" id="vd_can"></td>
+                                                        ng-model="item.vd_can" ng-blind="item.vd_can" id="vd_can"></td>
                                                 <td class="col-md-1"><input type="text" class="form-control"
                                                         ng-model="item.vd_pre" ng-blind="item.vd_pre" id="vd_pre"
                                                         readonly></td>
@@ -199,53 +200,29 @@
                                                         TipAfeIgv: {{item.TipAfeIgv = 10 }}
                                                         TotalImpuestos: {{item.TotalImpuestos =  item.Igv}}
                                                         MtoPrecioUnitario: {{item.MtoPrecioUnitario =  item.vd_pre }}
-
-                           <!--                         ->setUnidad('NIU')
-                                                        ->setDescripcion('PROD 1')
-                                                        ->setCantidad(2)
-                                                        ->setMtoValorUnitario(100)
-                                                        ->setMtoValorVenta(200)
-                                                        ->setMtoBaseIgv(200)
-                                                        ->setPorcentajeIgv(18)
-                                                        ->setIgv(36)
-                                                        ->setTipAfeIgv('10') // Catalog: 07
-                                                        ->setTotalImpuestos(36)
-                                                        ->setMtoPrecioUnitario(118); */
- -->
-                                                        <!--
-                                                           ()   vd_fac: val.lpd_fac,// factor del producto
-                                                           ()   vd_costo_total:val.falso_monto,//costo del producto
-                                                           ()   vd_com: val.lpd_com,//precio de venta
-                                                           ()   vd_val: val.lpd_vpre,//precio sin igv (monto bruto)
-                                                           ()   vd_igv: val.lpd_porcentaje_igv, //porcentaje de igv 
-                                                           ()   vd_tt_igv: val.lpd_valor_igv,// valor del igv
-                                                           ()    vd_pre: val.lpd_pre,// precio de venta
-                                                                    -->
                                                         </pre>
                                                     </div>
                                                 </td>
-                                                <td class="center ">
-                                                    <a class="btn btn-red" href="# " ng-click="eliminarItem($index) "><i
-                                                            class="glyphicon glyphicon-trash"></i></a>
+                                                <td class="center">
+                                                    <a class="btn btn-red" href="# " ng-click="eliminarItem($index) "><i class="glyphicon glyphicon-trash"></i></a>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                           
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4" ng-controller="itemsCtrl">
                         <div style="background: #fff !important; border-radius: 10px;margin: 5px;padding: 15px;">
-                            <div class="row" ng-controller="DatepickerDemoCtrl">
+                            <div class="row">
                                 <div style="text-align: center; background: #007AFF; color: #fff;">
                                     <ul class="list-unstyled amounts text-small">
                                         <li class="text-extra-large text-dark "
                                             style="padding-top: 5px ; font-size: 20px !important; color: #fff !important;">
                                             Grabado total:
                                             {{infoInputs.ven_afe = ((getMontoTotalAfecto() / valorIgvConvertido)) | number: misDecimales}}
-                                            <br/>
+                                            <br />
                                             No Grabado total:
                                             {{infoInputs.ven_ina = ((getMontoTotalInafecto())) | number: misDecimales}}
                                         </li>
@@ -289,7 +266,8 @@
                                     <div class="col-md-3">
                                         <div class="hidden">
                                             {{infoInputs.ven_serieID = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].id }}
-                                            {{infoInputs.ven_ser = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].tds_ser }} {{infoInputs.ven_num = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].tds_cor}}
+                                            {{infoInputs.ven_ser = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].tds_ser }}
+                                            {{infoInputs.ven_num = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].tds_cor}}
                                         </div>
                                         <label for="ven_num">Numero</label>
                                         <input type="text" class="form-control" id="ven_num"
@@ -380,7 +358,8 @@
                                     </div>
                                     <div class="col-md-12">
                                         <button class="btn btn-primary btn-block margin-top-15"
-                                            style="padding:15px 0px; font-size: 20px;" ng-click="guardarPuntoVenta(infoInputs,itemListVentas)">
+                                            style="padding:15px 0px; font-size: 20px;"
+                                            ng-click="guardarPuntoVenta(infoInputs,itemListVentas)">
                                             <strong>Generar Cobro</strong>
                                         </button>
                                     </div>
