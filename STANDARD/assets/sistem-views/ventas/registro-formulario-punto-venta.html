@@ -56,7 +56,7 @@
                                         <div class="col-md-2">
                                             <label for="vd_pre">Precio</label>
                                             <input ng-model="productos.selected.vd_pre" type="text" class="form-control"
-                                                id="vd_pre">
+                                                id="vd_pre" readonly>
                                         </div>
                                         <div class="col-md-2">
                                             <label for="stock">Stock</label>
@@ -189,7 +189,6 @@
                                                         <!--vd_ina total inafecto -->
                                                         vd_ina:{{item.vd_ina}}
                                                         lp_id:{{item.lp_id = infoInputs.lp_id}}
-
                                                         
                                                         Cantidad: {{item.Cantidad = item.vd_can}}
                                                         MtoValorUnitario: {{item.MtoValorUnitario = item.vd_val}}
