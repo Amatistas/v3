@@ -3624,13 +3624,14 @@ app.controller('AsideModalTransaccionCtrl', [
 					$window,
 					getBuscarOptionsSelect,
 					getResources,
-					getserialesdecomprobantes
+					getserialesdecomprobantes,
+					$http
 				) {
 					$scope.baserow = row;
-					console.log($scope.baserow);
 					$scope.infoInputs = {};
 					$scope.units = {};
 					$scope.rr = {};
+
 					$scope.fetchHeader = function(content) {
 						let obj = { db: 'venta', where: 'ven_id', key: content.id };
 						getResources.fetchResources(obj).then(
@@ -3662,14 +3663,15 @@ app.controller('AsideModalTransaccionCtrl', [
 								$scope.infoInputs.ven_fecven = sumarDias(fechahoy, 30);
 
 								$scope.infoInputs.notas_sunat = 0;
-
-								console.log($scope.infoInputs);
+								let ser = ($scope.baserow.td_id=='FA')?{id:'4',td_id: 'NC',tds_ser: 'FC01'}:{id:'32',td_id: 'NC',tds_ser: 'BB01'}
+								$scope.infoInputs.ven_serSel = ser
 							},
 							function(Error) {
 								console.error(Error);
 							}
 						);
 					};
+
 					$scope.fetchDetalle = function(id) {
 						let obj = { db: 'detalle_venta_det', where: 'venta_id', key: id };
 						getResources.fetchResources(obj).then(
@@ -3681,21 +3683,24 @@ app.controller('AsideModalTransaccionCtrl', [
 							}
 						);
 					};
-					$scope.fetchSerializador = function(type, base) {
-						var res = [];
-						console.log(type, base);
-						getserialesdecomprobantes.fetchSerializador(type, base).then(
-							function(d) {
-								res.push(d);
-							},
-							function(errResponse) {
-								console.error(
-									'Error capturando la serie de comporbantes posiblemente no este asignado la serie con el local y empresa'
-								);
-							}
-						);
-						return res;
+
+					$scope.serializador = function(serie) {
+						$http
+							.get(
+								`../../../../api/mantenimiento/mantenimiento/search3.php?getdb=${JSON.parse(
+									$rootScope.d.datos
+								).database}&tbnom=tipo_documento_serie&s=NC&key=td_id&where=emp_id&igual=${JSON.parse(
+									$rootScope.d.datos
+								).emp_id}&where2=ofi_id&igual2=1`
+							)
+							.then(function(response) {
+								setTimeout(() => {
+									$scope.infoInputs.ven_serSel = $scope.serialSelector[0];
+								}, 150);
+								return ($scope.serialSelector = response.data.data);
+							});
 					};
+
 					$scope.buscarOptionSelect = function(arr) {
 						getBuscarOptionsSelect.fetchOptions(arr).then(
 							function(respuesta) {

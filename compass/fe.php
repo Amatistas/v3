@@ -9,6 +9,14 @@ class FE
         $this->venta_id = $venta_id;
         $this->emp_id = $emp_id;
     }
+
+    public function host()
+    {
+        $ser = $_SERVER['SERVER_NAME'];
+        $DEV = ($ser == 'beta.nubefa.com') ? 'BETA' : 'PRODUCCION';
+        return $DEV;
+    }
+
     function getVenta()
     {
         $query = "SELECT * FROM venta WHERE ven_id = $this->venta_id";
@@ -123,7 +131,7 @@ class FE
         }
         $stmt->close();
     }
-    function corretativos(){
-
+    function corretativos()
+    {
     }
 }

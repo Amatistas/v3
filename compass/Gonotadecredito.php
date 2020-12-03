@@ -41,19 +41,28 @@ class GoNotaCredito
     }
     public function generateNote()
     {
+        $database = new Database();
+        $db = $database->getConnection($this->getdb);
+
+        $fe = new FE($db, null, null);
         $see = new See();
         $see->setCertificate(file_get_contents('../api/upload/' . substr($this->MIEMPRESA['fe_cerrut'], 2)));
-        $see->setService(SunatEndpoints::FE_PRODUCCION);
+        ($fe->host() == "PRODUCCION") ? $see->setService(SunatEndpoints::FE_PRODUCCION) : $see->setService(SunatEndpoints::FE_BETA);
         $see->setClaveSOL($this->MIEMPRESA['emp_ruc'], $this->MIEMPRESA['fe_sntusu'], $this->MIEMPRESA['fe_sntcla']);
 
         //insertar Certificado
         $respuesta = array();
         // Cliente
 
+        //1 = DNI
+        //6 = RUC
+        $setTipoDoc = ($this->CLIENTE['ane_tipdoc'] == 23) ? 6 : 1;
+        $rzSoc = ($setTipoDoc == 1) ? $this->CLIENTE['ane_nom'] . ' ' . $this->CLIENTE['ane_apepat'] : $this->CLIENTE['ane_razsoc'];
+
         $client = new Client();
-        $client->setTipoDoc($this->CLIENTE['ane_tipdoc'])
+        $client->setTipoDoc($setTipoDoc)
             ->setNumDoc($this->CLIENTE['ane_numdoc'])
-            ->setRznSocial($this->CLIENTE['ane_razsoc']);
+            ->setRznSocial($rzSoc);
         // Emisor
 
         $address = new Address();
@@ -70,7 +79,7 @@ class GoNotaCredito
             ->setRazonSocial($this->MIEMPRESA['emp_nomcom'])
             ->setNombreComercial($this->MIEMPRESA['emp_nom'])
             ->setAddress($address);
-       
+
         $note = new Note();
         $note
             ->setUblVersion('2.1')
@@ -78,7 +87,7 @@ class GoNotaCredito
             ->setSerie($this->VENTA['ven_ser'])
             ->setCorrelativo($this->VENTA['ven_num'])
             ->setFechaEmision(new DateTime($this->VENTA['ven_fecemi']))
-            ->setTipDocAfectado('01') // Tipo Doc: Factura
+            ->setTipDocAfectado(($this->VENTA['ven_ser'] == 'BB01' ? '03' : '01')) // Tipo Doc: Factura
             ->setNumDocfectado($this->VENTA['NumDocfectado']) // Factura: Serie-Correlativo
             ->setCodMotivo('07') // Catalogo. 09
             ->setDesMotivo('DEVOLUCION POR ITEM')
@@ -89,13 +98,11 @@ class GoNotaCredito
             ->setMtoIGV(round($this->VENTA['ven_igv'], 2))
             ->setTotalImpuestos(round($this->VENTA['ven_igv'], 2))
             ->setMtoImpVenta(round($this->VENTA['ven_totdoc'], 2));
-            
+
         $letItemsArray = array();
         foreach ($this->VENTADETALLE as $k => $v) {
             /*    var_dump($k,$v); */
-            $database = new Database();
-            $db = $database->getConnection($this->getdb);
-            $fe = new FE($db, null, null);
+
 
             $infoProducto = $fe->getDetalleProducto($this->VENTADETALLE[$k]['vt_pro_id']);
             $PRODUCTOS = $infoProducto->fetch(PDO::FETCH_ASSOC);
@@ -160,6 +167,7 @@ class GoNotaCredito
         if ($code === 0) {
             http_response_code(200);
             array_push($respuesta, array("status" => "ACEPTADA"));
+            array_push($respuesta, array("documento" => $note->getName()));
         } else if ($code >= 4000) {
             http_response_code(502);
             array_push($respuesta, array("status" => "ACEPTADA CON OBSERVACIONES", "detail" => array(PHP_EOL), "attr" => array($cdr->getNotes())));

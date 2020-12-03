@@ -36,21 +36,29 @@ class GoBoleta
     }
     public function generateFactura()
     {
+        $database = new Database();
+        $db = $database->getConnection($this->getdb);
+
+        $fe = new FE($db, null, null);
         $see = new See();
         $see->setCertificate(file_get_contents('../api/upload/' . substr($this->MIEMPRESA['fe_cerrut'], 2)));
-        $see->setService(SunatEndpoints::FE_PRODUCCION);
+        ($fe->host() == "PRODUCCION") ? $see->setService(SunatEndpoints::FE_PRODUCCION) : $see->setService(SunatEndpoints::FE_BETA);
         $see->setClaveSOL($this->MIEMPRESA['emp_ruc'], $this->MIEMPRESA['fe_sntusu'], $this->MIEMPRESA['fe_sntcla']);
 
         //insertar Certificado
         $respuesta = array();
         // Cliente
 
-        $client = new Client();
-        $client->setTipoDoc('6')
-            ->setNumDoc($this->CLIENTE['ane_numdoc'])
-            ->setRznSocial($this->CLIENTE['ane_razsoc']);
-        // Emisor
+        //1 = DNI
+        //6 = RUC
+        $setTipoDoc = ($this->CLIENTE['ane_tipdoc'] == 23) ? 6 : 1;
+        $rzSoc = ($setTipoDoc==1)?$this->CLIENTE['ane_nom'].' '.$this->CLIENTE['ane_apepat']:$this->CLIENTE['ane_razsoc'];
 
+        $client = new Client();
+        $client->setTipoDoc($setTipoDoc)
+            ->setNumDoc($this->CLIENTE['ane_numdoc'])
+            ->setRznSocial($rzSoc);
+        // Emisor
         $address = new Address();
         $address->setUbigueo($this->UBIGEOEMPRESA['ubi_id'])
             ->setDepartamento($this->UBIGEOEMPRESA['departamento'])
@@ -78,7 +86,7 @@ class GoBoleta
             ->setCompany($company)
             ->setClient($client)
             ->setMtoOperGravadas(round($this->VENTA['ven_afe'], 2))
-           // ->setMtoOperInafectas(round($this->VENTA['ven_ina'], 2))
+            // ->setMtoOperInafectas(round($this->VENTA['ven_ina'], 2))
             ->setMtoIGV(round($this->VENTA['ven_igv'], 2))
             ->setTotalImpuestos(round($this->VENTA['ven_igv'], 2))
             ->setValorVenta(round($this->VENTA['ven_afe'] + $this->VENTA['ven_ina'], 2))
@@ -88,9 +96,6 @@ class GoBoleta
         $letItemsArray = array();
         foreach ($this->VENTADETALLE as $k => $v) {
             /*    var_dump($k,$v); */
-            $database = new Database();
-            $db = $database->getConnection($this->getdb);
-            $fe = new FE($db, null, null);
 
             $infoProducto = $fe->getDetalleProducto($this->VENTADETALLE[$k]['vt_pro_id']);
             $PRODUCTOS = $infoProducto->fetch(PDO::FETCH_ASSOC);

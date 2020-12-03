@@ -9,6 +9,7 @@ use Greenter\Model\Company\Address;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\Legend;
+use Greenter\Model\Sale\Document;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\See;
 
@@ -36,9 +37,13 @@ class Gofactura
     }
     public function generateFactura()
     {
+        $database = new Database();
+        $db = $database->getConnection($this->getdb);
+
+        $fe = new FE($db, null, null);
         $see = new See();
         $see->setCertificate(file_get_contents('../api/upload/' . substr($this->MIEMPRESA['fe_cerrut'], 2)));
-        $see->setService(SunatEndpoints::FE_BETA);
+        ($fe->host() == "PRODUCCION") ? $see->setService(SunatEndpoints::FE_PRODUCCION) : $see->setService(SunatEndpoints::FE_BETA);
         $see->setClaveSOL($this->MIEMPRESA['emp_ruc'], $this->MIEMPRESA['fe_sntusu'], $this->MIEMPRESA['fe_sntcla']);
 
         //insertar Certificado
@@ -46,11 +51,12 @@ class Gofactura
         // Cliente
 
         $client = new Client();
-        $client->setTipoDoc('6')
+        $setTipoDoc = ($this->CLIENTE['ane_tipdoc'] == 23) ? 6 : 1;
+
+        $client = new Client();
+        $client->setTipoDoc($setTipoDoc)
             ->setNumDoc($this->CLIENTE['ane_numdoc'])
             ->setRznSocial($this->CLIENTE['ane_razsoc']);
-        // Emisor
-
         $address = new Address();
         $address->setUbigueo($this->UBIGEOEMPRESA['ubi_id'])
             ->setDepartamento($this->UBIGEOEMPRESA['departamento'])
@@ -83,14 +89,11 @@ class Gofactura
             ->setTotalImpuestos(round($this->VENTA['ven_igv'], 2))
             ->setValorVenta(round($this->VENTA['ven_afe'] + $this->VENTA['ven_ina'], 2))
             ->setSubTotal(round($this->VENTA['ven_totdoc'], 2))
+            ->setRelDocs(($this->VENTA['NumDocfectado']!=0)?$this->VENTA['NumDocfectado']:null)
             ->setMtoImpVenta(round($this->VENTA['ven_totdoc'], 2));
-
         $letItemsArray = array();
         foreach ($this->VENTADETALLE as $k => $v) {
-      
-            $database = new Database();
-            $db = $database->getConnection($this->getdb);
-            $fe = new FE($db, null, null);
+
 
             $infoProducto = $fe->getDetalleProducto($this->VENTADETALLE[$k]['vt_pro_id']);
             $PRODUCTOS = $infoProducto->fetch(PDO::FETCH_ASSOC);
@@ -107,7 +110,7 @@ class Gofactura
                         $item = (new SaleDetail())
                             ->setCodProducto($PRODUCTOS['pro_bar'])
                             ->setUnidad($PRESENTACION['pst_snt']) // Unidad - Catalog. 03
-                            ->setDescripcion(substr($PRODUCTOS['pro_nom'],0,15))
+                            ->setDescripcion(substr($PRODUCTOS['pro_nom'], 0, 15))
                             ->setCantidad(round($this->VENTADETALLE[$k]['Cantidad'], 2)) // cantidad
                             ->setMtoValorUnitario($valorUnitario = round($this->VENTADETALLE[$k]['MtoValorUnitario'], 2)) // valor unitario (sin igv)
                             ->setMtoValorVenta(round($this->VENTADETALLE[$k]['MtoValorVenta'], 2))   // valor unitario * cantidad sin igv
@@ -182,7 +185,7 @@ class Gofactura
         $legend = (new Legend())
             ->setCode('1000') // Monto en letras - Catalog. 52
             ->setValue($num->numero(round($this->VENTA['ven_totdoc'], 2)));
-        
+
         $invoice->setDetails($letItemsArray)
             ->setLegends([$legend]);
         $result = $see->send($invoice);

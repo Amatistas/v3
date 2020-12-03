@@ -3,10 +3,12 @@
         <div class="modal-header" ng-controller="itemsCtrl">
             <div class="pull-right">
                 <div role="group" aria-label="tools">
-                    <button class="btn btn-primary" ng-disabled="form.$error.required" ng-click="guardarNotaCredito()">Guardar</button>
+                    <button class="btn btn-primary" ng-disabled="form.$error.required"
+                        ng-click="guardarNotaCredito()">Guardar</button>
                     <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
                     <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
-                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                            class="ti-close"></i></button>
                 </div>
             </div>
             <div class="col-md-3">
@@ -21,39 +23,44 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-1">
-                                        <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
-                                            Documento   
-                                        </label>
-                                        <select class="ui fluid dropdown" required disabled
-                                            ng-model="infoInputs['td_id']" id="td_id" name="td_id"
-                                            ng-init="fetch = fetchSerializador('NC',baserow.td_id)">
-                                            <option value="NC">NC</option>
+                                        <div class="field">
+                                            <label for="td_id" ng-class="{'text-danger':form.td_id.$invalid == true}">
+                                                Documento
+                                            </label>
+                                            <select class="ui fluid dropdown" required disabled
+                                                ng-model="infoInputs['td_id']" id="td_id" name="td_id"
+                                                ng-init="buscarOption(rr.td_id)"
+                                                ng-change="serializador(infoInputs.td_id)">
+                                                <option value="NC">
+                                                    NC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="ven_ser">Serie</label>
+                                        <select ng-init="serializador(infoInputs['td_id'])" class="ui fluid dropdown"
+                                            required disabled ng-model="infoInputs.ven_serSel" id="ven_serSel" name="ven_serSel"
+                                            ng-options="item as item.tds_ser for item in serialSelector track by item.tds_ser">
                                         </select>
                                     </div>
-                                    <div class="hidden">
-                                        {{infoInputs.ven_ser = fetch[0].data[0].tds_ser}}
-                                        {{infoInputs.ven_num = fetch[0].data[0].tds_cor}}
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label for="ven_ser">Serie</label>
-                                        <input type="text" class="form-control" id="ven_ser"
-                                            ng-model="infoInputs['ven_ser']" readonly>
-                                    </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
+                                        <div class="hidden">
+                                            {{infoInputs.ven_serieID = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].id }}
+                                            {{infoInputs.ven_ser = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].tds_ser }} {{infoInputs.ven_num = (serialSelector | filter : {'id':infoInputs.ven_serSel.id})[0].tds_cor
+                                            }}
+                                        </div>
+
                                         <label for="ven_num">Numero</label>
                                         <input type="text" class="form-control" id="ven_num"
-                                            ng-model="infoInputs['ven_num']" readonly>
+                                            ng-model="infoInputs.ven_num" readonly disabled>
                                     </div>
-
-
                                     <div class="col-md-1">
                                         <div class="form-group">
-                                            <label for="moneda"
-                                                ng-class="{'text-danger':form.mnd_id.$invalid == true}">
+                                            <label for="moneda" ng-class="{'text-danger':form.mnd_id.$invalid == true}">
                                                 Moneda
                                             </label>
-                                            <select class="ui fluid dropdown" disabled
-                                                required ng-model="infoInputs['mnd_id']" id="mnd_id" name="mnd_id"
+                                            <select class="ui fluid dropdown" disabled required
+                                                ng-model="infoInputs['mnd_id']" id="mnd_id" name="mnd_id"
                                                 ng-init="buscarOptionSelect(rr.mnd_id)">
                                                 <option value="{{opt.id}}" ng-repeat="opt in units['mnd_id']">
                                                     {{opt.label}}
@@ -65,7 +72,7 @@
                                         <label for="lp_id" ng-class="{'text-danger':form.lp_id.$invalid == true }">
                                             Lista de Precio
                                         </label>
-                                        <select  ng-model="infoInputs['lp_id']" disabled class="ui fluid dropdown"
+                                        <select ng-model="infoInputs['lp_id']" disabled class="ui fluid dropdown"
                                             id="lp_id" name="lp_id" ng-init="buscarOptionSelect(rr.lp_id)" required>
                                             <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">
                                                 {{opt.label}}</option>
@@ -110,7 +117,7 @@
                                                 ng-class="{'text-danger':form.CodMotivo.$invalid == true}">
                                                 Motivo De Nota de Crédito
                                             </label>
-                                            <select ng-required required class="ui fluid dropdown" 
+                                            <select ng-required required class="ui fluid dropdown"
                                                 ng-model="infoInputs['CodMotivo']" id="CodMotivo" name="CodMotivo"
                                                 ng-init="buscarOptionSelect(rr.CodMotivo)">
                                                 <option value="{{opt.id}}" ng-repeat="opt in units['CodMotivo']">
@@ -195,7 +202,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="row ">
+                <div class="row" ng-if="DEV">
                     <pre>{{ infoInputs | json }}</pre>
                 </div>
             </div>
