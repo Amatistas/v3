@@ -1023,7 +1023,7 @@ function ventasListaCtrl(
 			vm.selected[data.ven_id] = false;
 			return `<input type="checkbox" ng-model="showCase.selected['${data.ven_id}']" ng-click="showCase.toggleOne(showCase.selected)">`;
 		}),
-		DTColumnBuilder.newColumn('ven_fecreg').withTitle('FECHA').withOption('width', '100px'),
+		DTColumnBuilder.newColumn('ven_fecemi').withTitle('FECHA').withOption('width', '100px'),
 		DTColumnBuilder.newColumn('to_nom').withTitle('TIPO DE OPERACIÓN'),
 		DTColumnBuilder.newColumn('cliente').withTitle('CLIENTE'),
 		DTColumnBuilder.newColumn('documento').withTitle('DOCUMENTO'),
