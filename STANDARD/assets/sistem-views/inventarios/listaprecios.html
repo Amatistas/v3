@@ -41,46 +41,60 @@
         <div ng-controller="SelectCtrl">
             <div class="container" ng-init="resultados(person.selected)">
                 <div class="row">
-                    <div class="form-group">
-                        <div class="col-md-7">
-                            <label>
-                                Productos y Servicios
-                            </label>
-                            <div class="input-group">
-                                <ui-select name="pys" style="width: 100%; float: left;" ng-model="person.selected"
-                                    theme="bootstrap">
-                                    <ui-select-match placeholder="Escriba 3 letras para buscar">
-                                        {{$select.selected.cd_des}}
-                                    </ui-select-match>
+           
+                    <div class="col-md-7">
+
+                        <div class="form-group">
+                                    <label class="control-label">Productos y Servicios</label>
+                    
+                                  <ui-select class="ui fluid dropdown" ng-model="person.selected" theme="selectize" name="pys">
+                                    <ui-select-match placeholder="Escriba 3 letras Para Empezar a Buscar">{{$select.selected.cd_des}}</ui-select-match>
                                     <ui-select-choices repeat="item in productosData track by $index"
-                                        refresh="productosGetAsyncronicListPrecio($select.search)" refresh-delay="0">
-                                        <div class="item">
-                                            <div class="content">
-                                                <div>
-                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
-                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
-                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
-                                                    <b>{{item.cd_des}}</b>
-                                                </div>
-                                                <div class="description">{{item.pro_cod}}</div>
+                                    refresh="productosGetAsyncronicListPrecio($select.search)" refresh-delay="0">
+                                    <div class="item">
+                                        <div class="content">
+                                            <div>
+                                                <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                                                <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                                                <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                                                <b>{{item.cd_des}}</b>
                                             </div>
+                                            <div class="description">{{item.pro_cod}}</div>
                                         </div>
+                                    </div>
+                                    
                                     </ui-select-choices>
-                                </ui-select>
-                                <span class="input-group-btn">
-                                    <button type="button" ng-click="person.selected=undefined" class="btn btn-primary">
-                                        <i class="fa fa-trash-o"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
+                                  </ui-select>
+                    
+                                  <div class="hidden">
+                                      {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
+                                  </div>
+                                  <div class="input-group col-md-12 hidden"
+                                  ng-if="infoInputs.docRelacionado == true">
+                                  <input type="text" class="form-control" id="anexo_name"
+                                      ng-bind="infoInputs.anexo_display_name"
+                                      ng-value="infoInputs.anexo_display_name" readonly>
+                              </div>
+                                </div>   
+                    </div>
+                    
+
+
+                     
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                
                             <label for="lpd_fac">Factor</label>
                             <input ng-model="person.selected.lpd_fac"
                                 ng-change="person.selected = modffactorCompra(person.selected)" type="text"
                                 class="form-control" id="lpd_fac" name="lpd_fac">
                         </div>
-                        <div class="col-md-2">
+                    </div>
+                
+                    <div class="col-md-2">
+                        <div class="form-group">
+                
                             <label for="pst_id">
                                 Presentación
                             </label>
@@ -89,7 +103,11 @@
                                 <option value="{{opt.id}}" ng-repeat="opt in units['pst_id']">{{opt.label}}</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
+                    </div>
+                
+                    <div class="col-md-2">
+                        <div class="form-group">
+                
                             <label for="form-field-select-2">
                                 Lista de Precio
                             </label>
@@ -99,6 +117,7 @@
                             </select>
                         </div>
                     </div>
+                  
                 </div>
                 <div class="row" style="margin-top: 15px;">
                     <div class="col-md-3">
