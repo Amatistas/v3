@@ -96,46 +96,50 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="cd_alm" ng-class="{'text-danger':form.cd_alm.$invalid == true}">
-                                                Almacén
-                                            </label>
-                                            <select disabled class="ui fluid dropdown" required
-                                                ng-model="infoInputs['cd_alm']" id="cd_alm" name="cd_alm"
-                                                ng-init="buscarOptionSelect(rr.cd_alm)">
-                                                <option value="{{opt.id}}" ng-repeat="opt in units['cd_alm']">
-                                                    {{opt.label}}
-                                                </option>
-                                            </select>
-                                        </div>
+                         
+                                </div>
+                               
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="cd_alm" ng-class="{'text-danger':form.cd_alm.$invalid == true}">
+                                            Almacén
+                                        </label>
+                                        <select disabled class="ui fluid dropdown" required
+                                            ng-model="infoInputs['cd_alm']" id="cd_alm" name="cd_alm"
+                                            ng-init="buscarOptionSelect(rr.cd_alm)">
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['cd_alm']">
+                                                {{opt.label}}
+                                            </option>
+                                        </select>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="CodMotivo"
-                                                ng-class="{'text-danger':form.CodMotivo.$invalid == true}">
-                                                Motivo De Nota de Crédito
-                                            </label>
-                                            <select ng-required required class="ui fluid dropdown"
-                                                ng-model="infoInputs['CodMotivo']" id="CodMotivo" name="CodMotivo"
-                                                ng-init="buscarOptionSelect(rr.CodMotivo)">
-                                                <option value="{{opt.id}}" ng-repeat="opt in units['CodMotivo']">
-                                                    {{opt.label}}
-                                                </option>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="CodMotivo"
+                                            ng-class="{'text-danger':form.CodMotivo.$invalid == true}">
+                                            Motivo De Nota de Crédito
+                                        </label>
+                                        <select ng-required required class="ui fluid dropdown"
+                                            ng-model="infoInputs['CodMotivo']" id="CodMotivo" name="CodMotivo"
+                                            ng-init="buscarOptionSelect(rr.CodMotivo)" style="min-width: 100%;">
+                                            <option value="{{opt.id}}" ng-repeat="opt in units['CodMotivo']">
+                                                {{opt.label}}
+                                            </option>
+                                        </select>
                                     </div>
-                                    <div class="col-md-5">
-                                        <label for="ane_alias">Cliente</label>
-                                        <input type="text" class="form-control" id="ane_alias"
-                                            ng-model="infoInputs['ane_alias']" readonly>
-                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="ane_alias">Cliente</label>
+                                    <input type="text" class="form-control" id="ane_alias"
+                                        ng-model="infoInputs['ane_alias']" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row " style="margin-top: 15px;">
+                <div class="row">
                     <div class="col-md-10" style="height: 300px; overflow-y: scroll;">
                         <table class="table table-hover">
                             <thead>

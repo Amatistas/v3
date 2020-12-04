@@ -1076,22 +1076,25 @@ function ventasListaCtrl(
 			}
 		}),
 		/* DTColumnBuilder.newColumn('alm_nom').withTitle('ALMACEN'),*/
-		DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(function(data, type, full) {
-			var options = '';
-			if (data.notas_sunat.indexOf('ANULADA') != -1) {
-				options += `
+		DTColumnBuilder.newColumn(null)
+			.withTitle('')
+			.notSortable()
+			.renderWith(function(data, type, full) {
+				var options = '';
+				if (data.notas_sunat.indexOf('ANULADA') != -1) {
+					options += `
 				<div class="contenedor">
 					<i class="ti-more-alt"></i>
 				</div>
 				`;
-			} else {
-				if (data.td_id == 'FA') {
-					if (data.estatus_documento == 0) {
-						var facturar = '<a class="action-nota-credito">Nota de Crédito</a>';
-					} else {
-						var facturar = '';
-					}
-					options += `
+				} else {
+					if (data.td_id == 'FA') {
+						if (data.estatus_documento == 0) {
+							var facturar = '<a class="action-nota-credito">Nota de Crédito</a>';
+						} else {
+							var facturar = '';
+						}
+						options += `
 				<div class="contenedor">
 				<div class="dropdown">
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
@@ -1106,13 +1109,13 @@ function ventasListaCtrl(
 				</div>
 				</div>		
 					`;
-				} else if (data.td_id == 'CT') {
-					if (data.estatus_documento == 0) {
-						var facturar = '<a class="action-facturar">Facturar</a>';
-					} else {
-						var facturar = '';
-					}
-					options += `
+					} else if (data.td_id == 'CT') {
+						if (data.estatus_documento == 0) {
+							var facturar = '<a class="action-facturar">Facturar</a>';
+						} else {
+							var facturar = '';
+						}
+						options += `
 				<div class="contenedor">
 				<div class="dropdown">
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
@@ -1125,13 +1128,13 @@ function ventasListaCtrl(
 				</div>
 				</div>		
 				`;
-				} else if (data.td_id == 'NV') {
-					if (data.estatus_documento == 0) {
-						var facturar = '<a class="action-nota-credito">Devolucion</a>';
-					} else {
-						var facturar = '';
-					}
-					options += `
+					} else if (data.td_id == 'NV') {
+						if (data.estatus_documento == 0) {
+							var facturar = '<a class="action-nota-credito">Devolucion</a>';
+						} else {
+							var facturar = '';
+						}
+						options += `
 				<div class="contenedor">
 				<div class="dropdown">
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
@@ -1144,13 +1147,13 @@ function ventasListaCtrl(
 				</div>
 				</div>		
 					`;
-				} else if (data.td_id == 'GR') {
-					if (data.estatus_documento_guia == 0) {
-						var facturar = '<a class="action-facturar">Facturar</a>';
-					} else {
-						var facturar = '';
-					}
-					options += `
+					} else if (data.td_id == 'GR') {
+						if (data.estatus_documento_guia == 0) {
+							var facturar = '<a class="action-facturar">Facturar</a>';
+						} else {
+							var facturar = '';
+						}
+						options += `
 				<div class="contenedor">
 				<div class="dropdown">
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
@@ -1163,8 +1166,8 @@ function ventasListaCtrl(
 				</div>
 				</div>		
 					`;
-				} else if (data.td_id == 'BO') {
-					options += `
+					} else if (data.td_id == 'BO') {
+						options += `
 				<div class="contenedor">
 				<div class="dropdown">
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
@@ -1177,8 +1180,8 @@ function ventasListaCtrl(
 				</div>
 				</div>		
 					`;
-				} else if (data.td_id == 'NC') {
-					options += `
+					} else if (data.td_id == 'NC') {
+						options += `
 				<div class="contenedor">
 				<div class="dropdown">
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
@@ -1189,31 +1192,33 @@ function ventasListaCtrl(
 				</div>
 				</div>		
 					`;
+					}
 				}
-			}
-			return options;
-		}).withOption('width', '10px')
-		,
-		DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(function(data, type, full) {
-			options = '';
-			if (data.td_id == 'FA' || data.td_id == 'BO' || data.td_id == 'NC') {
-
-				if (data.notas_sunat == '0') {
-					options += `				
+				return options;
+			})
+			.withOption('width', '10px'),
+		DTColumnBuilder.newColumn(null)
+			.withTitle('')
+			.notSortable()
+			.renderWith(function(data, type, full) {
+				options = '';
+				if (data.td_id == 'FA' || data.td_id == 'BO' || data.td_id == 'NC') {
+					if (data.notas_sunat == '0') {
+						options += `				
 				<button type="button" class="btn btn-warning btn-xs action-enviar-sunat ld-ext-right">
 				Por Enviar <img src="STANDARD/assets/images/spinners.gif" class="ld ld-ring"></button>`;
-				}
-
-				if (data.notas_sunat.indexOf('ANULADA') != -1) {
-					options += `
+		
+			}
+					if (data.notas_sunat.indexOf('ANULADA') != -1) {
+						options += `
 				<button type="button" class="btn btn-danger btn-xs ld-ext-right">
 					<span style="font-size:11px">Anulada</span>
 				</button>
 				  `;
-				}
+					}
 
-				if (data.notas_sunat.indexOf('RECHAZADA') != -1) {
-					options += `
+					if (data.notas_sunat.indexOf('RECHAZADA') != -1) {
+						options += `
 					<div class="btn-group btn-group-xs" role="group" aria-label="">
 						<button type="button" class="btn btn-danger btn-xs ld-ext-right action-ver-rechazo">
 							Rechazada
@@ -1223,12 +1228,12 @@ function ventasListaCtrl(
 						</button>
 					</div>
 				  `;
-				}
+					}
 
-				if (data.notas_sunat.indexOf('ACEPTADA') != -1) {
-					let res = JSON.parse(data.notas_sunat);
-					let file = res[0][1] ? res[0][1].documento : 'none';
-					options += `
+					if (data.notas_sunat.indexOf('ACEPTADA') != -1) {
+						let res = JSON.parse(data.notas_sunat);
+						let file = res[0][1] ? res[0][1].documento : 'none';
+						options += `
 					<div class="btn-group dropup">
 					<button type="button" class="btn btn-success btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
  					   <span>Aceptada</span>
@@ -1243,10 +1248,11 @@ function ventasListaCtrl(
  					 </ul>
 					</div>
 				  `;
+					}
 				}
-			}
-			return options;
-		}).withOption('width', '120px')
+				return options;
+			})
+			.withOption('width', '120px')
 	];
 	vm.someClickHandlerSendSunat = someClickHandlerSendSunat;
 	vm.someClickHandlerDetails = someClickHandlerDetails;
@@ -1265,7 +1271,7 @@ function ventasListaCtrl(
 	function someClickHandlerEnviarBoletasVarias(info) {
 		alert('Este elemento no se puede eliminar');
 	}
-	
+
 	function someClickHandlerDelete(info) {
 		alert('Este elemento no se puede eliminar');
 	}
