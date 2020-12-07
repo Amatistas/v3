@@ -104,8 +104,11 @@ $fpdf->Ln(10);
 $fpdf->cell(95,6,'RUC:',1,'','L');
 $fpdf->cell(95,6,'CHOFER: '.$fpdf->arry[0]['nchofer'],1,'','L');
 $fpdf->Ln();
-$fpdf->cell(95,6,'MARCA Y PLACA: '.$fpdf->arry[0]['marcaplaca'],1,'','L');
+$fpdf->cell(95,6,'MARCA: '.$fpdf->arry[0]['vh_mar'].'  '.'PLACA: '.$fpdf->arry[0]['vh_pla'],1,'','L');
 $fpdf->cell(95,6,'LICENCIA: '.$fpdf->arry[0]['ch_bre'],1,'','L');
+$fpdf->Ln();
+$fpdf->cell(95,6,'MODELO: '.$fpdf->arry[0]['vh_mod'],1,'','L');
+$fpdf->cell(95,6,'DESCRIPCIÓN: '.$fpdf->arry[0]['vh_des'],1,'','L');
 
 
 $fpdf->AliasNbPages();
