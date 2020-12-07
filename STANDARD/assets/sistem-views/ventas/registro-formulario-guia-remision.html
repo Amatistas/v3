@@ -187,48 +187,54 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="serie"
                                         ng-class="{'text-danger':myform.ven_direccion_destino.$error.required == true}">Dirección
                                         de Destino</label>
                                     <input required type="text" class="form-control" name="ven_direccion_destino"
                                         ng-model="infoInputs['ven_direccion_destino']">
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-md-4" ng-class="{'text-danger':form.id_chofer.$invalid == true}">
-                                        <label>
-                                            Ubigeo de Destino
-                                        </label>
-                                        <div class="input-group">
-                                            <ui-select name="pys" style="width: 100%; float: left;"
-                                                ng-model="infoInputs.ubigeobuscador" on-select="" theme="bootstrap">
-                                                <ui-select-match placeholder="Escriba 3 letras para buscar">
-                                                    {{$select.selected.ubi}}
-                                                </ui-select-match>
-                                                <ui-select-choices repeat="item in ubigeoList[0] track by $index"
-                                                    refresh="ubigeoGetAsyncronic($select.search)" refresh-delay="0"
-                                                    minimum-input-length="3">
-                                                    <div class="item">
-                                                        <div class="content">
-                                                            <div>
-                                                                {{item.ubi_id}} <strong>{{item.ubi}}</strong>
-                                                            </div>
+
+                                <div class="col-md-4" ng-class="{'text-danger':form.id_chofer.$invalid == true}">
+                                    <label>
+                                        Ubigeo de Destino
+                                    </label>
+                                    <div class="input-group">
+                                        <ui-select name="pys" style="width: 100%; float: left;"
+                                            ng-model="infoInputs.ubigeobuscador" on-select="" theme="bootstrap">
+                                            <ui-select-match placeholder="Escriba 3 letras para buscar">
+                                                {{$select.selected.ubi}}
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item in ubigeoList[0] track by $index"
+                                                refresh="ubigeoGetAsyncronic($select.search)" refresh-delay="0"
+                                                minimum-input-length="3">
+                                                <div class="item">
+                                                    <div class="content">
+                                                        <div>
+                                                            {{item.ubi_id}} <strong>{{item.ubi}}</strong>
                                                         </div>
                                                     </div>
-                                                </ui-select-choices>
-                                            </ui-select>
-                                            <span class="input-group-btn">
-                                                <button type="button"
-                                                    ng-click="infoInputs.ubigeobuscador.selected=undefined"
-                                                    class="btn btn-primary">
-                                                    <i class="fal fa-trash"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        <div class="hidden">
-                                            {{ infoInputs.ven_ubigeo_destino = infoInputs.ubigeobuscador.ubi_id}}
-                                        </div>
+                                                </div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button type="button"
+                                                ng-click="infoInputs.ubigeobuscador.selected=undefined"
+                                                class="btn btn-primary">
+                                                <i class="fal fa-trash"></i>
+                                            </button>
+                                        </span>
                                     </div>
+                                    <div class="hidden">
+                                        {{ infoInputs.ven_ubigeo_destino = infoInputs.ubigeobuscador.ubi_id}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="hash"
+                                        ng-class="{'text-danger':myform.hash.$error.required == true}">Documento Referencia</label>
+                                    <input required type="text" class="form-control" name="hash"
+                                        ng-model="infoInputs['hash']">
                                 </div>
                             </div>
 
