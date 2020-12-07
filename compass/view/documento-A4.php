@@ -72,11 +72,14 @@ foreach ($arry2 as $arr) {
     } else {
         $cap = false;
     };
+
     //(condicion)?[precio sin igv]:[precio con igv] 
     $vd_pre =  ($cap) ? number_format(($arr['vd_pre'] / 1.18), $dec, ',', ' ') : number_format(($arr['vd_pre']), $dec, ',', ' ');
 
+
     //(condicion)?[precio total sin igv]:[precio total con igv] 
     $vd_pre_total = ($cap) ? number_format(($arr['vd_pre'] / 1.18) * $arr['vd_can'], $dec, ',', ' ') : number_format(($arr['vd_pre']) * $arr['vd_can'], $dec, ',', ' ');
+
 
     $x_axis = $fpdf->getx();
     $c_width = 20;
@@ -84,6 +87,7 @@ foreach ($arry2 as $arr) {
     $c3_width = 15;
     $c4_width = 25;
     $c_height = 8;
+
 
     $fpdf->vcell2($c_width, $c_height, $x_axis, $arr['pro_cod']);
     $x_axis = $fpdf->getx();
@@ -99,6 +103,8 @@ foreach ($arry2 as $arr) {
     $fpdf->Ln();
     $fpdf->SetMargins(10, 30, 20);
     $fpdf->SetAutoPageBreak(true, 97);
+
+
 }
 
 $fpdf->SetMargins(10, 30, 20);

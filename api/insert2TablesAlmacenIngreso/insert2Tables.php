@@ -99,7 +99,7 @@ class Insert2Tables
     {
 /*         var_dump($detalle);
         var_dump($info); */
-       $fec_alm = $info->fec_alm;
+       $fec_alm = $info->alm_fecha;
        $com_id=$detalle->com_id;
        $ve_id=0;
        $cantidad = $detalle->cd_cantidadingresar;

@@ -152,6 +152,26 @@ class PDF extends FPDF
 
 
         if ($this->arry[0]['to_id'] == 13) {
+            $this->SetLineWidth(0.2);
+            $this->line(10, 67, 200, 67);
+            $this->SetLineWidth(0.2);
+            $this->line(10, 199, 200, 199);
+            $this->SetLineWidth(0.2);
+            $this->line(10, 67, 10, 199);
+            $this->SetLineWidth(0.2);
+            $this->line(30, 67, 30, 199);
+            $this->SetLineWidth(0.2);
+            $this->line(120, 67, 120, 199);
+            $this->SetLineWidth(0.2);
+            $this->line(135, 67, 135, 199);
+            $this->SetLineWidth(0.2);
+            $this->line(120, 67, 120, 199);
+            $this->SetLineWidth(0.2);
+            $this->line(150, 67, 150, 199);
+            $this->SetLineWidth(0.2);
+            $this->line(200, 67, 200, 199);
+            $this->SetLineWidth(0.2);
+            $this->line(175, 67, 175, 199);
             $this->SetFont('Arial', 'B', 9);
             $this->SetXY(150, 10);
             $this->MultiCell(50, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . $this->tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
@@ -167,16 +187,19 @@ class PDF extends FPDF
             $this->line(10, 55, 200, 55);
             $this->SetY(60);
             // $fpdf->Ln(10);
+
             $this->SetFont('Arial', 'B', 8);
 
             $this->cell(20, 6, 'Código', 1, '', 'C');
             $this->cell(90, 6, 'Descripción', 1, '', 'C');
-            $this->cell(20, 6, 'Cant', 1, '', 'C');
+            $this->cell(15, 6, 'Cant', 1, '', 'C');
+            $this->cell(15, 6, 'Psnt', 1, '', 'C');
             // $this->cell(15,6,'Psnt',1,'','C');
             $col = $this->tipo2($this->arry[0]['to_id']);
-            $this->cell(30, 6, $col[0], 1, '', 'C');
-            $this->cell(30, 6, $col[1], 1, '', 'C');
+            $this->cell(25, 6, $col[0], 1, '', 'C');
+            $this->cell(25, 6, $col[1], 1, '', 'C');
             $this->Ln(8);
+
         } else if ($this->arry[0]['to_id'] == 41 || $this->arry[0]['to_id'] == 40 || $this->arry[0]['to_id'] == 42 || $this->arry[0]['to_id'] == 43) {
 
             $this->SetFont('Arial', 'B', 9);

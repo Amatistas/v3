@@ -3663,8 +3663,11 @@ app.controller('AsideModalTransaccionCtrl', [
 								$scope.infoInputs.ven_fecven = sumarDias(fechahoy, 30);
 
 								$scope.infoInputs.notas_sunat = 0;
-								let ser = ($scope.baserow.td_id=='FA')?{id:'4',td_id: 'NC',tds_ser: 'FC01'}:{id:'32',td_id: 'NC',tds_ser: 'BB01'}
-								$scope.infoInputs.ven_serSel = ser
+								let ser =
+									$scope.baserow.td_id == 'FA'
+										? { id: '4', td_id: 'NC', tds_ser: 'FC01' }
+										: { id: '32', td_id: 'NC', tds_ser: 'BB01' };
+								$scope.infoInputs.ven_serSel = ser;
 							},
 							function(Error) {
 								console.error(Error);
@@ -9048,7 +9051,48 @@ app.controller('AsideModalTransaccionCtrl', [
 				}
 			});
 		};
+		$rootScope.reporteKardex = function() {
+			$aside.open({
+				templateUrl: 'STANDARD/assets/sistem-views/informe/reporte-kardex.html',
+				placement: 'top',
+				size: 'sm',
+				backdrop: true,
+				controller: function($scope, $uibModalInstance, $rootScope, $http, getReportesReportes) {
+					$scope.showtable = false;
+					$scope.itemsRegistroUtilidad = [];
+					$scope.buscarReporteKardex = function() {
+						getReportesReportes.fetchReporteKardex().then(
+							function(d) {
+								$scope.showtable = true;
+								$scope.itemsRegistroUtilidad = d;
+							},
+							function(errResponse) {
+								$scope.showtable = false;
+							}
+						);
+						return this;
+					};
 
+					$scope.mostrarResultados = function() {
+						let resultado = 0;
+						$scope.itemsRegistroUtilidad.forEach((item) => {
+							resultado += parseFloat(item.utilidad_neto);
+						});
+						return resultado;
+					};
+
+					$scope.ok = function(e, total) {
+						$uibModalInstance.close();
+						e.stopPropagation();
+					};
+
+					$scope.cancel = function(e) {
+						$uibModalInstance.dismiss();
+						e.stopPropagation();
+					};
+				}
+			});
+		};
 		$rootScope.reporteCosto = function(documentos) {
 			$rootScope.cabeceraAsiento = documentos;
 			$aside.open({

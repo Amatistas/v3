@@ -1160,7 +1160,7 @@ function ventasListaCtrl(
   				<div class="dropdown-content">
   				<a class="action-facturar">Facturar</a>
 				  <a class="">Eliminar</a>
-  				<a class="action-ver-detalles">Ver Detalle</a>
+  				<a class="action-ver-detalles-guia-remision">Ver Detalle</a>
 				${facturar}
   				</div>
 				</div>
@@ -1207,8 +1207,7 @@ function ventasListaCtrl(
 						options += `				
 				<button type="button" class="btn btn-warning btn-xs action-enviar-sunat ld-ext-right">
 				Por Enviar <img src="STANDARD/assets/images/spinners.gif" class="ld ld-ring"></button>`;
-		
-			}
+					}
 					if (data.notas_sunat.indexOf('ANULADA') != -1) {
 						options += `
 				<button type="button" class="btn btn-danger btn-xs ld-ext-right">
@@ -1382,6 +1381,15 @@ function ventasListaCtrl(
 		$('td .action-guia-remision', nRow).bind('click', function() {
 			$scope.$apply(function() {
 				vm.someClickHandlerGenerateGuideRemision(aData);
+			});
+		});
+		$('td .action-ver-detalles-guia-remision', nRow).unbind('click');
+		$('td .action-ver-detalles-guia-remision', nRow).bind('click', function() {
+			$scope.$apply(function() {
+				$window.open(
+					`${$rootScope.miURL}/compass/view/guia-remision.php?emp_id=${JSON.parse($rootScope.d.datos)
+						.emp_id}&getdb=${JSON.parse($rootScope.d.datos).database}&nro=${aData.ven_id}`
+				);
 			});
 		});
 		$('td .action-ver-detalles', nRow).unbind('click');

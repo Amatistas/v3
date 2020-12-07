@@ -89,7 +89,7 @@ class Gofactura
             ->setTotalImpuestos(round($this->VENTA['ven_igv'], 2))
             ->setValorVenta(round($this->VENTA['ven_afe'] + $this->VENTA['ven_ina'], 2))
             ->setSubTotal(round($this->VENTA['ven_totdoc'], 2))
-            ->setRelDocs(($this->VENTA['NumDocfectado']!=0)?$this->VENTA['NumDocfectado']:null)
+            ->setRelDocs(($this->VENTA['hash'] != 0) ? $this->VENTA['hash'] : null)
             ->setMtoImpVenta(round($this->VENTA['ven_totdoc'], 2));
         $letItemsArray = array();
         foreach ($this->VENTADETALLE as $k => $v) {

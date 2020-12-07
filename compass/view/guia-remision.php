@@ -59,20 +59,36 @@ $fpdf->SetFont('Arial','',8);
 
 /////////////////item de productos///////////////
 foreach ($arry2 as $arr) {
-    $fpdf->cell(20,6,$arr['pro_cod'],1,'','L');
-    $fpdf->cell(90,6,substr($arr['pro_nom'],0,60),1,'','L');
-    $fpdf->cell(20,6,$arr['vd_can'] . " " . $arr['pst_nom'],1,'','C');
-    $fpdf->cell(30,6,"Kg ".number_format($arr['pro_pes'],2,',',' '),1,'','R');
-    $fpdf->cell(30,6,"Kg ".number_format($arr['pro_pes'] * $arr['vd_can'],2,',',' '),1,'','R');
-    $fpdf->Ln();
-}
 
+    $x_axis = $fpdf->getx();
+    $c_width = 20;
+    $c2_width = 90;
+    $c3_width = 15;
+    $c4_width = 25;
+    $c_height = 8;
+
+    $fpdf->vcell2($c_width, $c_height, $x_axis, $arr['pro_cod']);
+    $x_axis = $fpdf->getx();
+    $fpdf->vcell3($c2_width, $c_height, $x_axis, $arr['pro_nom']);
+    $x_axis = $fpdf->getx();
+    $fpdf->vcell($c3_width, $c_height, $x_axis,$arr['vd_can']);
+    $x_axis = $fpdf->getx();
+    $fpdf->vcell($c3_width, $c_height, $x_axis, $arr['pst_nom']);
+    $x_axis = $fpdf->getx();
+    $fpdf->vcell($c4_width, $c_height, $x_axis, "Kg ".number_format($arr['pro_pes'],2,',',' '));
+    $x_axis = $fpdf->getx();
+    $fpdf->vcell($c4_width, $c_height, $x_axis,"Kg ".number_format($arr['pro_pes'] * $arr['vd_can'],2,',',' '));
+    $fpdf->Ln();
+
+}
+$fpdf->SetMargins(10, 30, 20);
+$fpdf->SetAutoPageBreak(true, 0);
 
 
 
 /////////////////item de productos end///////////
 
-
+$fpdf->SetY(199);
 
 // $fpdf->Ln();
 // $fpdf->Image('qr.jpg',0,0,33);
@@ -81,9 +97,9 @@ foreach ($arry2 as $arr) {
 
 
 
-$fpdf->SetX(140);
-$fpdf->cell(30,6,'Total',1,'','L');
-$fpdf->cell(30,6,"Kg ".$op->pesoTotal($arry2),1,'','R');
+$fpdf->SetX(150);
+$fpdf->cell(25,6,'Total',1,'','L');
+$fpdf->cell(25,6,"Kg ".$op->pesoTotal($arry2),1,'','R');
 $fpdf->Ln(10);
 $fpdf->cell(95,6,'RUC:',1,'','L');
 $fpdf->cell(95,6,'CHOFER: '.$fpdf->arry[0]['nchofer'],1,'','L');

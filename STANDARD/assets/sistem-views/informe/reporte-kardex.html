@@ -1,0 +1,64 @@
+<div ng-controller="MyCtrl">
+ <div ng-controller="SelectCtrl">
+
+
+  <div class="modal-header hidden-print">
+   <div class="pull-right">
+    <div role="group" aria-label="tools">
+     <!-- 
+        <button onclick="javascript:window.print();" class="btn btn-primary">
+            Print <i class="fa fa-print"></i>
+        </button> -->
+     <button class="btn btn-primary" ng-click="buscarReporteKardex()">
+      <span class="fa fa-search"></span>
+     </button>
+     <button class="btn btn-primary" ng-click="exportToExcel('#tableToExport')">
+      <span class="glyphicon glyphicon-share"></span> Exportar Excel
+     </button>
+     <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+     <!-- <button type="button" class="btn btn-link"><i class="ti-settings"></i></button> -->
+     <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+    </div>
+   </div>
+   <h3 class="titulo-modal">Reporte de Kardex</h3>
+  </div>
+
+
+
+  <div class="container" style="overflow-y: scroll;font-size: 11px;height: 500px;">
+   <div id="tableToExport">
+
+    <table class="table table-condensed table-bordered" border="1" ng-show="showtable == true">
+     <thead class="text-center">
+      <tr>
+       <th colspan="8">
+        <div class="col-md-12 text-center margin-top-20">
+         <h4>{{person.selected.cd_des}}</h4>
+        </div>
+       </th>
+      </tr>
+      <tr>
+       <th>ID</th>
+       <th>PRODUCTO DESCRIPCIÓN</th>
+       <th>COMPRAS</th>
+       <th>VENTAS</th>
+       <th>CARGAS</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr class="text-center" ng-repeat="item in itemsRegistroUtilidad track by $index">
+       <td>{{item.pro_id}}</td>
+       <td>{{item.pro_nom}}</td>
+       <td>{{item.compras | number:2}}</td>
+       <td>{{item.ventas | number:2}}</td>
+       <td>{{item.carga | number:2}}</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+
+  </div>
+ </div>
+
+
+</div>

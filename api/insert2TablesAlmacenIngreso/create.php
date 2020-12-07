@@ -25,7 +25,6 @@ $insert2Tables = new Insert2Tables($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
-
 $adver = array();
 
 $dataInfo = $data->info[0];
