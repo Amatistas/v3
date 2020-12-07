@@ -177,7 +177,6 @@ class PDF extends FPDF
             $this->MultiCell(50, 5, "RUC:   " . $this->arry3[0]['emp_ruc'] . "\n " . $this->tipo($this->arry[0]['td_id'])  . "\n" . $this->arry[0]['documento'], 1, 'C');
             // Line break
             $this->SetMargins(10, 30, 20, 20);
-
             $this->SetFont('Arial', '', 9);
             $this->SetXY(10, 30);
             $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . $this->tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc'] . "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'] . "\n" . "Ubigeo: " . $this->arry[0]['departamento'], 0, 70).  "\n" . "Documento Referencia: " . $this->arry[0]['hash'], 0, 'L');

@@ -21,8 +21,8 @@
   <div class="container-fluid">
    <div class="modal-body">
     <div ng-controller="itemsCtrl">
-     <div class="row" style="background-color: #eee;">
-      <div class="col-md-10">
+     <div style="background-color: #eee;margin: 5px;">
+    
        <div class="row">
 
         <div class="col-md-1">
@@ -42,7 +42,7 @@
          </div>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-1  ">
          <div class="form-group">
           <label for="ven_ser">Serie</label>
           <select ng-init="serializador(infoInputs['td_id'])" class="ui fluid dropdown" required
@@ -51,6 +51,7 @@
           </select>
          </div>
         </div>
+
         <div class="col-md-2">
          <div class="form-group">
           <div class="hidden">
@@ -63,6 +64,7 @@
           <input type="text" class="form-control" id="ven_num" ng-model="infoInputs.ven_num" readonly>
          </div>
         </div>
+
         <div class="col-md-4">
          <div class="form-group">
           <label class="control-label" ng-class="{'text-danger':form.select_ane_id.$invalid == true}">Clientes</label>
@@ -86,20 +88,8 @@
           </div>
          </div>
         </div>
-        <div class="col-md-2">
-         <div class="form-group">
-          <label for="fp_id" ng-class="{'text-danger':form.fp_id.$invalid == true}">
-           Condición de Pago
-          </label>
-          <select class="ui fluid dropdown" required ng-model="infoInputs['fp_id']" id="fp_id" name="fp_id"
-           ng-init="buscarOption(rr.fp_id)">
-           <option value="{{opt.id}}" ng-repeat="opt in units['fp_id']">
-            {{opt.label}}
-           </option>
-          </select>
-         </div>
-        </div>
 
+ 
         <div class="col-md-1">
          <div class="form-group">
           <label for="moneda" ng-class="{'text-danger':form.mnd_id.$invalid == true}">
@@ -114,47 +104,84 @@
          </div>
         </div>
 
+        <div class="col-md-3" style="margin-top: 25px;">
+          <div class="cuadro col-md-6 pull-right">
+           <ul class="list-unstyled amounts text-small">
+            <li class="text-extra-large text-dark margin-top-15">
+             <strong>Total a Pagar:</strong>
+             {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: misDecimales}}
+            </li>
+           </ul>
+          </div>
+         </div>
+
        </div>
+
        <div class="row">
 
         <div class="col-md-2">
-         <div class="form-group">
-          <div class="two fields">
-           <div class="field">
-            <label for="lp_id" ng-class="{'text-danger':form.lp_id.$invalid == true }">
-             Lista de Precio
-            </label>
-            <select ng-model="infoInputs['lp_id']" class="ui fluid dropdown" id="lp_id" name="lp_id"
-             ng-init="buscarOption(rr.lp_id)" required>
-             <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">
-              {{opt.label}}</option>
-            </select>
+          <div class="form-group">
+           <label for="ven_obs">
+            Documento Referencia
+           </label>
+           <input type="text" class="form-control" ng-model="infoInputs['hash']">
+          </div>
+         </div>
+
+
+      
+ 
+         <div class="col-md-2">
+          <div class="form-group">
+           <label for="ven_fecemi" ng-class="{'text-danger':form.ven_fecemi.$invalid == true }">Fecha De Emision</label>
+           <div class="">
+            <input type="date" name="ven_fecemi" id="ven_fecemi" class="form-control" ng-model="infoInputs['ven_fecemi']"
+             ng-required="true" required>
            </div>
           </div>
          </div>
-        </div>
-
-        <div class="col-md-2">
-         <div class="form-group">
-          <label for="ven_fecemi" ng-class="{'text-danger':form.ven_fecemi.$invalid == true }">Fecha De
-           Emision</label>
-          <div class="">
-           <input type="date" name="ven_fecemi" id="ven_fecemi" class="form-control" ng-model="infoInputs['ven_fecemi']"
-            ng-required="true" required>
+         <div class="col-md-2">
+          <div class="form-group">
+           <label for="ven_fecven" ng-class="{'text-danger':form.ven_fecven.$invalid == true }">Fecha De
+            Venc.</label>
+           <div class="">
+            <input type="date" name="ven_fecven" id="ven_fecven" class="form-control" ng-model="infoInputs['ven_fecven']"
+             ng-required="true">
+           </div>
           </div>
          </div>
-        </div>
 
-        <div class="col-md-2">
-         <div class="form-group">
-          <label for="ven_fecven" ng-class="{'text-danger':form.ven_fecven.$invalid == true }">Fecha De
-           Venc.</label>
-          <div class="">
-           <input type="date" name="ven_fecven" id="ven_fecven" class="form-control" ng-model="infoInputs['ven_fecven']"
-            ng-required="true">
+         <div class="col-md-2">
+          <div class="form-group">
+      
+             <label for="lp_id" ng-class="{'text-danger':form.lp_id.$invalid == true }">
+              Lista de Precio
+             </label>
+             <select ng-model="infoInputs['lp_id']" class="ui fluid dropdown" id="lp_id" name="lp_id"
+              ng-init="buscarOption(rr.lp_id)" required>
+              <option value="{{opt.id}}" ng-repeat="opt in units['lp_id']">
+               {{opt.label}}</option>
+             </select>
+          
           </div>
          </div>
-        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+           <label for="fp_id" ng-class="{'text-danger':form.fp_id.$invalid == true}">
+            Condición de Pago
+           </label>
+           <select class="ui fluid dropdown" required ng-model="infoInputs['fp_id']" id="fp_id" name="fp_id"
+            ng-init="buscarOption(rr.fp_id)">
+            <option value="{{opt.id}}" ng-repeat="opt in units['fp_id']">
+             {{opt.label}}
+            </option>
+           </select>
+          </div>
+         </div>
+
+    
+
+    
 
         <div class="col-md-2">
          <div class="form-group">
@@ -177,27 +204,11 @@
          </div>
         </div>
 
-        <div class="col-md-2">
-         <div class="form-group">
-          <label for="ven_obs">
-           Documento Referencia
-          </label>
-          <input type="text" class="form-control" ng-model="infoInputs['hash']">
-         </div>
-        </div>
+      
 
        </div>
-      </div>
-      <div class="col-md-2">
-       <div class="cuadro col-md-6 pull-right">
-        <ul class="list-unstyled amounts text-small">
-         <li class="text-extra-large text-dark margin-top-15">
-          <strong>Total a Pagar:</strong>
-          {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: misDecimales}}
-         </li>
-        </ul>
-       </div>
-      </div>
+     
+  
      </div>
     </div>
     <div class="row">

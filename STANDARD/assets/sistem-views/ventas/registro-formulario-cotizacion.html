@@ -16,10 +16,10 @@
             <div class="modal-body" ng-controller="DatepickerDemoCtrl">
                 <div ng-controller="itemsCtrl">
                     <div class="row" style="background-color: #eee;">
-                        <div class="col-md-10">
+                       
                             <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-1">
+                               
+                                <div class="col-md-1">
                                         <div class="two fields">
                                             <div class="field">
                                                 <label for="td_id"
@@ -96,6 +96,22 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    <div class="col-md-2">
+                                        <div class="cuadro col-md-6 pull-right ">
+                                            <ul class="list-unstyled amounts text-small">
+                                                <li class="text-extra-large text-dark margin-top-15">
+                                                    <strong>Total a Pagar:</strong>
+                                                    {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: misDecimales}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="fp_id" ng-class="{'text-danger':form.fp_id.$invalid == true}">
@@ -195,17 +211,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="cuadro col-md-6 pull-right ">
-                                <ul class="list-unstyled amounts text-small">
-                                    <li class="text-extra-large text-dark margin-top-15">
-                                        <strong>Total a Pagar:</strong>
-                                        {{(getMontoTotalInafecto() + getMontoTotalAfecto()) - getMontoDescuento | number: misDecimales}}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        
+                     
                     </div>
                 </div>
                 <div class="row">
