@@ -37,7 +37,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <label for="ven_ser">Serie</label>
                                         <select ng-init="serializador(infoInputs['td_id'])" class="ui fluid dropdown"
                                             required ng-model="infoInputs.ven_serSel" id="ven_serSel" name="ven_serSel"
@@ -56,49 +56,33 @@
                                             ng-model="infoInputs.ven_num" readonly>
 
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label ng-class="{'text-danger':form.select_ane_id.$invalid == true}">
-                                                Cliente
-                                            </label>
-                                            <div class="input-group">
-                                                <div class="">
-                                                    <ui-select required name="select_ane_id"
-                                                        style="width: 100%; float: left;"
-                                                        ng-model="infoInputs['select_ane_id']" theme="bootstrap">
-                                                        <ui-select-match
-                                                            placeholder="Escriba 3 letras Para Empezar a Buscar">
-                                                            {{$select.selected.ane_alias}}
-                                                        </ui-select-match>
-                                                        <ui-select-choices class=""
-                                                            repeat="item in proveedoresList[0] track by $index"
-                                                            refresh="clientesGetAsyncronic($select.search)"
-                                                            refresh-delay="0">
-                                                            <div>
-                                                                <span ng-if="item.ane_tipdoc == 11"
-                                                                    class="glyphicon glyphicon-user"></span>
-                                                                <span ng-if="item.ane_tipdoc == 6"
-                                                                    class="glyphicon glyphicon-briefcase"></span>
-                                                                <span
-                                                                    ng-bind-html="item.ane_alias | highlight: $select.search"></span>
-                                                                <br>
-                                                                <small
-                                                                    ng-bind-html="item.ane_numdoc | highlight: $select.search"></small>
-                                                                <br>
-                                                                <small ng-bind-html="item.ane_email"></small>
-                                                            </div>
-                                                        </ui-select-choices>
-                                                    </ui-select>
-                                                </div>
-                                                <div class="hidden">
-                                                    {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
-                                                </div>
-                                            </div>
+                                         <label class="control-label" ng-class="{'text-danger':form.select_ane_id.$invalid == true}">Clientes</label>
+                                         <ui-select class="ui fluid dropdown" ng-model="infoInputs['select_ane_id']" theme="selectize"
+                                          title="Choose a person">
+                                          <ui-select-match placeholder="Escriba 3 letras Para Empezar a Buscar">{{$select.selected.ane_alias}}
+                                          </ui-select-match>
+                                          <ui-select-choices repeat="item in proveedoresList[0] track by $index"
+                                           refresh="clientesGetAsyncronic($select.search)" refresh-delay="0">
+                                           <div ng-bind-html="item.ane_alias | highlight: $select.search"></div>
+                                           <small ng-bind-html="item.ane_numdoc | highlight: $select.search"></small>
+                                          </ui-select-choices>
+                                         </ui-select>
+                                      
                                         </div>
-                                    </div>
+                                         <div class="hidden">
+                                          {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
+                                         </div>
+                                         <div class="input-group col-md-12 hidden" ng-if="infoInputs.docRelacionado == true">
+                                          <input type="text" class="form-control" id="anexo_name" ng-bind="infoInputs.anexo_display_name"
+                                           ng-value="infoInputs.anexo_display_name" readonly>
+                                         </div>
+                                         
+                                       </div>
 
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="cuadro col-md-6 pull-right ">
                                             <ul class="list-unstyled amounts text-small">
                                                 <li class="text-extra-large text-dark margin-top-15">
@@ -216,78 +200,90 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group">
-                        <div class="col-md-5">
-                            <label>
-                                Productos y Servicios
-                            </label>
-                            <div class="input-group">
-                                <ui-select name="pys" style="max-width: 600px; min-width: 600px; float: left;"
-                                    ng-model="productos.selected" on-select="algo('22')" theme="bootstrap">
-                                    <ui-select-match placeholder="Escriba 3 letras para buscar">
-                                        {{$select.selected.pro_nom}}
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item in productosData track by $index"
-                                        refresh="productosVentaGetAsyncronic($select.search,infoInputs.lp_id,infoInputs.cd_alm)"
-                                        refresh-delay="0" minimum-input-length="3">
-                                        <div class="item">
-                                            <div class="content">
-                                                <div>
-                                                    <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
-                                                    <!--mercaderia-->
-                                                    <i ng-if="item.pro_tip==2" class="ti-package"></i>
-                                                    <!--materia prima-->
-                                                    <i ng-if="item.pro_tip==3" class="ti-package"></i>
-                                                    <!--Materiales-->
-                                                    <i ng-if="item.pro_tip==4" class="ti-package"></i>
-                                                    <!--embalaje-->
-                                                    <i ng-if="item.pro_tip==5" class="ti-package"></i>
-                                                    <!--Repuesto-->
-                                                    <i ng-if="item.pro_tip==6" class="ti-package"></i>
-                                                    <!--Envases-->
-                                                    <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
-                                                    <!--suministros-->
-                                                    <b>{{item.pro_nom}}</b>
-                                                </div>
-                                                <div class="description">{{item.pst_nom}} S/
-                                                    {{item.vd_pre | number : misDecimales}}</div>
-                                            </div>
-                                        </div>
-                                    </ui-select-choices>
-                                </ui-select>
-                                <span class="input-group-btn">
-                                    <button type="button" ng-click="productos.selected=undefined"
-                                        class="btn btn-primary">
-                                        <i class="fal fa-trash-o"></i>
-                                    </button>
-                                </span>
-                            </div>
+
+                    <div class="col-md-4">
+               
+                     <div class="form-group">
+                      <label class="control-label">Productos y Servicios</label>
+               
+                      <ui-select class="ui fluid dropdown" ng-model="productos.selected" theme="selectize" title="Choose a person">
+                       <ui-select-match placeholder="Escriba 3 letras Para Empezar a Buscar">{{$select.selected.pro_nom}}
+                       </ui-select-match>
+                       <ui-select-choices repeat="item in productosData track by $index"
+                        refresh="productosVentaGetAsyncronic($select.search,infoInputs.lp_id,infoInputs.cd_alm)" refresh-delay="0"
+                        minimum-input-length="3">
+                        <div class="item">
+                         <div class="content">
+                          <div>
+                           <i ng-if="item.pro_tip==1" class="ti-shopping-cart"></i>
+                           <!--mercaderia-->
+                           <i ng-if="item.pro_tip==2" class="ti-package"></i>
+                           <!--materia prima-->
+                           <i ng-if="item.pro_tip==3" class="ti-package"></i>
+                           <!--Materiales-->
+                           <i ng-if="item.pro_tip==4" class="ti-package"></i>
+                           <!--embalaje-->
+                           <i ng-if="item.pro_tip==5" class="ti-package"></i>
+                           <!--Repuesto-->
+                           <i ng-if="item.pro_tip==6" class="ti-package"></i>
+                           <!--Envases-->
+                           <i ng-if="item.pro_tip==7" class="ti-hummer"></i>
+                           <!--suministros-->
+                           <b>{{item.pro_nom}}</b>
+                          </div>
+                          <div class="description">{{item.pst_nom}} S/
+                           {{item.vd_pre | number : misDecimales}}</div>
+                         </div>
                         </div>
-                        <div class="col-md-1">
-                            <label for="stock">Stock</label>
-                            <input ng-model="productos.selected.stock" type="text" class="form-control" id="stock"
-                                readonly>
-                        </div>
-                        <div class="col-md-1">
-                            <label for="pst_id">Presentación</label>
-                            <input ng-model="productos.selected.pst_nom" type="text" class="form-control" id="pst_nom"
-                                readonly>
-                        </div>
-                        <div class="col-md-1">
-                            <label for="vd_pre">Precio</label>
-                            <input ng-model="productos.selected.vd_pre | number: misDecimales " type="text"
-                                class="form-control" id="vd_pre" readonly>
-                        </div>
-                        <div class="col-md-1">
-                            <label for="vd_can">Cantidad</label>
-                            <input ng-model="productos.selected.vd_can" type="text" class="form-control" id="vd_can">
-                        </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-primary" style="margin-top: 30px;"
-                                ng-click="additem(productos.selected)">Insertar</button>
-                        </div>
+               
+                       </ui-select-choices>
+                      </ui-select>
+               
+                      <div class="hidden">
+                       {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
+                      </div>
+                      <div class="input-group col-md-12 hidden" ng-if="infoInputs.docRelacionado == true">
+                       <input type="text" class="form-control" id="anexo_name" ng-bind="infoInputs.anexo_display_name"
+                        ng-value="infoInputs.anexo_display_name" readonly>
+                      </div>
+                     </div>
                     </div>
-                </div>
+                    <div>
+                     <div class="col-md-1">
+                      <label for="stock">Stock</label>
+                      <input ng-model="productos.selected.stock" type="text" class="form-control" id="stock" readonly>
+                     </div>
+                    </div>
+                    <div class="col-md-1">
+                     <div class="form-group">
+                      <label for="pst_id">Presentación</label>
+                      <input ng-model="productos.selected.pst_nom" type="text" class="form-control" id="pst_nom" readonly>
+                     </div>
+                    </div>
+                    <div class="col-md-1">
+                     <div class="form-group">
+               
+                      <label for="vd_pre">Precio</label>
+                      <input ng-model="productos.selected.vd_pre | number: misDecimales" type="text" class="form-control" id="vd_pre">
+                     </div>
+                    </div>
+                    <div class="col-md-1">
+                     <div class="form-group">
+               
+                      <label for="vd_can">Cantidad</label>
+                      <input ng-model="productos.selected.vd_can" type="text" class="form-control" id="vd_can">
+               
+                     </div>
+                    </div>
+                    <div class="col-md-1">
+                     <div class="form-group">
+               
+                      <button class="btn btn-primary" style="margin-top: 30px;"
+                       ng-click="additem(productos.selected)">Insertar</button>
+                     </div>
+                    </div>
+               
+                   </div>
                 <div class="row " style="margin-top: 15px;">
                     <div class="col-md-10" style="height: 300px; overflow-y: scroll;">
                         <table class="table table-hover ">
