@@ -10,7 +10,7 @@ class Insert2Tables
     {
         $this->conn = $db;
     }
-    function actualizarEstadoProceso($id,$value)
+    function actualizarEstadoProceso($id, $value)
     {
         // query to insert record
         $query = "UPDATE venta SET estatus_documento = $value
@@ -35,14 +35,14 @@ class Insert2Tables
             $query .= $val . "=:" . $val . ",";
         }
         $query = substr($query, 0, -1); //quitar la ultima coma de la cadena del "INSERT INTO " 
-                
+
         // prepare query
         $stmt = $this->conn->prepare($query);
         // sanitize
         foreach ($field as $key => $val) {
-            if($this->$val == ""){
+            if ($this->$val == "") {
                 $this->$val = 0;
-            }else {
+            } else {
                 $this->$val = htmlspecialchars(strip_tags($this->$val));
             }
         }
@@ -50,7 +50,7 @@ class Insert2Tables
             $stmt->bindParam(":" . $val, $this->$val);
         }
         // execute query
-        
+
         if ($stmt->execute()) {
             return true;
         } {
@@ -58,7 +58,7 @@ class Insert2Tables
         }
         $stmt->close();
     }
-    
+
     function createRegistroAsiento($getdb, $tbnom, $dataInfo, $serial, $id_compra)
     {
         $id_comprax = $id_compra['com_id'];
@@ -95,7 +95,7 @@ class Insert2Tables
         $stmt->close();
     }
 
-    function actualizarSerie($emp_id,$local_id,$tds_ser,$nro)
+    function actualizarSerie($emp_id, $local_id, $tds_ser, $nro)
     {
         $sum = $nro + 1;
 
@@ -112,7 +112,7 @@ class Insert2Tables
         }
         $stmt->close();
     }
-    
+
     function selectAsientoValor($com_id)
     {
         $comid = $com_id['com_id'];
@@ -307,7 +307,7 @@ class Insert2Tables
         $reg_id = $reg_id['id'];
         $cta_id = $detalles['cuenta_contable'];
         $tip_pro_id = $detalles['tip_pro_id'];
-        $pad_dh = "H";//alerta este se deja asi en H a pesar de que esta funcion dice Debe
+        $pad_dh = "H"; //alerta este se deja asi en H a pesar de que esta funcion dice Debe
         $rd_imp = $montodt;
         // query to insert record
         $query = "INSERT INTO registro_det(reg_id,cta_id,ti_pro_rd,d_h,rd_imp)
@@ -327,7 +327,7 @@ class Insert2Tables
         $reg_id = $reg_id['id'];
         $cta_id = $detalles['cuenta_contable'];
         $tip_pro_id = $detalles['tip_pro_id'];
-        $pad_dh = "D";//alerta este se deja asi en D a pesar de que esta funcion dice Haber
+        $pad_dh = "D"; //alerta este se deja asi en D a pesar de que esta funcion dice Haber
         $rd_imp = $montodt;
         // query to insert record
         $query = "INSERT INTO registro_det(reg_id,cta_id,ti_pro_rd,d_h,rd_imp)
@@ -433,7 +433,7 @@ class Insert2Tables
         $pad_dh = $detalles[3]['pad_dh'];
         if (isset($detalles[4]['rd_imp'])) {
             $rd_imp = round(($detalles[4]['rd_imp']), 6);
-        }else {
+        } else {
             $rd_imp = 0;
         }
 
@@ -486,7 +486,7 @@ class Insert2Tables
         }
         $stmt->close();
     }
-    function obtenerInfoEmpresa($db,$emp_id)
+    function obtenerInfoEmpresa($db, $emp_id)
     {
         // query to insert record
         $query = "SELECT emp_ruc
@@ -513,8 +513,8 @@ class Insert2Tables
         }
 
         $query = substr($query, 0, -1); //quitar la ultima coma de la cadena del "INSERT INTO " 
-    
-       
+
+
         // prepare query
         $stmt = $this->conn->prepare($query);
         // sanitize
@@ -532,7 +532,7 @@ class Insert2Tables
         }
         $stmt->close();
     }
-    function create_pago($getdb,$head, $arryPagos, $venta_id)
+    function create_pago($getdb, $head, $arryPagos, $venta_id)
     {
         $emp_id = $head->emp_id;
         $to_id = $head->to_id;
@@ -542,7 +542,7 @@ class Insert2Tables
         $ane_id = $head->ane_id;
         $co_usu_id = $head->usu_id;
         $cen_ven_id = $venta_id;
-        $tipo_pago = $arryPagos->tipo_pagos;
+        $tipo_pago = 1;
 
         $query = " INSERT INTO `$getdb`.cuenta_cobrar (co_empre_id,to_id,fech_reg,fech_venc,import_cc,ane_id,co_usu_id,cen_ven_id,tipo_pago) values ($emp_id,$to_id,'$fech_reg','$fech_venc',$import_cc,$ane_id,$co_usu_id,$cen_ven_id,$tipo_pago)";
 
@@ -586,7 +586,7 @@ class Insert2Tables
         }
         $stmt->close();
     }
-  
+
     function movimientoAlmacen($idventa, $data, $info)
     {
 
@@ -594,10 +594,10 @@ class Insert2Tables
         $fecha = $info->ven_fecreg;
         $cantidad = $data->vd_can;
         $id_almacen = $info->cd_alm;
-    
+
         // query to insert record
-         $query = "CALL movimiento_almacen('$fecha',0,$id_ven,0,$cantidad,$id_almacen)"; 
-         /// prepare query */
+        $query = "CALL movimiento_almacen('$fecha',0,$id_ven,0,$cantidad,$id_almacen)";
+        /// prepare query */
         $stmt = $this->conn->prepare($query);
         // execute query
         if ($stmt->execute()) {
@@ -612,7 +612,7 @@ class Insert2Tables
     {
         // query to insert record
         $query = "CALL ventaStock($cd_pro_id,$alm_id,$cd_can);";
-       
+
         // prepare query
         $stmt = $this->conn->prepare($query);
         // execute query
@@ -627,7 +627,7 @@ class Insert2Tables
     {
         // query to insert record
         $query = "CALL registroalmacen($cd_pro_id,$alm_id,$cd_can,$pst_id);";
-       
+
         // prepare query
         $stmt = $this->conn->prepare($query);
         // execute query
@@ -638,11 +638,11 @@ class Insert2Tables
         }
         $stmt->close();
     }
-    function readComponenteProducto($getdb,$pro_id,$emp_id)
+    function readComponenteProducto($getdb, $pro_id, $emp_id)
     {
         // query to insert record
         $query = "SELECT * FROM componente JOIN producto_componente ON producto_componente.com_id = componente.id_comp  WHERE pro_id = '$pro_id'";
-       
+
         // prepare query
         $stmt = $this->conn->prepare($query);
 
