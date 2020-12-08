@@ -9304,7 +9304,6 @@ app.controller('AsideModalTransaccionCtrl', [
 								}
 							} else {
 								console.log('error');
-								alert('Este documento no se pudo guardar');
 							}
 						};
 						$uibModalInstance.close();
