@@ -82,7 +82,7 @@ class Operaciones
  
         switch ($moneda) {
             case 'PEN':
-                $var = 'S/.';
+                $var = 'S/';
                 break;
             case 'USD':
                 $var = '$';
