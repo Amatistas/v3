@@ -1667,7 +1667,7 @@ app.controller('compraDetalleCtrl', function($scope, $http, $filter, $rootScope)
 	$scope.arryItemtotal = function() {
 		var total = 0;
 		for (var i = 0; i < $scope.arryItem.length; i++) {
-			total = total + parseFloat($scope.arryItem[i].cd_pre) * parseFloat($scope.arryItem[i].cd_can);
+			total = total + parseFloat($scope.arryItem[i].precio_base) * parseFloat($scope.arryItem[i].cd_can);
 		}
 		return total;
 	};

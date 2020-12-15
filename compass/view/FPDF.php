@@ -181,7 +181,7 @@ class PDF extends FPDF
             $this->SetXY(10, 30);
             $this->MultiCell(110, 5, "Cliente: " . substr($this->arry[0]['ane_alias'], 0, 49) . "\n" . $this->tipo($this->arry[0]['ane_tipdoc']) . ": " . $this->arry[0]['ane_numdoc'] . "\n" . "Dirección: " . substr($this->arry[0]['ane_dir'] . "\n" . "Ubigeo: " . $this->arry[0]['departamento'], 0, 70).  "\n" . "Documento Referencia: " . $this->arry[0]['hash'], 0, 'L');
             $this->SetXY(120, 30);
-            $this->MultiCell(80, 5, "Fecha Emisión: " . $this->arry[0]['ven_fecreg'] . "\n" . "Pto Partida: " . substr($this->arry[0]['ane_dir'] . " - " . $this->arry[0]['provincia'] . " - " . $this->arry[0]['departamento'], 0, 70) . "\n" . "Pto Llegada: " . $this->arry[0]['ven_direccion_destino'] . " - " . $this->arry[0]['provincia'] . " - " . $this->arry[0]['departamento'] . "\n", 0, 'L');
+            $this->MultiCell(80, 5, "Fecha Emisión: " . $this->arry[0]['ven_fecreg'] . "\n" . "Pto Partida: " . substr($this->arry3[0]['emp_dir']. " - ". $this->arry3[0]['departamento'] . " - " . $this->arry3[0]['provincia'] . " - " . $this->arry3[0]['distrito'], 0, 70) . "\n" . "Pto Llegada: " . $this->arry[0]['ven_direccion_destino'] . " - " . $this->arry[0]['provincia'] . " - " . $this->arry[0]['departamento'] . "\n", 0, 'L');
             $this->SetLineWidth(0.4);
             $this->line(10, 55, 200, 55);
             $this->SetY(60);

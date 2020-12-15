@@ -1,6 +1,4 @@
 <div ng-controller="MyCtrl">
-
-
     <div class="modal-header hidden-print">
         <div class="pull-right">
             <div role="group" aria-label="tools">
@@ -103,9 +101,9 @@
                                             <tr ng-repeat="item in arryItem">
                                                 <td class="center">{{item.pro_cod}}</td>
                                                 <td class="center">{{item.cd_des}}</td>
-                                                <td class="center">{{item.cd_can}}</td>
-                                                <td class="center">{{item.cd_pre | number:2}}</td>
-                                                <td class="center">{{item.cd_pre * item.cd_can | number:2}}</td>
+                                                <td class="center">{{item.cd_can }}</td>
+                                                <td class="center">{{item.precio_base | number:2}}</td>
+                                                <td class="center">{{item.precio_base * item.cd_can | number:2}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -117,7 +115,7 @@
                         <div class="col-sm-12 invoice-block">
                             <ul class="list-unstyled amounts text-small">
                                 <li>
-                                    <strong>Sub-Total: </strong> {{arryItemtotal() - (arryItemtotal() * 0.18) | number:2}}
+                                    <strong>Sub-Total: </strong> {{subtotal = arryItemtotal() - (arryItemtotal() * 0.18) | number:2}}
                                 </li>
                                 <li>
                                     <strong>IGV: </strong> {{arryItemtotal() * 0.18 | number:2}}
