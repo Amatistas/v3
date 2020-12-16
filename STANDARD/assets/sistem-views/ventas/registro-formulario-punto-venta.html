@@ -1,3 +1,4 @@
+
 <div ng-controller="puntoVentaCtrl">
     <form id="formulario_core" name="form" novalidate>
         <div ng-controller="SelectCtrl">
@@ -64,15 +65,16 @@
                                                 id="stock" readonly>
                                         </div>
                                     </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">With a clear button</label>
-                                    <div class="col-sm-6">
-                                      <div class="input-group" ng-if="docOrigin == false">
-                                
-                                        <ui-select allow-clear ng-model="ctrl.person.selected" theme="bootstrap">
-                                          <ui-select-match placeholder="Escriba 3 letras para buscar">{{$select.selected.pro_nom}}</ui-select-match>
-                                          <ui-select-choices repeat="item in productosData track by $index"  refresh-delay="0" minimum-input-length="3">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+            
+                                        <label class="control-label">Productos y Servicios</label>
+                                        <div class="input-group">
+                                            <ui-select allow-clear ng-model="productos.selected" theme="bootstrap">
+                                            <ui-select-match placeholder="Escriba 3 letras Para Empezar a Buscar">{{$select.selected.pro_nom}}</ui-select-match>
+                                            <ui-select-choices repeat="item in productosData track by $index"
+                                            refresh="productosVentaGetAsyncronic($select.search,infoInputs.lp_id,infoInputs.cd_alm)"
+                                            refresh-delay="0" minimum-input-length="3">
                                             <div class="item">
                                                 <div class="content">
                                                     <div>
@@ -96,19 +98,27 @@
                                                         {{item.vd_pre | number : misDecimales}}</div>
                                                 </div>
                                             </div>
-                                          </ui-select-choices>
-                                        </ui-select>
+                                            </ui-select-choices>
+                                            </ui-select>
                                 
-                                        <span class="input-group-btn">
-                                          <button type="button" ng-click="ctrl.person.selected = undefined" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                          </button>
-                                        </span>
-                                
-                                      </div>
+                                            <span class="input-group-btn">
+                                            <button type="button" ng-click="ctrl.person.selected = undefined" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                            </span>
+                                            <div class="hidden">
+                                                {{ infoInputs.ane_id = infoInputs.select_ane_id.ane_id}}
+                                            </div>
+                                            <div class="input-group col-md-12 hidden"
+                                            ng-if="infoInputs.docRelacionado == true">
+                                            <input type="text" class="form-control" id="anexo_name"
+                                                ng-bind="infoInputs.anexo_display_name"
+                                                ng-value="infoInputs.anexo_display_name" readonly>
+                                        </div>
+                                        </div>
+                                    
                                     </div>
-                                  </div>
-                            </div>
+                                </div>
                                     <!-- <div class="col-md-4">
                                         <label for="pst">
                                                 Código de Barra
