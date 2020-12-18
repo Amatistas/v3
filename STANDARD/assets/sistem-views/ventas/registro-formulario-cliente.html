@@ -35,10 +35,13 @@
                         required>
                     <span class="input-group-btn"
                         ng-if="infoInputs['ane_tipdoc'] == 11 || infoInputs['ane_tipdoc'] == 23">
-                        <button type="button" class="btn btn-primary"
+                        
+                        <a href="#" ng-click="getDocumento(infoInputs['ane_tipdoc'],infoInputs['ane_numdoc'])" class="btn btn-primary"><img src="../../images/sunat.png" alt=""></a>
+                        <!-- <button type="button" class="btn btn-primary"
                             ng-click="getDocumento(infoInputs['ane_tipdoc'],infoInputs['ane_numdoc'])">
                             <i class="ti-search"></i>
-                        </button>
+                        </button> -->
+
                     </span>
                 </div>
             </div>
