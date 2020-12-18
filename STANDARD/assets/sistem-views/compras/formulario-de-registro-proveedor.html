@@ -1,137 +1,159 @@
 <form novalidate name="myform">
-<div ng-controller="SelectCtrl">
-    <div class="modal-header">
-        <div class="pull-right">
-            <div role="group" aria-label="tools">
-                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate == true" ng-disabled="myform.$error.required" ng-click="guardarProveedor($event)">Guardar</button>
-                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate == false" ng-disabled="myform.$error.required" ng-click="actualizarProveedor($event)">Actualizar</button>
-               <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
-                <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
-                <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
+    <div ng-controller="SelectCtrl">
+        <div class="modal-header">
+            <div class="pull-right">
+                <div role="group" aria-label="tools">
+                    <button class="btn btn-primary" ng-if="infoInputs.btnUpdate == true"
+                        ng-disabled="myform.$error.required" ng-click="guardarProveedor($event)">Guardar</button>
+                    <button class="btn btn-primary" ng-if="infoInputs.btnUpdate == false"
+                        ng-disabled="myform.$error.required" ng-click="actualizarProveedor($event)">Actualizar</button>
+                    <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
+                    <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
+                    <button type="button" class="btn btn-link" ng-click="cancel($event)"><i
+                            class="ti-close"></i></button>
+                </div>
             </div>
+            <h3 class="titulo-modal">Proveedor</h3>
         </div>
-        <h3 class="titulo-modal">Proveedor</h3>
-    </div>
 
-    <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
-        <div class="titulo-modal-1 col-md-12">
-            <h3>Datos del Proveedor</h3>
-        </div>
-        <div class="row" style="padding: 10px;">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="form-field-select-1" ng-class="{'text-danger':myform.ane_tipdoc.$invalid == true}">
-                        Tipo de Documento
-                    </label>
-                    <select required ng-model="infoInputs['ane_tipdoc']" class="ui fluid dropdown" id="ane_tipdoc"
-                        name="ane_tipdoc" ng-init="buscarOption(rr.ane_tipdoc)">
-                        <option value="{{opt.id}}" ng-repeat="opt in units['ane_tipdoc']">{{opt.label}}</option>
-                    </select>
-                </div>
+        <div class="modal-body" style="padding: 30px;" ng-controller="DatepickerDemoCtrl">
+            <div class="titulo-modal-1 col-md-12">
+                <h3>Datos del Proveedor</h3>
             </div>
-            <div class="col-md-2">
-                <label for="" ng-class="{'text-danger':myform.ane_numdoc.$invalid == true}">Numero de Documento</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" name="ane_numdoc" ng-model="infoInputs['ane_numdoc']" required>
-                    <span class="input-group-btn"
-                        ng-if="infoInputs['ane_tipdoc'] == 11 || infoInputs['ane_tipdoc'] == 23">
-                        <button type="button" class="btn btn-primary" ng-click="getDocumento(infoInputs['ane_tipdoc'],infoInputs['ane_numdoc'])">
+            <div class="row" style="padding: 10px;">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="form-field-select-1" ng-class="{'text-danger':myform.ane_tipdoc.$invalid == true}">
+                            Tipo de Documento
+                        </label>
+                        <select required ng-model="infoInputs['ane_tipdoc']" class="ui fluid dropdown" id="ane_tipdoc"
+                            name="ane_tipdoc" ng-init="buscarOption(rr.ane_tipdoc)">
+                            <option value="{{opt.id}}" ng-repeat="opt in units['ane_tipdoc']">{{opt.label}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="" ng-class="{'text-danger':myform.ane_numdoc.$invalid == true}">Numero de
+                        Documento</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="ane_numdoc" ng-model="infoInputs['ane_numdoc']"
+                            required>
+                        <span class="input-group-btn"
+                            ng-if="infoInputs['ane_tipdoc'] == 11 || infoInputs['ane_tipdoc'] == 23">
+
+                            <a href="#" ng-click="getDocumento(infoInputs['ane_tipdoc'],infoInputs['ane_numdoc'])"
+                                class="btn btn-primary"><img src="STANDARD/assets/images/sunat.png" alt="sunat"
+                                    style="width:15px;"></a>
+
+                            <!--  <button type="button" class="btn btn-primary" ng-click="getDocumento(infoInputs['ane_tipdoc'],infoInputs['ane_numdoc'])">
                             <i class="ti-search"></i>
-                        </button>
-                    </span>
+                        </button> -->
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="infoInputs['ane_tipdoc'] != 23">
+                    <label for="" ng-class="{'text-danger':myform.ane_nom.$error.required == true}">Nombres</label>
+                    <input required type="text" class="form-control" name="ane_nom" ng-model="infoInputs['ane_nom']">
+                </div>
+                <div class="col-md-2" ng-if="infoInputs['ane_tipdoc'] != 23">
+                    <label for="" ng-class="{'text-danger':myform.ane_apepat.$error.required == true}">Primer
+                        Apellido</label>
+                    <input required type="text" class="form-control" name="ane_apepat"
+                        ng-model="infoInputs['ane_apepat']">
+                </div>
+                <div class="col-md-2" ng-if="infoInputs['ane_tipdoc'] != 23">
+                    <label for="">Segundo Apellido</label>
+                    <input type="text" class="form-control" name="ane_apemat" ng-model="infoInputs['ane_apemat']">
+                </div>
+                <div class="col-md-4" ng-if="infoInputs['ane_tipdoc'] == 23">
+                    <label for="" ng-class="{'text-danger':myform.ane_razsoc.$error.required == true}">Razon
+                        Social</label>
+                    <input required type="text" class="form-control" name="ane_razsoc"
+                        ng-model="infoInputs['ane_razsoc']">
+                </div>
+                <div class="col-md-4">
+                    <label for="" ng-class="{'text-danger':myform.ane_alias.$error.required == true}">Mostrar Nombre
+                        Como (Alias)</label>
+                    <input type="text" name="ane_alias" class="form-control" ng-model="infoInputs['ane_alias']"
+                        required>
                 </div>
             </div>
-            <div class="col-md-4" ng-if="infoInputs['ane_tipdoc'] != 23">
-                <label for="" ng-class="{'text-danger':myform.ane_nom.$error.required == true}">Nombres</label>
-                <input required type="text" class="form-control" name="ane_nom" ng-model="infoInputs['ane_nom']">
+            <div class="titulo-modal-1 col-md-12">
+                <h3>Información de Ubicación</h3>
             </div>
-            <div class="col-md-2" ng-if="infoInputs['ane_tipdoc'] != 23">
-                <label for="" ng-class="{'text-danger':myform.ane_apepat.$error.required == true}" >Primer Apellido</label>
-                <input required type="text" class="form-control" name="ane_apepat" ng-model="infoInputs['ane_apepat']">
-            </div>
-            <div class="col-md-2" ng-if="infoInputs['ane_tipdoc'] != 23">
-                <label for="">Segundo Apellido</label>
-                <input type="text" class="form-control" name="ane_apemat" ng-model="infoInputs['ane_apemat']">
-            </div>
-            <div class="col-md-4" ng-if="infoInputs['ane_tipdoc'] == 23">
-                <label for="" ng-class="{'text-danger':myform.ane_razsoc.$error.required == true}">Razon Social</label>
-                <input required type="text" class="form-control" name="ane_razsoc" ng-model="infoInputs['ane_razsoc']">
-            </div>
-            <div class="col-md-4">
-                <label for="" ng-class="{'text-danger':myform.ane_alias.$error.required == true}">Mostrar Nombre Como (Alias)</label>
-                <input type="text" name ="ane_alias" class="form-control" ng-model="infoInputs['ane_alias']" required>
-            </div>
-        </div>
-        <div class="titulo-modal-1 col-md-12">
-            <h3>Información de Ubicación</h3>
-        </div>
-        <div class="row" style="padding: 10px;">
-            <div class="col-md-4">
-                <label for="serie" ng-class="{'text-danger':myform.ane_dir.$error.required == true}">Dirección</label>
-                <input required type="text" class="form-control" name="ane_dir" ng-model="infoInputs['ane_dir']">
-            </div>
-            <div class="col-md-4" ng-controller="SweetAlertCtrl">
-                <label for="" ng-class="{'text-danger':myform.ubi_id.$error.required == true}">Ubigeo</label>
-                <div class="input-group">
-                    <input type="hidden" class="form-control" name="ubi_id" ng-model="infoInputs.ubi_id">
-                    <input type="text" class="form-control" name="buscarUbigeo" ng-model="infoInputs.buscarubigeo">
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-primary"
-                            ng-click="SwalBuscarUbigeo(infoInputs.buscarubigeo)">
-                            <i class="ti-search"></i>
-                        </button>
-                    </span>
+            <div class="row" style="padding: 10px;">
+                <div class="col-md-4">
+                    <label for="serie"
+                        ng-class="{'text-danger':myform.ane_dir.$error.required == true}">Dirección</label>
+                    <input required type="text" class="form-control" name="ane_dir" ng-model="infoInputs['ane_dir']">
+                </div>
+                <div class="col-md-4" ng-controller="SweetAlertCtrl">
+                    <label for="" ng-class="{'text-danger':myform.ubi_id.$error.required == true}">Ubigeo</label>
+                    <div class="input-group">
+                        <input type="hidden" class="form-control" name="ubi_id" ng-model="infoInputs.ubi_id">
+                        <input type="text" class="form-control" name="buscarUbigeo" ng-model="infoInputs.buscarubigeo">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary"
+                                ng-click="SwalBuscarUbigeo(infoInputs.buscarubigeo)">
+                                <i class="ti-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class=" col-md-2 ">
+                    <label for=" serie ">Nota</label>
+                    <input type=" text " class=" form-control " id=" ane_nota ">
                 </div>
             </div>
-            <div class=" col-md-2 ">
-                <label for=" serie ">Nota</label>
-                <input type=" text " class=" form-control " id=" ane_nota ">
+            <div class=" titulo-modal-1 col-md-12 ">
+                <h3>Informacion de Contacto</h3>
             </div>
-        </div>
-        <div class=" titulo-modal-1 col-md-12 ">
-            <h3>Informacion de Contacto</h3>
-        </div>
-        <div class=" row " style=" padding: 10px; ">
-            <div class=" col-md-3 ">
-                <label for=" serie " ng-class="{'text-danger':myform.ane_email.$error.required == true}">Email</label>
-                <input type="email" class="form-control" name="ane_email" id="ane_email" ng-model="infoInputs.ane_email">
-            </div>
-            <div class="col-md-3">
-                <label for="serie" ng-class="{'text-danger':myform.ane_tel.$invalid == true}">Teléfono Principal</label>
-                <input type="text" class="form-control" name="ane_tel" id="ane_tel" ng-model="infoInputs.ane_tel">
-            </div>
-            <div class=" col-md-3 ">
-                <label for="serie">Teléfono Segundario</label>
-                <input type="text" class="form-control" id="ane_tel2" ng-model="infoInputs.ane_tel2">
-            </div>
-        </div>
-        <div class=" titulo-modal-1 col-md-12 ">
-            <h3>Datos de Pago</h3>
-        </div>
-        <div class=" row " style=" padding: 10px; ">
-            <div class=" col-md-3 ">
-                <label for="">Numero de Cuenta</label>
-                <input type="text" class="form-control" name="ane_num_cue" id="ane_num_cue" ng-model="infoInputs.ane_num_cue">
-            </div>
-            <div class=" col-md-2 ">
-                <label for="">Limite de Credito</label>
-                <input type="text" class="form-control" name="ane_lim_cred" id="ane_lim_cred" ng-model="infoInputs.ane_lim_cred">
-            </div>
-            <div class=" col-md-4 ">
-                <div class=" form-group ">
-                    <label for=" form-field-select-1">
-                        Banco
-                    </label>
-                    <select ng-model=" infoInputs['ane_banco']" class="ui fluid dropdown"name="ane_banco" id="ane_banco"
-                        name="ane_banco" ng-init=" buscarOption(rr.ane_banco)">
-                        <option value=" {{opt.id}} " ng-repeat=" opt in units['ane_banco']">{{opt.label}}</option>
-                    </select>
+            <div class=" row " style=" padding: 10px; ">
+                <div class=" col-md-3 ">
+                    <label for=" serie "
+                        ng-class="{'text-danger':myform.ane_email.$error.required == true}">Email</label>
+                    <input type="email" class="form-control" name="ane_email" id="ane_email"
+                        ng-model="infoInputs.ane_email">
+                </div>
+                <div class="col-md-3">
+                    <label for="serie" ng-class="{'text-danger':myform.ane_tel.$invalid == true}">Teléfono
+                        Principal</label>
+                    <input type="text" class="form-control" name="ane_tel" id="ane_tel" ng-model="infoInputs.ane_tel">
+                </div>
+                <div class=" col-md-3 ">
+                    <label for="serie">Teléfono Segundario</label>
+                    <input type="text" class="form-control" id="ane_tel2" ng-model="infoInputs.ane_tel2">
                 </div>
             </div>
-        </div>
-        <pre ng-if="DEV">
+            <div class=" titulo-modal-1 col-md-12 ">
+                <h3>Datos de Pago</h3>
+            </div>
+            <div class=" row " style=" padding: 10px; ">
+                <div class=" col-md-3 ">
+                    <label for="">Numero de Cuenta</label>
+                    <input type="text" class="form-control" name="ane_num_cue" id="ane_num_cue"
+                        ng-model="infoInputs.ane_num_cue">
+                </div>
+                <div class=" col-md-2 ">
+                    <label for="">Limite de Credito</label>
+                    <input type="text" class="form-control" name="ane_lim_cred" id="ane_lim_cred"
+                        ng-model="infoInputs.ane_lim_cred">
+                </div>
+                <div class=" col-md-4 ">
+                    <div class=" form-group ">
+                        <label for=" form-field-select-1">
+                            Banco
+                        </label>
+                        <select ng-model=" infoInputs['ane_banco']" class="ui fluid dropdown" name="ane_banco"
+                            id="ane_banco" name="ane_banco" ng-init=" buscarOption(rr.ane_banco)">
+                            <option value=" {{opt.id}} " ng-repeat=" opt in units['ane_banco']">{{opt.label}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <pre ng-if="DEV">
             {{infoInputs | json}}
         </pre>
+        </div>
     </div>
-</div>
 </form>

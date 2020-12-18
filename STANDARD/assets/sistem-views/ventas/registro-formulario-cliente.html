@@ -2,8 +2,10 @@
     <div class="modal-header">
         <div class="pull-right">
             <div role="group" aria-label="tools">
-                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate==true" ng-disabled="myform.$error.required" ng-click="guardarCliente($event)">Guardar</button>
-                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate==false" ng-disabled="myform.$error.required" ng-click="actualizarCliente($event)">Actualizar</button>
+                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate==true" ng-disabled="myform.$error.required"
+                    ng-click="guardarCliente($event)">Guardar</button>
+                <button class="btn btn-primary" ng-if="infoInputs.btnUpdate==false" ng-disabled="myform.$error.required"
+                    ng-click="actualizarCliente($event)">Actualizar</button>
                 <button type="button" class="btn btn-link"><i class="ti-help"></i></button>
                 <button type="button" class="btn btn-link"><i class="ti-settings"></i></button>
                 <button type="button" class="btn btn-link" ng-click="cancel($event)"><i class="ti-close"></i></button>
@@ -35,8 +37,10 @@
                         required>
                     <span class="input-group-btn"
                         ng-if="infoInputs['ane_tipdoc'] == 11 || infoInputs['ane_tipdoc'] == 23">
-                        
-                        <a href="#" ng-click="getDocumento(infoInputs['ane_tipdoc'],infoInputs['ane_numdoc'])" class="btn btn-primary"><img src="../../images/sunat.png" alt=""></a>
+
+                        <a href="#" ng-click="getDocumento(infoInputs['ane_tipdoc'],infoInputs['ane_numdoc'])"
+                            class="btn btn-primary"><img src="STANDARD/assets/images/sunat.png" alt="sunat" style="width:15px;"></a>
+
                         <!-- <button type="button" class="btn btn-primary"
                             ng-click="getDocumento(infoInputs['ane_tipdoc'],infoInputs['ane_numdoc'])">
                             <i class="ti-search"></i>
@@ -80,7 +84,8 @@
                 <label for="" ng-class="{'text-danger':myform.ubi_id.$error.required == true}">Ubigeo</label>
                 <div class="input-group">
                     <input type="hidden" class="form-control" name="ubi_id" ng-model="infoInputs.ubi_id">
-                    <input type="text" class="form-control" name="buscarUbigeo" ng-model="infoInputs.buscarubigeo" ng-value="infoInputs.buscarubigeo">
+                    <input type="text" class="form-control" name="buscarUbigeo" ng-model="infoInputs.buscarubigeo"
+                        ng-value="infoInputs.buscarubigeo">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-primary"
                             ng-click="SwalBuscarUbigeo(infoInputs.buscarubigeo)">
@@ -139,10 +144,10 @@
                 </div>
             </div>
         </div>
-         <pre ng-if="DEV">
+        <pre ng-if="DEV">
             {{infoInputs | json}}
         </pre>
     </div>
- 
+
 
 </form>
