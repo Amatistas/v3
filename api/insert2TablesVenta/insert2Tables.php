@@ -50,7 +50,7 @@ class Insert2Tables
             $stmt->bindParam(":" . $val, $this->$val);
         }
         // execute query
-
+        
         if ($stmt->execute()) {
             return true;
         } {

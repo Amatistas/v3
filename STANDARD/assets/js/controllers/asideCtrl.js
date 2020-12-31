@@ -1220,15 +1220,57 @@ app.controller('AsideModalTransaccionCtrl', [
 						);
 						getInformacionDocumentos.fetchDocumento(row.ven_id, 'venta_id', 'venta_det_especifico').then(
 							function(d) {
-								$scope.itemListVentas = d;
+								d.forEach((e) => {
+									let it = {
+										ven_id: e.ven_id,
+										pro_id: e.pro_id,
+										ven_position_obj: e.ven_position_obj,
+										vd_can:  (e.vd_can),
+										pst_id: e.pst_id,
+										vd_fac: e.vd_fac,
+										vd_des: e.vd_des,
+										vd_bar: e.vd_bar,
+										vd_pre:  (e.vd_pre),
+										vd_pre_total:  (e.vd_pre_total),
+										vd_costo_tt_pro:  (e.vd_costo_tt_pro),
+										vd_impdes:  (e.vd_impdes),
+										vd_igv:  (e.vd_igv),
+										vd_affection_igv_type_code:  (e.vd_affection_igv_type_code),
+										vd_total_igv:  (e.vd_total_igv),
+										vd_gra:  (e.vd_gra),
+										vd_system_isc_type_code: e.vd_system_isc_type_code,
+										vd_total_isc:  (e.vd_total_isc),
+										vd_isc:  (e.vd_isc),
+										lp_id: e.lp_id,
+										vd_ina:  (e.vd_ina),
+										vd_vun:  (e.vd_vun),
+										pro_pes:  (e.pro_pes),
+										vt_pro_id: e.vt_pro_id,
+										venta_id: e.venta_id,
+										cd_alm: e.cd_alm,
+										id_vehiculo: e.id_vehiculo,
+										Unidad: e.Unidad,
+										Descripcion: e.Descripcion,
+										Cantidad:  (e.Cantidad),
+										MtoValorUnitario:  (e.MtoValorUnitario),
+										MtoValorVenta:  (e.MtoValorVenta),
+										MtoBaseIgv:  (e.MtoBaseIgv),
+										PorcentajeIgv:  (e.PorcentajeIgv),
+										Igv:  (e.Igv),
+										TipAfeIgv: e.TipAfeIgv,
+										TotalImpuestos:  (e.TotalImpuestos),
+										MtoPrecioUnitario:  (e.MtoPrecioUnitario),
+										pro_nom: e.pro_nom
+									};
+									console.log(it);
+									$scope.itemListVentas.push(it);
+								});
 							},
 							function(errResponse) {
 								alert('venta_det no encontrada');
 								console.error('Error while fetching Currencies');
 							}
 						);
-
-						console.log(row);
 						$scope.infoInputs.docRelacionado = true;
 						$scope.infoInputs.usu_id = JSON.parse($rootScope.d.datos).usu_id;
 						$scope.infoInputs.emp_id = JSON.parse($rootScope.d.datos).emp_id;
