@@ -45,7 +45,7 @@
                         <div class="form-group">
                                     <label class="control-label">Productos y Servicios</label>
                     
-                                  <ui-select class="ui fluid dropdown" ng-model="person.selected" theme="selectize" name="pys">
+                                  <ui-select class="ui fluid dropdown" ng-model="person.selected" theme="bootstrap" name="pys">
                                     <ui-select-match placeholder="Escriba 3 letras Para Empezar a Buscar">{{$select.selected.cd_des}}</ui-select-match>
                                     <ui-select-choices repeat="item in productosData track by $index"
                                     refresh="productosGetAsyncronicListPrecio($select.search)" refresh-delay="0">
