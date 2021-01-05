@@ -1139,7 +1139,8 @@ function ventasListaCtrl(
 				<div class="dropdown">
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
   				<div class="dropdown-content">
-				  <a class="">Eliminar</a>
+						<a class="">Eliminar</a>
+						 				<a class="action-ver-detalles-ticket">Ver Detalle Ticket</a>
   				<a class="action-guia-remision">Guia de Remisión</a>
   				<a class="action-ver-detalles">Ver Detalle</a>
 				${facturar}
@@ -1173,6 +1174,7 @@ function ventasListaCtrl(
   				<button class="dropbtn"><i class="ti-more-alt"></i></button>
   				<div class="dropdown-content">
 				<a class="">Anular Venta</a>
+					<a class="action-ver-detalles-ticket">Ver Detalle Ticket</a>
   				<a class="action-nota-credito">Nota de Crédito</a>
   				<a class="action-ver-detalles">Ver Detalle</a>
   				<a class="">Cobrar Venta</a>
